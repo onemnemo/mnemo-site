@@ -1,5 +1,5 @@
 ---
-import "@fontsource-variable/inter";
+import "@fontsource-variable/inter/index.css";
 import "../styles/global.css";
 import Analytics from "@vercel/analytics/astro";
 import Header from "../components/Header.astro";
@@ -56,6 +56,25 @@ const ogImageUrl = new URL(ogImage, Astro.site);
     </main>
     <Footer />
     <Analytics />
+    <script>
+      // Scroll reveal for elements marked with data-reveal
+      const items = document.querySelectorAll("[data-reveal]");
+      if (items.length > 0 && "IntersectionObserver" in window) {
+        document.documentElement.classList.add("has-reveal");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                observer.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.1 },
+        );
+        items.forEach((el) => observer.observe(el));
+      }
+    </script>
   </body>
 </html>
 

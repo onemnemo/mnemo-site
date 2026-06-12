@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import WindowFrame from "../components/WindowFrame.astro";
 import { SITE, DOWNLOADS } from "../data/site";
 import { getRepoInfo } from "../lib/github";
 
@@ -34,7 +35,7 @@ const { version } = await getRepoInfo();
       <article class="card platform-card" id="windows" data-platform="windows">
         <header class="card-head">
           <h2>Windows</h2>
-          <span class="badge badge-ok"><span class="dot"></span>Stable, recommended</span>
+          <span class="status-line status-ok"><span class="dot"></span>Stable, recommended</span>
         </header>
         <p class="muted small">
           The primary platform. Includes an auto updater, so you install once
@@ -63,7 +64,7 @@ const { version } = await getRepoInfo();
       <article class="card platform-card" id="linux" data-platform="linux">
         <header class="card-head">
           <h2>Linux</h2>
-          <span class="badge badge-warn"><span class="dot"></span>Partly experimental</span>
+          <span class="status-line status-warn"><span class="dot"></span>Partly experimental</span>
         </header>
         <p class="muted small">
           AppImage builds that run on most modern distributions. They work, but
@@ -92,7 +93,7 @@ const { version } = await getRepoInfo();
       <article class="card platform-card" id="macos" data-platform="mac">
         <header class="card-head">
           <h2>macOS</h2>
-          <span class="badge badge-danger"><span class="dot"></span>Highly experimental</span>
+          <span class="status-line status-danger"><span class="dot"></span>Highly experimental</span>
         </header>
         <p class="muted small">
           Builds exist for Apple Silicon and Intel, but they are largely
@@ -127,6 +128,14 @@ const { version } = await getRepoInfo();
         drops you on the Overview dashboard. All data is stored locally on your
         device. The current release performs no cloud synchronization.
       </p>
+      <div class="after-shot" data-reveal>
+        <WindowFrame
+          src="/images/overview.png"
+          alt="The Mnemo Overview dashboard with flashcard stats, recent decks, and study goal widgets"
+          width={1435}
+          height={788}
+        />
+      </div>
       <ul class="checklist">
         <li>
           Every release and its checksums live on the
@@ -149,6 +158,10 @@ const { version } = await getRepoInfo();
 <style>
   .pb-section {
     padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  }
+
+  .after-shot {
+    margin-block: 2rem;
   }
 
   .platform-cards {

@@ -1,0 +1,97 @@
+---
+/**
+ * Search trigger and modal. The Pagefind index and UI bundle are generated
+ * by `pagefind --site dist` after the build, so assets under /pagefind/
+ * only exist in production builds. In dev the modal shows a hint instead.
+ */
+---
+
+<button type="button" class="docs-search-btn" id="docs-search-open">
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+    <circle cx="7" cy="7" r="4.5"></circle>
+    <path d="m13.5 13.5-3-3"></path>
+  </svg>
+  Search docs
+  <span class="kbd-hint" aria-hidden="true">Ctrl K</span>
+</button>
+
+<dialog class="docs-search-dialog" id="docs-search-dialog">
+  <div class="docs-search-head">
+    <h2>Search the docs</h2>
+    <button type="button" class="docs-search-close" id="docs-search-close">
+      Esc
+    </button>
+  </div>
+  <div id="docs-search-container">
+    <p class="docs-search-fallback">Loading search&hellip;</p>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById("docs-search-dialog") as HTMLDialogElement | null;
+  const openBtn = document.getElementById("docs-search-open");
+  const closeBtn = document.getElementById("docs-search-close");
+  const container = document.getElementById("docs-search-container");
+  let initialized = false;
+
+  function focusInput() {
+    const input = dialog?.querySelector<HTMLInputElement>("input");
+    input?.focus();
+  }
+
+  function initPagefind() {
+    if (initialized) return;
+    initialized = true;
+
+    const css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = "/pagefind/pagefind-ui.css";
+    document.head.appendChild(css);
+
+    const script = document.createElement("script");
+    script.src = "/pagefind/pagefind-ui.js";
+    script.onload = () => {
+      if (!container) return;
+      container.innerHTML = "";
+      const PagefindUI = (window as unknown as {
+        PagefindUI: new (options: object) => unknown;
+      }).PagefindUI;
+      new PagefindUI({
+        element: "#docs-search-container",
+        showSubResults: true,
+        showImages: false,
+        resetStyles: false,
+      });
+      requestAnimationFrame(focusInput);
+    };
+    script.onerror = () => {
+      if (container) {
+        container.innerHTML =
+          '<p class="docs-search-fallback">The search index is generated at build time. Run <code>npm run build</code> and <code>npm run preview</code> to try it.</p>';
+      }
+    };
+    document.body.appendChild(script);
+  }
+
+  function openSearch() {
+    if (!dialog) return;
+    dialog.showModal();
+    initPagefind();
+    focusInput();
+  }
+
+  openBtn?.addEventListener("click", openSearch);
+  closeBtn?.addEventListener("click", () => dialog?.close());
+
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      if (dialog?.open) dialog.close();
+      else openSearch();
+    }
+  });
+</script>

@@ -1,0 +1,59 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+const visible = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  visible.length > 0 && (
+    <nav class="docs-toc" aria-label="On this page">
+      <p>On this page</p>
+      <ul>
+        {visible.map((heading) => (
+          <li data-depth={heading.depth}>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<script>
+  // Scroll spy: highlight the TOC entry for the heading currently in view
+  const toc = document.querySelector(".docs-toc");
+  if (toc) {
+    const links = new Map(
+      [...toc.querySelectorAll<HTMLAnchorElement>("a[href^='#']")].map((a) => [
+        decodeURIComponent(a.hash.slice(1)),
+        a,
+      ]),
+    );
+    const headings = [...links.keys()]
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    let activeLink: HTMLAnchorElement | null = null;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const link = links.get(entry.target.id);
+            if (link) {
+              activeLink?.classList.remove("active");
+              link.classList.add("active");
+              activeLink = link;
+            }
+          }
+        }
+      },
+      { rootMargin: "-80px 0px -70% 0px" },
+    );
+    headings.forEach((el) => observer.observe(el));
+  }
+</script>

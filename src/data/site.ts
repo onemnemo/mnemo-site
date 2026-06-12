@@ -2,8 +2,8 @@ export const SITE = {
   name: "Mnemo",
   domain: "https://mnemo.one",
   github: "https://github.com/onemnemo/mnemo",
-  docs: "https://www.docs.mnemo.one/",
-  installGuide: "https://www.docs.mnemo.one/students/installing",
+  docs: "/docs/students",
+  installGuide: "/docs/students/installing",
   issues: "https://github.com/onemnemo/mnemo/issues/new",
   goodFirstIssues:
     "https://github.com/onemnemo/mnemo/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22",

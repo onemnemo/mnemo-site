@@ -1,0 +1,90 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import DocsSidebar from "../../components/docs/DocsSidebar.astro";
+import DocsToc from "../../components/docs/DocsToc.astro";
+import {
+  slugOf,
+  sectionOf,
+  urlOf,
+  getFlatNav,
+  SECTIONS,
+  type DocEntry,
+} from "../../lib/docs";
+import "../../styles/docs.css";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("docs", (entry) => !entry.data.draft);
+  return entries.map((entry) => ({
+    params: { slug: slugOf(entry) },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: DocEntry;
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+
+const section = sectionOf(entry);
+const sectionInfo = SECTIONS[section];
+const currentSlug = slugOf(entry);
+
+const flat = await getFlatNav(section);
+const index = flat.findIndex((e) => e.id === entry.id);
+const prev = index > 0 ? flat[index - 1] : undefined;
+const next = index >= 0 && index < flat.length - 1 ? flat[index + 1] : undefined;
+
+const pageTitle = `${entry.data.title}, Mnemo ${sectionInfo.label.toLowerCase()} docs`;
+const description =
+  entry.data.description ??
+  `${entry.data.title} documentation for Mnemo, the free and open source study app.`;
+---
+
+<Base title={pageTitle} description={description}>
+  <div class="docs-shell">
+    <DocsSidebar section={section} currentSlug={currentSlug} />
+
+    <article class="docs-article" data-pagefind-body>
+      <ol class="docs-breadcrumb">
+        <li>Docs</li>
+        <li>
+          <a href={`/docs/${section}`}>{sectionInfo.label}</a>
+        </li>
+        {entry.data.category && <li>{entry.data.category}</li>}
+      </ol>
+
+      <h1>{entry.data.title}</h1>
+      {entry.data.description && (
+        <p class="docs-description">{entry.data.description}</p>
+      )}
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      {
+        (prev || next) && (
+          <nav class="docs-pager" aria-label="Previous and next page">
+            {prev && (
+              <a href={urlOf(prev)} class="pager-prev">
+                <span class="pager-dir">Previous</span>
+                <span class="pager-title">{prev.data.title}</span>
+              </a>
+            )}
+            {next && (
+              <a href={urlOf(next)} class="pager-next">
+                <span class="pager-dir">Next</span>
+                <span class="pager-title">{next.data.title}</span>
+              </a>
+            )}
+          </nav>
+        )
+      }
+    </article>
+
+    <DocsToc headings={headings} />
+  </div>
+</Base>

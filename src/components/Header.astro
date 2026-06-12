@@ -6,8 +6,10 @@ import { getRepoInfo, formatStars } from "../lib/github";
 const { stars } = await getRepoInfo();
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 
-const nav = [
+// `match` marks the nav item active for every path under that prefix
+const nav: { href: string; label: string; match?: string }[] = [
   { href: "/download", label: "Download" },
+  { href: "/docs/students", label: "Docs", match: "/docs" },
   { href: "/science", label: "Why it works" },
   { href: "/roadmap", label: "Roadmap" },
   { href: "/developers", label: "Developers" },
@@ -39,7 +41,12 @@ const nav = [
             <li>
               <a
                 href={item.href}
-                aria-current={currentPath === item.href ? "page" : undefined}
+                aria-current={
+                  currentPath === item.href ||
+                  currentPath.startsWith((item.match ?? item.href) + "/")
+                    ? "page"
+                    : undefined
+                }
               >
                 {item.label}
               </a>

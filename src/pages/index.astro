@@ -4,6 +4,9 @@ import DownloadCta from "../components/DownloadCta.astro";
 import WindowFrame from "../components/WindowFrame.astro";
 import ForgettingCurve from "../components/ForgettingCurve.astro";
 import { SITE } from "../data/site";
+import { getRepoInfo } from "../lib/github";
+
+const { version } = await getRepoInfo();
 ---
 
 <Base
@@ -34,22 +37,25 @@ import { SITE } from "../data/site";
     </div>
   </section>
 
-  <!-- Platform honesty strip -->
-  <section class="section-soft platform-strip" aria-label="Platform support">
-    <div class="container platform-grid">
-      <div class="platform-item">
-        <span class="badge badge-ok"><span class="dot"></span>Windows, stable</span>
-        <p class="small muted">The recommended platform, with an auto updater built in.</p>
+  <!-- Quick facts -->
+  <section class="section-soft fact-strip" aria-label="Quick facts">
+    <div class="container fact-grid">
+      <a class="fact" href={SITE.releases} rel="noopener">
+        <span class="fact-label">Latest release</span>
+        <span class="fact-value">{version}</span>
+      </a>
+      <a class="fact" href={SITE.license} rel="noopener">
+        <span class="fact-label">License</span>
+        <span class="fact-value">Apache 2.0</span>
+      </a>
+      <div class="fact">
+        <span class="fact-label">Price</span>
+        <span class="fact-value">Free, no paid tier</span>
       </div>
-      <div class="platform-item">
-        <span class="badge badge-warn"><span class="dot"></span>Linux, partly experimental</span>
-        <p class="small muted">AppImage builds for x64 and arm64. Works, with rough edges.</p>
-      </div>
-      <div class="platform-item">
-        <span class="badge badge-danger"><span class="dot"></span>macOS, highly experimental</span>
-        <p class="small muted">Builds exist and are largely untested. Expect problems.</p>
-      </div>
-      <a href="/download" class="platform-link">Download details &rarr;</a>
+      <a class="fact" href="/download">
+        <span class="fact-label">Platforms</span>
+        <span class="fact-value">Windows, Linux, macOS</span>
+      </a>
     </div>
   </section>
 
@@ -65,7 +71,7 @@ import { SITE } from "../data/site";
       </p>
 
       <div class="feature-major">
-        <article class="feature-card">
+        <article class="feature-card" data-reveal>
           <WindowFrame
             src="/images/flashcard.png"
             alt="Mnemo flashcard review session showing a medicine question with answer revealed and Again, Hard, Good, and Easy grading buttons"
@@ -80,7 +86,7 @@ import { SITE } from "../data/site";
           </p>
         </article>
 
-        <article class="feature-card">
+        <article class="feature-card" data-reveal>
           <WindowFrame
             src="/images/mindmap.png"
             alt="Mnemo mind map of photosynthesis with colored, labeled nodes and edges, a style panel, and a minimap"
@@ -94,7 +100,7 @@ import { SITE } from "../data/site";
           </p>
         </article>
 
-        <article class="feature-card">
+        <article class="feature-card" data-reveal>
           <WindowFrame
             src="/images/notes-editor-2.png"
             alt="Notes editor in mnemo"
@@ -173,7 +179,9 @@ import { SITE } from "../data/site";
         </p>
         <a href="/science" class="btn btn-secondary">The research behind Mnemo</a>
       </div>
-      <ForgettingCurve />
+      <div data-reveal>
+        <ForgettingCurve />
+      </div>
     </div>
   </section>
 
@@ -211,26 +219,32 @@ import { SITE } from "../data/site";
         releases may include incomplete or disabled versions of in-progress
         work.
       </p>
-      <p class="small muted teaser-label">In development</p>
-      <div class="roadmap-teaser">
-        <span class="badge badge-wip">Mind maps overhaul</span>
-        <span class="badge badge-wip">Flashcards overhaul</span>
-        <span class="badge badge-wip">Notes improvements</span>
-        <span class="badge badge-wip">Theme system</span>
-        <span class="badge badge-wip">Widgets system</span>
-        <span class="badge badge-wip">Stability</span>
-        <span class="badge badge-wip">Consistent UI and UX</span>
-        <span class="badge badge-wip">Local AI assistant</span>
-        <span class="badge badge-wip">Semantic search</span>
-        <span class="badge badge-wip">AI learning paths</span>
-        <span class="badge badge-wip">Chat module</span>
-        <span class="badge badge-wip">Progress analytics</span>
-      </div>
-      <p class="small muted teaser-label">Future concepts</p>
-      <div class="roadmap-teaser">
-        <span class="badge badge-concept">Explore store</span>
-        <span class="badge badge-concept">Learning games</span>
-        <span class="badge badge-concept">Audio and video</span>
+      <div class="teaser-cols">
+        <div>
+          <p class="small muted teaser-label">In development</p>
+          <ul class="teaser-list" role="list">
+            <li>Mind maps overhaul</li>
+            <li>Flashcards overhaul</li>
+            <li>Notes improvements</li>
+            <li>Theme system</li>
+            <li>Widgets system</li>
+            <li>Stability</li>
+            <li>Consistent UI and UX</li>
+            <li>Local AI assistant</li>
+            <li>Semantic search</li>
+            <li>AI learning paths</li>
+            <li>Chat module</li>
+            <li>Progress analytics</li>
+          </ul>
+        </div>
+        <div>
+          <p class="small muted teaser-label">Future concepts</p>
+          <ul class="teaser-list concept" role="list">
+            <li>Explore store</li>
+            <li>Learning games</li>
+            <li>Audio and video</li>
+          </ul>
+        </div>
       </div>
       <p>
         <a href="/roadmap">See the full roadmap &rarr;</a>
@@ -270,26 +284,43 @@ import { SITE } from "../data/site";
     margin-inline: auto;
   }
 
-  .platform-strip {
-    padding-block: 2rem;
+  .fact-strip {
+    padding-block: 1.75rem;
   }
 
-  .platform-grid {
+  .fact-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr) auto;
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    align-items: start;
   }
 
-  .platform-item p {
-    margin: 0.6rem 0 0;
+  .fact {
+    display: grid;
+    gap: 0.15rem;
+    text-decoration: none;
   }
 
-  .platform-link {
-    font-weight: 600;
-    font-size: 0.92rem;
-    white-space: nowrap;
-    align-self: center;
+  .fact:hover {
+    text-decoration: none;
+  }
+
+  .fact-label {
+    font-size: 0.74rem;
+    font-weight: 650;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .fact-value {
+    font-weight: 630;
+    font-size: 1.02rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  a.fact:hover .fact-value {
+    color: var(--accent-text);
   }
 
   .feature-major {
@@ -351,25 +382,54 @@ import { SITE } from "../data/site";
     font-size: 1.02rem;
   }
 
-  .roadmap-teaser {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-block: 0.75rem 1.25rem;
+  .teaser-cols {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    gap: 2.5rem;
+    margin-block: 2rem 1.5rem;
   }
 
   .teaser-label {
-    margin: 1.25rem 0 0;
-    font-weight: 600;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    margin-bottom: 0.9rem;
   }
 
-  .teaser-label:first-of-type {
-    margin-top: 0;
+  .teaser-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.55rem 1.5rem;
   }
 
-  .roadmap-teaser .badge {
-    font-size: 0.88rem;
-    padding: 0.5rem 0.9rem;
+  .teaser-list li {
+    position: relative;
+    padding-left: 1.05rem;
+    font-size: 0.95rem;
+  }
+
+  .teaser-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .teaser-list.concept {
+    grid-template-columns: 1fr;
+  }
+
+  .teaser-list.concept li::before {
+    background: var(--ink-faint);
   }
 
   .final-cta {
@@ -389,9 +449,17 @@ import { SITE } from "../data/site";
   }
 
   @media (max-width: 920px) {
-    .platform-grid {
+    .fact-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem 2rem;
+    }
+
+    .teaser-cols {
       grid-template-columns: 1fr;
-      gap: 1.25rem;
+    }
+
+    .teaser-list {
+      grid-template-columns: 1fr;
     }
 
     .feature-major,

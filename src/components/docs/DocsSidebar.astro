@@ -1,0 +1,73 @@
+---
+import { getSidebar, urlOf, SECTIONS, type SectionId } from "../../lib/docs";
+import DocsSearch from "./DocsSearch.astro";
+
+interface Props {
+  section: SectionId;
+  currentSlug: string;
+}
+
+const { section, currentSlug } = Astro.props;
+const groups = await getSidebar(section);
+---
+
+<aside class="docs-sidebar">
+  <button
+    type="button"
+    class="docs-nav-toggle"
+    aria-expanded="false"
+    aria-controls="docs-sidebar-inner"
+  >
+    Browse {SECTIONS[section].label.toLowerCase()} docs
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="m3 6 5 5 5-5"></path>
+    </svg>
+  </button>
+
+  <div class="docs-sidebar-inner" id="docs-sidebar-inner">
+    <DocsSearch />
+
+    <div class="docs-section-tabs">
+      <a href="/docs/students" aria-current={section === "students" ? "true" : undefined}>
+        Students
+      </a>
+      <a href="/docs/developers" aria-current={section === "developers" ? "true" : undefined}>
+        Developers
+      </a>
+    </div>
+
+    <nav aria-label={`${SECTIONS[section].label} documentation`}>
+      {
+        groups.map((group) => (
+          <div class="docs-nav-group">
+            <p>{group.label}</p>
+            <ul>
+              {group.entries.map((entry) => {
+                const slug = urlOf(entry).replace("/docs/", "");
+                return (
+                  <li>
+                    <a
+                      href={urlOf(entry)}
+                      aria-current={slug === currentSlug ? "page" : undefined}
+                    >
+                      {entry.data.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+    </nav>
+  </div>
+</aside>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(".docs-nav-toggle");
+  const inner = document.getElementById("docs-sidebar-inner");
+  toggle?.addEventListener("click", () => {
+    const open = inner?.classList.toggle("open") ?? false;
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+</script>
