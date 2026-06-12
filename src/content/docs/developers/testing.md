@@ -1,37 +1,36 @@
 ---
 title: Testing
-description: How to run and write tests for Mnemo's Infrastructure and Core layers.
+description: What is tested, how to run the suite, and where new tests belong.
 category: Contributing
-order: 42
+order: 61
 ---
 
-## Purpose
-
-Guard Infrastructure logic and pure Core behavior without requiring a running Avalonia shell for every change.
-
-## Code Location
-
-- `Mnemo.Infrastructure.Tests/` — primary test assembly.
-
-## Running Tests
-
-From repo root:
+One test project covers the codebase: `Mnemo.Infrastructure.Tests`, on xUnit with coverlet for coverage. It references Infrastructure (with `InternalsVisibleTo`), which transitively covers the pure logic in Core. There are no UI tests.
 
 ```powershell
-dotnet test
-```
-
-Target one project:
-
-```powershell
+dotnet test MnemoApp.sln
+# or one project while iterating
 dotnet test Mnemo.Infrastructure.Tests\Mnemo.Infrastructure.Tests.csproj
 ```
 
+## What is covered
+
+The suite is around two dozen files concentrated on the systems where regressions hurt most:
+
+| Area | Tests |
+| :--- | :--- |
+| Sketch compiler | `SketchCompilerTests`, `NotePdfSketchExportTests` |
+| Note blocks and markdown | `NoteBlockMarkdownConverterTests`, `BlockJsonTwoColumnTests`, `BlockJsonImageTests` |
+| Import, export, packaging | `ImportExportCoordinatorTests`, `MnemoPackageServiceTests`, `NotesMnemoPayloadHandlerTests` |
+| Flashcards | `FlashcardSchedulingTests`, `FlashcardDeckServiceTests`, `FlashcardSessionQueueBuilderTests` |
+| Keybinds | five files covering the codec, formatter, conflict analyzer, repository, and `KeyMapService` |
+| Statistics | `StatisticsManagerTests`, `StatisticsToolServiceTests` |
+| Other | updates gate policy, spellcheck, search matching, AI tool result formatting |
+
 ## Conventions
 
-- Prefer testing **Infrastructure services** and **pure algorithms** with mocked interfaces from Core.
-- UI interaction tests are heavier — reserve for regressions that truly need visual tree automation.
+- Test pure logic and Infrastructure services against mocked Core interfaces. If something is hard to test, that usually means the logic should move out of the UI layer.
+- Tests that touch SQLite use temp paths; follow the patterns in the keybind repository tests.
+- The scheduling, parsing, and conversion code is deliberately placed in Core or Infrastructure so it can be tested without Avalonia. Keep new logic on that side of the line.
 
-## Gotchas
-
-- Tests touching SQLite or ONNX may need **deterministic temp paths** — follow patterns in existing tests when present.
+There is no CI running these tests; they only run when you run them.

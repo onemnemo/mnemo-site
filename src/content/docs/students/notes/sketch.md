@@ -1,19 +1,19 @@
 ---
-title: Sketch Diagrams
-description: A text-to-diagram engine that generates visual layouts from plain text descriptions.
+title: Sketch diagrams
+description: Mnemo's text-to-diagram language for flowcharts and concept maps inside notes.
 category: Notes
-order: 14
+order: 12
 ---
 
-Sketch is a text-to-diagram engine that generates visual layouts from plain text descriptions. Instead of manually positioning shapes and connectors, you define the relationships between entities, and Sketch handles the positioning and rendering.
+Sketch turns plain text into a diagram. You describe nodes and the connections between them, and Mnemo computes the layout and renders the result. You never position anything by hand.
 
-Sketch is designed for flowcharts, concept maps, system architectures, process diagrams, timelines, and study guides.
+Insert a sketch block from the `/` menu. The block shows a live preview and opens a dedicated editor when you click it. Sketches render in PDF exports and survive Markdown round-trips as ` ```sketch ` code fences.
 
----
+![Sketch diagram in a note](/images/sketch.png)
 
-## Quick Start
+## Basics
 
-The fundamental building block is a connection between two nodes.
+A connection between two names is a complete diagram:
 
 ```text
 Student -> Book
@@ -21,232 +21,112 @@ Student -> Teacher
 Teacher -> Whiteboard
 ```
 
-### Adding Labels
-
-Append a colon (`:`) followed by the label text:
+Add a label to a connection with a colon:
 
 ```text
 Student -> Book : reads
-Student -> Teacher : asks questions
-Teacher -> Whiteboard : explains
 ```
 
----
+Three connection types exist:
 
-## Syntax and Core Concepts
+| Syntax | Meaning |
+| :--- | :--- |
+| `A -> B` | Directed |
+| `A <-> B` | Bidirectional |
+| `A -- B` | Undirected |
 
-### Nodes and Identifiers
+Lines starting with `#` are comments.
 
-By default, any single word is treated as a node. For names with spaces or when you need stable references, use an explicit **ID** (in brackets) and a **Label** (in quotes):
+## Nodes with IDs and labels
+
+A bare word is both the node's ID and its label. For multi-word labels, declare an ID in brackets and a label in quotes:
 
 ```text
-# Simple nodes
-Cell -> Nucleus
-
-# Explicit IDs and Labels
-[student] "Student"
 [textbook] "Biology Textbook"
 
-[student] -> [textbook] : reads
+Student -> [textbook] : reads
 ```
 
-- **ID (`[student]`):** The internal key used to reference the node.
-- **Label (`"Biology Textbook"`):** The text displayed visually in the diagram.
+Renaming the label never breaks connections, because connections reference the ID.
 
-Using explicit IDs decouples your layout logic from the displayed text — you can rename labels without breaking connections.
+## Styling
 
-### Connection Types
-
-| Syntax | Type | Use Case |
-| :--- | :--- | :--- |
-| `A -> B` | Directed (one-way) | Flows, sequences, dependencies |
-| `A <-> B` | Bidirectional | Mutual interaction |
-| `A -- B` | Undirected | General associations |
-
----
-
-## Styling and Reusability
-
-### Inline Styles
-
-Customize individual nodes with a property block:
+Attach a property block to a node:
 
 ```text
 Student {
-  fill: blue
+  fill: blue-100
+  stroke: blue-700
+  stroke-width: 2
   shape: rounded-rect
-  stroke: darkblue
-  stroke-width: 2.5
+  tooltip: "A classroom learner"
 }
 ```
 
-**Supported properties:**
+| Property | Values |
+| :--- | :--- |
+| `fill` | Node background color |
+| `stroke` | Border color |
+| `stroke-width` | Border thickness, a number |
+| `shape` | `rounded-rect` (default), `rect`, `circle`, `diamond` |
+| `tooltip` | Text shown on hover |
 
-- `fill` — background color
-- `stroke` — border color
-- `stroke-width` — border thickness (numeric)
-- `shape` — node geometry: `rect`, `rounded-rect`, `circle`, `diamond`
+Colors accept named values (`blue`, `red`, `slate`), shade scales in Tailwind style (`blue-100` through `blue-900`), `hex(...)`, `rgb(...)`, `rgba(...)`, and `theme(...)` tokens that follow the app theme.
 
-### Classes
+Edges accept `stroke`, `stroke-width`, and `style` with `solid`, `dashed`, or `dotted`:
 
-Define reusable styles with `class` to avoid repetition:
+```text
+A -> B : depends { style: dashed }
+```
+
+## Classes
+
+Define a style once and reuse it. A node can apply one class or several:
 
 ```text
 class person {
   shape: rounded-rect
-  fill: blue
+  fill: blue-100
 }
 
 Student { class: person }
-Teacher { class: person }
-
-Administrator {
-  class: person
-  fill: green
-}
+Teacher { class: [person, highlighted] }
 ```
 
----
+Properties set directly on a node override its classes.
 
-## Layout and Structure
+## Groups
 
-### Groups
-
-Use `group` to visually cluster related nodes:
+Groups draw a labeled container around member nodes. Members are referenced by bracket ID:
 
 ```text
 group classroom "Classroom" {
-  Student
-  Teacher
-  Whiteboard
+  [student]
+  [teacher]
 }
 
-Student -> Teacher : asks
-Teacher -> Whiteboard : explains
+[student] "Student"
+[teacher] "Teacher"
+[student] -> [teacher] : asks
 ```
 
-### Diagram-wide Settings
+## Diagram settings
 
-Configure global parameters with a `sketch` block:
-
-```text
-sketch {
-  title: "Application Architecture"
-  layout: dag
-  direction: left-to-right
-}
-```
-
-| Property | Options |
-| :--- | :--- |
-| `title` | Any string |
-| `layout` | `dag` (directed acyclic graph) |
-| `direction` | `left-to-right`, `top-to-bottom`, `right-to-left`, `bottom-to-top` |
-
----
-
-## Additional Features
-
-### Interactive Nodes
-
-Add hover tooltips or hyperlinks:
-
-```text
-Book {
-  tooltip: "A source of information"
-  link: "https://example.com/book"
-}
-```
-
-Deep-link to internal Mnemo notes or blocks:
-
-```text
-Mitosis {
-  opens: "block://biology/mitosis"
-}
-```
-
-### Comments
-
-Use `#` for comments — the renderer ignores these lines:
-
-```text
-# This is a comment and will not render
-Cloud -> Rain : falls
-```
-
----
-
-## Complete Example
+An optional `sketch` block at the top configures the whole diagram:
 
 ```text
 sketch {
   title: "Educational Ecosystem"
-  layout: dag
   direction: left-to-right
 }
-
-class human {
-  shape: rounded-rect
-  fill: blue
-}
-
-class asset {
-  shape: rect
-  fill: yellow
-}
-
-group classroom "Physical Classroom" {
-  [student]
-  [teacher]
-  [board]
-}
-
-[student] "Student" {
-  class: human
-  tooltip: "Classroom learner"
-}
-
-[teacher] "Teacher" {
-  class: human
-}
-
-[book] "Textbook" {
-  class: asset
-}
-
-[board] "Whiteboard" {
-  class: asset
-}
-
-[student] -> [teacher] : asks questions
-[student] -> [book] : reads
-[teacher] -> [board] : explains
 ```
 
----
-
-## Syntax Reference
-
-### Basic Syntax
-
-| Goal | Syntax |
+| Property | Values |
 | :--- | :--- |
-| Node with implicit ID | `NodeName` |
-| Node with explicit ID/Label | `[node_id] "Display Label"` |
-| Directed connection | `A -> B` |
-| Labeled connection | `A -> B : Label` |
-| Bidirectional connection | `A <-> B` |
-| Undirected connection | `A -- B` |
-| Comments | `# Comment text` |
+| `title` | Shown above the diagram |
+| `direction` | `left-to-right` (default), `top-to-bottom`, `right-to-left`, `bottom-to-top` |
+| `layout` | `dag`, currently the only layout |
 
-### Styling & Configuration
+## Errors
 
-| Goal | Syntax |
-| :--- | :--- |
-| Inline style block | `Node { fill: red; shape: circle }` |
-| Define a class | `class name { fill: red }` |
-| Apply a class | `Node { class: name }` |
-| Create a group | `group id "Label" { Node1 Node2 }` |
-| Global configuration | `sketch { title: "Title"; direction: left-to-right }` |
-| Interactivity | `Node { tooltip: "Info"; link: "url" }` |
+Sketch does not fail on mistakes. Invalid lines produce a diagnostic and the rest of the diagram still renders, so you can fix problems one at a time.

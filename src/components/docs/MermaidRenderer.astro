@@ -1,0 +1,81 @@
+---
+/**
+ * Renders ```mermaid code blocks as diagrams on the client.
+ * Mermaid is only downloaded on pages that actually contain a diagram.
+ * Diagrams re-render when the site theme is toggled.
+ */
+---
+
+<script>
+  async function setup() {
+    const blocks = document.querySelectorAll<HTMLPreElement>(
+      'pre[data-language="mermaid"]',
+    );
+    if (blocks.length === 0) return;
+
+    const { default: mermaid } = await import("mermaid");
+
+    interface Slot {
+      container: HTMLDivElement;
+      source: string;
+    }
+
+    const slots: Slot[] = [];
+    blocks.forEach((pre) => {
+      const source = pre.textContent ?? "";
+      const container = document.createElement("div");
+      container.className = "mermaid-diagram";
+      pre.replaceWith(container);
+      slots.push({ container, source });
+    });
+
+    let renderPass = 0;
+
+    async function renderAll() {
+      const pass = ++renderPass;
+      const dark = document.documentElement.dataset.theme === "dark";
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: dark ? "dark" : "neutral",
+        fontFamily: "'Inter Variable', system-ui, sans-serif",
+      });
+
+      for (let i = 0; i < slots.length; i++) {
+        const { container, source } = slots[i];
+        try {
+          const { svg } = await mermaid.render(`mermaid-${pass}-${i}`, source);
+          if (pass !== renderPass) return;
+          container.innerHTML = svg;
+        } catch {
+          if (pass !== renderPass) return;
+          const fallback = document.createElement("pre");
+          fallback.textContent = source;
+          container.replaceChildren(fallback);
+        }
+      }
+    }
+
+    await renderAll();
+
+    new MutationObserver(() => void renderAll()).observe(
+      document.documentElement,
+      { attributes: true, attributeFilter: ["data-theme"] },
+    );
+  }
+
+  setup();
+</script>
+
+<style is:global>
+  .mermaid-diagram {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+  }
+
+  .mermaid-diagram svg {
+    max-width: 100%;
+    height: auto;
+  }
+</style>

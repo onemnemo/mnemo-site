@@ -1,44 +1,45 @@
 ---
-title: Getting Started
-description: Mnemo is a local-first desktop study application combining note-taking, mind mapping, and spaced-repetition flashcards.
+title: Getting started
+description: Mnemo is a free, local-first desktop study app with notes, flashcards, mind maps, and an experimental AI assistant.
 category: Start here
 order: 0
 ---
 
-Mnemo is a local-first desktop study application that combines note-taking, mind mapping, and spaced-repetition flashcards into a single workspace. It is free, private, and runs entirely on your machine without requiring an account.
-
-> **New to Mnemo?** If you haven't installed the application yet, start with the [Installation Guide](/docs/students/installing).
-
----
-
-## Core Features
-
-Your workflow in Mnemo centers around three main tools located under the **Library** section in the sidebar:
-
-- [**Notes**](/docs/students/notes) – A block-based editor featuring nested pages, folders, and rich text formatting.
-- [**Flashcards**](/docs/students/flashcards) – Spaced-repetition decks designed for active recall and study sessions.
-- [**Mind Maps**](/docs/students/mindmaps) – A visual canvas to connect, group, and brainstorm ideas.
-
-Everything runs within a single window. You can easily switch tools using the sidebar, search across your workspace via the top bar, and work directly in the central panel.
-
-> **Active Development:** Features like cloud synchronization, mobile app, and AI integrations are planned for the future. This documentation covers only the features available in the latest release.
-
----
-
-## The User Interface
-
-After completing the onboarding wizard, you will land on the **Overview** page — your central dashboard showing recent notes, flashcard statistics, and daily study goals.
+Mnemo is a desktop study application. It combines a block-based note editor, spaced-repetition flashcards, and mind maps in one window. Everything is stored locally on your machine. There is no account, no cloud sync, and no tracking.
 
 ![Overview dashboard](/images/overview.png)
 
----
+## The main tools
 
-## Where to Go Next
+- [**Notes**](/docs/students/notes): a block-based editor with rich formatting, math equations, code blocks, images, and text-based diagrams.
+- [**Flashcards**](/docs/students/flashcards): decks with cloze support and four scheduling algorithms, including FSRS.
+- [**Mind maps**](/docs/students/mindmaps): a node-and-edge canvas with automatic layouts.
 
-| If you want to... | Recommended Resource |
+The **Overview** page is your dashboard. It shows configurable widgets for recent notes, recent decks, study goals, and usage statistics.
+
+Mnemo also ships an experimental, fully local [AI assistant](/docs/students/ai-assistant). It is off by default and requires a separate model download.
+
+## Where your data lives
+
+All content is stored in a local database on your computer:
+
+| OS | Location |
 | :--- | :--- |
-| Set up or update the desktop app | [Installation Guide](/docs/students/installing) |
-| Learn how to use the text editor | [Introduction to Notes](/docs/students/notes) |
-| Study using spaced repetition | [Flashcard Guide](/docs/students/flashcards) |
-| Configure themes, languages, or updates | [Settings Guide](/docs/students/settings) |
-| Resolve an issue or report a bug | [Troubleshooting](/docs/students/troubleshooting) |
+| Windows | `%LocalAppData%\Mnemo\` |
+| Linux | `~/.local/share/Mnemo/` |
+| macOS | `~/Library/Application Support/Mnemo/` |
+
+You can take your data with you using [`.mnemo` package exports](/docs/students/import-export).
+
+## Where to go next
+
+| If you want to... | Read |
+| :--- | :--- |
+| Install or update the app | [Installation](/docs/students/installing) |
+| Learn the note editor | [Notes](/docs/students/notes) |
+| Write math in notes | [Math and equations](/docs/students/notes/math) |
+| Draw diagrams from text | [Sketch diagrams](/docs/students/notes/sketch) |
+| Study with spaced repetition | [Flashcards](/docs/students/flashcards) |
+| Move data in or out | [Import and export](/docs/students/import-export) |
+| See every keyboard shortcut | [Keyboard shortcuts](/docs/students/keyboard-shortcuts) |
+| Fix a problem | [Troubleshooting](/docs/students/troubleshooting) |

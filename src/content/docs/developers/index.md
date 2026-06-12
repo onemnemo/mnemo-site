@@ -1,36 +1,31 @@
 ---
-title: Developer Documentation
-description: Architecture, setup, and contribution guides for working on Mnemo itself.
+title: Developer documentation
+description: How Mnemo is built, where the systems live, and how to work on it.
 category: Start here
 order: 0
 ---
 
-Read **top to bottom** for onboarding; skip ahead only when you already know the layers.
+Mnemo is a desktop study app built with C# on .NET 10 and Avalonia. The codebase is a single solution with three production projects and a test project. These docs explain the systems inside it: what each one does, why it exists, how it connects to the rest, and where the code lives.
 
-## Principles
+The docs describe what is in the repository today. Experimental areas are labeled as such. When docs and code disagree, the code wins; please fix the doc.
 
-We document **systems**, not every type in the repo. Each architecture page follows the same structure:
+## How this section is organized
 
-1. **Purpose** — what problem it solves.
-2. **Code location** — where to open in the tree.
-3. **Main interfaces / classes** — contracts you actually implement or inject.
-4. **Startup / registration** — how it wires into DI and bootstrap.
-5. **How to extend** — concrete steps.
-6. **Gotchas** — ways contributors break things.
+| Category | Covers |
+| :--- | :--- |
+| Architecture | Layers, startup, modules, navigation, state |
+| Editor systems | The block editor and the custom LaTeX, markdown, and sketch engines |
+| Data and platform | Storage, settings, keybinds, localization, theming |
+| Features | Flashcards, mind maps, search, import/export, statistics |
+| AI systems | Local inference, RAG, skills and tools (experimental) |
+| Contributing | Workflow, tests, releases |
 
-## Reading Order
+## Suggested onboarding order
 
-| Step | Doc |
-| --- | --- |
-| 1 | [Setup](/docs/developers/setup) |
-| 2 | [Architecture overview](/docs/developers/architecture/overview) |
-| 3 | Layer docs: [Core](/docs/developers/architecture/core), [Infrastructure](/docs/developers/architecture/infrastructure), [UI](/docs/developers/architecture/ui) |
-| 4 | [Startup flow](/docs/developers/architecture/startup-flow) |
-| 5 | [Dependency injection](/docs/developers/architecture/dependency-injection) |
-| 6 | [Module system](/docs/developers/architecture/module-system) |
-| 7 | [Data storage](/docs/developers/architecture/data-storage), [AI and RAG pipeline](/docs/developers/architecture/ai-rag-pipeline) |
-| 8 | [Contributing](/docs/developers/contributing), [Coding standards](/docs/developers/coding-standards), [Testing](/docs/developers/testing), [Release process](/docs/developers/release-process) |
+1. [Setup](/docs/developers/setup): build and run the app.
+2. [Architecture overview](/docs/developers/architecture/overview): the three layers and the dependency rule.
+3. [Startup flow](/docs/developers/architecture/startup-flow): what happens between `Main` and the first window.
+4. [Module system](/docs/developers/architecture/module-system): how features plug in. Most feature work happens inside a module.
+5. The system page for whatever you are changing.
 
-## Looking for User Guides?
-
-If you want to study with Mnemo rather than build it, the [student documentation](/docs/students) is the place to start.
+An experienced contributor can jump straight to a system page; each one stands alone and ends with a map of the relevant files.

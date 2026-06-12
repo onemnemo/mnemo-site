@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import DocsSidebar from "../../components/docs/DocsSidebar.astro";
 import DocsToc from "../../components/docs/DocsToc.astro";
+import MermaidRenderer from "../../components/docs/MermaidRenderer.astro";
 import {
   slugOf,
   sectionOf,
@@ -87,4 +88,5 @@ const description =
 
     <DocsToc headings={headings} />
   </div>
+  <MermaidRenderer />
 </Base>

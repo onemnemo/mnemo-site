@@ -1,102 +1,79 @@
 ---
 title: Notes
-description: Mnemo's block-based editor for creating structured study notes, summaries, and reference material.
+description: The block-based note editor, its block types, formatting, and organization.
 category: Notes
-order: 12
+order: 10
 ---
 
-Notes is Mnemo's powerful block-based editor for creating structured study notes, summaries, and reference material.
-
-Every piece of content in Notes is a **block**. Blocks can be moved, formatted, duplicated, and organized to match the way you think and study.
+Notes are built from blocks. Each paragraph, heading, image, or equation is a block that you can move, convert, and format on its own. Notes save automatically about half a second after you stop typing. There is no save button.
 
 ![Notes editor](/images/notes-editor.png)
 
-## What You Can Do in Notes
+## Block types
 
-With Notes, you can:
+Type `/` in an empty block to open the block menu, or type the markdown shortcut directly:
 
-- Write rich text with headings, lists, quotes, and code blocks
-- Insert images, equations, dividers, and multi-column layouts
-- Create nested pages inside other notes
-- Organize content using folders and subfolders
-- Favorite important notes for quick access
-- Export notes to Markdown or Mnemo format
-
-## Block-Based Editing
-
-Unlike traditional text editors, Notes is built around individual blocks.
-
-Each paragraph, heading, image, or list item exists as its own movable block. This makes it easy to:
-
-- Rearrange sections by dragging and dropping
-- Insert new content anywhere
-- Create structured, readable notes
-- Build complex layouts with columns and nested pages
-
-## Organize Your Workspace
-
-Notes are organized in folders shown in the sidebar. You can:
-
-- Create folders and subfolders
-- Move notes and folders
-- Collapse and expand folder groups
-- Rearrange items by dragging
-- Favorite notes for quick access
-
-## Rich Formatting
-
-Notes supports advanced text formatting, including:
-
-- **Bold**
-- *Italic*
-- Underline
-- ~~Strikethrough~~
-- Text color and background color
-- Highlights
-- Subscript and superscript
-- Inline equations
-
-## Insert Anything with Slash Commands
-
-Type `/` anywhere in an empty block to open the slash menu. From there, you can insert:
-
-- Headings
-- Lists
-- Images
-- Equations
-- Dividers
-- Columns
-- Nested pages
-
-## Markdown Shortcuts
-
-Type markdown syntax directly to convert it instantly — no need to open the slash menu every time.
-
-| Shortcut | Result |
+| Block | Shortcut |
 | :--- | :--- |
-| `# ` | Heading 1 |
-| `## ` | Heading 2 |
-| `- ` | Bullet List |
-| `1. ` | Numbered List |
-| `> ` | Quote |
+| Text | |
+| Heading 1 to 4 | `#` to `####` followed by a space |
+| Bullet list | `-`, `*`, or `+` |
+| Numbered list | `1.` |
+| Checklist | `[]` |
+| Quote | `>` |
+| Code | ` ``` ` |
+| Divider | `---` |
+| Image | |
+| Equation | see [Math and equations](/docs/students/notes/math) |
+| Sketch | see [Sketch diagrams](/docs/students/notes/sketch) |
+| Two columns | |
+| Page | |
 
-## Nested Pages
+Code blocks have syntax highlighting with a selectable language. Two-column blocks place two block stacks side by side with an adjustable split. A page block embeds another note inside the current one; click it to open the nested note, and use the breadcrumb above the title to go back up.
 
-Type `/page` in an empty block to insert a **Page** block — a sub-page embedded inside your note. Click it to navigate into it. The title of the page block is derived from the nested page's title.
+Tables are not supported in the note editor.
 
-A **breadcrumb** bar above the title helps you navigate back. If the stack is too deep, it condenses into `...`; hover to see the full structure.
+## Inline formatting
 
-## Favorites
+Select text to open the formatting toolbar, or use shortcuts. `Ctrl` is `Cmd` on macOS.
 
-Mark important notes as favorites by clicking the star icon in the top-right corner. Favorited notes appear in the **Favorites** section at the top of the sidebar.
+| Format | Shortcut |
+| :--- | :--- |
+| Bold | `Ctrl+B` |
+| Italic | `Ctrl+I` |
+| Underline | `Ctrl+U` |
+| Strikethrough | `Ctrl+Shift+S` |
+| Highlight | `Ctrl+Shift+H` |
+| Link | `Ctrl+Shift+L` |
+| Subscript | `Ctrl+,` |
+| Superscript | `Ctrl+.` |
 
-## Export Your Notes
+The toolbar can also turn a selection into an inline equation or an inline fraction.
 
-Notes can be exported in two formats:
+## Typing replacements
 
-- `.mnemo` — Mnemo's native file format
-- `.md` — Standard Markdown format
+Some character sequences convert as you type: `->` becomes an arrow, `...` becomes an ellipsis, `(c)` becomes the copyright sign, and commands like `\pi`, `\sum`, `\leq`, and `\approx` become the matching symbol. Typing `\3/7` inserts a compact fraction. The full list lives in the editor itself; these replacements only apply while typing, never to existing text.
 
----
+## Images
 
-Related: [Creating Notes & Folders](/docs/students/notes/creating-notes-and-folders) · [Sketch Diagrams](/docs/students/notes/sketch)
+Paste an image from the clipboard or drag an image file into a note. Mnemo copies it into its own data folder, so the note does not break if the original file moves. Images can be resized, aligned, and captioned.
+
+## Organizing notes
+
+The notes sidebar holds your notes and folders. Folders nest. Drag items to move or reorder them. The context menu on each item offers new note, new folder, rename, duplicate, export, and delete. Deleting a folder deletes everything inside it. Star a note to pin it to the **Favorites** section at the top of the sidebar.
+
+## Find and replace
+
+The editor has an in-note find panel with match highlighting and replace.
+
+## Spellcheck
+
+Spellcheck uses local dictionaries for English, German, Spanish, and Norwegian. Enable or disable it and pick languages under **Settings → Editor**. Words you add to your personal dictionary are kept per language.
+
+## Undo history
+
+Undo and redo work per note and cover both typing and structural changes such as moving or deleting blocks. The history is cleared when you switch notes and is not kept across restarts.
+
+## Getting notes out
+
+Notes export to Markdown, PDF, and the `.mnemo` package format. See [Import and export](/docs/students/import-export).

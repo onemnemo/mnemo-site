@@ -1,33 +1,46 @@
 ---
 title: Troubleshooting
-description: Common issues and how to resolve them.
-category: Settings & Help
-order: 21
+description: Common problems, log locations, and how to file a useful bug report.
+category: Help
+order: 50
 ---
 
-If you run into a problem with Mnemo, here are some steps to try before filing a bug report.
+## First steps
 
-## General Steps
+1. Restart the app. Transient issues often clear on a fresh launch.
+2. Update. Open **Settings → Updates** and click **Check now**; your problem may already be fixed.
+3. Search the [issue tracker](https://github.com/onemnemo/mnemo/issues) for existing reports.
 
-1. **Restart the application.** Many transient issues clear on a fresh launch.
-2. **Check for updates.** Go to **Settings → Updates** and click **Check now**. The latest release may already include a fix.
-3. **Check the GitHub issues.** Search [onemnemo/mnemo issues](https://github.com/onemnemo/mnemo/issues) for existing reports.
+## Installation
 
-## Installation Issues
+- **Windows SmartScreen blocks the installer.** Mnemo is not code-signed yet. Click **More info**, then **Run anyway**. See [Installation](/docs/students/installing#windows-smartscreen).
+- **macOS or Linux problems.** These platforms get less testing than Windows. Check the release notes on the [releases page](https://github.com/onemnemo/mnemo/releases/latest) for platform-specific notes.
 
-### Windows SmartScreen blocks the installer
+## AI assistant
 
-See the [Windows SmartScreen Warning](/docs/students/installing#windows-smartscreen-warning) section in the Installation guide.
+- **Chat or Learning Path is missing from the sidebar.** The assistant is off. Enable it under **Settings → AI Tools**.
+- **The first answer takes very long.** Models start on the first message after launch. Later messages are faster. Models also unload after sitting idle, which causes the same delay once.
+- **Answers fail or models are missing.** Open the model manager in **Settings → AI Tools** and confirm the models finished downloading.
+- **Slow answers.** Try a smaller model tier, or enable **GPU acceleration** if you have a supported GPU.
 
-### macOS or Linux — app doesn't launch
+## Your data and logs
 
-macOS and Linux support is experimental. Check the [GitHub releases page](https://github.com/onemnemo/mnemo/releases/latest) for any platform-specific notes on the release.
+| What | Where (Windows) |
+| :--- | :--- |
+| Notes, decks, maps, settings | `%LocalAppData%\Mnemo\mnemo.db` |
+| Images used in notes | `%LocalAppData%\Mnemo\images\` |
+| Logs | `%LocalAppData%\Mnemo\logs\` |
+| AI models | `%LocalAppData%\mnemo\models\` |
 
-## Reporting a Bug
+On Linux the equivalent root is `~/.local/share/Mnemo/`, on macOS `~/Library/Application Support/Mnemo/`.
 
-If none of the above resolves your issue, open a bug report on [GitHub](https://github.com/onemnemo/mnemo/issues/new). Include:
+There is no automatic backup. To make one yourself, export a [`.mnemo` package](/docs/students/import-export) or copy `mnemo.db` and the `images` folder while the app is closed.
+
+## Reporting a bug
+
+Open an issue on [GitHub](https://github.com/onemnemo/mnemo/issues/new) and include:
 
 - Your operating system and version.
-- The Mnemo version (visible in **Settings → Updates**).
+- The Mnemo version from **Settings → Updates**.
 - Steps to reproduce the problem.
-- Any error messages or unexpected behavior you observed.
+- The relevant log file from the logs folder, if the issue produces an error.
