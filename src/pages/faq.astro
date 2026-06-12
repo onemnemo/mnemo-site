@@ -1,0 +1,116 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../data/site";
+
+const faqs = [
+  {
+    q: "Is Mnemo really free?",
+    a: "Yes. Mnemo is free and open source under the Apache License 2.0. There is no premium tier, no trial period, and no feature paywall. You can read the entire source code on GitHub.",
+  },
+  {
+    q: "Where is my data stored?",
+    a: "Locally, on your device. Notes, flashcards, mind maps, and settings all live on your machine in a local SQLite database. No account is required, and the current release performs no cloud synchronization.",
+  },
+  {
+    q: "Does Mnemo work offline?",
+    a: "Yes, fully. Mnemo is offline first, so nothing about studying requires an internet connection. The app only goes online if you check for updates.",
+  },
+  {
+    q: "Is the AI required?",
+    a: "No. AI features are in development and entirely optional. When they ship, they will run locally on your machine rather than in the cloud, so they will not change the privacy model.",
+  },
+  {
+    q: "Can I import my Anki decks?",
+    a: "Yes. However, it is currently not widely tested, and shipped as experimental. If this matters to you, say so on GitHub Issues, because interest helps prioritize it.",
+  },
+  {
+    q: "How stable are the Linux and macOS versions?",
+    a: "Linux is supported but partly experimental: AppImage builds for x64 and arm64 work, with occasional rough edges. macOS is highly experimental and largely untested, so we do not recommend it for daily studying yet. Windows is the stable, recommended platform.",
+  },
+  {
+    q: "Will my data survive updates?",
+    a: "Yes, that is the intent. Your data lives separately from the application. That said, Mnemo is in active development, so keeping backups of anything important is sensible, as it is with any young software.",
+  },
+  {
+    q: "How do I report a bug?",
+    a: "Open an issue on GitHub with steps to reproduce. Reports are reviewed regularly, and bugs found in real study sessions are especially valuable on Linux and macOS.",
+  },
+  {
+    q: "Can I contribute?",
+    a: "Yes. Code, translations, bug reports, and documentation are all welcome. The repository has a coding standard and a set of good first issues to start from.",
+  },
+  {
+    q: "Who builds Mnemo?",
+    a: "Mnemo is built in the open by learners, for learners. Development happens publicly on GitHub under the onemnemo organization.",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Base
+  title="Mnemo FAQ"
+  description="Answers to common questions about Mnemo: pricing, data storage, offline use, AI, Anki import, platform stability, and contributing."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+  <section class="section">
+    <div class="container-narrow">
+      <span class="eyebrow">FAQ</span>
+      <h1>Questions, answered plainly</h1>
+      <p class="lede">
+        If yours is not here, ask on
+        <a href={SITE.github} rel="noopener">GitHub</a> or check the
+        <a href={SITE.docs} rel="noopener">documentation</a>.
+      </p>
+
+      <div class="faq-list">
+        {
+          faqs.map((f) => (
+            <details class="faq-item">
+              <summary>{f.q}</summary>
+              <p class="muted">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .faq-list {
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 1.1rem 0.25rem;
+    list-style-position: outside;
+  }
+
+  .faq-item summary:hover {
+    color: var(--accent-text);
+  }
+
+  .faq-item p {
+    padding: 0 0.25rem 1.25rem;
+    margin: 0;
+    max-width: 60ch;
+  }
+</style>

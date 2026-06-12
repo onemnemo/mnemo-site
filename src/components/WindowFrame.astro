@@ -1,0 +1,54 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  loading?: "lazy" | "eager";
+  class?: string;
+}
+
+const { src, alt, width, height, loading = "lazy", class: className } = Astro.props;
+---
+
+<figure class:list={["window-frame", className]}>
+  <div class="window-bar" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </div>
+  <img {src} {alt} {width} {height} {loading} decoding="async" />
+</figure>
+
+<style>
+  .window-frame {
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-raised);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .window-bar {
+    display: flex;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .window-bar span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-strong);
+  }
+
+  .window-bar span:first-child {
+    background: var(--accent);
+    opacity: 0.75;
+  }
+
+  :global(:root[data-theme="dark"]) .window-frame img {
+    opacity: 0.96;
+  }
+</style>

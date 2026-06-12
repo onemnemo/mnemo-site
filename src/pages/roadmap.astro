@@ -1,0 +1,251 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../data/site";
+import { getRepoInfo } from "../lib/github";
+
+const { version } = await getRepoInfo();
+
+const shipped = [
+  {
+    title: "Block based notes editor",
+    desc: "Text, images, code blocks, Sketch diagram blocks, and PDF export.",
+  },
+  {
+    title: "Flashcards with spaced repetition",
+    desc: "Multiple scheduling algorithms with keyboard driven review.",
+  },
+  {
+    title: "Mind maps",
+    desc: "Styled nodes and edges, edit and preview modes, and a minimap.",
+  },
+  {
+    title: "Widget dashboard",
+    desc: "Review stats, recent decks, and study goals on the Overview screen.",
+  },
+  {
+    title: "Global search and Quick Actions",
+    desc: "Ctrl or Cmd K search, a command overlay, and editable keybinds.",
+  },
+  {
+    title: "Theming and localization",
+    desc: "Light and dark themes, a theming system, and translation infrastructure.",
+  },
+];
+
+const inDevelopment = [
+  {
+    title: "Mind maps overhaul",
+    desc: "Reworking the mind maps system to make editing, navigation, layout, and studying smoother and more reliable.",
+  },
+  {
+    title: "Flashcards overhaul",
+    desc: "Improving the flashcard system around card creation, review flow, scheduling clarity, and long-term maintainability.",
+  },
+  {
+    title: "Notes improvements",
+    desc: "Continuing to improve the notes editor with better writing, editing, formatting, block handling (and types), and document stability.",
+  },
+  {
+    title: "Opening up the theme system",
+    desc: "Making the theme system easier to extend so people can build and share their own Mnemo themes.",
+  },
+  {
+    title: "Widgets system",
+    desc: "Building out the dashboard widget system so more useful study, planning, and progress widgets can live in one place.",
+  },
+  {
+    title: "Stability",
+    desc: "Fixing crashes, smoothing rough edges, and improving reliability across the app.",
+  },
+  {
+    title: "Consistent UI and UX",
+    desc: "Cleaning up interaction patterns, layout, visual consistency, and flows so the app feels more coherent end to end.",
+  },
+  {
+    title: "Local AI assistant",
+    desc: "A local AI system built into the app and optimized for low-end hardware. Would power generative content, writing tools, teaching, and in-app assistance (tool calling and MCP). Built around orchestration and agentic AI.",
+  },
+  {
+    title: "Semantic search",
+    desc: "Mind Search: an in-house cascading tree memory system for large PDF uploads and systematic access to user knowledge across notes, mind maps, and other parts of the app.",
+  },
+  {
+    title: "AI learning paths",
+    desc: "Uses the local AI to turn uploaded files (.txt, .md, .pdf, .docx, .pptx, links, and more) or your own content (notes, mind maps) into chapters. Each chapter includes theory and practice modes, with optional exams before you move on.",
+  },
+  {
+    title: "Chat module",
+    desc: "An interface and sidebar for accessing the local AI system.",
+  },
+  {
+    title: "Progress analytics",
+    desc: "Locally stored learning data, combined with science and AI, to improve retention and surface insights. Opt-in enabled by default.",
+  },
+];
+
+const concepts = [
+  {
+    title: "Explore store",
+    desc: "A future place inside the app for themes, extensions, and language packs. Every upload would be verified by us to meet safety standards.",
+  },
+  {
+    title: "Learning games",
+    desc: "Developers building games and features from ecosystem data, such as flashcard-based games.",
+  },
+  {
+    title: "Audio and video",
+    desc: "Audio Review would use offline AI to create engaging, realistic podcasts with proper SFX, music, transitions, and voices—designed for real learning. Local video through a custom creation engine and pipeline so AI can generate high-quality learning-style videos, with visual, sound, and transition libraries plus programmatic tools the AI can call (time sync and similar).",
+  },
+];
+---
+
+<Base
+  title="Mnemo roadmap, what works and what is coming"
+  description="An honest list of what works in Mnemo today, what is in active development, and what is still on the drawing board."
+>
+  <section class="section">
+    <div class="container-narrow">
+      <span class="eyebrow">Roadmap</span>
+      <h1>Where Mnemo stands</h1>
+      <p class="lede">
+        Mnemo is in active development and not feature complete. This page is
+        the honest version: what you can rely on today, what the team is
+        building now, and what is still a concept on the horizon.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <div class="status-head">
+        <h2>Works today</h2>
+        <span class="badge badge-ok"><span class="dot"></span>Shipped in {version}</span>
+      </div>
+      <div class="status-grid">
+        {
+          shipped.map((item) => (
+            <article class="card status-card">
+              <h3>{item.title}</h3>
+              <p class="small muted">{item.desc}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="status-head">
+        <h2>In development</h2>
+        <span class="badge badge-wip"><span class="dot"></span>Work in progress</span>
+      </div>
+      <p class="lede">
+        These are being built now. None of them are promises with dates
+        attached. Some exist behind flags, some are partially built, and some
+        are still early designs.
+      </p>
+      <div class="status-grid">
+        {
+          inDevelopment.map((item) => (
+            <article class="card status-card wip-card">
+              <h3>{item.title}</h3>
+              <p class="small muted">{item.desc}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <div class="status-head">
+        <h2>Future concepts</h2>
+        <span class="badge badge-concept"><span class="dot"></span>Not started yet</span>
+      </div>
+      <p class="lede">
+        Ideas we are excited about but are not actively building yet. They may
+        change significantly, merge with other work, or never ship.
+      </p>
+      <div class="status-grid">
+        {
+          concepts.map((item) => (
+            <article class="card status-card concept-card">
+              <h3>{item.title}</h3>
+              <p class="small muted">{item.desc}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-narrow">
+      <h2>Latest release: {version}</h2>
+      <p class="muted">Highlights from the most recent release:</p>
+      <ul class="checklist">
+        <li>Text color formatting in notes, with a redesigned color picker</li>
+        <li>Image and Sketch blocks can be dragged directly to reorder them</li>
+        <li>New blocks can be inserted below any block type</li>
+        <li>Fixed a startup crash on Linux self contained builds</li>
+        <li>Faster spellcheck and smoother zoom in the notes editor</li>
+      </ul>
+      <p class="small muted">
+        Full notes, known issues, and checksums are on the
+        <a href={SITE.releases} rel="noopener">releases page</a>. Recent editor
+        work may still cause instability in some interactions, and we patch
+        those as they are found. If you hit one,
+        <a href={SITE.issues} rel="noopener">report it</a> and it gets looked at.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .status-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .status-head h2 {
+    margin: 0;
+  }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .status-card h3 {
+    font-size: 1.02rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .status-card p {
+    margin: 0;
+  }
+
+  .wip-card {
+    border-style: dashed;
+    background: transparent;
+  }
+
+  .concept-card {
+    border-style: dotted;
+    background: transparent;
+    opacity: 0.92;
+  }
+
+  @media (max-width: 920px) {
+    .status-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,279 @@
+---
+import Logo from "./Logo.astro";
+import { SITE } from "../data/site";
+import { getRepoInfo, formatStars } from "../lib/github";
+
+const { stars } = await getRepoInfo();
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const nav = [
+  { href: "/download", label: "Download" },
+  { href: "/science", label: "Why it works" },
+  { href: "/roadmap", label: "Roadmap" },
+  { href: "/developers", label: "Developers" },
+  { href: "/faq", label: "FAQ" },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="home-link" aria-label="Mnemo home">
+      <Logo />
+    </a>
+
+    <nav class="main-nav" aria-label="Main">
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-expanded="false"
+        aria-controls="nav-list"
+      >
+        <span class="sr-only">Menu</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path>
+        </svg>
+      </button>
+      <ul id="nav-list" class="nav-list">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={currentPath === item.href ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a class="gh-link" href={SITE.github} rel="noopener">
+        <svg width="17" height="17" viewBox="0 0 19 19" fill="currentColor" aria-hidden="true">
+          <path
+            fill-rule="evenodd"
+            d="M9.356 1.85C5.05 1.85 1.57 5.356 1.57 9.694a7.84 7.84 0 0 0 5.324 7.44c.387.079.528-.168.528-.376 0-.182-.013-.805-.013-1.454-2.165.467-2.616-.935-2.616-.935-.349-.91-.864-1.143-.864-1.143-.71-.48.051-.48.051-.48.787.051 1.2.805 1.2.805.695 1.194 1.817.857 2.268.649.064-.507.27-.857.49-1.052-1.728-.182-3.545-.857-3.545-3.87 0-.857.31-1.558.8-2.104-.078-.195-.349-1 .077-2.078 0 0 .657-.208 2.14.805a7.5 7.5 0 0 1 1.946-.26c.657 0 1.328.092 1.946.26 1.483-1.013 2.14-.805 2.14-.805.426 1.078.155 1.883.078 2.078.502.546.799 1.247.799 2.104 0 3.013-1.818 3.675-3.558 3.87.284.247.528.714.528 1.454 0 1.052-.012 1.896-.012 2.156 0 .208.142.455.528.377a7.84 7.84 0 0 0 5.324-7.441c.013-4.338-3.48-7.844-7.773-7.844"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span class="gh-label">GitHub</span>
+        {stars !== null && <span class="gh-stars">{formatStars(stars)}</span>}
+      </a>
+
+      <button
+        type="button"
+        class="theme-toggle"
+        aria-label="Switch between light and dark theme"
+      >
+        <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+        </svg>
+        <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+
+      <a href="/download" class="btn btn-primary header-cta">Download</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--header-h);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    height: 100%;
+  }
+
+  .home-link {
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .home-link:hover {
+    text-decoration: none;
+  }
+
+  .main-nav {
+    flex: 1;
+  }
+
+  .nav-list {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-list a {
+    display: block;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    color: var(--ink-secondary);
+    font-size: 0.92rem;
+    font-weight: 530;
+  }
+
+  .nav-list a:hover {
+    color: var(--ink);
+    background: var(--bg-soft);
+    text-decoration: none;
+  }
+
+  .nav-list a[aria-current="page"] {
+    color: var(--ink);
+    font-weight: 620;
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--ink);
+    padding: 0.4rem 0.55rem;
+    cursor: pointer;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .gh-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--ink-secondary);
+    font-size: 0.88rem;
+    font-weight: 560;
+    padding: 0.42rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+
+  .gh-link:hover {
+    color: var(--ink);
+    border-color: var(--border-strong);
+    text-decoration: none;
+  }
+
+  .gh-stars {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.8rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.05rem 0.45rem;
+  }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: none;
+    color: var(--ink-secondary);
+    cursor: pointer;
+  }
+
+  .theme-toggle:hover {
+    color: var(--ink);
+    border-color: var(--border-strong);
+  }
+
+  :global(:root[data-theme="dark"]) .icon-moon {
+    display: none;
+  }
+
+  :global(:root:not([data-theme="dark"])) .icon-sun {
+    display: none;
+  }
+
+  .header-cta {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 880px) {
+    .nav-toggle {
+      display: inline-flex;
+    }
+
+    .nav-list {
+      display: none;
+      position: absolute;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0.15rem;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.25rem 1rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .nav-list.open {
+      display: flex;
+    }
+
+    .gh-label,
+    .gh-stars {
+      display: none;
+    }
+
+    .header-cta {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+  const list = document.getElementById("nav-list");
+  toggle?.addEventListener("click", () => {
+    const open = list?.classList.toggle("open") ?? false;
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+
+  const themeToggle = document.querySelector<HTMLButtonElement>(".theme-toggle");
+  themeToggle?.addEventListener("click", () => {
+    const root = document.documentElement;
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    localStorage.setItem("mnemo-theme", next);
+  });
+</script>

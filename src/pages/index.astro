@@ -1,0 +1,408 @@
+---
+import Base from "../layouts/Base.astro";
+import DownloadCta from "../components/DownloadCta.astro";
+import WindowFrame from "../components/WindowFrame.astro";
+import ForgettingCurve from "../components/ForgettingCurve.astro";
+import { SITE } from "../data/site";
+---
+
+<Base
+  title="Mnemo, the free and open source study app"
+  description="Notes, flashcards with spaced repetition, and mind maps in one offline desktop app. Free, open source, no account, no tracking. For Windows, Linux, and macOS."
+>
+  <!-- Hero -->
+  <section class="section hero">
+    <div class="container">
+      <div class="hero-copy">
+        <span class="eyebrow">Free, open source, offline first</span>
+        <h1>Everything you study, in one place</h1>
+        <p class="lede">
+          Mnemo brings notes, flashcards, and mind maps together in one focused
+          desktop app. It works offline, asks for no account, and keeps your
+          data on your machine.
+        </p>
+        <DownloadCta />
+      </div>
+      <WindowFrame
+        src="/images/notes-editor-2.png"
+        alt="Mnemo notes editor showing a medical study note about Parkinson's disease with headings, highlights, lists, and an anatomical diagram"
+        width={1435}
+        height={785}
+        loading="eager"
+        class="hero-shot"
+      />
+    </div>
+  </section>
+
+  <!-- Platform honesty strip -->
+  <section class="section-soft platform-strip" aria-label="Platform support">
+    <div class="container platform-grid">
+      <div class="platform-item">
+        <span class="badge badge-ok"><span class="dot"></span>Windows, stable</span>
+        <p class="small muted">The recommended platform, with an auto updater built in.</p>
+      </div>
+      <div class="platform-item">
+        <span class="badge badge-warn"><span class="dot"></span>Linux, partly experimental</span>
+        <p class="small muted">AppImage builds for x64 and arm64. Works, with rough edges.</p>
+      </div>
+      <div class="platform-item">
+        <span class="badge badge-danger"><span class="dot"></span>macOS, highly experimental</span>
+        <p class="small muted">Builds exist and are largely untested. Expect problems.</p>
+      </div>
+      <a href="/download" class="platform-link">Download details &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">What works today</span>
+      <h2>One app instead of four tabs</h2>
+      <p class="lede">
+        Most study setups are a notes app here, a flashcard app there, and a
+        diagram tool somewhere else. Mnemo keeps them in one window, so what
+        you write can become what you review.
+      </p>
+
+      <div class="feature-major">
+        <article class="feature-card">
+          <WindowFrame
+            src="/images/flashcard.png"
+            alt="Mnemo flashcard review session showing a medicine question with answer revealed and Again, Hard, Good, and Easy grading buttons"
+            width={1445}
+            height={797}
+          />
+          <h3>Flashcards with spaced repetition</h3>
+          <p class="muted">
+            Review cards exactly when you are about to forget them. Mnemo ships
+            multiple scheduling algorithms, keyboard driven review, and decks
+            with images and rich formatting.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <WindowFrame
+            src="/images/mindmap.png"
+            alt="Mnemo mind map of photosynthesis with colored, labeled nodes and edges, a style panel, and a minimap"
+            width={1436}
+            height={784}
+          />
+          <h3>Mind maps for connected thinking</h3>
+          <p class="muted">
+            Lay out a topic spatially. Shape, color, and label nodes and edges,
+            then switch between editing and a clean preview when you study.
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <WindowFrame
+            src="/images/notes-editor-2.png"
+            alt="Notes editor in mnemo"
+            width={1229}
+            height={635}
+          />
+          <h3>Block based notes</h3>
+          <p class="muted">
+            Write in blocks: text, images, code, and Sketch blocks for quick
+            diagrams. Drag blocks to rearrange, and export finished notes to
+            PDF.
+          </p>
+        </article>
+      </div>
+
+      <ul class="feature-minor" role="list">
+        <li>
+          <h3>Global search</h3>
+          <p class="small muted">
+            Press <kbd>Ctrl</kbd> <kbd>K</kbd> (or <kbd>Cmd</kbd> <kbd>K</kbd>)
+            and jump to any note, deck, or mind map.
+          </p>
+        </li>
+        <li>
+          <h3>Quick Actions</h3>
+          <p class="small muted">
+            A command overlay for common tasks, so your hands stay on the
+            keyboard.
+          </p>
+        </li>
+        <li>
+          <h3>Editable keybinds</h3>
+          <p class="small muted">
+            Remap shortcuts to match the tools you already know.
+          </p>
+        </li>
+        <li>
+          <h3>Widgets</h3>
+          <p class="small muted">
+            A dashboard with review stats, recent decks, and study goals at a
+            glance.
+          </p>
+        </li>
+        <li>
+          <h3>Themes</h3>
+          <p class="small muted">
+            Light, dark, and a theming system for making the app yours.
+          </p>
+        </li>
+        <li>
+          <h3>Localization</h3>
+          <p class="small muted">
+            Translation infrastructure is in place with multiple languages.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Science teaser -->
+  <section class="section section-soft">
+    <div class="container science-grid">
+      <div>
+        <span class="eyebrow">Why it works</span>
+        <h2>Built around how memory actually behaves</h2>
+        <p class="muted">
+          New material fades fast. A century of memory research, starting with
+          Ebbinghaus, shows that retention drops steeply within days unless you
+          revisit the material. Spacing reviews out and actively recalling
+          answers flattens that curve.
+        </p>
+        <p class="muted">
+          Mnemo is built on those two ideas: spaced repetition schedules your
+          reviews before you forget, and flashcards force recall instead of
+          rereading.
+        </p>
+        <a href="/science" class="btn btn-secondary">The research behind Mnemo</a>
+      </div>
+      <ForgettingCurve />
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="section">
+    <div class="container privacy-grid">
+      <div>
+        <span class="eyebrow">Private by design</span>
+        <h2>Your notes are nobody's business</h2>
+        <p class="muted">
+          Mnemo is offline first. There is no account to create, no server
+          collecting your study habits, and no subscription waiting at the end
+          of a trial. The current release performs no cloud synchronization at
+          all.
+        </p>
+      </div>
+      <ul class="checklist privacy-list">
+        <li>All data stored locally on your device</li>
+        <li>No ads and no tracking</li>
+        <li>No account required</li>
+        <li>Free, with no premium tier</li>
+        <li>Open source under Apache 2.0, so you can verify all of this</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Roadmap teaser -->
+  <section class="section section-soft">
+    <div class="container">
+      <span class="eyebrow">Roadmap</span>
+      <h2>Honest about what is next</h2>
+      <p class="lede">
+        Mnemo is in active development and not feature complete. Here is what
+        the team is building now, plus a few ideas further out. Current
+        releases may include incomplete or disabled versions of in-progress
+        work.
+      </p>
+      <p class="small muted teaser-label">In development</p>
+      <div class="roadmap-teaser">
+        <span class="badge badge-wip">Mind maps overhaul</span>
+        <span class="badge badge-wip">Flashcards overhaul</span>
+        <span class="badge badge-wip">Notes improvements</span>
+        <span class="badge badge-wip">Theme system</span>
+        <span class="badge badge-wip">Widgets system</span>
+        <span class="badge badge-wip">Stability</span>
+        <span class="badge badge-wip">Consistent UI and UX</span>
+        <span class="badge badge-wip">Local AI assistant</span>
+        <span class="badge badge-wip">Semantic search</span>
+        <span class="badge badge-wip">AI learning paths</span>
+        <span class="badge badge-wip">Chat module</span>
+        <span class="badge badge-wip">Progress analytics</span>
+      </div>
+      <p class="small muted teaser-label">Future concepts</p>
+      <div class="roadmap-teaser">
+        <span class="badge badge-concept">Explore store</span>
+        <span class="badge badge-concept">Learning games</span>
+        <span class="badge badge-concept">Audio and video</span>
+      </div>
+      <p>
+        <a href="/roadmap">See the full roadmap &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section final-cta">
+    <div class="container-narrow">
+      <h2>Start studying with Mnemo</h2>
+      <p class="lede">
+        Download it, open it, and start writing. No signup, no trial clock.
+      </p>
+      <DownloadCta />
+      <p class="small muted alt-links">
+        Prefer to read first? Browse the
+        <a href={SITE.docs} rel="noopener">documentation</a> or the
+        <a href={SITE.github} rel="noopener">source code</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-top: clamp(3rem, 2rem + 4vw, 5.5rem);
+  }
+
+  .hero-copy {
+    max-width: 660px;
+    margin-bottom: 3.5rem;
+  }
+
+  .hero :global(.hero-shot) {
+    max-width: 980px;
+    margin-inline: auto;
+  }
+
+  .platform-strip {
+    padding-block: 2rem;
+  }
+
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) auto;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .platform-item p {
+    margin: 0.6rem 0 0;
+  }
+
+  .platform-link {
+    font-weight: 600;
+    font-size: 0.92rem;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  .feature-major {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-block: 3rem 1.5rem;
+  }
+
+  .feature-card h3 {
+    margin: 1.25rem 0 0.4rem;
+  }
+
+  .feature-card p {
+    margin: 0;
+  }
+
+  .feature-minor {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem 2rem;
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+  }
+
+  .feature-minor h3 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .feature-minor p {
+    margin: 0;
+  }
+
+  kbd {
+    font-family: inherit;
+    font-size: 0.8em;
+    font-weight: 600;
+    border: 1px solid var(--border-strong);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 0.08em 0.45em;
+    background: var(--bg-raised);
+  }
+
+  .science-grid,
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .privacy-list {
+    font-size: 1.02rem;
+  }
+
+  .roadmap-teaser {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-block: 0.75rem 1.25rem;
+  }
+
+  .teaser-label {
+    margin: 1.25rem 0 0;
+    font-weight: 600;
+  }
+
+  .teaser-label:first-of-type {
+    margin-top: 0;
+  }
+
+  .roadmap-teaser .badge {
+    font-size: 0.88rem;
+    padding: 0.5rem 0.9rem;
+  }
+
+  .final-cta {
+    text-align: center;
+  }
+
+  .final-cta .lede {
+    margin-inline: auto;
+  }
+
+  .final-cta :global(.cta-row) {
+    justify-content: center;
+  }
+
+  .alt-links {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 920px) {
+    .platform-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .feature-major,
+    .feature-minor {
+      grid-template-columns: 1fr;
+    }
+
+    .science-grid,
+    .privacy-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+</style>

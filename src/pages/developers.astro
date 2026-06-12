@@ -1,0 +1,214 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../data/site";
+
+const stack = [
+  { name: ".NET 10", role: "Runtime" },
+  { name: "Avalonia 12", role: "Cross platform UI" },
+  { name: "SQLite", role: "Local storage" },
+  { name: "Markdig", role: "Markdown" },
+  { name: "LLama.cpp", role: "Local AI, WIP" },
+  { name: "ONNX Runtime", role: "Embeddings, WIP" },
+  { name: "CommunityToolkit.Mvvm", role: "MVVM" },
+];
+---
+
+<Base
+  title="Mnemo for developers, architecture and contributing"
+  description="Mnemo is an open source Avalonia and .NET desktop app with a modular architecture. Learn how it is built and how to contribute."
+>
+  <section class="section">
+    <div class="container-narrow">
+      <span class="eyebrow">For developers</span>
+      <h1>An open codebase you can actually navigate</h1>
+      <p class="lede">
+        Mnemo is a cross platform desktop app built with Avalonia 12 and .NET
+        10, licensed under Apache 2.0. The architecture is deliberately boring
+        in the good way: three layers, clear contracts, and features that live
+        in self contained modules.
+      </p>
+      <div class="dev-cta">
+        <a class="btn btn-primary" href={SITE.github} rel="noopener">Browse the source</a>
+        <a class="btn btn-secondary" href={SITE.goodFirstIssues} rel="noopener">Good first issues</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <h2>Three layers, one direction</h2>
+      <p class="lede">
+        Dependencies point inward. The core knows nothing about the outside
+        world, infrastructure implements its contracts, and the UI consumes
+        both.
+      </p>
+      <div class="arch">
+        <div class="arch-layer">
+          <h3>Mnemo.UI</h3>
+          <p class="small muted">
+            The Avalonia presentation layer. Views, view models, theming, and
+            the module host.
+          </p>
+        </div>
+        <div class="arch-arrow" aria-hidden="true">&darr; depends on</div>
+        <div class="arch-layer">
+          <h3>Mnemo.Infrastructure</h3>
+          <p class="small muted">
+            AI, storage, and knowledge services. The implementations behind the
+            core's interfaces.
+          </p>
+        </div>
+        <div class="arch-arrow" aria-hidden="true">&darr; depends on</div>
+        <div class="arch-layer arch-core">
+          <h3>Mnemo.Core</h3>
+          <p class="small muted">
+            Shared models, interfaces, and contracts. No external dependencies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>Features are modules</h2>
+        <p class="muted">
+          Notes, flashcards, mind maps: each feature is a self contained module
+          under <code>/Modules</code>, discovered automatically through the
+          <code>IModule</code> interface. A module brings its own views, view
+          models, and services, and the host wires it up.
+        </p>
+        <p class="muted">
+          This is also the extensibility story. The same mechanism that keeps
+          first party features decoupled is what the planned Explore store
+          builds on for third party extensions and themes.
+        </p>
+        <p class="muted">
+          Across the codebase the patterns are consistent: MVVM, dependency
+          injection, and async first APIs. The
+          <a href={SITE.codingStandard} rel="noopener">coding standard</a>
+          spells out the details.
+        </p>
+      </div>
+      <div>
+        <h2 class="stack-heading">The stack</h2>
+        <ul class="stack-list">
+          {
+            stack.map((item) => (
+              <li>
+                <code>{item.name}</code>
+                <span class="small muted">{item.role}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container-narrow">
+      <h2>Contributing</h2>
+      <p class="muted">
+        Contributions are welcome, and not only code. Bug reports from real
+        study sessions are some of the most useful contributions there are,
+        especially on Linux and macOS where builds get less testing.
+      </p>
+      <ul class="checklist">
+        <li>
+          Found a bug? <a href={SITE.issues} rel="noopener">Open an issue</a>
+          with steps to reproduce
+        </li>
+        <li>
+          Want to write code? Start with the
+          <a href={SITE.goodFirstIssues} rel="noopener">good first issues</a>
+        </li>
+        <li>
+          Read the <a href={SITE.codingStandard} rel="noopener">coding standard</a>
+          before opening a pull request
+        </li>
+        <li>
+          The <a href={SITE.docs} rel="noopener">documentation</a> covers both
+          users and contributors
+        </li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .dev-cta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.75rem;
+  }
+
+  .arch {
+    max-width: 560px;
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .arch-layer {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.1rem 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .arch-layer h3 {
+    font-family: ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .arch-layer p {
+    margin: 0;
+  }
+
+  .arch-core {
+    border-color: var(--accent-soft-border);
+    background: var(--accent-soft);
+  }
+
+  .arch-arrow {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .stack-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .stack-list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.6rem;
+  }
+
+  @media (max-width: 920px) {
+    .split {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+</style>

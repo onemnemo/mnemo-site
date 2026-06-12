@@ -1,0 +1,139 @@
+---
+import Logo from "./Logo.astro";
+import { SITE } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo" aria-label="Mnemo home"><Logo /></a>
+      <p class="muted small">
+        Your study workflow in one place. Private, offline, and yours.
+      </p>
+      <p class="muted small">Built by learners, for learners.</p>
+    </div>
+
+    <nav class="footer-cols" aria-label="Footer">
+      <div>
+        <h3 class="footer-heading">Product</h3>
+        <ul>
+          <li><a href="/download">Download</a></li>
+          <li><a href="/science">Why it works</a></li>
+          <li><a href="/roadmap">Roadmap</a></li>
+          <li><a href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">Resources</h3>
+        <ul>
+          <li><a href={SITE.docs} rel="noopener">Documentation</a></li>
+          <li><a href={SITE.installGuide} rel="noopener">Installation guide</a></li>
+          <li><a href={SITE.releases} rel="noopener">Latest release</a></li>
+          <li><a href="/developers">For developers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">Community</h3>
+        <ul>
+          <li><a href={SITE.github} rel="noopener">GitHub</a></li>
+          <li><a href={SITE.issues} rel="noopener">Report a bug</a></li>
+          <li><a href={SITE.goodFirstIssues} rel="noopener">Good first issues</a></li>
+          <li><a href={SITE.codingStandard} rel="noopener">Coding standards</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container footer-meta">
+    <p class="small muted">
+      &copy; {year} Mnemo. Free and open source under the
+      <a href={SITE.license} rel="noopener">Apache License 2.0</a>.
+    </p>
+    <p class="small muted">No ads. No tracking. Your data stays on your machine.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-soft);
+    padding-block: 3.5rem 2rem;
+    margin-top: auto;
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 3rem;
+  }
+
+  .footer-logo {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    text-decoration: none;
+  }
+
+  .footer-brand p {
+    margin-bottom: 0.35rem;
+    max-width: 26em;
+  }
+
+  .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-heading {
+    font-size: 0.8rem;
+    font-weight: 650;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.9rem;
+  }
+
+  .footer-cols ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .footer-cols a {
+    color: var(--ink-secondary);
+    font-size: 0.92rem;
+  }
+
+  .footer-cols a:hover {
+    color: var(--ink);
+  }
+
+  .footer-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-meta p {
+    margin: 0;
+  }
+
+  @media (max-width: 760px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .footer-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

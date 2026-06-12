@@ -1,0 +1,391 @@
+---
+import Base from "../layouts/Base.astro";
+import ForgettingCurve from "../components/ForgettingCurve.astro";
+
+const techniques = [
+  { name: "Practice testing (active recall)", level: "High utility", width: 92 },
+  { name: "Distributed practice (spacing)", level: "High utility", width: 88 },
+  { name: "Rereading", level: "Low utility", width: 28 },
+  { name: "Highlighting", level: "Low utility", width: 22 },
+];
+
+interface Row {
+  label: string;
+  cells: [string, string, string, string, string];
+}
+
+const comparison: Row[] = [
+  {
+    label: "Spaced repetition",
+    cells: [
+      "Yes, multiple algorithms",
+      "Yes, excellent",
+      "Limited, partly paid",
+      "No",
+      "Via community plugins",
+    ],
+  },
+  {
+    label: "Rich notes",
+    cells: [
+      "Yes, block editor",
+      "Basic card editor",
+      "Basic",
+      "Yes, excellent",
+      "Yes, excellent",
+    ],
+  },
+  {
+    label: "Mind maps",
+    cells: ["Yes, built in", "No", "No", "No", "Via community plugins"],
+  },
+  {
+    label: "Offline, data stored locally",
+    cells: ["Yes, always", "Yes", "No, cloud based", "No, cloud based", "Yes"],
+  },
+  {
+    label: "Local AI",
+    cells: [
+      "In development, runs on your machine",
+      "No",
+      "Cloud AI features",
+      "Cloud AI, subscription",
+      "Via plugins, varies",
+    ],
+  },
+  {
+    label: "Open source",
+    cells: ["Yes, Apache 2.0", "Yes, AGPL", "No", "No", "No"],
+  },
+  {
+    label: "Price",
+    cells: [
+      "Free, no paid tier",
+      "Free on desktop, paid iOS app",
+      "Freemium with paywalls",
+      "Freemium",
+      "Free for personal use, paid sync",
+    ],
+  },
+  {
+    label: "Ads",
+    cells: ["None", "None", "Ads on the free plan", "None", "None"],
+  },
+  {
+    label: "Extensibility",
+    cells: [
+      "Module system and theming, early",
+      "Large add-on ecosystem",
+      "No",
+      "API and integrations",
+      "Large plugin ecosystem",
+    ],
+  },
+];
+---
+
+<Base
+  title="The learning science behind Mnemo"
+  description="Why spaced repetition and active recall work, how Mnemo applies them, and an honest comparison with Anki, Quizlet, Notion, and Obsidian."
+>
+  <section class="section">
+    <div class="container-narrow">
+      <span class="eyebrow">Why it works</span>
+      <h1>Studying is a memory problem</h1>
+      <p class="lede">
+        Most study time is spent rereading and <span class="text-highlight"
+          >highlighting</span
+        >, and most of that effort is lost within days. The research on what
+        actually sticks is clear, consistent, and over a century old. Mnemo is
+        built on it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container split">
+      <div>
+        <h2>Forgetting is the default</h2>
+        <p class="muted">
+          In the 1880s, Hermann Ebbinghaus measured how quickly newly learned
+          material fades. The shape he found, now called the forgetting curve,
+          has been replicated many times since: retention drops steeply in the
+          first days, then levels off at a low floor.
+        </p>
+        <p class="muted">
+          The fix is not heroic effort. Each well timed review interrupts the
+          decay, and the curve flattens a little more every time. Reviewing
+          right before you forget is dramatically more efficient than cramming
+          after you already have.
+        </p>
+      </div>
+      <ForgettingCurve />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div>
+        <h2>Recall beats rereading</h2>
+        <p class="muted">
+          In a large review of learning techniques, Dunlosky and colleagues
+          rated practice testing and distributed practice as the most broadly
+          effective techniques studied. Rereading and highlighting, the two
+          things most students do most, rated lowest.
+        </p>
+        <p class="muted">
+          The reason is simple: pulling an answer out of your memory
+          strengthens it in a way that looking at the answer does not. A later
+          meta-analysis by Rowland found the same pattern across hundreds of
+          comparisons.
+        </p>
+      </div>
+      <figure class="bars-figure">
+        <div class="bars" role="img" aria-label="Illustrative comparison of study techniques. Practice testing and distributed practice rate as high utility. Rereading and highlighting rate as low utility.">
+          {
+            techniques.map((t) => (
+              <div class="bar-row">
+                <span class="bar-label">{t.name}</span>
+                <div class="bar-track">
+                  <div
+                    class:list={["bar-fill", { low: t.width < 50 }]}
+                    style={`width: ${t.width}%`}
+                  />
+                </div>
+                <span class="bar-level small">{t.level}</span>
+              </div>
+            ))
+          }
+        </div>
+        <figcaption class="small muted">
+          Utility ratings from Dunlosky et al. (2013), shown illustratively.
+          Bar lengths are not measured effect sizes.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container-narrow">
+      <h2>How Mnemo applies this</h2>
+      <div class="apply-grid">
+        <div>
+          <h3>Spaced repetition, built in</h3>
+          <p class="muted small">
+            Flashcards are scheduled with spaced repetition algorithms that
+            bring each card back shortly before you would forget it. You grade
+            your own recall, and the schedule adapts.
+          </p>
+        </div>
+        <div>
+          <h3>Retrieval, not rereading</h3>
+          <p class="muted small">
+            Reviews always ask before they show. Keyboard driven grading keeps
+            sessions fast enough to do daily, which is where spacing pays off.
+          </p>
+        </div>
+        <div>
+          <h3>Connected knowledge</h3>
+          <p class="muted small">
+            Notes and mind maps live beside your cards. Organizing a topic
+            spatially and in writing builds the structure that makes individual
+            facts easier to retrieve.
+          </p>
+        </div>
+      </div>
+      <p class="small muted balance-note">
+        A fair caveat: no app makes learning effortless, and the research
+        describes averages, not guarantees. What software can do is make the
+        effective techniques the path of least resistance. That is the goal
+        here.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>How Mnemo compares</h2>
+      <p class="lede">
+        Every tool below is genuinely good at what it focuses on. The honest
+        difference is scope and model: Mnemo combines notes, spaced
+        repetition, and mind maps in one free, open source, offline app.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <caption class="sr-only">
+            Feature comparison between Mnemo, Anki, Quizlet, Notion, and
+            Obsidian
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">&nbsp;</th>
+              <th scope="col">Mnemo</th>
+              <th scope="col">Anki</th>
+              <th scope="col">Quizlet</th>
+              <th scope="col">Notion</th>
+              <th scope="col">Obsidian</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              comparison.map((row) => (
+                <tr>
+                  <th scope="row">{row.label}</th>
+                  {row.cells.map((cell, i) => (
+                    <td class:list={{ "mnemo-col": i === 0 }}>{cell}</td>
+                  ))}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted table-note">
+        Based on public information as of June 2026. If something here is
+        wrong or outdated, please tell us and we will fix it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container-narrow">
+      <h2>Sources</h2>
+      <ul class="sources small muted">
+        <li>
+          Ebbinghaus, H. (1885). <cite>Memory: A Contribution to Experimental
+          Psychology.</cite>
+        </li>
+        <li>
+          Dunlosky, J., Rawson, K. A., Marsh, E. J., Nathan, M. J., &amp;
+          Willingham, D. T. (2013). Improving students' learning with effective
+          learning techniques. <cite>Psychological Science in the Public
+          Interest, 14</cite>(1).
+        </li>
+        <li>
+          Rowland, C. A. (2014). The effect of testing versus restudy on
+          retention: A meta-analytic review of the testing effect.
+          <cite>Psychological Bulletin, 140</cite>(6).
+        </li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .bars {
+    display: grid;
+    gap: 1.1rem;
+  }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .bar-label {
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .bar-track {
+    height: 14px;
+    border-radius: 999px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .bar-fill.low {
+    background: var(--ink-faint);
+    opacity: 0.55;
+  }
+
+  .bar-level {
+    color: var(--ink-faint);
+  }
+
+  .bars-figure {
+    margin: 0;
+  }
+
+  .bars-figure figcaption {
+    margin-top: 1.25rem;
+  }
+
+  .apply-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .apply-grid h3 {
+    font-size: 1.02rem;
+  }
+
+  .apply-grid p {
+    margin: 0;
+  }
+
+  .balance-note {
+    margin-top: 2.5rem;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+  }
+
+  .table-scroll {
+    margin-top: 2rem;
+  }
+
+  td.mnemo-col {
+    background: var(--accent-soft);
+    font-weight: 560;
+  }
+
+  .table-note {
+    margin-top: 1rem;
+  }
+
+  .sources {
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 920px) {
+    .split {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .apply-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

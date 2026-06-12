@@ -1,0 +1,249 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE, DOWNLOADS } from "../data/site";
+import { getRepoInfo } from "../lib/github";
+
+const { version } = await getRepoInfo();
+---
+
+<Base
+  title="Download Mnemo for Windows, Linux, and macOS"
+  description="Get the latest Mnemo release. Stable on Windows, partly experimental on Linux, highly experimental on macOS. Free and open source, no account needed."
+>
+  <section class="section">
+    <div class="container-narrow">
+      <span class="eyebrow">Download</span>
+      <h1>Get Mnemo</h1>
+      <p class="lede">
+        The latest release is {version}. Every download below is free, open
+        source, and works without an account. Platform stability varies, and we
+        would rather tell you that up front than have you find out the hard
+        way.
+      </p>
+      <p class="small muted">
+        Need help? Follow the
+        <a href={SITE.installGuide} rel="noopener">installation guide</a> in the
+        docs.
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-section" aria-label="Downloads by platform">
+    <div class="container platform-cards">
+      <!-- Windows -->
+      <article class="card platform-card" id="windows" data-platform="windows">
+        <header class="card-head">
+          <h2>Windows</h2>
+          <span class="badge badge-ok"><span class="dot"></span>Stable, recommended</span>
+        </header>
+        <p class="muted small">
+          The primary platform. Includes an auto updater, so you install once
+          and stay current. Windows 10 and 11, x64.
+        </p>
+        <div class="dl-actions">
+          <a class="btn btn-primary" href={DOWNLOADS.windowsInstaller}>
+            Download installer (.exe)
+          </a>
+          <a class="btn btn-secondary" href={DOWNLOADS.windowsPortable}>
+            Portable (.zip)
+          </a>
+        </div>
+        <details class="dl-note">
+          <summary>About the SmartScreen warning</summary>
+          <p class="small muted">
+            Mnemo is not yet code signed, so Windows SmartScreen may warn you
+            on first run. Click "More info", then "Run anyway". Only download
+            Mnemo from the official GitHub repository, never from third
+            parties.
+          </p>
+        </details>
+      </article>
+
+      <!-- Linux -->
+      <article class="card platform-card" id="linux" data-platform="linux">
+        <header class="card-head">
+          <h2>Linux</h2>
+          <span class="badge badge-warn"><span class="dot"></span>Partly experimental</span>
+        </header>
+        <p class="muted small">
+          AppImage builds that run on most modern distributions. They work, but
+          get less testing than Windows, so expect occasional rough edges.
+        </p>
+        <div class="dl-actions">
+          <a class="btn btn-primary" href={DOWNLOADS.linuxX64}>
+            AppImage, x64
+          </a>
+          <a class="btn btn-secondary" href={DOWNLOADS.linuxArm64}>
+            AppImage, arm64
+          </a>
+        </div>
+        <details class="dl-note">
+          <summary>Running an AppImage</summary>
+          <p class="small muted">
+            Make the file executable first, for example
+            <code>chmod +x Mnemo.Desktop-stable-linux-x64.AppImage</code>, then
+            run it. Found a problem? Please
+            <a href={SITE.issues} rel="noopener">report it on GitHub</a>.
+          </p>
+        </details>
+      </article>
+
+      <!-- macOS -->
+      <article class="card platform-card" id="macos" data-platform="mac">
+        <header class="card-head">
+          <h2>macOS</h2>
+          <span class="badge badge-danger"><span class="dot"></span>Highly experimental</span>
+        </header>
+        <p class="muted small">
+          Builds exist for Apple Silicon and Intel, but they are largely
+          untested. We do not recommend macOS for daily studying yet. If you
+          try it anyway, your bug reports genuinely help.
+        </p>
+        <div class="dl-actions">
+          <a class="btn btn-secondary" href={DOWNLOADS.macArm64}>
+            .pkg, Apple Silicon
+          </a>
+          <a class="btn btn-secondary" href={DOWNLOADS.macX64}>
+            .pkg, Intel
+          </a>
+        </div>
+        <details class="dl-note">
+          <summary>What "highly experimental" means</summary>
+          <p class="small muted">
+            Features may crash, render incorrectly, or be missing. Keep
+            expectations low and backups of anything important. Issues are
+            tracked <a href={SITE.issues} rel="noopener">on GitHub</a>.
+          </p>
+        </details>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-narrow">
+      <h2>After installing</h2>
+      <p class="muted">
+        A short onboarding wizard sets your name, theme, and language, then
+        drops you on the Overview dashboard. All data is stored locally on your
+        device. The current release performs no cloud synchronization.
+      </p>
+      <ul class="checklist">
+        <li>
+          Every release and its checksums live on the
+          <a href={SITE.releases} rel="noopener">GitHub releases page</a>
+        </li>
+        <li>
+          Step by step instructions are in the
+          <a href={SITE.installGuide} rel="noopener">installation guide</a>
+        </li>
+        <li>
+          Something broken?
+          <a href={SITE.issues} rel="noopener">Open an issue</a> and we will look
+          at it
+        </li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pb-section {
+    padding-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  }
+
+  .platform-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .platform-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    scroll-margin-top: calc(var(--header-h) + 24px);
+  }
+
+  .platform-card.detected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), var(--shadow-md);
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-head h2 {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  .platform-card :global(.detected-tag) {
+    font-size: 0.78rem;
+    font-weight: 650;
+    color: var(--accent-text);
+  }
+
+  .dl-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-block: 0.75rem;
+  }
+
+  .dl-actions .btn {
+    justify-content: center;
+  }
+
+  .dl-note {
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 0.85rem;
+  }
+
+  .dl-note summary {
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink-secondary);
+  }
+
+  .dl-note summary:hover {
+    color: var(--ink);
+  }
+
+  .dl-note p {
+    margin: 0.6rem 0 0;
+  }
+
+  @media (max-width: 920px) {
+    .platform-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const ua = navigator.userAgent;
+  let platform: string | null = null;
+  if (/Mac/i.test(ua) && !/iPhone|iPad/i.test(ua)) platform = "mac";
+  else if (/Linux/i.test(ua) && !/Android/i.test(ua)) platform = "linux";
+  else if (/Windows/i.test(ua)) platform = "windows";
+
+  if (platform) {
+    const card = document.querySelector(`[data-platform="${platform}"]`);
+    if (card) {
+      card.classList.add("detected");
+      const head = card.querySelector(".card-head");
+      const tag = document.createElement("span");
+      tag.className = "detected-tag";
+      tag.textContent = "Your platform";
+      head?.appendChild(tag);
+    }
+  }
+</script>

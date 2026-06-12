@@ -1,0 +1,63 @@
+---
+import { DOWNLOADS } from "../data/site";
+import { getRepoInfo } from "../lib/github";
+
+const { version } = await getRepoInfo();
+---
+
+<div class="download-cta">
+  <div class="cta-row">
+    <a
+      class="btn btn-primary btn-lg"
+      id="primary-download"
+      href={DOWNLOADS.windowsInstaller}
+      data-win-href={DOWNLOADS.windowsInstaller}
+      data-linux-href={DOWNLOADS.linuxX64}
+      data-mac-href="/download#macos"
+    >
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 2v8.5m0 0L4.5 7M8 10.5 11.5 7M2.5 13.5h11"></path>
+      </svg>
+      <span id="primary-download-label">Download for Windows</span>
+    </a>
+    <a class="btn btn-secondary btn-lg" href="/download">All downloads</a>
+  </div>
+  <p class="cta-note small muted">
+    <span id="primary-download-note">Free installer for Windows 10 and 11, x64.</span>
+    {version} &middot; Apache 2.0 &middot; no account required
+  </p>
+</div>
+
+<style>
+  .cta-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .cta-note {
+    margin-top: 0.85rem;
+  }
+</style>
+
+<script>
+  const link = document.getElementById("primary-download") as HTMLAnchorElement | null;
+  const label = document.getElementById("primary-download-label");
+  const note = document.getElementById("primary-download-note");
+  if (link && label && note) {
+    const ua = navigator.userAgent;
+    if (/Mac/i.test(ua) && !/iPhone|iPad/i.test(ua)) {
+      link.href = link.dataset.macHref ?? link.href;
+      label.textContent = "Get Mnemo for macOS";
+      note.textContent = "macOS builds are highly experimental. Read the notes first.";
+    } else if (/Linux/i.test(ua) && !/Android/i.test(ua)) {
+      link.href = link.dataset.linuxHref ?? link.href;
+      label.textContent = "Download for Linux";
+      note.textContent = "AppImage for x64. arm64 is on the download page.";
+    } else if (/Android|iPhone|iPad/i.test(ua)) {
+      link.href = "/download";
+      label.textContent = "See desktop downloads";
+      note.textContent = "Mnemo is a desktop app for Windows, Linux, and macOS.";
+    }
+  }
+</script>
