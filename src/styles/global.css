@@ -1,24 +1,24 @@
 /* Design tokens */
 :root {
-  --bg: #ffffff;
-  --bg-soft: #faf7f5;
-  --bg-raised: #ffffff;
+  --bg: #f6f2ee;
+  --bg-soft: #ede7e1;
+  --bg-raised: #fcfaf8;
   --ink: #211c19;
   --ink-secondary: #5d554f;
   --ink-faint: #8a807a;
-  --border: #eae4df;
-  --border-strong: #ddd4ce;
+  --border: #e4dad2;
+  --border-strong: #d5c9bf;
   --accent: #e95b45;
   --accent-strong: #d44a35;
   --accent-text: #bc3b27;
-  --accent-soft: #fdeeea;
-  --accent-soft-border: #f7d4cc;
+  --accent-soft: #fce8e3;
+  --accent-soft-border: #f3cfc5;
   --ok: #2c7a4b;
-  --ok-soft: #e8f4ec;
+  --ok-soft: #e6f0ea;
   --warn: #92610c;
-  --warn-soft: #fdf3df;
+  --warn-soft: #fbf0dd;
   --danger: #a8412f;
-  --danger-soft: #fbe9e5;
+  --danger-soft: #fae8e3;
   --shadow-sm: 0 1px 2px rgb(33 28 25 / 0.05);
   --shadow-md: 0 1px 2px rgb(33 28 25 / 0.04), 0 8px 24px rgb(33 28 25 / 0.07);
   --shadow-lg: 0 2px 4px rgb(33 28 25 / 0.04), 0 24px 64px rgb(33 28 25 / 0.12);

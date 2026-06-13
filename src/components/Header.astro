@@ -1,7 +1,7 @@
 ---
 import Logo from "./Logo.astro";
 import { SITE } from "../data/site";
-import { getRepoInfo, formatStars } from "../lib/github";
+import { getRepoInfo, formatStars, REPO } from "../lib/github";
 
 const { stars } = await getRepoInfo();
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -65,7 +65,9 @@ const nav: { href: string; label: string; match?: string }[] = [
             clip-rule="evenodd"></path>
         </svg>
         <span class="gh-label">GitHub</span>
-        {stars !== null && <span class="gh-stars">{formatStars(stars)}</span>}
+        <span class="gh-stars" data-github-stars data-repo={REPO}>
+          {stars !== null && formatStars(stars)}
+        </span>
       </a>
 
       <button
@@ -269,6 +271,24 @@ const nav: { href: string; label: string; match?: string }[] = [
 </style>
 
 <script>
+  import { formatStars, REPO } from "../lib/github";
+
+  const starsEl = document.querySelector<HTMLElement>("[data-github-stars]");
+  if (starsEl) {
+    fetch(`https://api.github.com/repos/${REPO}`, {
+      headers: { Accept: "application/vnd.github+json" },
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((repo) => {
+        if (repo && typeof repo.stargazers_count === "number") {
+          starsEl.textContent = formatStars(repo.stargazers_count);
+        }
+      })
+      .catch(() => {
+        // Keep the build-time value when the live fetch fails.
+      });
+  }
+
   const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
   const list = document.getElementById("nav-list");
   toggle?.addEventListener("click", () => {

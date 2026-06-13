@@ -1,10 +1,13 @@
 /**
- * Build-time GitHub data with static fallbacks. The site is fully static,
- * so these values are baked in at build time. If the API is unreachable
- * (rate limits, offline builds), we fall back to known-good values.
+ * GitHub repo metadata. Version is fetched at build time with a static
+ * fallback. Stars are also fetched at build time for SSR, then refreshed
+ * in the browser so the header stays current without redeploying.
  */
 
-const REPO = "onemnemo/mnemo";
+import { SITE } from "../data/site";
+
+/** owner/repo slug derived from SITE.github */
+export const REPO = SITE.github.replace("https://github.com/", "");
 const FALLBACK_VERSION = "v0.6.5";
 
 interface RepoInfo {
