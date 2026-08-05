@@ -532,8 +532,118 @@
   }
 }
 
+/*
+ * Idle life for /science: the InkEdge squid, its sea, and the scene-6
+ * sleeper. All pure CSS, all infinite, all parked on a harmless still
+ * state under reduced motion.
+ *
+ * The sprite loops use step-end for the same reason as science-grad-toss
+ * above: an interpolated background position at sprite scale renders a
+ * torn half-frame. The squid sheet is a 5x2 GRID rather than a strip, so
+ * both position axes step: x walks the row, y drops to the second row at
+ * the halfway keyframe.
+ */
+.science-squid-swim {
+  animation: science-squid-swim 1.5s step-end infinite;
+}
+
+@keyframes science-squid-swim {
+  0% {
+    background-position: 0% 0%;
+  }
+  10% {
+    background-position: 25% 0%;
+  }
+  20% {
+    background-position: 50% 0%;
+  }
+  30% {
+    background-position: 75% 0%;
+  }
+  40% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  60% {
+    background-position: 25% 100%;
+  }
+  70% {
+    background-position: 50% 100%;
+  }
+  80% {
+    background-position: 75% 100%;
+  }
+  90% {
+    background-position: 100% 100%;
+  }
+}
+
+/* The squid treads water: a slow vertical drift on the wrapper, layered
+   under the frame-to-frame tentacle wiggle of the sprite itself. */
+.science-squid-float {
+  animation: science-squid-float 6s ease-in-out infinite;
+}
+
+@keyframes science-squid-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/*
+ * The back wave of the ink sea. The path is two identical periods wide,
+ * so sliding it left by half its own width (one full period) lands every
+ * point exactly where an identical point started: the loop has no seam.
+ * transform-box makes the percentage read the path's bounding box; SVG
+ * user units keep the drift proportional at every viewport width because
+ * the whole viewBox scales together.
+ */
+.science-ink-drift {
+  transform-box: fill-box;
+  animation: science-ink-drift 18s linear infinite;
+}
+
+@keyframes science-ink-drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Scene 6: Soma asleep, z's accumulating one per breath. Single-row
+   4-frame strip; only the x position animates, the y crop is set where
+   the sprite is declared. A slow second per frame keeps it reading as
+   breathing rather than blinking. */
+.science-night-doze {
+  animation: science-night-doze 4s step-end infinite;
+}
+
+@keyframes science-night-doze {
+  0% {
+    background-position-x: 0%;
+  }
+  25% {
+    background-position-x: 33.3333%;
+  }
+  50% {
+    background-position-x: 66.6667%;
+  }
+  75% {
+    background-position-x: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .science-grad-toss {
+  .science-grad-toss,
+  .science-squid-swim,
+  .science-squid-float,
+  .science-ink-drift,
+  .science-night-doze {
     animation: none;
   }
 }

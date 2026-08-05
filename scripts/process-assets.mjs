@@ -20,7 +20,12 @@ const cellH = Math.floor(meta.height / 3)
 // Two passes because sharp orders trim before extract within one pipeline.
 const half = Math.floor(cellH / 2)
 const cell = await sharp(posesPath)
-  .extract({ left: cellW * 2, top: cellH + half, width: cellW, height: cellH - half })
+  .extract({
+    left: cellW * 2,
+    top: cellH + half,
+    width: cellW,
+    height: cellH - half,
+  })
   .toBuffer()
 const trimmed = await sharp(cell).trim({ threshold: 25 }).toBuffer()
 
@@ -31,12 +36,16 @@ const { data, info } = await sharp(trimmed)
   .ensureAlpha()
   .raw()
   .toBuffer({ resolveWithObject: true })
-const bg = [data[info.width * 4 - 4], data[info.width * 4 - 3], data[info.width * 4 - 2]]
+const bg = [
+  data[info.width * 4 - 4],
+  data[info.width * 4 - 3],
+  data[info.width * 4 - 2],
+]
 for (let i = 0; i < data.length; i += 4) {
   const dist = Math.max(
     Math.abs(data[i] - bg[0]),
     Math.abs(data[i + 1] - bg[1]),
-    Math.abs(data[i + 2] - bg[2])
+    Math.abs(data[i + 2] - bg[2]),
   )
   if (dist < 14) data[i + 3] = 0
 }
@@ -54,7 +63,14 @@ await sharp(data, {
 import { mkdirSync } from "node:fs"
 
 mkdirSync("public/illos/spots", { recursive: true })
-const spots = ["notes", "flashcards", "mindmaps", "search", "dashboard", "themes"]
+const spots = [
+  "notes",
+  "flashcards",
+  "mindmaps",
+  "search",
+  "dashboard",
+  "themes",
+]
 
 for (const name of spots) {
   const trimmedSpot = await sharp(`public/illos/${name}.png`)
@@ -70,7 +86,7 @@ for (const name of spots) {
     const dist = Math.max(
       Math.abs(data[i] - corner[0]),
       Math.abs(data[i + 1] - corner[1]),
-      Math.abs(data[i + 2] - corner[2])
+      Math.abs(data[i + 2] - corner[2]),
     )
     if (dist < 14) data[i + 3] = 0
   }
@@ -118,7 +134,7 @@ async function cutSheet(sheetName, outPrefix) {
         const dist = Math.max(
           Math.abs(data[i] - cellBg[0]),
           Math.abs(data[i + 1] - cellBg[1]),
-          Math.abs(data[i + 2] - cellBg[2])
+          Math.abs(data[i + 2] - cellBg[2]),
         )
         if (dist < 16) data[i + 3] = 0
       }
@@ -151,7 +167,7 @@ const lightCell = await cutSheet("doodles-light", "light")
     const dist = Math.max(
       Math.abs(data[i] - bg[0]),
       Math.abs(data[i + 1] - bg[1]),
-      Math.abs(data[i + 2] - bg[2])
+      Math.abs(data[i + 2] - bg[2]),
     )
     if (dist < 12) data[i + 3] = 0
   }
@@ -220,12 +236,23 @@ const notFoundLayers = await (async () => {
         }
       }
     }
-    comps.push({ id, count, x0, y0, x1, y1, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 })
+    comps.push({
+      id,
+      count,
+      x0,
+      y0,
+      x1,
+      y1,
+      cx: (x0 + x1) / 2,
+      cy: (y0 + y1) / 2,
+    })
   }
 
   const bySize = [...comps].sort((a, b) => b.count - a.count)
   const [tv, soma] =
-    bySize[0].cx < bySize[1].cx ? [bySize[0], bySize[1]] : [bySize[1], bySize[0]]
+    bySize[0].cx < bySize[1].cx
+      ? [bySize[0], bySize[1]]
+      : [bySize[1], bySize[0]]
 
   // Interior details — the vents, the dial, Soma's glasses — are separate
   // components because keying cut them away from the shape they sit on. Give
@@ -233,7 +260,8 @@ const notFoundLayers = await (async () => {
   // center for the sliver where the two boxes overlap.
   const owner = new Int32Array(comps.length)
   for (const c of comps) {
-    const has = (p) => c.cx >= p.x0 && c.cx <= p.x1 && c.cy >= p.y0 && c.cy <= p.y1
+    const has = (p) =>
+      c.cx >= p.x0 && c.cx <= p.x1 && c.cy >= p.y0 && c.cy <= p.y1
     const inTv = has(tv)
     const inSoma = has(soma)
     if (inTv && !inSoma) owner[c.id] = tv.id
@@ -286,7 +314,9 @@ const notFoundLayers = await (async () => {
     const o = (y * W + x) * 4
     const [r, g, b] = [data[o], data[o + 1], data[o + 2]]
     if (r > 205 && g > 205 && b > 205) return true
-    return g > r + 8 && b > r + 8 && sat(r, g, b) > 0.12 && Math.max(r, g, b) > 120
+    return (
+      g > r + 8 && b > r + 8 && sat(r, g, b) > 0.12 && Math.max(r, g, b) > 120
+    )
   }
 
   const spans = new Map()
@@ -315,8 +345,18 @@ const notFoundLayers = await (async () => {
     // the black "404" readout, leaving most of the screen still to cross. The
     // left/right edge fit below is what actually contains a runaway row.
     const MARCH = 420
-    for (let n = 0; n < MARCH && r + 1 <= tv.x1 && !isBezelOrBody(r + 1, y); n++) r++
-    for (let n = 0; n < MARCH && l - 1 >= tv.x0 && !isBezelOrBody(l - 1, y); n++) l--
+    for (
+      let n = 0;
+      n < MARCH && r + 1 <= tv.x1 && !isBezelOrBody(r + 1, y);
+      n++
+    )
+      r++
+    for (
+      let n = 0;
+      n < MARCH && l - 1 >= tv.x0 && !isBezelOrBody(l - 1, y);
+      n++
+    )
+      l--
     // Inset so the overlay cannot spill over the bezel's antialiased edge.
     if (r - l > 8) spans.set(y, [l + 4, r - 4])
   }
@@ -379,11 +419,11 @@ const notFoundLayers = await (async () => {
   }
   L.a = quantile(
     core.map((y) => spans.get(y)[0] - L.b * y),
-    0.15
+    0.15,
   )
   R.a = quantile(
     core.map((y) => spans.get(y)[1] - R.b * y),
-    0.85
+    0.85,
   )
 
   // Column extents, measured only inside the left/right edges so a row that
@@ -399,7 +439,8 @@ const notFoundLayers = await (async () => {
     }
   }
   const [colLo, colHi] = band([...colTop.keys()], 0.15, 0.85)
-  const inBand = (m) => [...m.entries()].filter(([x]) => x >= colLo && x <= colHi)
+  const inBand = (m) =>
+    [...m.entries()].filter(([x]) => x >= colLo && x <= colHi)
 
   // The screen is close enough to a rectangle that its top and bottom edges
   // are near parallel, so the bottom borrows the top's slope and only its
@@ -411,12 +452,12 @@ const notFoundLayers = await (async () => {
     b: T.b,
     a: quantile(
       inBand(colBottom).map(([x, y]) => y - T.b * x),
-      0.85
+      0.85,
     ),
   }
   T.a = quantile(
     inBand(colTop).map(([x, y]) => y - T.b * x),
-    0.15
+    0.15,
   )
 
   const INSET = 5
@@ -483,7 +524,7 @@ const grip = await (async () => {
       const d = Math.max(
         Math.abs(raw.data[i] - bg[0]),
         Math.abs(raw.data[i + 1] - bg[1]),
-        Math.abs(raw.data[i + 2] - bg[2])
+        Math.abs(raw.data[i + 2] - bg[2]),
       )
       if (d >= 12) {
         artworkBottom = y
@@ -508,7 +549,7 @@ const grip = await (async () => {
     Math.max(
       Math.abs(data[i * 4] - bg[0]),
       Math.abs(data[i * 4 + 1] - bg[1]),
-      Math.abs(data[i * 4 + 2] - bg[2])
+      Math.abs(data[i * 4 + 2] - bg[2]),
     ) < 12
 
   const seen = new Uint8Array(W * H)
@@ -611,7 +652,12 @@ const downloadStates = await (async () => {
   const cells = []
   for (let index = 0; index < names.length; index++) {
     const { data, info } = await sharp(src)
-      .extract({ left: cellW * index, top: 0, width: cellW, height: meta.height })
+      .extract({
+        left: cellW * index,
+        top: 0,
+        width: cellW,
+        height: meta.height,
+      })
       .ensureAlpha()
       .raw()
       .toBuffer({ resolveWithObject: true })
@@ -622,7 +668,7 @@ const downloadStates = await (async () => {
       Math.max(
         Math.abs(data[i * 4] - bg[0]),
         Math.abs(data[i * 4 + 1] - bg[1]),
-        Math.abs(data[i * 4 + 2] - bg[2])
+        Math.abs(data[i * 4 + 2] - bg[2]),
       ) < 12
     const seen = new Uint8Array(W * H)
     const stack = []
@@ -695,10 +741,10 @@ const downloadStates = await (async () => {
   })
 
   const maxLeft = Math.ceil(
-    Math.max(...measured.map((m) => m.feetCenterX - m.minX))
+    Math.max(...measured.map((m) => m.feetCenterX - m.minX)),
   )
   const maxRight = Math.ceil(
-    Math.max(...measured.map((m) => m.maxX - m.feetCenterX))
+    Math.max(...measured.map((m) => m.maxX - m.feetCenterX)),
   )
   const maxTall = Math.max(...measured.map((m) => m.maxY - m.minY))
   const outW = maxLeft + maxRight + 1
@@ -747,7 +793,12 @@ const downloadStates = await (async () => {
  * gradients (the lamp cone, the shadows) fade out exactly as drawn.
  * Interiors sealed by ink outlines are never visited and keep full alpha.
  */
-async function softBorderKey(data, W, H, { walk = 40, dead = 10, radius = 4 } = {}) {
+async function softBorderKey(
+  data,
+  W,
+  H,
+  { walk = 40, dead = 10, radius = 4 } = {},
+) {
   // Distances are measured on a blurred copy: the generator leaves paper
   // grain and compression ringing around ink edges, and on the raw pixels
   // that noise either survives as an opaque speckle halo or blocks the
@@ -765,7 +816,7 @@ async function softBorderKey(data, W, H, { walk = 40, dead = 10, radius = 4 } = 
     Math.max(
       Math.abs(blurred[i * 4] - bg[0]),
       Math.abs(blurred[i * 4 + 1] - bg[1]),
-      Math.abs(blurred[i * 4 + 2] - bg[2])
+      Math.abs(blurred[i * 4 + 2] - bg[2]),
     )
   // Blur cuts both ways: it denoises grain, but it also softens a thin ink
   // stroke enough that the flood can walk straight through it and hollow
@@ -776,7 +827,7 @@ async function softBorderKey(data, W, H, { walk = 40, dead = 10, radius = 4 } = 
     Math.max(
       Math.abs(data[i * 4] - rawBg[0]),
       Math.abs(data[i * 4 + 1] - rawBg[1]),
-      Math.abs(data[i * 4 + 2] - rawBg[2])
+      Math.abs(data[i * 4 + 2] - rawBg[2]),
     )
   // The ink guard alone cannot stop a leak where the outline itself has a
   // hairline gap: past the gap, a near-white body fill passes every
@@ -1060,6 +1111,33 @@ const gradToss = await (async () => {
   return { frameWidth: m.width / 8, frameHeight: m.height, frames: 8 }
 })()
 
+/**
+ * InkEdge squid (5x2 grid) and scene-6 sleeper (1x4 strip) sprite sheets.
+ * Source assets like grad-strip.png: generated pre-keyed, measured only,
+ * never written. The sleeper's crop window (rows 276..604, the drawn
+ * content plus padding) is documented in night-doze.tsx.
+ */
+const spriteSheets = await (async () => {
+  const squid = await sharp(
+    "public/illos/science/squid-sprite-sheet.png",
+  ).metadata()
+  const night = await sharp(
+    "public/illos/science/night-sprite-sheet.png",
+  ).metadata()
+  return {
+    squid: {
+      frameWidth: squid.width / 5,
+      frameHeight: squid.height / 2,
+      frames: 10,
+    },
+    night: {
+      frameWidth: night.width / 4,
+      frameHeight: night.height,
+      frames: 4,
+    },
+  }
+})()
+
 const report = {
   darkCell,
   lightCell,
@@ -1068,6 +1146,7 @@ const report = {
   notFoundLayers,
   science,
   gradToss,
+  spriteSheets,
 }
 for (const [name, path] of [
   ["peek", "public/soma/peek.png"],

@@ -10,7 +10,6 @@ import Link from "next/link"
  * serving a stale optimized copy and kept the previous drawing's aspect
  * ratio until both were fixed by hand.
  */
-import nightArt from "@public/illos/science/night-clean.png"
 import rescueArt from "@public/illos/science/rescue-well.png"
 
 import { Doodle } from "@/components/doodle"
@@ -23,6 +22,7 @@ import {
 } from "@/components/science/figures"
 import { GradToss } from "@/components/science/grad-toss"
 import { InkEdge } from "@/components/science/ink-edge"
+import { NightDoze } from "@/components/science/night-doze"
 import { QuizCard } from "@/components/science/quiz-card"
 import { StageMarker } from "@/components/science/stage-marker"
 import { Reveal } from "@/components/reveal"
@@ -54,8 +54,9 @@ export default function SciencePage() {
     <main id="main-content">
       {/* Scene 1: a fact is born. The fact card is dealt from the same
           deck the scene-3 quiz card comes from: the fact IS a card. The
-          extra mobile bottom padding is the InkEdge squid's headroom. */}
-      <Section className="texture-rules pb-36 sm:pb-24">
+          extra mobile bottom padding is the InkEdge squid's headroom
+          (the sprite frames are taller than the old square art). */}
+      <Section className="texture-rules pb-44 sm:pb-24">
         <Container>
           <p className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
             Why it works
@@ -157,11 +158,11 @@ export default function SciencePage() {
           </div>
 
           <p className="mt-10 max-w-2xl leading-relaxed opacity-80">
-            That small tug you felt is retrieval. In 2006, Roediger and
-            Karpicke showed that students who tested themselves remembered far
-            more a week later than students who spent the same time
-            re-reading. Successful retrieval changes the memory itself and
-            makes the next recall easier.
+            That small tug you felt is retrieval. In 2006, Roediger and Karpicke
+            showed that students who tested themselves remembered far more a
+            week later than students who spent the same time re-reading.
+            Successful retrieval changes the memory itself and makes the next
+            recall easier.
           </p>
           <p className="mt-4 max-w-2xl leading-relaxed font-medium">
             The effort is not a sign of failure. The effort is the treatment.
@@ -244,24 +245,19 @@ export default function SciencePage() {
                 It cannot do this part for you.
               </p>
             </div>
-            {/* Soma under a quilt of everything it learned that day. The
-                art is a cutout with dark outlines, which would vanish
-                into a near-black band, so it sits in its own soft pool of
-                warm light: the ink scene has always been one island of
-                light, and here the page supplies it instead of the
-                drawing. */}
+            {/* Soma asleep under a quilt of everything it learned that
+                day, breathing (see night-doze.tsx). The art is a cutout
+                with dark outlines, which would vanish into a near-black
+                band, so it sits in its own soft pool of warm light: the
+                ink scene has always been one island of light, and here
+                the page supplies it instead of the drawing. */}
             <Reveal className="justify-self-center">
               <div className="reveal-rise relative">
                 <div
                   aria-hidden
                   className="absolute -inset-x-10 -inset-y-16 rounded-[50%] bg-[radial-gradient(ellipse_at_center,var(--butter)_0%,transparent_70%)] opacity-[0.13]"
                 />
-                <Image
-                  src={nightArt}
-                  alt=""
-                  aria-hidden
-                  className="relative h-auto w-full max-w-sm lg:max-w-md"
-                />
+                <NightDoze className="relative w-72 sm:w-80 lg:w-96" />
               </div>
             </Reveal>
           </div>
@@ -317,8 +313,8 @@ export default function SciencePage() {
             <div className="flex flex-col items-center text-center">
               <GradToss className="hidden h-48 sm:block" />
               <p className="font-heading mt-6 max-w-md text-2xl leading-snug font-medium text-balance">
-                Mnemo was not designed around features. It was designed
-                around how memories survive.
+                Mnemo was not designed around features. It was designed around
+                how memories survive.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
                 <Link
