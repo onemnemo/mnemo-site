@@ -51,8 +51,11 @@ export function Hero() {
             <Link href="/#features">See what&apos;s inside</Link>
           </Button>
         </div>
-        <p className="text-muted-foreground mt-6 font-mono text-xs tracking-wide">
-          Free · Open source · Windows, macOS, and Linux
+        {/* Caption to the Download button: the trust facts as a plain
+            sentence. The earlier mono-and-middots version read as a spec
+            sheet dangling under the buttons. */}
+        <p className="text-muted-foreground/80 mt-5 text-sm">
+          Free and open source, for Windows, macOS, and Linux.
         </p>
 
         <AppFrame
