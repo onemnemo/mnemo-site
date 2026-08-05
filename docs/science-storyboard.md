@@ -11,11 +11,14 @@
 > Scene 6 sits text-beside-lamp instead of stacked, the scene-7 mapping
 > is a borderless 2x2, and paper/cobalt bands carry texture-rules /
 > texture-grid backgrounds. The SVG diagrams beat the illustrations for
-> the curve and network scenes, so slide.png and the-web.png are
-> processed but unused; rescue, night, and the graduation sprite strip
-> are in, kept small. Still open: a scene-1 object illustration (octopus
-> in a fishbowl, 404-CRT style), the scroll interaction layer, then the
-> sitewide motion pass.
+> the curve and network scenes, so slide.png and the-web.png were cut
+> (removed from the repo in the asset cleanup, along with every other
+> retired piece); rescue, night, and the graduation sprite strip are
+> in, kept small. Scene 1 got a squid instead of the fishbowl idea: an
+> animated sprite treading water over the ink sea that forms the
+> paper-to-cobalt boundary, with the sleeper animated the same way in
+> scene 6. The scroll reveal layer and the sitewide motion pass have
+> both landed.
 
 Working design doc for the "Why it works" page. The page follows a single
 fact through a student's memory, one scene per canvas band, and ends by
