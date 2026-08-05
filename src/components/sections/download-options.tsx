@@ -3,6 +3,9 @@
 import Image from "next/image"
 import { useEffect, useState, useSyncExternalStore } from "react"
 
+import dlAlert from "@public/soma/dl-alert.png"
+import dlIdle from "@public/soma/dl-idle.png"
+import dlSent from "@public/soma/dl-sent.png"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 
@@ -50,7 +53,10 @@ const platforms: Platform[] = [
     primaryArch: "x64 installer",
     primaryFile: "Mnemo.Desktop-stable-win-x64-Setup.exe",
     builds: [
-      { label: "Installer · x64 .exe", file: "Mnemo.Desktop-stable-win-x64-Setup.exe" },
+      {
+        label: "Installer · x64 .exe",
+        file: "Mnemo.Desktop-stable-win-x64-Setup.exe",
+      },
       { label: "Portable · .zip", file: "Mnemo-Portable-win-x64.zip" },
     ],
   },
@@ -60,7 +66,10 @@ const platforms: Platform[] = [
     primaryArch: "Apple Silicon",
     primaryFile: "Mnemo.Desktop-stable-osx-arm64-Setup.pkg",
     builds: [
-      { label: "Apple Silicon · .pkg", file: "Mnemo.Desktop-stable-osx-arm64-Setup.pkg" },
+      {
+        label: "Apple Silicon · .pkg",
+        file: "Mnemo.Desktop-stable-osx-arm64-Setup.pkg",
+      },
       { label: "Intel · .pkg", file: "Mnemo.Desktop-stable-osx-x64-Setup.pkg" },
     ],
   },
@@ -70,8 +79,14 @@ const platforms: Platform[] = [
     primaryArch: "x64 AppImage",
     primaryFile: "Mnemo.Desktop-stable-linux-x64.AppImage",
     builds: [
-      { label: "AppImage · x64", file: "Mnemo.Desktop-stable-linux-x64.AppImage" },
-      { label: "AppImage · arm64", file: "Mnemo.Desktop-stable-linux-arm64.AppImage" },
+      {
+        label: "AppImage · x64",
+        file: "Mnemo.Desktop-stable-linux-x64.AppImage",
+      },
+      {
+        label: "AppImage · arm64",
+        file: "Mnemo.Desktop-stable-linux-arm64.AppImage",
+      },
     ],
   },
 ]
@@ -111,36 +126,35 @@ type ReleaseMeta = {
  */
 type Mood = "idle" | "alert" | "sent"
 
-const moodArt: { key: Mood; src: string }[] = [
-  { key: "idle", src: "/soma/dl-idle.png" },
-  { key: "alert", src: "/soma/dl-alert.png" },
-  { key: "sent", src: "/soma/dl-sent.png" },
-]
+const moodArt = [
+  { key: "idle", src: dlIdle },
+  { key: "alert", src: dlAlert },
+  { key: "sent", src: dlSent },
+] as const
 
 /**
- * Soma processing the download, standing beside the button: waiting, then
- * noticing the hover, then filing the click on a clipboard. All three poses
- * stay mounted and crossfade, which works because the pipeline crops them
- * to one shared window so the character never shifts. Purely decorative,
- * hence hidden from assistive tech; the caption's aria-live line carries
- * the same information as the clipboard pose.
+ * Soma processing the download, standing behind the download card:
+ * waiting, then noticing the hover, then filing the click on a clipboard.
+ * All three poses stay mounted and crossfade, which works because the
+ * pipeline crops them to one shared window so the character never shifts.
+ * Purely decorative, hence hidden from assistive tech; the caption's
+ * aria-live line carries the same information as the clipboard pose.
  */
-function SomaMoods({ mood }: { mood: Mood }) {
+function SomaMoods({ mood, className }: { mood: Mood; className?: string }) {
   return (
     <div
       aria-hidden
-      className="relative hidden aspect-427/529 h-44 shrink-0 sm:block lg:h-56"
+      className={cn("relative", className)}
+      style={{ aspectRatio: `${dlIdle.width} / ${dlIdle.height}` }}
     >
       {moodArt.map((art) => (
         <Image
           key={art.key}
           src={art.src}
           alt=""
-          width={427}
-          height={529}
           className={cn(
             "absolute inset-0 h-full w-auto transition-opacity duration-300 motion-reduce:transition-none",
-            mood === art.key ? "opacity-100" : "opacity-0"
+            mood === art.key ? "opacity-100" : "opacity-0",
           )}
         />
       ))}
@@ -189,58 +203,76 @@ export function DownloadOptions({
 
   const primary = platforms.find((platform) => platform.key === detected)
   const versionLine = release
-    ? `${release.version} · released ${release.date} · ${siteConfig.license}`
-    : `Latest stable release · ${siteConfig.license}`
+    ? `${release.version}, released ${release.date}. ${siteConfig.license} licensed.`
+    : `Latest stable release. ${siteConfig.license} licensed.`
 
   return (
     <div className={className} data-state={mood}>
-      {/* Hero zone: text and button on the left, Soma standing at the same
-          baseline on the right, watching the button. */}
-      <div className="grid items-end gap-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-14">
-        <div>
-          {children}
-          <div className="mt-9">
-            {primary ? (
-              <a
-                href={`${LATEST}/${primary.primaryFile}`}
-                onClick={() => setMood("sent")}
-                onMouseEnter={() =>
-                  setMood((m) => (m === "sent" ? m : "alert"))
-                }
-                onMouseLeave={() => setMood((m) => (m === "sent" ? m : "idle"))}
-                className="bg-primary text-primary-foreground inline-flex items-baseline gap-3 rounded-full px-8 py-4 text-lg font-medium shadow-sm transition-transform hover:-translate-y-0.5 motion-reduce:transition-none"
+      {/* Hero zone: text on the left; on the right, the download moment
+          as a card dealt from the same deck as the fact and quiz cards
+          on /science (offset back card, slight tilt). Soma stands BEHIND
+          the card, feet hidden by its edge, watching the button: the
+          negative bottom margin is what pulls the card up over the feet,
+          the same peek trick as the footer and the OG image. */}
+      <div className="grid items-center gap-x-16 gap-y-12 sm:grid-cols-[minmax(0,1fr)_auto]">
+        <div>{children}</div>
+
+        <div className="w-full max-w-md sm:w-auto sm:justify-self-end">
+          <SomaMoods
+            mood={mood}
+            className="z-0 -mb-12 ml-auto h-36 w-fit sm:mr-6 sm:-mb-14 sm:h-44"
+          />
+          <div className="relative">
+            <div
+              aria-hidden
+              className="bg-card/70 absolute inset-0 translate-x-2 translate-y-3 rotate-[1.4deg] rounded-3xl border"
+            />
+            <div className="bg-card relative rounded-3xl border p-6 shadow-sm sm:rotate-[-1deg] sm:p-7">
+              {primary ? (
+                <a
+                  href={`${LATEST}/${primary.primaryFile}`}
+                  onClick={() => setMood("sent")}
+                  onMouseEnter={() =>
+                    setMood((m) => (m === "sent" ? m : "alert"))
+                  }
+                  onMouseLeave={() =>
+                    setMood((m) => (m === "sent" ? m : "idle"))
+                  }
+                  className="bg-primary text-primary-foreground inline-flex items-baseline gap-3 rounded-full px-6 py-4 text-base font-medium shadow-sm transition-transform hover:-translate-y-0.5 motion-reduce:transition-none sm:px-8 sm:text-lg"
+                >
+                  Download for {primary.name}
+                  {/* The arch note yields on narrow screens: with it the
+                      label wraps inside the card, and the builds list
+                      below carries the same fact. */}
+                  <span className="hidden font-mono text-xs opacity-80 sm:inline">
+                    {primary.primaryArch}
+                  </span>
+                </a>
+              ) : (
+                <div className="flex flex-wrap gap-3">
+                  {platforms.map((platform) => (
+                    <a
+                      key={platform.key}
+                      href={`${LATEST}/${platform.primaryFile}`}
+                      onClick={() => setMood("sent")}
+                      className="bg-primary text-primary-foreground rounded-full px-6 py-3 text-sm font-medium"
+                    >
+                      {platform.name}
+                    </a>
+                  ))}
+                </div>
+              )}
+              <p
+                className="text-muted-foreground mt-4 max-w-[36ch] text-sm leading-relaxed"
+                aria-live="polite"
               >
-                Download for {primary.name}
-                <span className="font-mono text-xs opacity-80">
-                  {primary.primaryArch}
-                </span>
-              </a>
-            ) : (
-              <div className="flex flex-wrap gap-3">
-                {platforms.map((platform) => (
-                  <a
-                    key={platform.key}
-                    href={`${LATEST}/${platform.primaryFile}`}
-                    onClick={() => setMood("sent")}
-                    className="bg-primary text-primary-foreground rounded-full px-6 py-3 text-sm font-medium"
-                  >
-                    {platform.name}
-                  </a>
-                ))}
-              </div>
-            )}
-            <p
-              className="text-muted-foreground mt-4 font-mono text-xs tracking-wide"
-              aria-live="polite"
-            >
-              {mood === "sent"
-                ? "On its way. Look for it in your browser's downloads."
-                : versionLine}
-            </p>
+                {mood === "sent"
+                  ? "On its way. Look for it in your browser's downloads."
+                  : versionLine}
+              </p>
+            </div>
           </div>
         </div>
-
-        <SomaMoods mood={mood} />
       </div>
 
       {/* All builds: one framed block, with the provenance note as the
@@ -251,8 +283,8 @@ export function DownloadOptions({
             All builds
           </h2>
           <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-            Every build is compiled in public by GitHub Actions from source
-            you can read.{" "}
+            Every build is compiled in public by GitHub Actions from source you
+            can read.{" "}
             <a
               href={`${siteConfig.links.github}/releases`}
               target="_blank"
@@ -286,7 +318,7 @@ export function DownloadOptions({
                     onClick={() => setMood("sent")}
                     className={cn(
                       "hover:text-foreground underline underline-offset-4 transition-colors",
-                      "decoration-border hover:decoration-current"
+                      "decoration-border hover:decoration-current",
                     )}
                   >
                     {build.label}
