@@ -272,52 +272,55 @@ export default function SciencePage() {
       <Section canvas="butter">
         <Container>
           <StageMarker stage={7} className="mb-6" />
-          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            You just watched one fact survive.
-          </h2>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed">
-            Every tool in Mnemo exists to help that happen.
-          </p>
 
-          {/* Recap and close share the row instead of stacking: the
-              mapping is the practical half, and the graduate, thesis,
-              and CTAs are one ceremony moment beside it. Stacked, the
-              two blocks read as one over-tall ambiguous section (the
-              same vertical-pile problem scene 3 had). */}
-          <div className="mt-12 grid items-center gap-x-16 gap-y-14 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)]">
-            <dl className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
-              {[
-                { term: "Retrieval", tool: "Flashcards and quizzes." },
-                {
-                  term: "Timing",
-                  tool: "A scheduler that reviews right before you would forget.",
-                },
-                {
-                  term: "Connections",
-                  tool: "Notes in your own words. Maps of how it all fits.",
-                },
-                { term: "Sleep", tool: "That's your job." },
-              ].map((row) => (
-                <div key={row.term}>
-                  <dt className="font-mono text-[11px] tracking-widest uppercase opacity-60">
-                    {row.term}
-                  </dt>
-                  <dd className="mt-1.5 leading-snug font-medium">
-                    {row.tool}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+          {/* Two equal halves with real air between them. The heading and
+              lede live WITH the mapping (one thought: what you watched,
+              and what maps to it), so the ceremony beside them gets a
+              full half of the row to breathe in. Full-width heading plus
+              two dense columns underneath was the cramped version; the
+              full vertical stack before that ran past two viewports. */}
+          <div className="grid items-center gap-x-20 gap-y-16 lg:grid-cols-2">
+            <div>
+              <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+                You just watched one fact survive.
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed">
+                Every tool in Mnemo exists to help that happen.
+              </p>
+              <dl className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-2">
+                {[
+                  { term: "Retrieval", tool: "Flashcards and quizzes." },
+                  {
+                    term: "Timing",
+                    tool: "A scheduler that reviews right before you would forget.",
+                  },
+                  {
+                    term: "Connections",
+                    tool: "Notes in your own words. Maps of how it all fits.",
+                  },
+                  { term: "Sleep", tool: "That's your job." },
+                ].map((row) => (
+                  <div key={row.term}>
+                    <dt className="font-mono text-[11px] tracking-widest uppercase opacity-60">
+                      {row.term}
+                    </dt>
+                    <dd className="mt-1.5 leading-snug font-medium">
+                      {row.tool}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
 
-            {/* The graduate, tossing the cap like it is paperwork. Pure
-                CSS sprite animation; stands still under reduced motion. */}
+            {/* The ceremony: graduate, thesis, act. Pure CSS sprite
+                animation; stands still under reduced motion. */}
             <div className="flex flex-col items-center text-center">
-              <GradToss className="hidden h-44 sm:block" />
-              <p className="font-heading mt-5 max-w-md text-2xl leading-snug font-medium text-balance">
+              <GradToss className="hidden h-48 sm:block" />
+              <p className="font-heading mt-6 max-w-md text-2xl leading-snug font-medium text-balance">
                 Mnemo was not designed around features. It was designed
                 around how memories survive.
               </p>
-              <div className="mt-7 flex flex-wrap items-center justify-center gap-5">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
                 <Link
                   href="/download"
                   className="bg-butter-ink text-butter rounded-full px-7 py-3.5 text-sm font-medium"
