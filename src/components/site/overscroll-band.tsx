@@ -5,37 +5,43 @@ import { useEffect, useRef } from "react"
 /**
  * The elastic overscroll: keep scrolling at the bottom of the page and
  * the palette band grows out of the edge, its bars stretching and
- * bending under the pull; let go and the page springs back with one
- * bounce. Native rubber-banding only exists for trackpads and touch, so
- * the effect is driven here from wheel and touch input directly and
- * works with a plain mouse wheel, which is what the reference feel
- * (a VHS label page) demanded.
+ * bending under the pull; ease off and it settles back, with a bounce
+ * when the release is sharp. Native rubber-banding only exists for
+ * trackpads and touch, so the effect is driven here from wheel and
+ * touch input directly and works with a plain mouse wheel.
  *
  * The bars appear ONLY past the floor, by user decision: an earlier
  * version also ended the footer with a static strip of the same bars,
  * which read as the effect duplicated. The palette lives here and on
  * the share card; the page itself ends quietly.
  *
- * Mechanics, all outside React state so nothing re-renders per frame:
+ * The pull is modeled as PRESSURE, not as held position. Wheel input at
+ * the bottom feeds an accumulator that time drains exponentially; the
+ * band's target height saturates against that pressure, and an
+ * underdamped spring chases the target. This shape is load-bearing.
+ * Two earlier versions fought momentum scrolling and lost: a release
+ * timer that every event reset left the band hanging through the whole
+ * momentum tail, and filtering "weak" events made the closing band
+ * stutter, because each strong-enough tail event re-grabbed it
+ * mid-spring. Pressure has neither failure mode. A decaying tail tops
+ * the accumulator up by less than time drains, so the band eases down
+ * smoothly while the tail is still arriving; a hard stop drains
+ * pressure in a couple hundred ms and the spring overshoots into the
+ * bounce; sustained cranking holds pressure and the stretch. There is
+ * nothing to grab or release, so there is nothing to stutter.
  *
- * - Wheel-down (or touch-drag) while the document is at its end
- *   accumulates `pull`, with resistance that grows toward MAX_GAP so
- *   the band feels like rubber, not a scrollbar.
- * - The page wrapper (tagged data-overscroll-page in layout.tsx) is
- *   translated up by `pull`, opening a gap the fixed band fills
- *   exactly. The band is an SVG redrawn each frame: five strips whose
- *   shared boundaries bow upward in the middle, upper boundaries most,
- *   so the stack reads as stretching under tension. The band's own top
- *   edge stays straight and flush with the page edge.
- * - RELEASE_DELAY after the last input, an underdamped spring drives
- *   `pull` back through zero; the small negative overshoot nudges the
- *   page down past rest for the bounce, while the band clamps at zero
- *   height.
+ * Mechanics, all outside React state so nothing re-renders per frame:
+ * the page wrapper (tagged data-overscroll-page in layout.tsx) is
+ * translated up by the pull, opening a gap the fixed band fills
+ * exactly. The band is an SVG redrawn each frame: five strips whose
+ * shared boundaries bow upward in the middle, upper boundaries most, so
+ * the stack reads as stretching under tension. Physics integrates by
+ * wall-clock time in fixed substeps, so it behaves the same at 120Hz
+ * and on a throttled tab.
  *
  * At rest the SVG holds a flat 120px band, which is what platforms with
  * native elastic scrolling reveal before hydration, without JS, and
- * under prefers-reduced-motion, where none of the listeners attach and
- * the static strip under the footer remains the whole story.
+ * under prefers-reduced-motion, where none of the listeners attach.
  */
 
 /** Every canvas color, share-card order: meadow, cobalt, butter, blush, coral. */
@@ -54,20 +60,13 @@ const REST_HEIGHT = 120
 const MAX_GAP = 150
 /** How far the strip boundaries bow at the hardest pull. */
 const MAX_BEND = 34
-const PULL_RESIST = 0.35
-/** Underdamped on purpose: one visible bounce, then settle. */
-const SPRING_STIFFNESS = 220
-const SPRING_DAMPING = 15
-/** ms without input before the spring takes over. */
-const RELEASE_DELAY = 90
-/**
- * Wheel deltas smaller than this do not count as the user still holding
- * the pull. Trackpads and free-spinning wheels emit a long decaying tail
- * of momentum events after the fingers let go; without the floor, that
- * tail kept resetting the release timer and the band hung stretched for
- * a second before snapping back.
- */
-const HOLD_THRESHOLD = 8
+/** Seconds for pressure to drain to 1/e. Small = eager snap-back. */
+const PRESSURE_DECAY = 0.12
+/** Pressure at which the stretch reaches ~63% of MAX_GAP. */
+const PRESSURE_SCALE = 260
+/** Underdamped on purpose: a sharp release shows one bounce. */
+const SPRING_STIFFNESS = 260
+const SPRING_DAMPING = 17
 
 /** Path for strip `index` of a band `height` tall bowed by `bend`. */
 function stripPath(index: number, height: number, bend: number, width: number) {
@@ -92,9 +91,9 @@ export function OverscrollBand() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
     const paths = Array.from(svg.querySelectorAll("path"))
+    let pressure = 0
     let pull = 0
     let velocity = 0
-    let lastInput = 0
     let lastFrame = 0
     let frame = 0
     let touchY: number | null = null
@@ -128,26 +127,22 @@ export function OverscrollBand() {
     }
 
     const tick = (now: number) => {
-      /* Integrate by wall-clock time in small substeps, so the spring
-         settles at the same real-world speed whether frames arrive at
-         120Hz or a throttled trickle. The cap bounds the jump a
-         throttled tab can make in one frame to well under a half
-         oscillation, so sparse frames show a decaying bounce rather
-         than teleporting across it. */
+      /* Wall-clock substeps; the cap bounds one frame's catch-up on a
+         throttled tab to a fraction of an oscillation. */
       let elapsed = Math.min((now - lastFrame) / 1000, 0.1)
       lastFrame = now
-      if (now - lastInput > RELEASE_DELAY) {
-        while (elapsed > 0) {
-          const dt = Math.min(elapsed, 1 / 120)
-          velocity +=
-            (-SPRING_STIFFNESS * pull - SPRING_DAMPING * velocity) * dt
-          pull += velocity * dt
-          elapsed -= dt
-        }
-        if (Math.abs(pull) < 0.5 && Math.abs(velocity) < 8) {
-          settle()
-          return
-        }
+      while (elapsed > 0) {
+        const dt = Math.min(elapsed, 1 / 120)
+        pressure *= Math.exp(-dt / PRESSURE_DECAY)
+        const target = MAX_GAP * (1 - Math.exp(-pressure / PRESSURE_SCALE))
+        velocity +=
+          (SPRING_STIFFNESS * (target - pull) - SPRING_DAMPING * velocity) * dt
+        pull += velocity * dt
+        elapsed -= dt
+      }
+      if (pressure < 1 && Math.abs(pull) < 0.5 && Math.abs(velocity) < 8) {
+        settle()
+        return
       }
       draw()
       frame = requestAnimationFrame(tick)
@@ -162,42 +157,52 @@ export function OverscrollBand() {
 
     const feed = (delta: number) => {
       if (!atBottom()) return
-      if (delta <= 0 && pull <= 0) return
-      /* Resistance rises with the pull; a floor keeps releases (negative
-         delta) responsive even at full stretch. */
-      const resist = Math.max(1 - pull / MAX_GAP, 0.15)
-      const next = Math.min(
-        Math.max(pull + delta * PULL_RESIST * resist, 0),
-        MAX_GAP
-      )
-      /* Only input that is strong enough AND still moving the band keeps
-         the hold alive. Momentum tails fall under the threshold, and
-         cranking against the limit changes nothing, so both let the
-         spring take over instead of pinning the stretch. */
-      if (Math.abs(delta) >= HOLD_THRESHOLD && next !== pull) {
-        lastInput = performance.now()
-        velocity = 0
+      if (delta > 0) {
+        /* One event can only add so much: a single violent notch reads
+           as a tug, not a teleport to full stretch. */
+        pressure += Math.min(delta, 400)
+      } else if (pressure > 0) {
+        /* Scrolling back up vents pressure immediately and then some,
+           so reversing direction lets the band go at once. */
+        pressure = Math.max(pressure + delta * 3, 0)
+      } else {
+        return
       }
-      pull = next
       startLoop()
     }
 
-    const onWheel = (event: WheelEvent) => feed(event.deltaY)
+    const onWheel = (event: WheelEvent) => {
+      /* deltaMode 1 is lines (Firefox with a plain wheel); normalize to
+         roughly px so a notch feels the same everywhere. */
+      const scale = event.deltaMode === 1 ? 33 : 1
+      feed(event.deltaY * scale)
+    }
     const onTouchStart = (event: TouchEvent) => {
       touchY = event.touches[0].clientY
     }
     const onTouchMove = (event: TouchEvent) => {
       if (touchY === null) return
-      feed(touchY - event.touches[0].clientY)
+      /* Touch drags feed the same pressure model; drag speed maps to
+         stretch, and lifting the finger simply stops feeding it. */
+      feed((touchY - event.touches[0].clientY) * 4)
       touchY = event.touches[0].clientY
     }
-    /* Fingers off means release, immediately: touchcancel included, or a
-       cancelled gesture would leave the band hanging with no way back. */
     const onTouchEnd = () => {
       touchY = null
-      lastInput = 0
+    }
+    /* A hidden tab gets throttled frames, so a mid-stretch tab switch
+       would otherwise crawl through its close in slow motion on return.
+       Nobody sees a hidden page: reset it outright. */
+    const onVisibility = () => {
+      if (document.visibilityState !== "hidden") return
+      cancelAnimationFrame(frame)
+      pressure = 0
+      pull = 0
+      velocity = 0
+      settle()
     }
 
+    document.addEventListener("visibilitychange", onVisibility)
     window.addEventListener("wheel", onWheel, { passive: true })
     window.addEventListener("touchstart", onTouchStart, { passive: true })
     window.addEventListener("touchmove", onTouchMove, { passive: true })
@@ -205,6 +210,7 @@ export function OverscrollBand() {
     window.addEventListener("touchcancel", onTouchEnd, { passive: true })
     return () => {
       cancelAnimationFrame(frame)
+      document.removeEventListener("visibilitychange", onVisibility)
       window.removeEventListener("wheel", onWheel)
       window.removeEventListener("touchstart", onTouchStart)
       window.removeEventListener("touchmove", onTouchMove)
