@@ -4,7 +4,7 @@ import { Fraunces, Geist, Geist_Mono } from "next/font/google"
 import { SiteJsonLd } from "@/components/seo/json-ld"
 import { SiteFooter } from "@/components/site/footer"
 import { SiteHeader } from "@/components/site/header"
-import { OverscrollBand } from "@/components/site/palette-band"
+import { OverscrollBand } from "@/components/site/overscroll-band"
 import { siteConfig } from "@/config/site"
 
 import "./globals.css"
@@ -111,10 +111,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <OverscrollBand />
         {/* The opaque z-0 wrapper is what keeps the overscroll band
-            invisible under every page; only the elastic-scroll gap beyond
-            the document exposes it. See palette-band.tsx before touching
-            the background or stacking here. */}
-        <div className="bg-background relative z-0 min-h-svh">
+            invisible under every page; only the gap the elastic pull opens
+            beyond the document exposes it. The data attribute is how
+            overscroll-band.tsx finds this element to translate it. See
+            palette-band.tsx before touching background or stacking here. */}
+        <div data-overscroll-page className="bg-background relative z-0 min-h-svh">
           <SiteHeader />
           {children}
           <SiteFooter />

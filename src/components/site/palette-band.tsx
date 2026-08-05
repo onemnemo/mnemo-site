@@ -6,28 +6,35 @@ import { cn } from "@/lib/utils"
  * same signature already closes the share card, and the 404 television
  * broadcasts its cousin as a test pattern.
  *
- * It appears in two places, which is why the stack is its own component:
+ * It appears in two places:
  *
- * 1. The site's bottom edge: a thin strip under the footer, always
- *    visible, so every page ends on the brand's spectrum.
- * 2. The overscroll reveal: a taller copy fixed behind the page.
- *    Platforms with elastic scrolling (macOS trackpads, iOS, Windows
- *    precision touchpads in newer Chromium) lift the page past its end
- *    and expose it, as if the site were a label stuck on the tape.
- *    Mouse-wheel scrolling never rubber-bands, so the strip in the
- *    footer is what guarantees the bars are part of the design and not
- *    an easter egg only trackpad users meet.
+ * 1. The site's bottom edge: this thin strip under the footer, always
+ *    visible, so every page ends on the brand's spectrum. Mouse-wheel
+ *    scrolling never rubber-bands natively, so this strip is what
+ *    guarantees the bars are part of the design for everyone.
+ * 2. The elastic overscroll (overscroll-band.tsx, a client component
+ *    kept separate so this one stays importable from server
+ *    components): keep scrolling at the bottom and a stretching,
+ *    bending copy of the same bars grows out of the page edge, then
+ *    springs back.
  *
- * The reveal works by painting order: the band is a negative z-index
- * fixed element, above the canvas backdrop but below the z-0 content
- * wrapper in layout.tsx, whose opaque background hides the band under
- * every page. Only the overscroll gap, beyond the document, has no
- * wrapper over it. If the wrapper ever loses its background or its
- * stacking context, the bars will bleed through any section that leans
- * on the body canvas.
+ * The overscroll copy hides behind the opaque z-0 wrapper in
+ * layout.tsx and only shows in the gap the pull opens beyond the
+ * document. If the wrapper ever loses its background or its stacking
+ * context, the bars will bleed through any section that leans on the
+ * body canvas.
  *
  * Order matches the share card: meadow, cobalt, butter, blush, coral.
  */
+
+/** SVG fill values for the overscroll copy, same order as the bars. */
+export const PALETTE_FILLS = [
+  "var(--meadow)",
+  "var(--cobalt)",
+  "var(--butter)",
+  "var(--blush)",
+  "var(--primary)",
+] as const
 
 const PALETTE_BARS = [
   "bg-meadow",
@@ -43,18 +50,6 @@ export function PaletteBars({ barClassName }: { barClassName: string }) {
       {PALETTE_BARS.map((bar) => (
         <div key={bar} className={cn(bar, barClassName)} />
       ))}
-    </div>
-  )
-}
-
-/** The fixed copy behind the page that elastic overscroll exposes. */
-export function OverscrollBand() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-x-0 bottom-0 -z-10"
-    >
-      <PaletteBars barClassName="h-6" />
     </div>
   )
 }
