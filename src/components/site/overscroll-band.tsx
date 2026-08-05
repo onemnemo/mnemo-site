@@ -61,12 +61,14 @@ const MAX_GAP = 150
 /** How far the strip boundaries bow at the hardest pull. */
 const MAX_BEND = 34
 /** Seconds for pressure to drain to 1/e. Small = eager snap-back. */
-const PRESSURE_DECAY = 0.12
+const PRESSURE_DECAY = 0.08
 /** Pressure at which the stretch reaches ~63% of MAX_GAP. */
 const PRESSURE_SCALE = 260
-/** Underdamped on purpose: a sharp release shows one bounce. */
-const SPRING_STIFFNESS = 260
-const SPRING_DAMPING = 17
+/** Underdamped on purpose: a sharp release shows one bounce. Kept at the
+    same damping ratio as before (~0.53) while raised, so the spring
+    chases faster without turning floppier. */
+const SPRING_STIFFNESS = 320
+const SPRING_DAMPING = 19
 
 /** Path for strip `index` of a band `height` tall bowed by `bend`. */
 function stripPath(index: number, height: number, bend: number, width: number) {
