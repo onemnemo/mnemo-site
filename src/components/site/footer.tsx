@@ -2,7 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { Container } from "@/components/layout/container"
-import { PaletteBars } from "@/components/site/palette-band"
 import { siteConfig } from "@/config/site"
 
 /**
@@ -113,11 +112,6 @@ export function SiteFooter() {
           </p>
         </div>
       </Container>
-
-      {/* The site's last pixels: the palette as a VHS label stripe. The
-          taller fixed copy behind the page (see palette-band.tsx) makes
-          elastic overscroll look like the page lifting off the tape. */}
-      <PaletteBars barClassName="h-2.5" />
     </footer>
   )
 }

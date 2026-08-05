@@ -114,7 +114,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             invisible under every page; only the gap the elastic pull opens
             beyond the document exposes it. The data attribute is how
             overscroll-band.tsx finds this element to translate it. See
-            palette-band.tsx before touching background or stacking here. */}
+            that file before touching background or stacking here. */}
         <div data-overscroll-page className="bg-background relative z-0 min-h-svh">
           <SiteHeader />
           {children}

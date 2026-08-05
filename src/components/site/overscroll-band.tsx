@@ -2,8 +2,6 @@
 
 import { useEffect, useRef } from "react"
 
-import { PALETTE_FILLS } from "@/components/site/palette-band"
-
 /**
  * The elastic overscroll: keep scrolling at the bottom of the page and
  * the palette band grows out of the edge, its bars stretching and
@@ -12,6 +10,11 @@ import { PALETTE_FILLS } from "@/components/site/palette-band"
  * the effect is driven here from wheel and touch input directly and
  * works with a plain mouse wheel, which is what the reference feel
  * (a VHS label page) demanded.
+ *
+ * The bars appear ONLY past the floor, by user decision: an earlier
+ * version also ended the footer with a static strip of the same bars,
+ * which read as the effect duplicated. The palette lives here and on
+ * the share card; the page itself ends quietly.
  *
  * Mechanics, all outside React state so nothing re-renders per frame:
  *
@@ -35,6 +38,15 @@ import { PALETTE_FILLS } from "@/components/site/palette-band"
  * the static strip under the footer remains the whole story.
  */
 
+/** Every canvas color, share-card order: meadow, cobalt, butter, blush, coral. */
+const PALETTE_FILLS = [
+  "var(--meadow)",
+  "var(--cobalt)",
+  "var(--butter)",
+  "var(--blush)",
+  "var(--primary)",
+] as const
+
 const BAR_COUNT = PALETTE_FILLS.length
 /** Flat fallback band: native elastic reveal, no-JS, reduced motion. */
 const REST_HEIGHT = 120
@@ -44,10 +56,18 @@ const MAX_GAP = 150
 const MAX_BEND = 34
 const PULL_RESIST = 0.35
 /** Underdamped on purpose: one visible bounce, then settle. */
-const SPRING_STIFFNESS = 170
-const SPRING_DAMPING = 13
+const SPRING_STIFFNESS = 220
+const SPRING_DAMPING = 15
 /** ms without input before the spring takes over. */
-const RELEASE_DELAY = 130
+const RELEASE_DELAY = 90
+/**
+ * Wheel deltas smaller than this do not count as the user still holding
+ * the pull. Trackpads and free-spinning wheels emit a long decaying tail
+ * of momentum events after the fingers let go; without the floor, that
+ * tail kept resetting the release timer and the band hung stretched for
+ * a second before snapping back.
+ */
+const HOLD_THRESHOLD = 8
 
 /** Path for strip `index` of a band `height` tall bowed by `bend`. */
 function stripPath(index: number, height: number, bend: number, width: number) {
@@ -143,12 +163,22 @@ export function OverscrollBand() {
     const feed = (delta: number) => {
       if (!atBottom()) return
       if (delta <= 0 && pull <= 0) return
-      lastInput = performance.now()
       /* Resistance rises with the pull; a floor keeps releases (negative
          delta) responsive even at full stretch. */
       const resist = Math.max(1 - pull / MAX_GAP, 0.15)
-      pull = Math.min(Math.max(pull + delta * PULL_RESIST * resist, 0), MAX_GAP)
-      velocity = 0
+      const next = Math.min(
+        Math.max(pull + delta * PULL_RESIST * resist, 0),
+        MAX_GAP
+      )
+      /* Only input that is strong enough AND still moving the band keeps
+         the hold alive. Momentum tails fall under the threshold, and
+         cranking against the limit changes nothing, so both let the
+         spring take over instead of pinning the stretch. */
+      if (Math.abs(delta) >= HOLD_THRESHOLD && next !== pull) {
+        lastInput = performance.now()
+        velocity = 0
+      }
+      pull = next
       startLoop()
     }
 
@@ -161,6 +191,8 @@ export function OverscrollBand() {
       feed(touchY - event.touches[0].clientY)
       touchY = event.touches[0].clientY
     }
+    /* Fingers off means release, immediately: touchcancel included, or a
+       cancelled gesture would leave the band hanging with no way back. */
     const onTouchEnd = () => {
       touchY = null
       lastInput = 0
@@ -170,12 +202,14 @@ export function OverscrollBand() {
     window.addEventListener("touchstart", onTouchStart, { passive: true })
     window.addEventListener("touchmove", onTouchMove, { passive: true })
     window.addEventListener("touchend", onTouchEnd, { passive: true })
+    window.addEventListener("touchcancel", onTouchEnd, { passive: true })
     return () => {
       cancelAnimationFrame(frame)
       window.removeEventListener("wheel", onWheel)
       window.removeEventListener("touchstart", onTouchStart)
       window.removeEventListener("touchmove", onTouchMove)
       window.removeEventListener("touchend", onTouchEnd)
+      window.removeEventListener("touchcancel", onTouchEnd)
       page.style.transform = ""
       page.style.willChange = ""
     }
