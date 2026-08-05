@@ -617,10 +617,10 @@
 
 /* Scene 6: Soma asleep, z's accumulating one per breath. Single-row
    4-frame strip; only the x position animates, the y crop is set where
-   the sprite is declared. A slow second per frame keeps it reading as
+   the sprite is declared. Half a second per frame keeps it reading as
    breathing rather than blinking. */
 .science-night-doze {
-  animation: science-night-doze 4s step-end infinite;
+  animation: science-night-doze 2s step-end infinite;
 }
 
 @keyframes science-night-doze {
