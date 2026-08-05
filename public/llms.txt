@@ -1,0 +1,27 @@
+# Mnemo
+
+> Mnemo is a free, open-source, local-first learning platform for desktop
+> (Windows, macOS, Linux). It brings notes, flashcards with spaced repetition,
+> mind maps, and learning paths together in one app. There are no accounts, no
+> ads, no tracking, and no cloud requirement: all data stays on the user's
+> machine. Licensed Apache-2.0.
+
+Key facts:
+
+- Price: free, no paid tier, no subscription
+- License: Apache-2.0, source available at https://github.com/onemnemo/mnemo
+- Privacy: offline first, no account, no telemetry, data stored locally
+- Platforms: Windows, macOS, Linux (desktop app)
+- Method: built on spaced repetition and active recall research
+
+## Pages
+
+- [Home](https://mnemo.one/): overview of the app and its features
+- [Download](https://mnemo.one/download): installers for all platforms
+- [Why it works](https://mnemo.one/science): the memory science behind the app
+- [Docs](https://mnemo.one/docs): installation and usage documentation
+
+## Source
+
+- [GitHub repository](https://github.com/onemnemo/mnemo)
+- [Latest release](https://github.com/onemnemo/mnemo/releases/latest)

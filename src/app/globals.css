@@ -1,26 +1,204 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens for the Mnemo site.
+ *
+ * The identity is "multi-color editorial": a warm paper base with a small set
+ * of named canvas colors used as full-width section bands. Every canvas is
+ * paired with exactly one ink (text) color, and components reference the pair,
+ * never a raw color. That rule is what keeps a multi-color site coherent over
+ * years of edits.
+ *
+ * Canvas pairing rules:
+ *   1. Text on a canvas uses that canvas's ink, nothing else.
+ *   2. Muted text is the ink at reduced opacity (ink/70), not a new color.
+ *   3. The primary CTA on a colored canvas is an inverted pill: ink background,
+ *      canvas-colored text.
+ *   4. Paper is the default canvas and should cover roughly two thirds of any
+ *      page. Colored bands are punctuation for major moments, not wallpaper.
+ */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-heading);
+
+  /* Brand canvases. Usable as bg-meadow, text-meadow-ink, and so on. */
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-meadow: var(--meadow);
+  --color-meadow-ink: var(--meadow-ink);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-ink: var(--cobalt-ink);
+  --color-butter: var(--butter);
+  --color-butter-ink: var(--butter-ink);
+  --color-blush: var(--blush);
+  --color-blush-ink: var(--blush-ink);
+
+  /* shadcn/ui semantic tokens, mapped onto the brand palette below. */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* Base pair. Warm off-white paper with a warm near-black ink. */
+  --paper: oklch(0.972 0.01 85);
+  --ink: oklch(0.245 0.018 55);
+
+  /* Meadow: growth and learning. The closest thing to "the" brand color. */
+  --meadow: oklch(0.76 0.13 125);
+  --meadow-ink: oklch(0.3 0.06 135);
+
+  /* Cobalt: depth and focus. The only canvas with light-on-dark body text. */
+  --cobalt: oklch(0.52 0.17 262);
+  --cobalt-ink: oklch(0.972 0.01 85);
+
+  /* Butter: optimism. Downloads, community, calls to action. */
+  --butter: oklch(0.88 0.12 92);
+  --butter-ink: oklch(0.245 0.018 55);
+
+  /* Blush: warmth. Testimonials and human moments. */
+  --blush: oklch(0.9 0.05 25);
+  --blush-ink: oklch(0.245 0.018 55);
+
+  /* Semantic tokens used by shadcn/ui components. */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(0.995 0.005 85);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.995 0.005 85);
+  --popover-foreground: var(--ink);
+
+  /* Primary is a deepened coral: the app's original branding and Soma's
+     gills, dark enough to carry paper-colored text. Meadow green stays a
+     canvas color, not an action color. */
+  --primary: oklch(0.60 0.155 32);
+  --primary-foreground: var(--paper);
+
+  --secondary: oklch(0.93 0.015 85);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.93 0.015 85);
+  --muted-foreground: oklch(0.5 0.02 70);
+  --accent: oklch(0.93 0.015 85);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.89 0.015 85);
+  --input: oklch(0.89 0.015 85);
+  --ring: oklch(0.68 0.13 32);
+
+  /* Charts recycle the canvas palette so data viz stays on brand. */
+  --chart-1: var(--meadow);
+  --chart-2: var(--cobalt);
+  --chart-3: var(--butter);
+  --chart-4: var(--blush);
+  --chart-5: var(--ink);
+
+  --radius: 0.75rem;
+
+  --sidebar: oklch(0.955 0.012 85);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--paper);
+  --sidebar-accent: oklch(0.93 0.015 85);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: oklch(0.89 0.015 85);
+  --sidebar-ring: var(--ring);
+}
+
+/*
+ * Dark mode is intentionally deferred for the marketing site. A multi-color
+ * editorial palette needs every canvas pairing re-decided for dark, which
+ * doubles maintenance for little gain on a mostly-light site. Revisit when the
+ * docs section lands. The block below is the shadcn default, kept so the
+ * toggle can be wired later without re-scaffolding.
+ */
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  /* Display type is the serif; everything else stays on the sans. */
+  h1,
+  h2 {
+    @apply font-heading;
+  }
 }
