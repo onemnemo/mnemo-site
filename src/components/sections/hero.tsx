@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import notesShot from "@public/screenshots/notes.png"
 import { AppFrame } from "@/components/app-frame"
 import { Doodle } from "@/components/doodle"
 import { Container } from "@/components/layout/container"
@@ -59,10 +60,8 @@ export function Hero() {
           className="mt-12 -mb-24 w-full max-w-5xl shadow-lg sm:mt-16 sm:-mb-32"
         >
           <Image
-            src="/screenshots/notes.png"
+            src={notesShot}
             alt="The Mnemo desktop app showing the block based notes editor with a note on Parkinson's disease"
-            width={1421}
-            height={774}
             priority
             sizes="(min-width: 1120px) 1024px, 92vw"
             className="w-full"

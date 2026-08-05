@@ -1,5 +1,6 @@
 import Image from "next/image"
 
+import peekArt from "@public/soma/peek-grip-clean.png"
 import { cn } from "@/lib/utils"
 
 type TornEdgeProps = {
@@ -113,11 +114,9 @@ export function TornEdge({ mascot = false, className }: TornEdgeProps) {
           empty and it is hidden from assistive tech. */}
       {mascot ? (
         <Image
-          src="/soma/peek-grip-clean.png"
+          src={peekArt}
           alt=""
           aria-hidden
-          width={1720}
-          height={675}
           className="absolute right-6 bottom-[4px] h-11 w-auto sm:right-16 sm:bottom-[6px] sm:h-14"
         />
       ) : null}

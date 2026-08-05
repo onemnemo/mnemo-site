@@ -1,8 +1,8 @@
-import Image from "next/image"
 import Link from "next/link"
 
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
+import { NotFoundScene } from "@/components/not-found-scene"
 import { Button } from "@/components/ui/button"
 
 /**
@@ -33,13 +33,7 @@ export default function NotFound() {
           </div>
           {/* Background-keyed cut so the scene sits directly on the page
               canvas; the boxed original absorbed too much attention. */}
-          <Image
-            src="/soma/404-clean.png"
-            alt="Soma the axolotl frowning at an old television showing a 404 test pattern"
-            width={1254}
-            height={1254}
-            className="mx-auto w-full max-w-md"
-          />
+          <NotFoundScene className="mx-auto w-full max-w-md" />
         </Container>
       </Section>
     </main>

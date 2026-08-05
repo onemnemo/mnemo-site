@@ -202,3 +202,242 @@
     @apply font-heading;
   }
 }
+
+/*
+ * 404 scene (see components/not-found-scene.tsx)
+ *
+ * Idle motion only, on two unrelated clocks so the scene never visibly loops:
+ * the television is broken and the character is bored, and neither is doing
+ * anything a visitor is meant to wait for. Every rule below animates only
+ * transform or opacity, so the whole thing stays on the compositor.
+ *
+ * The set is drawn in three-quarter view, so its scanlines run at about
+ * -18.5deg rather than flat. That is the slope of the top edge of the screen
+ * mask, measured when the mask is generated; if the illustration is ever
+ * redrawn, remeasure it rather than eyeballing, or the lines will read as
+ * lying across the glass instead of on it.
+ */
+
+.scene-404-screen {
+  -webkit-mask-image: url("/soma/404-screen-mask.png");
+  mask-image: url("/soma/404-screen-mask.png");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  pointer-events: none;
+  /* A tired tube losing its grip on the picture, twice a minute or so. */
+  animation: scene-404-flicker 27s steps(1, end) infinite;
+}
+
+/*
+ * Both children are oversized. Skewing a box swings its corners inward, and
+ * the rolling band has to start above the glass and finish below it; the mask
+ * is what defines the visible edge, so overshooting here costs nothing.
+ */
+.scene-404-screen > * {
+  position: absolute;
+  inset: -40%;
+  transform: skewY(-18.5deg);
+}
+
+.scene-404-scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0.16) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+/* One soft bright band sweeping down the glass: the vertical hold slipping. */
+.scene-404-roll > span {
+  position: absolute;
+  inset-inline: 0;
+  height: 18%;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(255 255 255 / 0.13) 40%,
+    rgb(255 255 255 / 0.3) 50%,
+    rgb(255 255 255 / 0.13) 60%,
+    transparent 100%
+  );
+  animation: scene-404-roll 7s linear infinite;
+}
+
+@keyframes scene-404-roll {
+  from {
+    transform: translateY(-120%);
+  }
+  to {
+    transform: translateY(420%);
+  }
+}
+
+/*
+ * Held steady almost the whole cycle, then two short drops. Stepped rather
+ * than eased, because a tube that fades in and out reads as a dimmer; one
+ * that drops and recovers reads as a fault.
+ */
+@keyframes scene-404-flicker {
+  0%,
+  38%,
+  40%,
+  67%,
+  68%,
+  100% {
+    opacity: 1;
+  }
+  39% {
+    opacity: 0.45;
+  }
+  67.5% {
+    opacity: 0.7;
+  }
+}
+
+/*
+ * Soma's idle. Both transforms pivot on the feet — 73.4% across and 68.5%
+ * down the shared canvas, which is where the character's soles sit — so the
+ * weight shifts and the chest rises without the whole body sliding.
+ */
+.scene-404-sway,
+.scene-404-breathe {
+  transform-origin: 73.4% 68.5%;
+}
+
+.scene-404-sway {
+  animation: scene-404-sway 11s ease-in-out infinite;
+}
+
+.scene-404-breathe {
+  animation: scene-404-breathe 4.4s ease-in-out infinite;
+}
+
+@keyframes scene-404-sway {
+  0%,
+  100% {
+    transform: rotate(-0.45deg);
+  }
+  50% {
+    transform: rotate(0.45deg);
+  }
+}
+
+/* Taller than it is wider, or it reads as a zoom rather than a breath. */
+@keyframes scene-404-breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.005, 1.014);
+  }
+}
+
+/*
+ * Reduced motion keeps the scanlines, which are texture rather than movement,
+ * and stops everything that actually moves.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .scene-404-screen,
+  .scene-404-roll > span,
+  .scene-404-sway,
+  .scene-404-breathe {
+    animation: none;
+  }
+  .scene-404-roll {
+    display: none;
+  }
+  .scene-404-sway,
+  .scene-404-breathe {
+    transform: none;
+  }
+}
+
+/*
+ * Canvas textures. Flat color bands read as slabs; these put the faintest
+ * print structure on them without competing with type. Both draw with
+ * currentColor, so each canvas textures itself in its own ink and the
+ * Section pairing rule keeps holding. Applied per band, never globally:
+ * texture is punctuation, like the canvases themselves. The butter CTA
+ * band stays untextured because the TornEdge strip below it is a plain
+ * bg-butter box, and a texture stopping dead at that boundary would show
+ * the seam the tear exists to hide.
+ */
+
+/* Wide vertical rules, like the columns of a paste-up board. */
+.texture-rules {
+  background-image: repeating-linear-gradient(
+    to right,
+    color-mix(in oklab, currentColor 5%, transparent) 0 1px,
+    transparent 1px 140px
+  );
+}
+
+/* Graph paper, for the band where a chart is the protagonist. */
+.texture-grid {
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      color-mix(in oklab, currentColor 8%, transparent) 0 1px,
+      transparent 1px 48px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      color-mix(in oklab, currentColor 8%, transparent) 0 1px,
+      transparent 1px 48px
+    );
+}
+
+/*
+ * Scene 7 of /science: Soma's reluctant graduation cap toss. An 8-frame
+ * sprite strip stepped by background-position: the toss plays across the
+ * first 42% of the cycle and the long tail parks on the standing frame, so
+ * it reads as an occasional event rather than a looping gif.
+ *
+ * step-end timing is load-bearing. With any interpolating timing function,
+ * a display frame can sample between keyframes and render a blended
+ * background position, which at 800% background-size is a horizontally
+ * torn half-frame flash. step-end holds each value and jumps atomically,
+ * so a mid-frame sample is impossible.
+ */
+.science-grad-toss {
+  animation: science-grad-toss 6s step-end infinite;
+}
+
+@keyframes science-grad-toss {
+  0% {
+    background-position-x: 0%;
+  }
+  6% {
+    background-position-x: 14.2857%;
+  }
+  12% {
+    background-position-x: 28.5714%;
+  }
+  18% {
+    background-position-x: 42.8571%;
+  }
+  24% {
+    background-position-x: 57.1429%;
+  }
+  30% {
+    background-position-x: 71.4286%;
+  }
+  36% {
+    background-position-x: 85.7143%;
+  }
+  42% {
+    background-position-x: 100%;
+  }
+  48% {
+    background-position-x: 0%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .science-grad-toss {
+    animation: none;
+  }
+}
