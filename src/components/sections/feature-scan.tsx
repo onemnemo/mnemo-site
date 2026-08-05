@@ -1,8 +1,12 @@
-import Image from "next/image"
-
 import { Doodle } from "@/components/doodle"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
+import {
+  FlashcardsFigure,
+  MindmapFigure,
+  NotesFigure,
+} from "@/components/sections/feature-figures"
+import { Reveal } from "@/components/reveal"
 
 /**
  * The feature scan on the meadow band, as a two-tier bento: the three
@@ -10,6 +14,11 @@ import { Section } from "@/components/layout/section"
  * get compact text cards. The hierarchy mirrors the product truth (notes,
  * flashcards, and mindmaps are full systems; the rest supports them) and
  * keeps the grid from reading as six identical template cards.
+ *
+ * The pillar art is drawn in the site's own line language (see
+ * feature-figures.tsx for why the generated sticker PNGs were retired).
+ * One Reveal wraps the whole row; each figure takes a growing base
+ * delay, so the three draw as a left-to-right wave.
  *
  * Section carries id="features" because the navbar's Features link targets
  * /#features. Top padding is oversized to receive the hero's overlapping
@@ -20,17 +29,17 @@ const pillars = [
   {
     title: "A real notes editor",
     body: "Block based writing in the Notion tradition: text, images, code, and math. Drag anything anywhere, export to PDF when it counts.",
-    illo: "/illos/spots/notes.png",
+    Figure: NotesFigure,
   },
   {
     title: "Cards that time themselves",
     body: "Spaced repetition schedules every review right before you forget. Keyboard driven, with algorithms you can swap.",
-    illo: "/illos/spots/flashcards.png",
+    Figure: FlashcardsFigure,
   },
   {
     title: "A whole canvas for maps",
     body: "Mind mapping in the Miro spirit: shape, color, and connect nodes on an open canvas, then study from a clean preview.",
-    illo: "/illos/spots/mindmaps.png",
+    Figure: MindmapFigure,
   },
 ]
 
@@ -67,7 +76,7 @@ export function FeatureScan() {
           Everything you study, in one place.
         </h2>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <Reveal className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {pillars.map((pillar, index) => (
             <article
               key={pillar.title}
@@ -76,13 +85,9 @@ export function FeatureScan() {
               <span className="text-muted-foreground font-mono text-xs tracking-widest">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              {/* Decorative: the title states what the illustration shows. */}
-              <Image
-                src={pillar.illo}
-                alt=""
-                aria-hidden
-                width={512}
-                height={512}
+              {/* Decorative: the title states what the figure shows. */}
+              <pillar.Figure
+                base={index * 260}
                 className="mx-auto my-4 h-36 w-auto"
               />
               <h3 className="text-lg font-semibold tracking-tight">
@@ -93,7 +98,7 @@ export function FeatureScan() {
               </p>
             </article>
           ))}
-        </div>
+        </Reveal>
 
         <div className="mt-5 grid gap-5 sm:grid-cols-3">
           {supporting.map((feature, index) => (
