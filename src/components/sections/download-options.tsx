@@ -6,6 +6,7 @@ import { useEffect, useState, useSyncExternalStore } from "react"
 import dlAlert from "@public/soma/dl-alert.png"
 import dlIdle from "@public/soma/dl-idle.png"
 import dlSent from "@public/soma/dl-sent.png"
+import { Reveal } from "@/components/reveal"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 
@@ -217,7 +218,10 @@ export function DownloadOptions({
       <div className="grid items-center gap-x-16 gap-y-12 sm:grid-cols-[minmax(0,1fr)_auto]">
         <div>{children}</div>
 
-        <div className="w-full max-w-md sm:w-auto sm:justify-self-end">
+        <div
+          className="enter-rise w-full max-w-md sm:w-auto sm:justify-self-end"
+          style={{ "--reveal-delay": "240ms" } as React.CSSProperties}
+        >
           <SomaMoods
             mood={mood}
             className="z-0 -mb-12 ml-auto h-36 w-fit sm:mr-6 sm:-mb-14 sm:h-44"
@@ -277,8 +281,8 @@ export function DownloadOptions({
 
       {/* All builds: one framed block, with the provenance note as the
           list's own caption instead of a stray paragraph below it. */}
-      <div className="mt-16 grid gap-x-12 gap-y-6 border-t pt-8 sm:mt-20 lg:grid-cols-[minmax(0,280px)_1fr]">
-        <div>
+      <Reveal className="mt-16 grid gap-x-12 gap-y-6 border-t pt-8 sm:mt-20 lg:grid-cols-[minmax(0,280px)_1fr]">
+        <div className="reveal-rise">
           <h2 className="font-sans text-sm font-semibold tracking-tight">
             All builds
           </h2>
@@ -296,7 +300,10 @@ export function DownloadOptions({
             .
           </p>
         </div>
-        <dl className="divide-y self-start">
+        <dl
+          className="reveal-rise divide-y self-start"
+          style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
+        >
           {platforms.map((platform) => (
             <div
               key={platform.key}
@@ -328,7 +335,7 @@ export function DownloadOptions({
             </div>
           ))}
         </dl>
-      </div>
+      </Reveal>
     </div>
   )
 }

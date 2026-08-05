@@ -32,31 +32,42 @@ export default function DownloadPage() {
           className="bottom-12 left-8 w-14 -rotate-6 opacity-20"
         />
         <Container className="relative">
+          {/* Load entrance: text rises in reading order, then the card
+              (the card's delay lives in download-options.tsx). */}
           <DownloadOptions>
-            <p className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+            <p className="enter-rise text-muted-foreground font-mono text-xs tracking-widest uppercase">
               Download
             </p>
-            <h1 className="mt-3 max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+            <h1
+              className="enter-rise mt-3 max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl"
+              style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
+            >
               Put Mnemo on your desk.
             </h1>
-            <p className="text-muted-foreground mt-4 max-w-xl text-lg leading-relaxed">
-              One download, no account, no trial clock. Mnemo is a desktop
-              app for Windows, macOS, and Linux, and everything you make in
-              it stays on your machine.
+            <p
+              className="enter-rise text-muted-foreground mt-4 max-w-xl text-lg leading-relaxed"
+              style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
+            >
+              One download, no account, no trial clock. Mnemo is a desktop app
+              for Windows, macOS, and Linux, and everything you make in it stays
+              on your machine.
             </p>
           </DownloadOptions>
         </Container>
       </Section>
 
-      <Section canvas="butter" className="relative overflow-hidden py-14 sm:py-16">
+      <Section
+        canvas="butter"
+        className="relative overflow-hidden py-14 sm:py-16"
+      >
         <Doodle name="dark-19" className="top-8 right-14 w-10 opacity-25" />
         <Container className="relative">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Stuck on the install?
           </h2>
           <p className="mt-3 max-w-md leading-relaxed opacity-70">
-            The docs cover the common trip-ups, and the issue tracker is read
-            by the people who wrote the code.
+            The docs cover the common trip-ups, and the issue tracker is read by
+            the people who wrote the code.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-5">
             <Link

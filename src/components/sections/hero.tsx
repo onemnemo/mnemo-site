@@ -29,16 +29,24 @@ export function Hero() {
         name="dark-17"
         className="top-40 right-[13%] w-7 rotate-12 opacity-30"
       />
+      {/* Load entrance: everything rises in reading order (enter-rise,
+          pure CSS, so no-JS visitors get the same welcome). */}
       <Container className="flex flex-col items-center text-center">
-        <h1 className="max-w-3xl text-5xl font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
+        <h1 className="enter-rise max-w-3xl text-5xl font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
           Learn anything. Keep everything.
         </h1>
-        <p className="text-muted-foreground mt-6 max-w-xl text-lg leading-relaxed">
+        <p
+          className="enter-rise text-muted-foreground mt-6 max-w-xl text-lg leading-relaxed"
+          style={{ "--reveal-delay": "100ms" } as React.CSSProperties}
+        >
           A real notes editor, flashcards that schedule themselves, and mind
           maps big enough to think in. One focused desktop app, and everything
           stays on your machine.
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div
+          className="enter-rise mt-8 flex flex-wrap items-center justify-center gap-3"
+          style={{ "--reveal-delay": "190ms" } as React.CSSProperties}
+        >
           <Button asChild size="lg" className="rounded-full px-6">
             <Link href="/download">Download Mnemo</Link>
           </Button>
@@ -54,13 +62,17 @@ export function Hero() {
         {/* Caption to the Download button: the trust facts as a plain
             sentence. The earlier mono-and-middots version read as a spec
             sheet dangling under the buttons. */}
-        <p className="text-muted-foreground/80 mt-5 text-sm">
+        <p
+          className="enter-rise text-muted-foreground/80 mt-5 text-sm"
+          style={{ "--reveal-delay": "260ms" } as React.CSSProperties}
+        >
           Free and open source, for Windows, macOS, and Linux.
         </p>
 
         <AppFrame
           chrome={false}
-          className="mt-12 -mb-24 w-full max-w-5xl shadow-lg sm:mt-16 sm:-mb-32"
+          className="enter-rise mt-12 -mb-24 w-full max-w-5xl shadow-lg sm:mt-16 sm:-mb-32"
+          style={{ "--reveal-delay": "340ms" } as React.CSSProperties}
         >
           <Image
             src={notesShot}

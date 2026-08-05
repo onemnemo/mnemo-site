@@ -100,11 +100,14 @@ export function FeatureScan() {
           ))}
         </Reveal>
 
-        <div className="mt-5 grid gap-5 sm:grid-cols-3">
+        <Reveal className="mt-5 grid gap-5 sm:grid-cols-3">
           {supporting.map((feature, index) => (
             <article
               key={feature.title}
-              className="bg-background/70 text-foreground rounded-2xl p-5"
+              className="reveal-rise bg-background/70 text-foreground rounded-2xl p-5"
+              style={
+                { "--reveal-delay": `${index * 100}ms` } as React.CSSProperties
+              }
             >
               <span className="text-muted-foreground font-mono text-xs tracking-widest">
                 {String(index + 4).padStart(2, "0")}
@@ -117,7 +120,7 @@ export function FeatureScan() {
               </p>
             </article>
           ))}
-        </div>
+        </Reveal>
       </Container>
     </Section>
   )

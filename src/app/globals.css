@@ -458,14 +458,57 @@
     var(--reveal-delay, 0ms) forwards;
 }
 @keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+/*
+ * Load entrance for above-the-fold heroes. Same rise as the scroll
+ * reveal, but pure CSS with no data-armed gating: a hero is visible at
+ * load, where the reveal mechanism's arm-after-hydration step would
+ * paint the content, blink it away, and replay it. backwards fill holds
+ * the from state through the stagger delay; the keyframes end at the
+ * element's natural state, so no forwards fill is needed and no-JS
+ * visitors simply see the entrance play. (The from block on the
+ * keyframes above exists for this class; the [data-armed] base state
+ * duplicates it for the scroll-revealed elements.)
+ */
+.enter-rise {
+  animation: reveal-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1)
+    var(--reveal-delay, 0ms) backwards;
+}
+
+/*
+ * Idle drift for the doodle atmosphere layer: a slow vertical float,
+ * desynced per doodle through the custom properties set in doodle.tsx.
+ * Animating the standalone translate property leaves the transform and
+ * rotate utilities on the same element untouched, so tilted doodles
+ * keep their tilt while floating.
+ */
+.doodle-drift {
+  animation: doodle-drift var(--drift-duration, 11s) ease-in-out
+    var(--drift-delay, 0s) infinite alternate;
+}
+
+@keyframes doodle-drift {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -9px;
+  }
+}
+
 /* Reduced motion: reveal.tsx still sets both attributes; these rules
-   pin everything straight to its final state. */
+   pin everything straight to its final state. enter-rise and
+   doodle-drift are pure CSS, so killing the animation is the whole
+   story for them. */
 @media (prefers-reduced-motion: reduce) {
   [data-armed] .fig-draw {
     animation: none;
@@ -483,6 +526,10 @@
     animation: none;
     opacity: 1;
     transform: none;
+  }
+  .enter-rise,
+  .doodle-drift {
+    animation: none;
   }
 }
 

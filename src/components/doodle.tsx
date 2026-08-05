@@ -25,9 +25,17 @@ type DoodleProps = {
  * hidden from assistive tech, ignores the pointer, and disappears on small
  * screens where every pixel belongs to content. The parent Section needs
  * `relative overflow-hidden`.
+ *
+ * Each doodle drifts on a slow float (doodle-drift in globals.css),
+ * desynced by hashing its name into a duration and a negative delay, so
+ * every instance is mid-cycle from the first frame and no two bob in
+ * step. Hashing instead of randomizing keeps the server and client
+ * markup identical.
  */
 export function Doodle({ name, className }: DoodleProps) {
   const sheet = name.startsWith("dark") ? "dark" : "light"
+  let hash = 0
+  for (const char of name) hash = (hash * 31 + char.charCodeAt(0)) % 997
   return (
     <Image
       src={`/illos/doodles/${name}.png`}
@@ -36,9 +44,15 @@ export function Doodle({ name, className }: DoodleProps) {
       width={cellSize[sheet].width}
       height={cellSize[sheet].height}
       className={cn(
-        "pointer-events-none absolute hidden select-none sm:block",
-        className
+        "doodle-drift pointer-events-none absolute hidden select-none sm:block",
+        className,
       )}
+      style={
+        {
+          "--drift-duration": `${9 + (hash % 6)}s`,
+          "--drift-delay": `-${hash % 9}s`,
+        } as React.CSSProperties
+      }
     />
   )
 }
