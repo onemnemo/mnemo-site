@@ -112,7 +112,7 @@
   /* Primary is a deepened coral: the app's original branding and Soma's
      gills, dark enough to carry paper-colored text. Meadow green stays a
      canvas color, not an action color. */
-  --primary: oklch(0.60 0.155 32);
+  --primary: oklch(0.6 0.155 32);
   --primary-foreground: var(--paper);
 
   --secondary: oklch(0.93 0.015 85);
@@ -388,6 +388,102 @@
       color-mix(in oklab, currentColor 8%, transparent) 0 1px,
       transparent 1px 48px
     );
+}
+
+/*
+ * Reveal-on-scroll (see components/reveal.tsx for the trigger).
+ *
+ * Nothing here selects bare classes: every hidden state requires the
+ * [data-armed] ancestor that only hydrated JS applies, so the server
+ * HTML and no-JS visitors get the finished figures. The classes:
+ *
+ *   fig-draw    strokes that draw themselves. Each carries pathLength=1
+ *               in the markup, so dasharray/dashoffset of 1 covers any
+ *               shape without measuring it.
+ *   fig-pop     dots that spring in from nothing.
+ *   fig-fade    quiet supporting marks (floors, dashed rescue lines).
+ *   reveal-rise blocks that ease up into place (cards, small art).
+ *
+ * Choreography lives in the markup as --reveal-delay per element;
+ * "forwards" fill keeps the hidden state through that delay.
+ */
+
+[data-armed] .fig-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+[data-armed][data-revealed] .fig-draw {
+  animation: fig-draw 0.9s ease-out var(--reveal-delay, 0ms) forwards;
+}
+@keyframes fig-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+[data-armed] .fig-pop {
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+[data-armed][data-revealed] .fig-pop {
+  /* Overshooting ease: the dot lands like a pin pressed into a board. */
+  animation: fig-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)
+    var(--reveal-delay, 0ms) forwards;
+}
+@keyframes fig-pop {
+  to {
+    transform: scale(1);
+  }
+}
+
+[data-armed] .fig-fade {
+  opacity: 0;
+}
+[data-armed][data-revealed] .fig-fade {
+  animation: fig-fade 0.5s ease-out var(--reveal-delay, 0ms) forwards;
+}
+@keyframes fig-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+[data-armed] .reveal-rise {
+  opacity: 0;
+  transform: translateY(14px);
+}
+[data-armed][data-revealed] .reveal-rise {
+  animation: reveal-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1)
+    var(--reveal-delay, 0ms) forwards;
+}
+@keyframes reveal-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion: reveal.tsx still sets both attributes; these rules
+   pin everything straight to its final state. */
+@media (prefers-reduced-motion: reduce) {
+  [data-armed] .fig-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  [data-armed] .fig-pop {
+    animation: none;
+    transform: scale(1);
+  }
+  [data-armed] .fig-fade {
+    animation: none;
+    opacity: 1;
+  }
+  [data-armed] .reveal-rise {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /*

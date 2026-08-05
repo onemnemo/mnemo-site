@@ -25,6 +25,7 @@ import { GradToss } from "@/components/science/grad-toss"
 import { InkEdge } from "@/components/science/ink-edge"
 import { QuizCard } from "@/components/science/quiz-card"
 import { StageMarker } from "@/components/science/stage-marker"
+import { Reveal } from "@/components/reveal"
 import { TornEdge } from "@/components/torn-edge"
 
 export const metadata: Metadata = {
@@ -64,25 +65,27 @@ export default function SciencePage() {
           </h1>
 
           <StageMarker stage={1} className="mt-10" />
-          <div className="relative mt-5 inline-block">
-            <div
-              aria-hidden
-              className="bg-card/70 absolute inset-0 translate-x-2 translate-y-3 rotate-[1.8deg] rounded-3xl border"
-            />
-            <div className="bg-card relative rounded-3xl border p-6 sm:rotate-[-1.2deg] sm:p-8">
-              <p className="text-muted-foreground font-mono text-[11px] tracking-widest uppercase">
-                Fact No. 001
-              </p>
-              <p className="font-heading mt-2 text-2xl font-medium sm:text-3xl">
-                Octopuses have three hearts.
-              </p>
+          <Reveal>
+            <div className="reveal-rise relative mt-5 inline-block">
+              <div
+                aria-hidden
+                className="bg-card/70 absolute inset-0 translate-x-2 translate-y-3 rotate-[1.8deg] rounded-3xl border"
+              />
+              <div className="bg-card relative rounded-3xl border p-6 sm:rotate-[-1.2deg] sm:p-8">
+                <p className="text-muted-foreground font-mono text-[11px] tracking-widest uppercase">
+                  Fact No. 001
+                </p>
+                <p className="font-heading mt-2 text-2xl font-medium sm:text-3xl">
+                  Octopuses have three hearts.
+                </p>
+              </div>
             </div>
-          </div>
+          </Reveal>
 
           <p className="text-muted-foreground mt-9 max-w-xl text-lg leading-relaxed">
-            That tiny idea just changed your brain. A few neurons
-            strengthened their connections to hold it: a fresh memory trace,
-            and a fragile one. This page follows what happens to it next.
+            That tiny idea just changed your brain. A few neurons strengthened
+            their connections to hold it: a fresh memory trace, and a fragile
+            one. This page follows what happens to it next.
           </p>
         </Container>
       </Section>
@@ -93,7 +96,10 @@ export default function SciencePage() {
       <InkEdge className="bg-background text-cobalt" />
 
       {/* Scene 2: the forgetting curve. */}
-      <Section canvas="cobalt" className="texture-grid relative overflow-hidden">
+      <Section
+        canvas="cobalt"
+        className="texture-grid relative overflow-hidden"
+      >
         <Container className="relative">
           <StageMarker stage={2} className="mb-6" />
           <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
@@ -101,19 +107,19 @@ export default function SciencePage() {
           </h2>
           <p className="mt-5 max-w-xl leading-relaxed opacity-80">
             In 1885, Hermann Ebbinghaus memorized thousands of nonsense
-            syllables and tested himself on them for months. The curve he
-            drew has been replicated ever since: without review, most of a
-            new memory slips away within days.
+            syllables and tested himself on them for months. The curve he drew
+            has been replicated ever since: without review, most of a new memory
+            slips away within days.
           </p>
           <p className="mt-4 max-w-xl leading-relaxed opacity-80">
-            Not because your brain is broken. Forgetting is its filing
-            policy. Anything it does not see again gets marked as probably
-            not important.
+            Not because your brain is broken. Forgetting is its filing policy.
+            Anything it does not see again gets marked as probably not
+            important.
           </p>
 
-          <div className="mt-12 max-w-2xl">
+          <Reveal className="mt-12 max-w-2xl">
             <ForgettingCurve />
-          </div>
+          </Reveal>
         </Container>
       </Section>
 
@@ -129,16 +135,18 @@ export default function SciencePage() {
             Quick, without scrolling up:
           </p>
 
-          <QuizCard className="mt-8" />
+          <Reveal>
+            <QuizCard className="reveal-rise mt-8" />
+          </Reveal>
 
           <div className="mt-14 grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)]">
             <div>
               <p className="max-w-xl leading-relaxed opacity-80">
                 That small tug you felt is retrieval. In 2006, Roediger and
-                Karpicke showed that students who tested themselves
-                remembered far more a week later than students who spent the
-                same time re-reading. Successful retrieval changes the
-                memory itself and makes the next recall easier.
+                Karpicke showed that students who tested themselves remembered
+                far more a week later than students who spent the same time
+                re-reading. Successful retrieval changes the memory itself and
+                makes the next recall easier.
               </p>
               <p className="mt-4 max-w-xl leading-relaxed font-medium">
                 The effort is not a sign of failure. The effort is the
@@ -165,20 +173,20 @@ export default function SciencePage() {
             Timing beats trying.
           </h2>
           <p className="text-muted-foreground mt-5 max-w-xl leading-relaxed">
-            Every successful recall flattens the curve. The unintuitive
-            part: the best moment to review is not right after learning. It
-            is just before the memory would disappear. Tomorrow, then in
-            three days, then next week.
+            Every successful recall flattens the curve. The unintuitive part:
+            the best moment to review is not right after learning. It is just
+            before the memory would disappear. Tomorrow, then in three days,
+            then next week.
           </p>
           <p className="text-muted-foreground mt-4 max-w-xl leading-relaxed">
-            Psychologists call it the spacing effect, one of the most
-            replicated findings in the field. Cramming buys you the exam.
-            Spacing buys you the year.
+            Psychologists call it the spacing effect, one of the most replicated
+            findings in the field. Cramming buys you the exam. Spacing buys you
+            the year.
           </p>
 
-          <div className="mt-12 max-w-2xl">
+          <Reveal className="mt-12 max-w-2xl">
             <SpacedCurve className="text-foreground" />
-          </div>
+          </Reveal>
         </Container>
       </Section>
 
@@ -196,18 +204,18 @@ export default function SciencePage() {
           </h2>
           <p className="mt-5 max-w-xl leading-relaxed opacity-80">
             Memory is a network. A fact wired to other facts has many roads
-            leading back to it, and every extra road is another chance to
-            find it.
+            leading back to it, and every extra road is another chance to find
+            it.
           </p>
           <p className="mt-4 max-w-xl leading-relaxed opacity-80">
-            Write it in your own words and you lay one road. Map it against
-            what you already know and the roads start laying themselves.
+            Write it in your own words and you lay one road. Map it against what
+            you already know and the roads start laying themselves.
             Understanding something is mostly connecting it.
           </p>
 
-          <div className="mt-12 max-w-2xl">
+          <Reveal className="mt-12 max-w-2xl">
             <Constellation />
-          </div>
+          </Reveal>
         </Container>
       </Section>
 
@@ -217,10 +225,7 @@ export default function SciencePage() {
       <Section canvas="ink" className="relative overflow-hidden">
         <Doodle name="light-05" className="top-12 left-12 w-8 opacity-40" />
         <Doodle name="light-13" className="top-24 right-16 w-10 opacity-30" />
-        <Doodle
-          name="light-18"
-          className="bottom-14 left-1/3 w-8 opacity-30"
-        />
+        <Doodle name="light-18" className="bottom-14 left-1/3 w-8 opacity-30" />
         <Container className="relative">
           <StageMarker stage={6} className="mb-6" />
           <div className="grid items-center gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,1fr)_auto]">
@@ -231,8 +236,8 @@ export default function SciencePage() {
               <p className="mt-5 max-w-xl leading-relaxed opacity-80">
                 Sleep is when much of the brain&apos;s memory consolidation
                 happens. The hippocampus replays the day&apos;s keepers and
-                hands them to long-term storage. An app can remind you to
-                study. It cannot do this part for you.
+                hands them to long-term storage. An app can remind you to study.
+                It cannot do this part for you.
               </p>
             </div>
             {/* Soma under a quilt of everything it learned that day. The
@@ -241,18 +246,20 @@ export default function SciencePage() {
                 warm light: the ink scene has always been one island of
                 light, and here the page supplies it instead of the
                 drawing. */}
-            <div className="relative justify-self-center">
-              <div
-                aria-hidden
-                className="absolute -inset-x-10 -inset-y-16 rounded-[50%] bg-[radial-gradient(ellipse_at_center,var(--butter)_0%,transparent_70%)] opacity-[0.13]"
-              />
-              <Image
-                src={nightArt}
-                alt=""
-                aria-hidden
-                className="relative h-auto w-full max-w-sm lg:max-w-md"
-              />
-            </div>
+            <Reveal className="justify-self-center">
+              <div className="reveal-rise relative">
+                <div
+                  aria-hidden
+                  className="absolute -inset-x-10 -inset-y-16 rounded-[50%] bg-[radial-gradient(ellipse_at_center,var(--butter)_0%,transparent_70%)] opacity-[0.13]"
+                />
+                <Image
+                  src={nightArt}
+                  alt=""
+                  aria-hidden
+                  className="relative h-auto w-full max-w-sm lg:max-w-md"
+                />
+              </div>
+            </Reveal>
           </div>
         </Container>
       </Section>
@@ -301,8 +308,8 @@ export default function SciencePage() {
               recap above. */}
           <div className="mx-auto mt-20 max-w-2xl text-center sm:mt-24">
             <p className="font-heading text-2xl leading-snug font-medium text-balance sm:text-3xl">
-              Mnemo was not designed around features. It was designed around
-              how memories survive.
+              Mnemo was not designed around features. It was designed around how
+              memories survive.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
@@ -326,10 +333,10 @@ export default function SciencePage() {
               which is rather the point of this page. */}
           <p className="border-butter-ink/15 mx-auto mt-20 max-w-3xl border-t pt-6 text-center font-mono text-[11px] leading-relaxed opacity-50 sm:mt-24">
             Sources: Ebbinghaus (1885), Über das Gedächtnis · Murre and Dros
-            (2015), replication of the forgetting curve · Roediger and
-            Karpicke (2006), test-enhanced learning · Cepeda et al. (2006),
-            distributed practice · Dunlosky et al. (2013), effective
-            learning techniques · Rasch and Born (2013), sleep and memory
+            (2015), replication of the forgetting curve · Roediger and Karpicke
+            (2006), test-enhanced learning · Cepeda et al. (2006), distributed
+            practice · Dunlosky et al. (2013), effective learning techniques ·
+            Rasch and Born (2013), sleep and memory
           </p>
         </Container>
       </Section>
