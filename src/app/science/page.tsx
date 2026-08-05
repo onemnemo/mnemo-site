@@ -135,33 +135,37 @@ export default function SciencePage() {
             Quick, without scrolling up:
           </p>
 
-          <Reveal>
-            <QuizCard className="reveal-rise mt-8" />
-          </Reveal>
-
-          <div className="mt-14 grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)]">
-            <div>
-              <p className="max-w-xl leading-relaxed opacity-80">
-                That small tug you felt is retrieval. In 2006, Roediger and
-                Karpicke showed that students who tested themselves remembered
-                far more a week later than students who spent the same time
-                re-reading. Successful retrieval changes the memory itself and
-                makes the next recall easier.
-              </p>
-              <p className="mt-4 max-w-xl leading-relaxed font-medium">
-                The effort is not a sign of failure. The effort is the
-                treatment.
-              </p>
-            </div>
+          {/* Card and rescue art share the row: the card is short and
+              wide (answers in a row, see quiz-card.tsx) so the whole
+              scene fits a laptop viewport instead of stacking card,
+              paragraph, and art into a column. */}
+          <div className="mt-8 grid items-end gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,36rem)_minmax(0,1fr)]">
+            <Reveal>
+              <QuizCard className="reveal-rise" />
+            </Reveal>
             {/* Small accent: Soma hauls the fact back out of the well it
                 was slipping into. */}
-            <Image
-              src={rescueArt}
-              alt=""
-              aria-hidden
-              className="h-auto w-full max-w-xs justify-self-center lg:justify-self-end"
-            />
+            <Reveal className="justify-self-center lg:justify-self-end">
+              <Image
+                src={rescueArt}
+                alt=""
+                aria-hidden
+                className="reveal-rise h-auto w-full max-w-[260px] lg:max-w-[300px]"
+                style={{ "--reveal-delay": "140ms" } as React.CSSProperties}
+              />
+            </Reveal>
           </div>
+
+          <p className="mt-10 max-w-2xl leading-relaxed opacity-80">
+            That small tug you felt is retrieval. In 2006, Roediger and
+            Karpicke showed that students who tested themselves remembered far
+            more a week later than students who spent the same time
+            re-reading. Successful retrieval changes the memory itself and
+            makes the next recall easier.
+          </p>
+          <p className="mt-4 max-w-2xl leading-relaxed font-medium">
+            The effort is not a sign of failure. The effort is the treatment.
+          </p>
         </Container>
       </Section>
 
@@ -275,7 +279,12 @@ export default function SciencePage() {
             Every tool in Mnemo exists to help that happen.
           </p>
 
-          <div className="mt-12 grid items-end gap-10 sm:grid-cols-[minmax(0,36rem)_auto]">
+          {/* Recap and close share the row instead of stacking: the
+              mapping is the practical half, and the graduate, thesis,
+              and CTAs are one ceremony moment beside it. Stacked, the
+              two blocks read as one over-tall ambiguous section (the
+              same vertical-pile problem scene 3 had). */}
+          <div className="mt-12 grid items-center gap-x-16 gap-y-14 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)]">
             <dl className="grid gap-x-12 gap-y-8 sm:grid-cols-2">
               {[
                 { term: "Retrieval", tool: "Flashcards and quizzes." },
@@ -299,39 +308,36 @@ export default function SciencePage() {
                 </div>
               ))}
             </dl>
+
             {/* The graduate, tossing the cap like it is paperwork. Pure
                 CSS sprite animation; stands still under reduced motion. */}
-            <GradToss className="hidden h-52 sm:block" />
-          </div>
-
-          {/* The thesis: its own centered moment, separated hard from the
-              recap above. */}
-          <div className="mx-auto mt-20 max-w-2xl text-center sm:mt-24">
-            <p className="font-heading text-2xl leading-snug font-medium text-balance sm:text-3xl">
-              Mnemo was not designed around features. It was designed around how
-              memories survive.
-            </p>
-
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-5">
-              <Link
-                href="/download"
-                className="bg-butter-ink text-butter rounded-full px-7 py-3.5 text-sm font-medium"
-              >
-                Download Mnemo
-              </Link>
-              <Link
-                href="/#features"
-                className="text-sm font-medium underline underline-offset-4"
-              >
-                See what&apos;s inside
-              </Link>
+            <div className="flex flex-col items-center text-center">
+              <GradToss className="hidden h-44 sm:block" />
+              <p className="font-heading mt-5 max-w-md text-2xl leading-snug font-medium text-balance">
+                Mnemo was not designed around features. It was designed
+                around how memories survive.
+              </p>
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-5">
+                <Link
+                  href="/download"
+                  className="bg-butter-ink text-butter rounded-full px-7 py-3.5 text-sm font-medium"
+                >
+                  Download Mnemo
+                </Link>
+                <Link
+                  href="/#features"
+                  className="text-sm font-medium underline underline-offset-4"
+                >
+                  See what&apos;s inside
+                </Link>
+              </div>
             </div>
           </div>
 
           {/* Receipts, compact on purpose: one quiet line, not a sixth
               content block. Rival study apps do not ship sources at all,
               which is rather the point of this page. */}
-          <p className="border-butter-ink/15 mx-auto mt-20 max-w-3xl border-t pt-6 text-center font-mono text-[11px] leading-relaxed opacity-50 sm:mt-24">
+          <p className="border-butter-ink/15 mx-auto mt-16 max-w-3xl border-t pt-6 text-center font-mono text-[11px] leading-relaxed opacity-50 sm:mt-20">
             Sources: Ebbinghaus (1885), Über das Gedächtnis · Murre and Dros
             (2015), replication of the forgetting curve · Roediger and Karpicke
             (2006), test-enhanced learning · Cepeda et al. (2006), distributed
