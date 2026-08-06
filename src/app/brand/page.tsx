@@ -114,15 +114,25 @@ export default function BrandPage() {
             <li>1. Paper is home. Colored canvases are punctuation.</li>
             <li>2. Every canvas has exactly one ink. No exceptions.</li>
             <li>3. Serif for display, sans for everything else.</li>
-            <li>4. The mascot appears where delight is free: 404, footer, empty states.</li>
-            <li>5. App screenshots always sit in neutral frames, so the site outlives app redesigns.</li>
+            <li>
+              4. The mascot appears where delight is free: 404, footer, empty
+              states.
+            </li>
+            <li>
+              5. App screenshots always sit in neutral frames, so the site
+              outlives app redesigns.
+            </li>
           </ul>
         </Container>
       </Section>
 
       {/* 02: Canvas system, each band rendered for real */}
       {canvasSpecimens.map((spec, index) => (
-        <Section key={spec.canvas} canvas={spec.canvas} className="py-14 sm:py-16">
+        <Section
+          key={spec.canvas}
+          canvas={spec.canvas}
+          className="py-14 sm:py-16"
+        >
           <Container>
             {index === 0 && <SheetLabel number="02" title="Canvases" />}
             <p className="font-mono text-xs tracking-widest uppercase opacity-60">
@@ -207,7 +217,7 @@ export default function BrandPage() {
       {/* 04: Mascot */}
       <Section canvas="blush">
         <Container>
-          <SheetLabel number="04" title="Mascot" />
+          <SheetLabel number="04" title="Companion" />
           <div className="flex flex-col items-start gap-10 sm:flex-row sm:items-center">
             <Placeholder
               label="Soma"
@@ -218,13 +228,16 @@ export default function BrandPage() {
                 An axolotl named Soma.
               </h2>
               <p className="mt-3 max-w-xl leading-relaxed opacity-70">
-                A neuron is an axon plus a soma, and this one is an AXOlotl,
-                so the name completes the neuron. Axolotls also regenerate
-                their own brain cells, which is the best mascot story a
-                learning app could ask for. Flat 2D, simple shapes, drawable
-                in many poses. Appears at the edges of the site only: the 404
-                page, the footer, empty states, and loading moments. Never
-                inside content sections.
+                A neuron is an axon plus a soma, and this one is an AXOlotl, so
+                the name completes the neuron. Axolotls also regenerate their
+                own brain cells, which is the best mascot story a learning app
+                could ask for. Soma is also the name of the app&apos;s study
+                companion: mascot and assistant are one character, helping your
+                memory rather than replacing it. Two names cover the whole
+                brand: Mnemo is the platform, Soma is the companion. Flat 2D,
+                simple shapes, drawable in many poses. On the site it appears at
+                the edges only: the 404 page, the footer, empty states, and
+                loading moments. Never inside content sections.
               </p>
             </div>
           </div>
@@ -242,13 +255,21 @@ export default function BrandPage() {
           </p>
           <div className="mt-8 grid gap-1 overflow-hidden rounded-xl border font-mono text-[10px] tracking-widest uppercase">
             <div className="bg-background px-4 py-5">Hero · paper</div>
-            <div className="bg-meadow text-meadow-ink px-4 py-3">Feature scan · meadow</div>
+            <div className="bg-meadow text-meadow-ink px-4 py-3">
+              Feature scan · meadow
+            </div>
             <div className="bg-background px-4 py-5">Deep dive · paper</div>
-            <div className="bg-cobalt text-cobalt-ink px-4 py-3">Story moment · cobalt</div>
+            <div className="bg-cobalt text-cobalt-ink px-4 py-3">
+              Story moment · cobalt
+            </div>
             <div className="bg-background px-4 py-5">Deep dive · paper</div>
             <div className="bg-ink text-paper px-4 py-4">Manifesto · ink</div>
-            <div className="bg-butter text-butter-ink px-4 py-3">Download CTA · butter</div>
-            <div className="bg-background px-4 py-5">Footer · paper, mascot peeking</div>
+            <div className="bg-butter text-butter-ink px-4 py-3">
+              Download CTA · butter
+            </div>
+            <div className="bg-background px-4 py-5">
+              Footer · paper, mascot peeking
+            </div>
           </div>
         </Container>
       </Section>
