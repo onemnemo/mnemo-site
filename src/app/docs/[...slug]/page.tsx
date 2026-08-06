@@ -3,6 +3,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 
 import { DocsSidebar } from "@/components/docs/docs-sidebar"
+import { TocRail } from "@/components/docs/toc-rail"
 import { Container } from "@/components/layout/container"
 import {
   flattenAudience,
@@ -14,7 +15,7 @@ import {
   type DocFolder,
   type DocPage,
 } from "@/lib/docs"
-import { compileDoc, type DocHeading } from "@/lib/markdown"
+import { compileDoc } from "@/lib/markdown"
 
 /**
  * Every documentation route below /docs: audience roots, category
@@ -80,31 +81,6 @@ function Breadcrumbs({ slug }: { slug: string[] }) {
           </li>
         ))}
       </ol>
-    </nav>
-  )
-}
-
-function TocRail({ headings }: { headings: DocHeading[] }) {
-  return (
-    <nav aria-label="On this page" className="text-sm">
-      <p className="text-foreground/80 text-xs font-semibold tracking-wider uppercase">
-        On this page
-      </p>
-      <ul className="border-border mt-3 space-y-2 border-l pl-4">
-        {headings.map((heading) => (
-          <li
-            key={heading.id}
-            className={heading.depth === 3 ? "pl-3" : undefined}
-          >
-            <a
-              href={`#${heading.id}`}
-              className="text-muted-foreground hover:text-foreground block transition-colors"
-            >
-              {heading.text}
-            </a>
-          </li>
-        ))}
-      </ul>
     </nav>
   )
 }

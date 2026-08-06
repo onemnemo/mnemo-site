@@ -117,21 +117,30 @@ export function DocsSidebar({
 
   return (
     <nav aria-label="Docs sections" className="text-sm">
-      <div className="bg-secondary/50 grid grid-cols-2 gap-1 rounded-full border p-1">
+      {/* Audience tabs, in the header nav's language: quiet labels with
+          the lit journey-spine dash under the one you are reading. */}
+      <div className="flex gap-5 border-b">
         {audiences.map((entry) => {
           const isCurrent = entry.slug === audience
           return (
             <Link
               key={entry.slug}
               href={docHref([entry.slug])}
+              aria-current={isCurrent ? "true" : undefined}
               className={cn(
-                "rounded-full px-3 py-1.5 text-center text-sm font-medium transition-colors",
+                "relative pb-2.5 text-sm font-medium transition-colors",
                 isCurrent
-                  ? "bg-background text-foreground shadow-sm"
+                  ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
               )}
             >
               {entry.slug === "users" ? "Users" : "Developers"}
+              {isCurrent && (
+                <span
+                  aria-hidden
+                  className="bg-primary absolute -bottom-[1.5px] left-1/2 h-[3px] w-6 -translate-x-1/2 rounded-full"
+                />
+              )}
             </Link>
           )
         })}
