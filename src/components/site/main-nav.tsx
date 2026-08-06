@@ -28,11 +28,19 @@ export function MainNav({ className }: { className?: string }) {
             href={item.href}
             aria-current={isActive ? "page" : undefined}
             className={cn(
-              "hover:text-foreground rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
-              isActive ? "text-foreground" : "text-muted-foreground"
+              "hover:text-foreground hover:bg-secondary relative rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
+              isActive ? "text-foreground" : "text-muted-foreground",
             )}
           >
             {item.title}
+            {/* The lit dash of the journey spine (see StageMarker and the
+                card sprites): the site's marker for "you are here". */}
+            {isActive && (
+              <span
+                aria-hidden
+                className="bg-primary absolute -bottom-0.5 left-1/2 h-[3px] w-6 -translate-x-1/2 rounded-full"
+              />
+            )}
           </Link>
         )
       })}

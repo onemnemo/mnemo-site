@@ -46,12 +46,15 @@ export const siteConfig = {
  * because the landing page already covers it. If that section ever outgrows the
  * home page, changing the href here is the only edit required.
  *
- * Entries with a `/` href are real routes and are picked up by the sitemap.
+ * Download is deliberately absent: the header's pill button is the one
+ * Download CTA at desktop widths, and a second copy in the center nav
+ * read as noise. The mobile drawer supplies its own Download button for
+ * the widths where the pill is hidden. (Routes are listed by hand in
+ * sitemap.ts, so nav membership never affects the sitemap.)
  */
 export const mainNav = [
   { title: "Features", href: "/#features" },
   { title: "Why it works", href: "/science" },
-  { title: "Download", href: "/download" },
   { title: "Docs", href: "/docs" },
 ] as const
 
