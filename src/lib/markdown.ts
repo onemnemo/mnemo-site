@@ -1,7 +1,7 @@
 import fs from "node:fs"
 import path from "node:path"
 
-import rehypeShiki from "@shikijs/rehype"
+import rehypeShikiFromHighlighter from "@shikijs/rehype/core"
 import matter from "gray-matter"
 import { toString as hastToString } from "hast-util-to-string"
 import rehypeRaw from "rehype-raw"
@@ -10,6 +10,7 @@ import rehypeStringify from "rehype-stringify"
 import remarkGfm from "remark-gfm"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
+import { bundledLanguages, getSingletonHighlighter } from "shiki"
 import { unified } from "unified"
 import { visit } from "unist-util-visit"
 
@@ -29,6 +30,13 @@ import type { Element, Root } from "hast"
  * Code blocks are highlighted with Shiki here on the server; the client
  * ships zero highlighting JavaScript. Headings get ids (rehype-slug)
  * and are collected for the "On this page" rail.
+ *
+ * Two process-wide caches keep this cheap in the dev server, which
+ * renders on demand and lives for hours. Shiki's highlighter is a WASM
+ * regex engine: one per process via getSingletonHighlighter, never one
+ * per compile, or every docs navigation leaks a few megabytes until the
+ * server dies. Compiled articles are memoized by file mtime, so
+ * revisiting a page costs a stat call instead of a markdown pipeline.
  */
 
 export interface DocHeading {
@@ -146,7 +154,31 @@ function rehypeCollectHeadings(sink: DocHeading[]) {
   }
 }
 
+/* One light theme: the site has no dark mode. Shiki inlines the colors,
+   so there is nothing to theme at runtime anyway. */
+const SHIKI_THEME = "github-light"
+
+/**
+ * The one highlighter this process ever creates. Languages load on
+ * demand: each article declares its needs through its code fences, and
+ * getSingletonHighlighter grows the shared instance to cover them.
+ */
+async function highlighterFor(content: string) {
+  const langs = new Set<string>()
+  for (const match of content.matchAll(/^ {0,3}(?:```|~~~)([\w#+-]+)/gm)) {
+    const lang = match[1].toLowerCase()
+    if (lang in bundledLanguages) langs.add(lang)
+  }
+  return getSingletonHighlighter({ themes: [SHIKI_THEME], langs: [...langs] })
+}
+
+const compiled = new Map<string, { mtimeMs: number; doc: CompiledDoc }>()
+
 export async function compileDoc(page: DocPage): Promise<CompiledDoc> {
+  const { mtimeMs } = fs.statSync(page.file)
+  const cached = compiled.get(page.file)
+  if (cached && cached.mtimeMs === mtimeMs) return cached.doc
+
   const { content } = matter(fs.readFileSync(page.file, "utf8"))
   const headings: DocHeading[] = []
 
@@ -158,13 +190,16 @@ export async function compileDoc(page: DocPage): Promise<CompiledDoc> {
     .use(rehypeSlug)
     .use(rehypeCollectHeadings, headings)
     .use(rehypeDocRefs, page.file)
-    .use(rehypeShiki, {
-      /* One light theme: the site has no dark mode. Shiki inlines the
-         colors, so there is nothing to theme at runtime anyway. */
-      theme: "github-light",
+    .use(rehypeShikiFromHighlighter, await highlighterFor(content), {
+      theme: SHIKI_THEME,
+      /* An unknown fence language renders as plain text instead of
+         failing the build; a typo in a lang tag is not a broken ref. */
+      fallbackLanguage: "text",
     })
     .use(rehypeStringify)
     .process(content)
 
-  return { html: String(file), headings }
+  const doc = { html: String(file), headings }
+  compiled.set(page.file, { mtimeMs, doc })
+  return doc
 }
