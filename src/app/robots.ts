@@ -5,8 +5,8 @@ import { siteConfig } from "@/config/site"
 /**
  * Robots policy, served at /robots.txt.
  *
- * Everything is crawlable except the internal brand sheet. AI crawlers are
- * welcome by design; llms.txt in /public gives them a curated summary.
+ * Everything is crawlable except the internal brand sheet. llms.txt in
+ * /public carries a curated summary for crawlers that look for it.
  */
 export default function robots(): MetadataRoute.Robots {
   return {

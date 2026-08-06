@@ -17,10 +17,9 @@ export const metadata: Metadata = {
 }
 
 /**
- * Download page: the target of every primary CTA on the site, so it gets
- * straight to the platform cards. The help band at the bottom exists because
- * the likeliest reason someone lingers here is an install problem, not
- * indecision.
+ * Download page: the target of every primary CTA on the site, so it leads
+ * with the platform cards. The help band at the bottom addresses the likeliest
+ * reason someone lingers here, an install problem rather than indecision.
  */
 export default function DownloadPage() {
   return (
@@ -32,8 +31,8 @@ export default function DownloadPage() {
           className="bottom-12 left-8 w-14 -rotate-6 opacity-20"
         />
         <Container className="relative">
-          {/* Load entrance: text rises in reading order, then the card
-              (the card's delay lives in download-options.tsx). */}
+          {/* Load entrance: text rises in reading order, then the card. The
+              card's own delay lives in download-options.tsx. */}
           <DownloadOptions>
             <p className="enter-rise text-muted-foreground font-mono text-xs tracking-widest uppercase">
               Download

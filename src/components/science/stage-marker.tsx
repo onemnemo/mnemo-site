@@ -2,11 +2,10 @@ import { cn } from "@/lib/utils"
 
 /**
  * The journey spine of /science: every scene opens with the same row of
- * seven dashes, one lit per scene, plus the stage name. One recurring
- * element in one recurring position is what makes the stage words read as
- * a progress system instead of seven disconnected labels (the earlier
- * floating tags under each figure read as exactly that). The quiz card
- * repeats the dash motif, so the wayfinding and the product UI rhyme.
+ * seven dashes, one lit per scene, plus the stage name. Keeping one
+ * element in one position across all scenes is what makes the stage words
+ * read as a progress system rather than seven disconnected labels. The
+ * quiz card repeats the dash motif.
  */
 
 const STAGES = [

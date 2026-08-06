@@ -7,11 +7,9 @@
 /*
  * Design tokens for the Mnemo site.
  *
- * The identity is "multi-color editorial": a warm paper base with a small set
- * of named canvas colors used as full-width section bands. Every canvas is
- * paired with exactly one ink (text) color, and components reference the pair,
- * never a raw color. That rule is what keeps a multi-color site coherent over
- * years of edits.
+ * A warm paper base plus a small set of named canvas colors used as
+ * full-width section bands. Every canvas is paired with exactly one ink (text)
+ * color, and components reference the pair, never a raw color.
  *
  * Canvas pairing rules:
  *   1. Text on a canvas uses that canvas's ink, nothing else.
@@ -146,11 +144,9 @@
 }
 
 /*
- * Dark mode is intentionally deferred for the marketing site. A multi-color
- * editorial palette needs every canvas pairing re-decided for dark, which
- * doubles maintenance for little gain on a mostly-light site. Revisit when the
- * docs section lands. The block below is the shadcn default, kept so the
- * toggle can be wired later without re-scaffolding.
+ * Dark mode is not designed yet: the canvas pairings have no dark
+ * counterparts. This block is the unmodified shadcn default, kept so a toggle
+ * can be wired later without re-scaffolding.
  */
 .dark {
   --background: oklch(0.145 0 0);
@@ -206,16 +202,14 @@
 /*
  * 404 scene (see components/not-found-scene.tsx)
  *
- * Idle motion only, on two unrelated clocks so the scene never visibly loops:
- * the television is broken and the character is bored, and neither is doing
- * anything a visitor is meant to wait for. Every rule below animates only
- * transform or opacity, so the whole thing stays on the compositor.
+ * Idle motion only. The television and the character run on unrelated
+ * durations, so the scene has no visible loop point. Every rule below animates
+ * transform or opacity only, so the whole scene stays on the compositor.
  *
- * The set is drawn in three-quarter view, so its scanlines run at about
- * -18.5deg rather than flat. That is the slope of the top edge of the screen
- * mask, measured when the mask is generated; if the illustration is ever
- * redrawn, remeasure it rather than eyeballing, or the lines will read as
- * lying across the glass instead of on it.
+ * The set is drawn in three-quarter view, so the scanlines run at -18.5deg
+ * rather than flat. That value is the slope of the top edge of the screen
+ * mask, measured when the mask is generated; if the illustration is redrawn,
+ * remeasure it, or the lines read as lying across the glass instead of on it.
  */
 
 .scene-404-screen {
@@ -226,14 +220,15 @@
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   pointer-events: none;
-  /* A tired tube losing its grip on the picture, twice a minute or so. */
+  /* Two brief brightness drops per 27s cycle: a tube losing the picture. */
   animation: scene-404-flicker 27s steps(1, end) infinite;
 }
 
 /*
- * Both children are oversized. Skewing a box swings its corners inward, and
- * the rolling band has to start above the glass and finish below it; the mask
- * is what defines the visible edge, so overshooting here costs nothing.
+ * Both children overshoot the screen by 40% on every side: skewing a box
+ * swings its corners inward, and the rolling band starts above the glass and
+ * finishes below it. The mask defines the visible edge, so the overshoot never
+ * paints outside the screen.
  */
 .scene-404-screen > * {
   position: absolute;
@@ -275,9 +270,9 @@
 }
 
 /*
- * Held steady almost the whole cycle, then two short drops. Stepped rather
- * than eased, because a tube that fades in and out reads as a dimmer; one
- * that drops and recovers reads as a fault.
+ * Held steady for almost the whole cycle, then two short drops. Stepped rather
+ * than eased: a tube that fades in and out reads as a dimmer, one that drops
+ * and recovers reads as a fault.
  */
 @keyframes scene-404-flicker {
   0%,
@@ -297,9 +292,9 @@
 }
 
 /*
- * Soma's idle. Both transforms pivot on the feet — 73.4% across and 68.5%
- * down the shared canvas, which is where the character's soles sit — so the
- * weight shifts and the chest rises without the whole body sliding.
+ * Soma's idle. Both transforms pivot on the soles, at 73.4% across and 68.5%
+ * down the shared canvas, so the weight shifts and the chest rises without the
+ * body sliding.
  */
 .scene-404-sway,
 .scene-404-breathe {
@@ -324,7 +319,7 @@
   }
 }
 
-/* Taller than it is wider, or it reads as a zoom rather than a breath. */
+/* Scales taller than wider, or it reads as a zoom rather than a breath. */
 @keyframes scene-404-breathe {
   0%,
   100% {
@@ -335,10 +330,7 @@
   }
 }
 
-/*
- * Reduced motion keeps the scanlines, which are texture rather than movement,
- * and stops everything that actually moves.
- */
+/* Reduced motion keeps the scanlines, which are texture, and stops the rest. */
 @media (prefers-reduced-motion: reduce) {
   .scene-404-screen,
   .scene-404-roll > span,
@@ -356,14 +348,13 @@
 }
 
 /*
- * Canvas textures. Flat color bands read as slabs; these put the faintest
- * print structure on them without competing with type. Both draw with
- * currentColor, so each canvas textures itself in its own ink and the
- * Section pairing rule keeps holding. Applied per band, never globally:
- * texture is punctuation, like the canvases themselves. The butter CTA
- * band stays untextured because the TornEdge strip below it is a plain
- * bg-butter box, and a texture stopping dead at that boundary would show
- * the seam the tear exists to hide.
+ * Canvas textures: faint print structure over a flat color band. Both draw
+ * with currentColor, so each canvas textures itself in its own ink and the
+ * Section pairing rule still holds. Applied per band, never globally.
+ *
+ * The butter CTA band stays untextured: the TornEdge strip below it is a plain
+ * bg-butter box, and a texture stopping at that boundary would show the seam
+ * the tear hides.
  */
 
 /* Wide vertical rules, like the columns of a paste-up board. */
@@ -375,7 +366,7 @@
   );
 }
 
-/* Graph paper, for the band where a chart is the protagonist. */
+/* Graph paper, for the band where a chart is the focus. */
 .texture-grid {
   background-image:
     repeating-linear-gradient(
@@ -404,8 +395,9 @@
  *   fig-fade    quiet supporting marks (floors, dashed rescue lines).
  *   reveal-rise blocks that ease up into place (cards, small art).
  *
- * Choreography lives in the markup as --reveal-delay per element;
- * "forwards" fill keeps the hidden state through that delay.
+ * Choreography lives in the markup as --reveal-delay per element. The
+ * [data-armed] base rule covers the delay; "forwards" fill holds the finished
+ * state once the animation ends.
  */
 
 [data-armed] .fig-draw {
@@ -469,15 +461,14 @@
 }
 
 /*
- * Load entrance for above-the-fold heroes. Same rise as the scroll
- * reveal, but pure CSS with no data-armed gating: a hero is visible at
- * load, where the reveal mechanism's arm-after-hydration step would
- * paint the content, blink it away, and replay it. backwards fill holds
- * the from state through the stagger delay; the keyframes end at the
- * element's natural state, so no forwards fill is needed and no-JS
- * visitors simply see the entrance play. (The from block on the
- * keyframes above exists for this class; the [data-armed] base state
- * duplicates it for the scroll-revealed elements.)
+ * Load entrance for above-the-fold heroes. Same rise as the scroll reveal, but
+ * pure CSS with no data-armed gating: on content visible at load, the reveal
+ * mechanism's arm-after-hydration step would paint the content, blink it away,
+ * and replay it. backwards fill holds the from state through the stagger
+ * delay; the keyframes end at the element's natural state, so no forwards fill
+ * is needed and no-JS visitors still see the entrance play. The from block on
+ * reveal-rise exists for this class; the [data-armed] base state duplicates it
+ * for the scroll-revealed elements.
  */
 .enter-rise {
   animation: reveal-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1)
@@ -505,10 +496,9 @@
   }
 }
 
-/* Reduced motion: reveal.tsx still sets both attributes; these rules
-   pin everything straight to its final state. enter-rise and
-   doodle-drift are pure CSS, so killing the animation is the whole
-   story for them. */
+/* Reduced motion: reveal.tsx still sets both attributes, so these rules pin
+   the gated elements straight to their final state. enter-rise and
+   doodle-drift are pure CSS, so dropping the animation is enough. */
 @media (prefers-reduced-motion: reduce) {
   [data-armed] .fig-draw {
     animation: none;
@@ -539,11 +529,10 @@
  * first 42% of the cycle and the long tail parks on the standing frame, so
  * it reads as an occasional event rather than a looping gif.
  *
- * step-end timing is load-bearing. With any interpolating timing function,
- * a display frame can sample between keyframes and render a blended
- * background position, which at 800% background-size is a horizontally
- * torn half-frame flash. step-end holds each value and jumps atomically,
- * so a mid-frame sample is impossible.
+ * step-end timing is required. Any interpolating timing function lets a
+ * display frame sample between keyframes and render a blended background
+ * position, which at 800% background-size is a horizontally torn half-frame
+ * flash. step-end holds each value and jumps between them atomically.
  */
 .science-grad-toss {
   animation: science-grad-toss 6s step-end infinite;
@@ -581,14 +570,13 @@
 
 /*
  * Idle life for /science: the InkEdge squid, its sea, and the scene-6
- * sleeper. All pure CSS, all infinite, all parked on a harmless still
- * state under reduced motion.
+ * sleeper. All pure CSS, all infinite, all parked on a still state under
+ * reduced motion.
  *
  * The sprite loops use step-end for the same reason as science-grad-toss
- * above: an interpolated background position at sprite scale renders a
- * torn half-frame. The squid sheet is a 5x2 GRID rather than a strip, so
- * both position axes step: x walks the row, y drops to the second row at
- * the halfway keyframe.
+ * above. The squid sheet is a 5x2 grid rather than a strip, so both position
+ * axes step: x walks the row, y drops to the second row at the halfway
+ * keyframe.
  */
 .science-squid-swim {
   animation: science-squid-swim 1.5s step-end infinite;
@@ -698,10 +686,10 @@
 /*
  * Docs article typography (see app/docs).
  *
- * Hand-rolled instead of a typography plugin so the article body speaks
- * the same language as the rest of the site: serif display headings,
- * coral accents, cards with soft corners. Applied to compiled markdown,
- * so element selectors are the only handle available.
+ * Hand-rolled instead of a typography plugin so the article body matches the
+ * rest of the site: serif display headings, coral accents, soft corners.
+ * Applied to compiled markdown, so element selectors are the only handle
+ * available.
  */
 
 .docs-prose {

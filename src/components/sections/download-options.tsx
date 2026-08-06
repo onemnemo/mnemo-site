@@ -12,10 +12,7 @@ import { cn } from "@/lib/utils"
 
 /**
  * The download module: one oversized button for the visitor's detected
- * platform, and a compact list of every build below it. Deliberately not a
- * grid of per-platform cards; three identical cards with three identical
- * buttons read as template output, and almost every visitor only ever
- * needs the one button.
+ * platform, and a compact list of every build below it.
  *
  * Client component for three progressive touches: the detected platform,
  * the current version from the GitHub API, and the "on its way" state after
@@ -119,11 +116,10 @@ type ReleaseMeta = {
 }
 
 /**
- * Interaction states for the module, in document order of honesty: we know
- * the pointer is over the button, and we know the click happened. Download
- * progress and completion are invisible to the page, so no state pretends
- * to know them. These also drive the Soma reaction art once its poses land
- * (idle / alert / sent), via the data-state attribute.
+ * Interaction states for the module: pointer over the button, and click
+ * happened. Download progress and completion are invisible to the page, so
+ * no state covers them. The value selects the matching Soma pose and is
+ * mirrored on the wrapper as data-state.
  */
 type Mood = "idle" | "alert" | "sent"
 
@@ -134,12 +130,11 @@ const moodArt = [
 ] as const
 
 /**
- * Soma processing the download, standing behind the download card:
- * waiting, then noticing the hover, then filing the click on a clipboard.
- * All three poses stay mounted and crossfade, which works because the
- * pipeline crops them to one shared window so the character never shifts.
- * Purely decorative, hence hidden from assistive tech; the caption's
- * aria-live line carries the same information as the clipboard pose.
+ * Soma's three download poses, stacked and crossfaded. All three stay
+ * mounted; the asset pipeline crops them to one shared window, so the
+ * character never shifts between poses. Decorative and hidden from
+ * assistive tech: the caption's aria-live line carries the same
+ * information.
  */
 function SomaMoods({ mood, className }: { mood: Mood; className?: string }) {
   return (
@@ -169,9 +164,7 @@ export function DownloadOptions({
 }: {
   /**
    * The hero text (kicker, heading, lede), passed through from the server
-   * component so it stays server-rendered. It shares a grid with Soma and
-   * the button, which is what makes the section read as one composition
-   * instead of a stack of parts.
+   * component so it stays server-rendered.
    */
   children: React.ReactNode
   className?: string
@@ -209,12 +202,11 @@ export function DownloadOptions({
 
   return (
     <div className={className} data-state={mood}>
-      {/* Hero zone: text on the left; on the right, the download moment
-          as a card dealt from the same deck as the fact and quiz cards
-          on /science (offset back card, slight tilt). Soma stands BEHIND
-          the card, feet hidden by its edge, watching the button: the
-          negative bottom margin is what pulls the card up over the feet,
-          the same peek trick as the footer and the OG image. */}
+      {/* Hero zone: text on the left, download card on the right (offset
+          back card and slight tilt, matching the cards on /science). Soma
+          stands behind the card with its feet hidden by the card edge; the
+          negative bottom margin on SomaMoods is what pulls the card up
+          over them. */}
       <div className="grid items-center gap-x-16 gap-y-12 sm:grid-cols-[minmax(0,1fr)_auto]">
         <div>{children}</div>
 
@@ -245,9 +237,9 @@ export function DownloadOptions({
                   className="bg-primary text-primary-foreground inline-flex items-baseline gap-3 rounded-full px-6 py-4 text-base font-medium shadow-sm transition-transform hover:-translate-y-0.5 motion-reduce:transition-none sm:px-8 sm:text-lg"
                 >
                   Download for {primary.name}
-                  {/* The arch note yields on narrow screens: with it the
-                      label wraps inside the card, and the builds list
-                      below carries the same fact. */}
+                  {/* Hidden on narrow screens, where it would wrap the
+                      label inside the card; the builds list below carries
+                      the same fact. */}
                   <span className="hidden font-mono text-xs opacity-80 sm:inline">
                     {primary.primaryArch}
                   </span>
@@ -279,8 +271,6 @@ export function DownloadOptions({
         </div>
       </div>
 
-      {/* All builds: one framed block, with the provenance note as the
-          list's own caption instead of a stray paragraph below it. */}
       <Reveal className="mt-16 grid gap-x-12 gap-y-6 border-t pt-8 sm:mt-20 lg:grid-cols-[minmax(0,280px)_1fr]">
         <div className="reveal-rise">
           <h2 className="font-sans text-sm font-semibold tracking-tight">

@@ -12,8 +12,7 @@ import { useEffect, useRef, type ReactNode } from "react"
  *   and no-JS visitors always see the complete static article; nothing
  *   is hidden until the script that can un-hide it is actually running.
  * - `data-revealed` starts the animations, once, and the observer
- *   disconnects. Scrolling back up never replays them: the figures are
- *   content, not a show that reruns.
+ *   disconnects, so scrolling back up never replays them.
  *
  * Under prefers-reduced-motion both attributes are set immediately and
  * the CSS block disables the animations, so everything just sits in its

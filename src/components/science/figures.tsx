@@ -8,23 +8,17 @@ import { cn } from "@/lib/utils"
  * text color. Everything renders complete without JS; the reveal layer
  * is an enhancement on top and never changes the final state.
  *
- * The diagrams are the primary visuals of their scenes (the user chose
- * them over illustration there); mascot art appears only as small
- * accents elsewhere on the page.
+ * Drawing animation: every animated stroke carries pathLength={1}, which
+ * normalizes its geometric length to 1, so one CSS rule (dasharray 1,
+ * dashoffset 1 -> 0) draws any of them without measuring. The fig-draw /
+ * fig-pop / fig-fade classes and the --reveal-delay variable are consumed
+ * by the reveal block in globals.css and only act inside a [data-armed]
+ * wrapper (see reveal.tsx), so the figures stay complete on the no-JS
+ * page. Delays are hand-set per figure to order the beats: edges before
+ * nodes before the ring, decay before each rescue.
  *
- * How the drawing animation works: every animated stroke carries
- * pathLength={1}, which normalizes its geometric length to 1, so one
- * CSS rule (dasharray 1, dashoffset 1 -> 0) draws any of them without
- * measuring. The fig-draw / fig-pop / fig-fade classes and the
- * --reveal-delay variable are consumed by the reveal block in
- * globals.css, and only act inside a [data-armed] wrapper (see
- * reveal.tsx), so these figures stay complete on the no-JS page. The
- * delays are hand-set per figure to choreograph: decay, rescue, decay,
- * each flatter than the last; edges before nodes before the ring.
- *
- * The figures are decorative reinforcement of claims the copy makes in
- * full, so they are hidden from assistive tech rather than described
- * twice.
+ * The copy states these claims in full, so the figures are hidden from
+ * assistive tech rather than described twice.
  */
 
 type FigureProps = {
@@ -69,9 +63,7 @@ export function ForgettingCurve({ className }: FigureProps) {
 
 /**
  * Scene 4: the same decay interrupted by reviews. Each dashed rescue
- * resets the curve higher and each following decay is flatter, which is
- * the entire argument for spacing in one picture. The choreography
- * replays it as a story: fall, rescue, shallower fall, rescue again.
+ * resets the curve higher and each following decay is flatter.
  */
 const DECAYS = [
   "M30 40 C 70 60, 100 130, 150 168",
@@ -117,7 +109,6 @@ export function SpacedCurve({ className }: FigureProps) {
           style={delay(index * BEAT)}
         />
       ))}
-      {/* Reviews: the rescue moments. */}
       {REVIEWS.map((review, index) => (
         <g key={review.x}>
           <line
@@ -183,7 +174,6 @@ export function Constellation({ className }: FigureProps) {
       fill="none"
       className={cn("block w-full", className)}
     >
-      {/* The threads lay themselves one road at a time. */}
       {EDGES.map(([a, b], index) => (
         <line
           key={`${a}-${b}`}
@@ -211,7 +201,7 @@ export function Constellation({ className }: FigureProps) {
           style={delay(150 + index * 90)}
         />
       ))}
-      {/* The fact's seat in the network, ringed last. */}
+      {/* The center node, ringed after the edges and nodes. */}
       <circle
         cx={CENTER.x}
         cy={CENTER.y}

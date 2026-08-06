@@ -7,11 +7,10 @@ import matter from "gray-matter"
  * Filesystem-driven documentation content.
  *
  * Articles are plain markdown files under src/content/docs. The folder
- * tree IS the information architecture: the first segment is the
+ * tree is the information architecture: the first segment is the
  * audience (users or developers), every folder below it is a category,
- * and the file name is the article slug. Nothing here is registered
- * anywhere; drop a .md file in the tree and it ships with the next
- * build.
+ * and the file name is the article slug. Nothing is registered
+ * anywhere; a .md file dropped in the tree ships with the next build.
  *
  *   src/content/docs/
  *     users/
@@ -32,8 +31,8 @@ import matter from "gray-matter"
  *   and are skipped, as is any article with `draft: true`.
  *
  * Everything is read synchronously and only on the server (page
- * components, sitemap, route handlers). The tree is tiny; no caching
- * layer is worth its complexity yet.
+ * components, sitemap, route handlers). The tree is small enough that
+ * there is no caching layer.
  */
 
 export const DOCS_CONTENT_ROOT = path.join(process.cwd(), "src/content/docs")

@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils"
  * Scene 6's sleeper: Soma under the quilt, breathing, with z's stacking
  * up one per breath. A single-row 4-frame sprite sheet stepped by the
  * science-night-doze keyframes (x axis only). The frames' bodies shift a
- * few pixels between generations, which plays as hand-drawn boil on top
- * of the deliberate z animation.
+ * few pixels between generations, which plays as hand-drawn boil under
+ * the z animation.
  *
  * The sheet's frames are mostly dead canvas: the drawn content lives in
  * rows 276..604 of the 1024-row sheet (measured opaque bounds plus

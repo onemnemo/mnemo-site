@@ -3,9 +3,8 @@ import type { ComponentPropsWithoutRef } from "react"
 /**
  * GitHub mark as an inline SVG.
  *
- * Inlined instead of pulled from lucide because lucide has deprecated its
- * brand icons, and this one icon is not worth a dependency gamble. Path data
- * is the official GitHub mark.
+ * Inlined rather than imported from lucide, which has deprecated its brand
+ * icons. Path data is the official GitHub mark on a 16x16 viewBox.
  */
 export function GitHubIcon(props: ComponentPropsWithoutRef<"svg">) {
   return (

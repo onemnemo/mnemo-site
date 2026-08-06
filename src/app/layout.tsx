@@ -110,11 +110,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <OverscrollBand />
-        {/* The opaque z-0 wrapper is what keeps the overscroll band
-            invisible under every page; only the gap the elastic pull opens
-            beyond the document exposes it. The data attribute is how
-            overscroll-band.tsx finds this element to translate it. See
-            that file before touching background or stacking here. */}
+        {/* The opaque z-0 wrapper keeps the overscroll band invisible under
+            every page; only the gap the elastic pull opens beyond the
+            document exposes it. overscroll-band.tsx queries
+            data-overscroll-page to find this element and translate it, so
+            the attribute, the background, and the stacking all have to
+            stay. */}
         <div data-overscroll-page className="bg-background relative z-0 min-h-svh">
           <SiteHeader />
           {children}

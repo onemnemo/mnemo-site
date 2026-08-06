@@ -16,30 +16,27 @@ import { cn } from "@/lib/utils"
  *
  * Route links activate by pathname. The Features link points at a home
  * section (/#features), and the pathname never carries the hash, so it
- * activates by scroll spy instead: an observer marks it active while
- * the features section crosses the middle band of the viewport. That
- * covers every way of getting there (loading /#features directly,
- * clicking the link, or just scrolling down the home page; Next's
- * pushState hash navigation fires no hashchange event, so watching the
- * hash could not) and turns it back off when the reader moves on.
+ * activates by scroll spy instead: an observer marks it active while the
+ * features section crosses the middle band of the viewport. Watching the
+ * hash would miss link clicks, since Next's pushState hash navigation
+ * fires no hashchange event.
  */
 export function MainNav({ className }: { className?: string }) {
   const pathname = usePathname()
   const [featuresInView, setFeaturesInView] = useState(false)
 
   useEffect(() => {
-    // Off the home page there is nothing to observe; isActive already
-    // requires pathname === "/", so stale state cannot show through,
-    // and a new observer always reports the current intersection on
-    // arrival back home.
+    // Off the home page there is nothing to observe. isActive already
+    // requires pathname === "/", so stale state cannot show through, and a
+    // new observer reports the current intersection on arrival back home.
     if (pathname !== "/") return
     const section = document.getElementById("features")
     if (!section) return
     const observer = new IntersectionObserver(
       (entries) => setFeaturesInView(entries.some((e) => e.isIntersecting)),
       /* Active while the section overlaps the middle ~30% of the
-         viewport: it lights up as the section arrives and hands off
-         once the deep dives take the stage. */
+         viewport, so it lights up as the section arrives and hands off
+         once the next one takes over. */
       { rootMargin: "-35% 0px -35% 0px" },
     )
     observer.observe(section)
@@ -66,8 +63,8 @@ export function MainNav({ className }: { className?: string }) {
             )}
           >
             {item.title}
-            {/* The lit dash of the journey spine (see StageMarker and the
-                card sprites): the site's marker for "you are here". */}
+            {/* The lit dash of the journey spine (see StageMarker), the
+                site's marker for "you are here". */}
             {isActive && (
               <span
                 aria-hidden

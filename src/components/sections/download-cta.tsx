@@ -41,8 +41,6 @@ export function DownloadCta() {
               Download Mnemo
             </Link>
           </div>
-          {/* Plain sentence, same reasoning as the hero trust line: the
-              mono middot telegraph read as spec-sheet output. */}
           <p
             className="reveal-rise mt-6 text-sm opacity-60"
             style={{ "--reveal-delay": "260ms" } as React.CSSProperties}

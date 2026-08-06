@@ -1,24 +1,24 @@
 # /science storyboard v2: "The journey of one fact"
 
-> STATUS (2026-08-05): built through art integration plus a visual
-> cleanup pass, all revisions user decisions. The spark protagonist and
-> the scene-7 logo reveal were cut (the rendered glyph never landed). The
-> journey captions are now the StageMarker spine: seven progress dashes
-> plus "NN · Word" opening every scene, echoed by the dashes on the quiz
-> card. Scene 3's details/summary flashcard was replaced by QuizCard, a
-> CSS-only stacked quiz card with radio answers (modeled on a reference
-> the user supplied); scene 1 deals its fact card from the same deck.
-> Scene 6 sits text-beside-lamp instead of stacked, the scene-7 mapping
-> is a borderless 2x2, and paper/cobalt bands carry texture-rules /
-> texture-grid backgrounds. The SVG diagrams beat the illustrations for
-> the curve and network scenes, so slide.png and the-web.png were cut
-> (removed from the repo in the asset cleanup, along with every other
-> retired piece); rescue, night, and the graduation sprite strip are
-> in, kept small. Scene 1 got a squid instead of the fishbowl idea: an
-> animated sprite treading water over the ink sea that forms the
-> paper-to-cobalt boundary, with the sleeper animated the same way in
-> scene 6. The scroll reveal layer and the sitewide motion pass have
-> both landed.
+> As built (2026-08-05). The page ships with all seven scenes, the scroll
+> reveal layer, and the sitewide motion pass.
+>
+> The spark protagonist and the scene-7 logo reveal are not part of the
+> page; the sections below that describe them are design history. Scene
+> captions come from StageMarker instead: seven progress dashes plus
+> "NN · Word" opening every scene, echoed by the dashes on the quiz card.
+>
+> Scene 3 uses QuizCard, a CSS-only stacked quiz card with radio answers,
+> and scene 1 deals its fact card from the same deck. Scene 6 sits
+> text-beside-lamp rather than stacked, the scene-7 mapping is a
+> borderless 2x2, and the paper and cobalt bands carry texture-rules and
+> texture-grid backgrounds.
+>
+> SVG diagrams carry the curve and network scenes, so those illustrations
+> are not in the repo; rescue, night, and the graduation sprite strip are,
+> kept small. Scene 1 opens on an animated squid treading water over the
+> ink sea that forms the paper-to-cobalt boundary, and scene 6 animates
+> its sleeper the same way.
 
 Working design doc for the "Why it works" page. The page follows a single
 fact through a student's memory, one scene per canvas band, and ends by
@@ -195,7 +195,7 @@ et al. 2013; Rasch and Born 2013.
   and quietly. prefers-reduced-motion collapses all of it to the static
   article, which is complete on its own.
 
-## Asset list (user generates; reference-anchored prompts)
+## Asset list (reference-anchored generation prompts)
 
 All prompts attach the 404 scene plus the pose sheet as style
 references. The spark never appears in art; each scene leaves room for

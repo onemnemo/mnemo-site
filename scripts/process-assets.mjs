@@ -1,13 +1,7 @@
 /**
- * One-off asset processing for generated art: cuts, keys, and measures
- * the artwork that ships, and prints a dimension report so components
- * can declare accurate width/height.
- *
- * Retired blocks (the footer peek pose, the feature-card spot
- * illustrations, and the soft-keyed /science scene art with its
- * flood-fill helpers) live in git history along with their sources;
- * the spots were replaced by hand-authored SVG figures and the science
- * art by hand-finished files and sprite sheets that are only measured.
+ * One-off asset processing: cuts, keys, and measures the artwork that
+ * ships, then prints a dimension report so components can declare
+ * accurate width/height.
  *
  * Run with: node scripts/process-assets.mjs
  */
@@ -19,8 +13,8 @@ import sharp from "sharp"
  * Doodle sheets: both are 5x5 grids. Each cell becomes its own transparent
  * PNG (background keyed against the cell's corner pixel), named row-major:
  * dark-01 .. dark-25 and light-01 .. light-25. Cells are not trimmed, so
- * every doodle from one sheet shares the same dimensions, which keeps the
- * rendering component simple.
+ * every doodle from one sheet shares the same dimensions and the rendering
+ * component needs only one size.
  */
 mkdirSync("public/illos/doodles", { recursive: true })
 
@@ -100,9 +94,9 @@ const lightCell = await cutSheet("doodles-light", "light")
  * 404 scene, split into animatable layers.
  *
  * The page gives the television and the character separate idle motion, which
- * a single flat image cannot support. Splitting is safe here because the two
- * are already distinct 8-connected blobs in the keyed art: their bounding
- * boxes overlap by a few pixels, but no opaque pixel of one touches the other.
+ * a single flat image cannot support. The two are distinct 8-connected blobs
+ * in the keyed art: their bounding boxes overlap by a few pixels, but no
+ * opaque pixel of one touches the other.
  *
  * Three files come out, all on the original canvas so the component can stack
  * them with `inset-0` and no offset arithmetic:
@@ -172,7 +166,7 @@ const notFoundLayers = await (async () => {
       ? [bySize[0], bySize[1]]
       : [bySize[1], bySize[0]]
 
-  // Interior details — the vents, the dial, Soma's glasses — are separate
+  // Interior details (the vents, the dial, Soma's glasses) are separate
   // components because keying cut them away from the shape they sit on. Give
   // each to whichever main shape's box contains it, falling back to the nearer
   // center for the sliver where the two boxes overlap.
@@ -210,24 +204,24 @@ const notFoundLayers = await (async () => {
   // Screen mask. The color bars are the only strongly saturated area on the
   // television, so they seed the shape, but they stop short of the black
   // test-pattern stripe down the right of the screen, which carries no
-  // saturation at all. Each row is therefore marched outward from the bars
-  // until it reaches the bezel. Marching row by row cannot leak along the
-  // television's black outline the way a flood fill would, and to the side of
-  // the bars there is no cyan bar to be mistaken for the bezel's muted teal.
-  // Strictly the cabinet blob, not everything assigned to it: the tuning dial
-  // is a separate component (keying punched it out of the body) and its red
-  // ring is saturated enough to seed a bogus row only ~20px from the screen's
-  // left edge, which is too close for any gap rule to separate.
+  // saturation. Each row is therefore marched outward from the bars until it
+  // reaches the bezel; marching row by row cannot leak along the television's
+  // black outline the way a flood fill would.
+  //
+  // Membership is tested against the cabinet blob alone, not everything
+  // assigned to it: the tuning dial is a separate component (keying punched it
+  // out of the body) and its red ring is saturated enough to seed a bogus row
+  // only ~20px from the screen's left edge, too close for any gap rule to
+  // separate.
   const isScreenBlob = (i) => label[i] === tv.id
   const sat = (r, g, b) => {
     const mx = Math.max(r, g, b)
     return mx === 0 ? 0 : (mx - Math.min(r, g, b)) / mx
   }
   // A row stops at the bezel's muted teal or at the cabinet's white. Testing
-  // for white as well is what keeps rows from escaping through the places
-  // where the bezel thins to an antialiased line; the cost is that the white
-  // patch in the test pattern also stops a row early, which the edge fit
-  // below corrects.
+  // for white too keeps rows from escaping where the bezel thins to an
+  // antialiased line; the cost is that the white patch in the test pattern
+  // also stops a row early, which the edge fit below corrects.
   const isBezelOrBody = (x, y) => {
     const o = (y * W + x) * 4
     const [r, g, b] = [data[o], data[o + 1], data[o + 2]]
@@ -240,7 +234,7 @@ const notFoundLayers = await (async () => {
   const spans = new Map()
   for (let y = tv.y0; y <= tv.y1; y++) {
     // Saturated pixels in this row, grouped into clusters. The tuning dial on
-    // the left of the cabinet is saturated too, so taking the row's outermost
+    // the left of the cabinet is saturated too, so the row's outermost
     // saturated pixels would stretch the span from the dial across the white
     // body. The screen's bars are by far the widest cluster, so pick that one.
     const clusters = []
@@ -259,9 +253,9 @@ const notFoundLayers = await (async () => {
     if (!clusters.length) continue
     let [l, r] = clusters.reduce((a, b) => (b[1] - b[0] > a[1] - a[0] ? b : a))
     if (r - l < 40) continue
-    // The cap is generous because the widest cluster can sit to one side of
-    // the black "404" readout, leaving most of the screen still to cross. The
-    // left/right edge fit below is what actually contains a runaway row.
+    // March cap in pixels, generous because the widest cluster can sit to one
+    // side of the black "404" readout, leaving most of the screen still to
+    // cross. The left/right edge fit below is what contains a runaway row.
     const MARCH = 420
     for (
       let n = 0;
@@ -279,12 +273,13 @@ const notFoundLayers = await (async () => {
     if (r - l > 8) spans.set(y, [l + 4, r - 4])
   }
 
-  // The rows above are a good approximation but not airtight: where the bezel
-  // thins, a row can escape and run across the cabinet to the dial. The screen
-  // is a convex quadrilateral, so rather than patch those rows, fit a straight
-  // line to each of its four edges and keep the intersection of the four half
-  // planes. A quad cannot leak, and fitting with outlier rejection means the
-  // stray rows are voted down by the hundreds of correct ones.
+  // The rows above approximate the screen but are not airtight: where the
+  // bezel thins, a row can escape and run across the cabinet to the dial. The
+  // screen is a convex quadrilateral, so rather than patch those rows, fit a
+  // straight line to each of its four edges and keep the intersection of the
+  // four half planes. A quad cannot leak, and the least-squares fit rejects
+  // outliers, so stray rows are outvoted by the hundreds of correct ones and
+  // a row that stopped early on the white patch cannot narrow an edge.
   const fitEdge = (samples) => {
     let pts = samples
     let line = { a: 0, b: 0 }
@@ -308,14 +303,9 @@ const notFoundLayers = await (async () => {
     }
     return line
   }
-  // Fit all four edges and keep the intersection of their half planes. Going
-  // through lines rather than using the detected rows directly fixes both
-  // failure modes at once: a row that stopped early on the white patch is
-  // outvoted, and a row that escaped cannot widen a straight edge.
-  //
-  // Each edge is sampled away from the corners. Near the top of the screen a
-  // row's left bound is the slanted top edge rather than the left edge, so
-  // including those rows would tip the left edge's fit over.
+  // Each edge is sampled away from the corners: near the top of the screen a
+  // row's left bound is the slanted top edge rather than the left edge, and
+  // including those rows tips the left edge's fit over.
   const band = (values, lo, hi) => {
     const s = [...new Set(values)].sort((a, b) => a - b)
     return [s[Math.floor(s.length * lo)], s[Math.floor(s.length * hi)]]
@@ -326,8 +316,8 @@ const notFoundLayers = await (async () => {
   const L = fitEdge(core.map((y) => [y, spans.get(y)[0]]))
   const R = fitEdge(core.map((y) => [y, spans.get(y)[1]]))
 
-  // Take the intercepts from a quantile of the samples rather than the fit.
-  // Rows blocked by the white patch stop short of the right edge, and a
+  // Take the intercepts from a quantile of the samples rather than from the
+  // fit. Rows blocked by the white patch stop short of the right edge, and a
   // least-squares intercept splits the difference between those and the rows
   // that made it; a high quantile sits on the true edge while still ignoring
   // the rare row that escaped entirely.
@@ -360,11 +350,11 @@ const notFoundLayers = await (async () => {
   const inBand = (m) =>
     [...m.entries()].filter(([x]) => x >= colLo && x <= colHi)
 
-  // The screen is close enough to a rectangle that its top and bottom edges
-  // are near parallel, so the bottom borrows the top's slope and only its
-  // offset is measured. Fitting the bottom freely picks up the rows along the
-  // grey band that carry too little saturation to be detected across the full
-  // width, which tips its slope the wrong way entirely.
+  // The screen's top and bottom edges are near parallel, so the bottom
+  // borrows the top's slope and only its offset is measured. Fitting the
+  // bottom freely picks up rows along the grey band that carry too little
+  // saturation to be detected across the full width, tipping its slope the
+  // wrong way.
   const T = fitEdge(inBand(colTop))
   const B = {
     b: T.b,
@@ -387,9 +377,8 @@ const notFoundLayers = await (async () => {
     const rx = Math.floor(R.a + R.b * y - INSET)
     for (let x = Math.max(0, lx); x <= Math.min(W - 1, rx); x++) {
       if (y < T.a + T.b * x + INSET || y > B.a + B.b * x - INSET) continue
-      // Final guard: the quad is fitted, so it can bulge a little past a
-      // corner. Everything outside the cabinet is transparent, so requiring
-      // the pixel to be part of the cabinet blob trims any such overshoot.
+      // The fitted quad can bulge slightly past a corner; requiring the pixel
+      // to belong to the cabinet blob trims the overshoot.
       if (!isScreenBlob(y * W + x)) continue
       const o = (y * W + x) * 4
       mask[o] = 255
@@ -415,14 +404,14 @@ const notFoundLayers = await (async () => {
 /**
  * Footer "grip" pose: Soma hanging onto the torn paper edge.
  *
- * This one cannot use the corner-distance keying above. Its body fill is the
- * same cream as the generation background (248,241,234 vs 249,240,232), and
- * the head has no bottom outline because it is meant to be cut off by the
- * paper edge, so a per-pixel test erases the body along with the background.
- * Instead the background is flood filled inward from the top and side edges:
- * only cream that is connected to the frame is cleared, and the body keeps
- * its fill because the ink outline blocks the fill. The bottom edge is never
- * seeded, since that is the open cut where the character meets the paper.
+ * The corner-distance keying above does not work here: the body fill is the
+ * same cream as the source background (248,241,234 vs 249,240,232), and the
+ * head has no bottom outline because the paper edge is meant to cut it off,
+ * so a per-pixel test erases the body along with the background. The
+ * background is instead flood filled inward from the top and side edges, so
+ * only cream connected to the frame is cleared and the ink outline protects
+ * the body fill. The bottom edge is never seeded: that is the open cut where
+ * the character meets the paper.
  */
 const grip = await (async () => {
   const src = "public/soma/peek-grip.png"
@@ -432,9 +421,9 @@ const grip = await (async () => {
     .toBuffer({ resolveWithObject: true })
   const bg = [raw.data[0], raw.data[1], raw.data[2]]
 
-  // The artwork must be cropped to its own bottom before filling. With the
-  // empty rows left on, the fill runs underneath the open head and back up
-  // into it, erasing the body.
+  // Crop to the artwork's own bottom before filling. With the empty rows left
+  // on, the fill runs underneath the open head and back up into it, erasing
+  // the body.
   let artworkBottom = 0
   for (let y = 0; y < raw.info.height; y++) {
     for (let x = 0; x < raw.info.width; x++) {
@@ -511,8 +500,8 @@ const grip = await (async () => {
     }
   }
 
-  // The footer offset has to align the paper edge with the head's cut, so
-  // report where each drawn element ends, measured from the trimmed top.
+  // The footer offset aligns the paper edge with the head's cut, so report
+  // where each drawn element ends, in pixels from the trimmed top.
   const isInk = (i) => data[i] < 110 && data[i + 1] < 110 && data[i + 2] < 110
   const isGill = (i) =>
     data[i] > 190 && data[i + 1] < 190 && data[i + 2] < 190 && data[i + 3] > 0
@@ -553,12 +542,10 @@ const grip = await (async () => {
 
 /**
  * Download-state poses: a 1x3 sheet (idle / alert / sent) cut for the
- * crossfade on the download page. All three outputs share one crop window
- * (the union of their opaque bounds within equal-width cells), so the
- * character stays registered when the images are stacked and faded; feet
- * were generated on a shared baseline, and this preserves it. Backgrounds
- * are flood filled from the cell borders like the grip pose, since the
- * bodies are near the background cream and only the ink outline separates
+ * crossfade on the download page. All three outputs share one canvas size, so
+ * the character stays registered when the images are stacked and faded.
+ * Backgrounds are flood filled from the cell borders like the grip pose, since
+ * the bodies are near the background cream and only the ink outline separates
  * them.
  */
 const downloadStates = await (async () => {
@@ -618,14 +605,13 @@ const downloadStates = await (async () => {
     cells.push({ data, W, H })
   }
 
-  // Register the poses on their feet rather than on the sheet grid. The
-  // generator does not keep the character in the same spot per cell, so a
-  // shared sheet-space crop makes the body jump between states. Feet are
-  // the one anchor that plausibly stays planted while posture changes, so
-  // each pose is measured (bounding box, feet baseline, and the horizontal
-  // centroid of the feet region) and re-composited so all feet centers land
-  // on the same canvas point. Remaining head and lean movement then reads
-  // as the character moving, not the image shifting.
+  // Register the poses on their feet rather than on the sheet grid: the
+  // character does not sit in the same spot in every cell, so a shared
+  // sheet-space crop makes the body jump between states. The feet stay
+  // planted while posture changes, so each pose is measured (bounding box,
+  // feet baseline, horizontal centroid of the feet region) and re-composited
+  // with all feet centers on the same canvas point. Remaining head and lean
+  // movement then reads as the character moving, not the image shifting.
   const measured = cells.map(({ data, W, H }) => {
     let minX = Infinity
     let maxX = -1
@@ -641,9 +627,9 @@ const downloadStates = await (async () => {
         }
       }
     }
-    // Feet region: the bottom 12% of the pose. The centroid ignores props
-    // like the clipboard, which sit at torso height and would bias a
-    // whole-body center.
+    // Feet region: the bottom 12% of the pose's height. Restricting the
+    // centroid to it ignores props like the clipboard, which sit at torso
+    // height and would bias a whole-body center.
     const feetTop = maxY - Math.round((maxY - minY) * 0.12)
     let sumX = 0
     let count = 0
@@ -704,13 +690,12 @@ const downloadStates = await (async () => {
  * Graduation cap toss: an 8-frame sprite strip for the science-grad-toss
  * keyframes in globals.css.
  *
- * DELIBERATELY NOT GENERATED HERE. public/illos/science/grad-strip.png is
- * hand-finished in Photoshop and is a source asset, not an output. The
- * automatic key could not handle this sheet: the character's fill is the
- * exact background cream and several raised-arm outlines have hairline
- * gaps, so the flood reached inside and hollowed the body out, and the
- * frames also needed manual horizontal registration. Running a keying
- * pass over it would undo that retouching. Measured only, never written.
+ * public/illos/science/grad-strip.png is a hand-finished source asset, not an
+ * output: it is keyed and horizontally registered by hand because the
+ * character's fill is the exact background cream and several raised-arm
+ * outlines have hairline gaps that let a flood fill hollow the body out. Any
+ * keying pass here would undo that retouching, so the strip is measured only,
+ * never written.
  */
 const gradToss = await (async () => {
   const m = await sharp("public/illos/science/grad-strip.png").metadata()
@@ -719,9 +704,9 @@ const gradToss = await (async () => {
 
 /**
  * InkEdge squid (5x2 grid) and scene-6 sleeper (1x4 strip) sprite sheets.
- * Source assets like grad-strip.png: generated pre-keyed, measured only,
- * never written. The sleeper's crop window (rows 276..604, the drawn
- * content plus padding) is documented in night-doze.tsx.
+ * Source assets like grad-strip.png: already keyed, measured only, never
+ * written. The sleeper's crop window (rows 276..604, the drawn content plus
+ * padding) is documented in night-doze.tsx.
  */
 const spriteSheets = await (async () => {
   const squid = await sharp(

@@ -5,10 +5,8 @@ import Link from "next/link"
 /*
  * Art is imported, never referenced by URL string. Static imports carry
  * the file's real dimensions and resolve to a content-hashed URL, so
- * dropping in a replacement drawing updates the size AND defeats every
- * cache between here and the browser. String srcs did neither: they kept
- * serving a stale optimized copy and kept the previous drawing's aspect
- * ratio until both were fixed by hand.
+ * dropping in a replacement drawing updates the intrinsic size and busts
+ * every cache between here and the browser. A string src does neither.
  */
 import rescueArt from "@public/illos/science/rescue-well.png"
 
@@ -36,7 +34,7 @@ export const metadata: Metadata = {
 }
 
 /**
- * The science story: "the journey of one fact." Seven scenes, one canvas
+ * The science story, "the journey of one fact": seven scenes, one canvas
  * band each, following a single fact from encoding to survival. Full
  * storyboard and interaction plan live in docs/science-storyboard.md.
  *
@@ -45,17 +43,16 @@ export const metadata: Metadata = {
  * same StageMarker journey spine, and the fact itself appears as a card
  * from the same deck in scenes 1 and 3, so the page reads as one system.
  *
- * This is the phase-1+art build: a complete semantic article. Scroll
- * interactions land in a later phase; nothing here may depend on them.
+ * The page is a complete semantic article on its own; nothing on it may
+ * depend on scroll interaction.
  */
 
 export default function SciencePage() {
   return (
     <main id="main-content">
-      {/* Scene 1: a fact is born. The fact card is dealt from the same
-          deck the scene-3 quiz card comes from: the fact IS a card. The
-          extra mobile bottom padding is the InkEdge squid's headroom
-          (the sprite frames are taller than the old square art). */}
+      {/* Scene 1: a fact is born. The fact card comes from the same deck as
+          the scene-3 quiz card. The extra mobile bottom padding is headroom
+          for the InkEdge squid's sprite frames. */}
       <Section className="texture-rules pb-44 sm:pb-24">
         <Container>
           <p className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
@@ -124,8 +121,7 @@ export default function SciencePage() {
         </Container>
       </Section>
 
-      {/* Scene 3: retrieval. The page practices what it preaches: a real
-          quiz card, working entirely without JS. */}
+      {/* Scene 3: retrieval, in a real quiz card that works without JS. */}
       <Section canvas="blush">
         <Container>
           <StageMarker stage={3} className="mb-6" />
@@ -136,10 +132,9 @@ export default function SciencePage() {
             Quick, without scrolling up:
           </p>
 
-          {/* Card and rescue art share the row: the card is short and
-              wide (answers in a row, see quiz-card.tsx) so the whole
-              scene fits a laptop viewport instead of stacking card,
-              paragraph, and art into a column. */}
+          {/* Card and rescue art share the row: the card is short and wide
+              (answers in a row, see quiz-card.tsx) so the whole scene fits a
+              laptop viewport. */}
           <div className="mt-8 grid items-end gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,36rem)_minmax(0,1fr)]">
             <Reveal>
               <QuizCard className="reveal-rise" />
@@ -224,9 +219,8 @@ export default function SciencePage() {
         </Container>
       </Section>
 
-      {/* Scene 6: sleep. The quietest scene on purpose; the lamp sits
-          beside the text rather than under it, so the stillness does not
-          cost a viewport of scrolling. */}
+      {/* Scene 6: sleep. The lamp sits beside the text rather than under
+          it, so the scene does not cost a viewport of scrolling. */}
       <Section canvas="ink" className="relative overflow-hidden">
         <Doodle name="light-05" className="top-12 left-12 w-8 opacity-40" />
         <Doodle name="light-13" className="top-24 right-16 w-10 opacity-30" />
@@ -245,12 +239,10 @@ export default function SciencePage() {
                 It cannot do this part for you.
               </p>
             </div>
-            {/* Soma asleep under a quilt of everything it learned that
-                day, breathing (see night-doze.tsx). The art is a cutout
-                with dark outlines, which would vanish into a near-black
-                band, so it sits in its own soft pool of warm light: the
-                ink scene has always been one island of light, and here
-                the page supplies it instead of the drawing. */}
+            {/* Soma asleep and breathing under a quilt of everything it
+                learned that day (see night-doze.tsx). The art is a cutout
+                with dark outlines that would vanish into a near-black band,
+                so the page puts it in its own soft pool of warm light. */}
             <Reveal className="justify-self-center">
               <div className="reveal-rise relative">
                 <div
@@ -269,12 +261,9 @@ export default function SciencePage() {
         <Container>
           <StageMarker stage={7} className="mb-6" />
 
-          {/* Two equal halves with real air between them. The heading and
-              lede live WITH the mapping (one thought: what you watched,
-              and what maps to it), so the ceremony beside them gets a
-              full half of the row to breathe in. Full-width heading plus
-              two dense columns underneath was the cramped version; the
-              full vertical stack before that ran past two viewports. */}
+          {/* Two equal halves. The heading and lede sit with the mapping,
+              since they are one thought (what you watched, and what maps to
+              it), which leaves the ceremony a full half of the row. */}
           <div className="grid items-center gap-x-20 gap-y-16 lg:grid-cols-2">
             <div>
               <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
@@ -333,9 +322,8 @@ export default function SciencePage() {
             </div>
           </div>
 
-          {/* Receipts, compact on purpose: one quiet line, not a sixth
-              content block. Rival study apps do not ship sources at all,
-              which is rather the point of this page. */}
+          {/* Sources, kept to one quiet line rather than a further content
+              block. */}
           <p className="border-butter-ink/15 mx-auto mt-16 max-w-3xl border-t pt-6 text-center font-mono text-[11px] leading-relaxed opacity-50 sm:mt-20">
             Sources: Ebbinghaus (1885), Über das Gedächtnis · Murre and Dros
             (2015), replication of the forgetting curve · Roediger and Karpicke

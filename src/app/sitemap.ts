@@ -6,14 +6,13 @@ import { getAllDocSlugs } from "@/lib/docs"
 /**
  * Sitemap, served at /sitemap.xml.
  *
- * Static routes are listed explicitly rather than crawled so nothing
- * internal leaks in by accident. /brand is deliberately absent (internal
- * brand sheet). When a route is added to the site, add it here; the list
- * is short on purpose so the diff is obvious in review.
+ * Static routes are listed explicitly rather than crawled, so nothing
+ * internal leaks in; /brand (the internal brand sheet) stays out. A new
+ * site route needs a new entry here.
  *
- * Docs routes are the one exception: they come from the content tree
- * (see lib/docs.ts), because a markdown file IS the route and listing
- * them by hand would drift immediately.
+ * Docs routes are the exception: they come from the content tree (see
+ * lib/docs.ts), because a markdown file is the route, and a hand-written
+ * list would drift.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [

@@ -3,20 +3,13 @@ import type { CSSProperties } from "react"
 import { cn } from "@/lib/utils"
 
 /**
- * Spot figures for the three feature pillars, hand-drawn in the same
- * line language as the /science figures: currentColor strokes, flat
- * fills from the canvas tokens, no perspective, no baked shadows. They
- * replaced a set of generated sticker PNGs whose glossy 3D look and
- * off-palette colors clashed with the site's flat editorial style (and
- * with each other).
- *
- * Each figure quotes a motif the site already owns, so home rhymes with
- * the rest of the site: the flashcards are the fact/quiz card deck over
- * the spaced-review dots of /science's scene 4, and the mindmap is a
- * cousin of the /science constellation with the canvas tools showing.
+ * Spot figures for the three feature pillars, drawn in the same line
+ * language as the /science figures: currentColor strokes, flat fills from
+ * the canvas tokens, no perspective, no baked shadows. Each one quotes a
+ * motif from /science, so the home page rhymes with the rest of the site.
  *
  * Reveal wiring matches science/figures.tsx: pathLength={1} strokes with
- * fig-draw, fills with fig-pop / fig-fade, delays via --reveal-delay.
+ * fig-draw, fills with fig-pop or fig-fade, delays via --reveal-delay.
  * Everything renders complete without JS; each figure takes a base
  * offset so the three cards can draw as one staggered row under a
  * single Reveal wrapper.
@@ -189,8 +182,8 @@ export function NotesFigure({ className, base = 0 }: FigureProps) {
 
 /**
  * Pillar 2: the card deck over a timeline of reviews whose gaps grow,
- * which is /science's spacing figure compressed to a footnote. The dots
- * even pop with widening delays, so the choreography spaces itself.
+ * /science's spacing figure compressed to a footnote. The pop delays widen
+ * along with the gaps.
  */
 const REVIEW_DOTS = [
   { x: 56, delayMs: 640 },
@@ -321,9 +314,9 @@ export function FlashcardsFigure({ className, base = 0 }: FigureProps) {
 }
 
 /**
- * Pillar 3: the open canvas. Shaped, colored, connected nodes (the copy's
- * exact claim), one mid-connection, one selected with its handles showing.
- * A cousin of /science's constellation, wearing its editor tools.
+ * Pillar 3: the open canvas. Shaped, colored, connected nodes, one
+ * connection still being dragged out, one node selected with its handles
+ * showing.
  */
 export function MindmapFigure({ className, base = 0 }: FigureProps) {
   const d = (ms: number) => delay(base + ms)

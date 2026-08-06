@@ -25,7 +25,7 @@ import type { Element, Root } from "hast"
  * the rare embed) and refer to neighbours the way any editor would:
  * images as `./assets/foo.png`, other articles as `./other-page.md`.
  * This pipeline turns those file-relative references into live routes,
- * so the content tree works in a markdown preview AND on the site.
+ * so the content tree works both in a markdown preview and on the site.
  *
  * Code blocks are highlighted with Shiki here on the server; the client
  * ships zero highlighting JavaScript. Headings get ids (rehype-slug)
@@ -42,7 +42,7 @@ import type { Element, Root } from "hast"
 export interface DocHeading {
   id: string
   text: string
-  /** 2 or 3; deeper levels stay out of the rail on purpose. */
+  /** 2 or 3; deeper levels stay out of the rail. */
   depth: number
 }
 
@@ -154,8 +154,8 @@ function rehypeCollectHeadings(sink: DocHeading[]) {
   }
 }
 
-/* One light theme: the site has no dark mode. Shiki inlines the colors,
-   so there is nothing to theme at runtime anyway. */
+/* One light theme: the site has no dark mode, and Shiki inlines the
+   colors, so there is nothing to switch at runtime. */
 const SHIKI_THEME = "github-light"
 
 /**

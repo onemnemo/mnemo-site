@@ -10,10 +10,7 @@ export const metadata: Metadata = {
   title: "Page not found",
 }
 
-/**
- * 404 page. One of the mascot's sanctioned habitats: Soma contemplating a
- * test-pattern TV that has clearly let everyone down.
- */
+/** 404 page. One of the mascot's habitats: Soma and a test-pattern TV. */
 export default function NotFound() {
   return (
     <main id="main-content">
@@ -36,8 +33,8 @@ export default function NotFound() {
               </Button>
             </div>
           </div>
-          {/* Background-keyed cut so the scene sits directly on the page
-              canvas; the boxed original absorbed too much attention. */}
+          {/* Background-keyed cut, so the scene sits directly on the page
+              canvas with no box around it. */}
           <NotFoundScene className="mx-auto w-full max-w-md" />
         </Container>
       </Section>

@@ -7,13 +7,12 @@ import { siteConfig } from "@/config/site"
 /**
  * Site footer.
  *
- * Sized for growth: the column list is data, so future sections (community,
- * blog, legal) are one entry each.
+ * Columns are data, so a new footer section is one entry.
  *
- * The footer has no top border on purpose: a page ends with a TornEdge, and
- * a full-width rule under a torn edge reads as two competing seams. Soma
- * lives on that edge (see torn-edge.tsx) rather than here, because the
- * mascot needs a boundary to be cut off by.
+ * There is no top border: pages end with a TornEdge, and a full-width rule
+ * under a torn edge reads as two competing seams. The mascot sits on that
+ * edge (see torn-edge.tsx) rather than here, since it needs a boundary to be
+ * cut off by.
  */
 
 const footerColumns = [

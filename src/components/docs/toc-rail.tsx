@@ -11,17 +11,18 @@ import type { DocHeading } from "@/lib/markdown"
  *
  * The active section is the last heading above the reading line (just
  * under the sticky header), tracked with a passive scroll listener
- * throttled to animation frames; with half a dozen headings per
- * article, measuring them directly is simpler and no less cheap than
- * an IntersectionObserver arrangement. At the very bottom of the page
- * the last section wins even if its heading never reaches the line.
+ * throttled to animation frames. At a handful of headings per article,
+ * measuring them directly costs no more than an IntersectionObserver.
+ * At the very bottom of the page the last section wins even if its
+ * heading never reaches the line.
  *
  * Server-rendered HTML carries no active state, so without JavaScript
- * this is simply the static list of links it always was.
+ * this degrades to a static list of links.
  */
 
-/* Matches the scroll-margin-top on .docs-prose headings (5.5rem), so a
-   heading jumped to via its anchor lands as the active one. */
+/* Pixels from the top of the viewport. Matches the scroll-margin-top on
+   .docs-prose headings (5.5rem), so a heading jumped to via its anchor
+   lands as the active one. */
 const READING_LINE = 96
 
 export function TocRail({ headings }: { headings: DocHeading[] }) {
@@ -74,8 +75,8 @@ export function TocRail({ headings }: { headings: DocHeading[] }) {
               key={heading.id}
               className={cn("relative", heading.depth === 3 && "pl-3")}
             >
-              {/* The lit dash of the journey spine, vertical, sitting on
-                  the rail's border: the site's "you are here" marker. */}
+              {/* The journey-spine dash, vertical on the rail's border:
+                  the site's "you are here" marker. */}
               {isActive && (
                 <span
                   aria-hidden

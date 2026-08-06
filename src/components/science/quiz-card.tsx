@@ -5,18 +5,12 @@
  *
  * The whole interaction is CSS. Each label wraps its radio and styles
  * itself with has-checked; the fieldset reveals the matching feedback
- * with group-has. (An earlier version used named peer selectors, which
- * force inputs, labels, and feedback to be flat siblings; :has() lifts
- * that constraint, which is what allows the answers to sit in a flex
- * row.) The check works with JS disabled and there is nothing to
- * hydrate. There is deliberately no reset: like a real quiz, an answer
- * stays answered, and a wrong pick keeps its feedback (the correction
- * sticking is the point of the scene).
- *
- * The row layout is deliberate: the card used to stack its answers and
- * grew tall enough to crowd the scene on a laptop. Short and wide, it
- * shares its band with the rescue art beside it instead of pushing
- * everything below the fold.
+ * with group-has. Using :has() instead of peer selectors is what allows
+ * the answers to sit in a flex row, since peer selectors require inputs,
+ * labels, and feedback to be flat siblings. The check works with JS
+ * disabled and there is nothing to hydrate. There is no reset: an answer
+ * stays answered and a wrong pick keeps its feedback, which is the point
+ * of the scene.
  *
  * The seven dashes are the page's journey spine (see StageMarker); the
  * third is lit because the card lives in stage 3, Retrieved.

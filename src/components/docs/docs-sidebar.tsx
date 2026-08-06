@@ -14,8 +14,8 @@ import { cn } from "@/lib/utils"
  *
  * Entirely server-rendered. The page passes in its own slug, so active
  * states need no client pathname hook; every docs navigation re-renders
- * the sidebar anyway. The active article carries a vertical cut of the
- * journey-spine dash (the site's "you are here" marker).
+ * the sidebar anyway. The active article carries a vertical journey-spine
+ * dash (the site's "you are here" marker).
  */
 
 const docHref = (slug: string[]) => `/docs/${slug.join("/")}`
@@ -118,7 +118,7 @@ export function DocsSidebar({
   return (
     <nav aria-label="Docs sections" className="text-sm">
       {/* Audience tabs, in the header nav's language: quiet labels with
-          the lit journey-spine dash under the one you are reading. */}
+          the journey-spine dash under the current one. */}
       <div className="flex gap-5 border-b">
         {audiences.map((entry) => {
           const isCurrent = entry.slug === audience

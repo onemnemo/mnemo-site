@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 
+// Swap for an overview capture once one exists, so the notes shot stays
+// unique to its deep dive.
 import notesShot from "@public/screenshots/notes.png"
 import { AppFrame } from "@/components/app-frame"
 import { Doodle } from "@/components/doodle"
@@ -11,15 +13,10 @@ import { Button } from "@/components/ui/button"
 /**
  * Landing page hero.
  *
- * Typographic and centered: the serif headline carries the identity, two
- * hand-drawn doodles season it, and the first real thing on the page is the
- * product itself. The screenshot frame deliberately overlaps into the meadow
- * band below (z-10 here, matching top padding on the feature section), so
- * the fold shows actual software instead of decoration.
- *
- * The screenshot is the notes editor for now; swap to an Overview/dashboard
- * capture (public/screenshots/overview.png) when one exists, so the notes
- * shot stays unique to its deep dive.
+ * Typographic and centered: the serif headline carries the identity and the
+ * screenshot puts the product above the fold. The screenshot frame overlaps
+ * into the meadow band below, which takes z-10 here plus matching top padding
+ * on the feature section.
  */
 export function Hero() {
   return (
@@ -29,8 +26,8 @@ export function Hero() {
         name="dark-17"
         className="top-40 right-[13%] w-7 rotate-12 opacity-30"
       />
-      {/* Load entrance: everything rises in reading order (enter-rise,
-          pure CSS, so no-JS visitors get the same welcome). */}
+      {/* Load entrance: everything rises in reading order. enter-rise is
+          pure CSS, so visitors without JavaScript see the same welcome. */}
       <Container className="flex flex-col items-center text-center">
         <h1 className="enter-rise max-w-3xl text-5xl font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
           Learn anything. Keep everything.
@@ -59,9 +56,6 @@ export function Hero() {
             <Link href="/#features">See what&apos;s inside</Link>
           </Button>
         </div>
-        {/* Caption to the Download button: the trust facts as a plain
-            sentence. The earlier mono-and-middots version read as a spec
-            sheet dangling under the buttons. */}
         <p
           className="enter-rise text-muted-foreground/80 mt-5 text-sm"
           style={{ "--reveal-delay": "260ms" } as React.CSSProperties}

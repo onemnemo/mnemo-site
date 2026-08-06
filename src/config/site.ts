@@ -2,8 +2,7 @@
  * Single source of truth for site-wide constants.
  *
  * Anything that appears in more than one place (navigation, metadata, structured
- * data, footer links) is defined here so a change lands everywhere at once.
- * Keeping this as plain data also means the SEO layer and the UI layer never
+ * data, footer links) is defined here, so the SEO layer and the UI layer cannot
  * drift apart.
  */
 
@@ -42,15 +41,12 @@ export const siteConfig = {
 /**
  * Primary navigation.
  *
- * `Features` points at a section on the home page rather than its own route,
- * because the landing page already covers it. If that section ever outgrows the
- * home page, changing the href here is the only edit required.
+ * `Features` points at a section on the home page rather than its own route.
  *
- * Download is deliberately absent: the header's pill button is the one
- * Download CTA at desktop widths, and a second copy in the center nav
- * read as noise. The mobile drawer supplies its own Download button for
- * the widths where the pill is hidden. (Routes are listed by hand in
- * sitemap.ts, so nav membership never affects the sitemap.)
+ * Download is absent: the header's pill button is the only Download CTA at
+ * desktop widths, and the mobile drawer supplies its own for the widths where
+ * the pill is hidden. Routes are listed by hand in sitemap.ts, so membership
+ * here never affects the sitemap.
  */
 export const mainNav = [
   { title: "Features", href: "/#features" },

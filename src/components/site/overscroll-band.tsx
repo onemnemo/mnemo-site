@@ -3,41 +3,31 @@
 import { useEffect, useRef } from "react"
 
 /**
- * The elastic overscroll: keep scrolling at the bottom of the page and
- * the palette band grows out of the edge, its bars stretching and
- * bending under the pull; ease off and it settles back, with a bounce
- * when the release is sharp. Native rubber-banding only exists for
- * trackpads and touch, so the effect is driven here from wheel and
- * touch input directly and works with a plain mouse wheel.
+ * Elastic overscroll past the bottom of the page: keep scrolling at the
+ * end and the palette band grows out of the edge, its bars stretching
+ * and bending under the pull; ease off and it settles back, with a
+ * bounce when the release is sharp. Native rubber-banding only exists
+ * for trackpads and touch, so the effect is driven from wheel and touch
+ * input directly and works with a plain mouse wheel.
  *
- * The bars appear ONLY past the floor, by user decision: an earlier
- * version also ended the footer with a static strip of the same bars,
- * which read as the effect duplicated. The palette lives here and on
- * the share card; the page itself ends quietly.
- *
- * The pull is modeled as PRESSURE, not as held position. Wheel input at
+ * The pull is modeled as pressure rather than as held position. Input at
  * the bottom feeds an accumulator that time drains exponentially; the
  * band's target height saturates against that pressure, and an
- * underdamped spring chases the target. This shape is load-bearing.
- * Two earlier versions fought momentum scrolling and lost: a release
- * timer that every event reset left the band hanging through the whole
- * momentum tail, and filtering "weak" events made the closing band
- * stutter, because each strong-enough tail event re-grabbed it
- * mid-spring. Pressure has neither failure mode. A decaying tail tops
- * the accumulator up by less than time drains, so the band eases down
- * smoothly while the tail is still arriving; a hard stop drains
- * pressure in a couple hundred ms and the spring overshoots into the
- * bounce; sustained cranking holds pressure and the stretch. There is
- * nothing to grab or release, so there is nothing to stutter.
+ * underdamped spring chases the target. That shape is what survives
+ * momentum scrolling, where events keep arriving long after the user has
+ * let go: a decaying tail tops the accumulator up by less than time
+ * drains, so the band eases down while the tail is still coming, while a
+ * hard stop drains pressure within a few hundred ms and the spring
+ * overshoots into the bounce. Sustained cranking holds both.
  *
- * Mechanics, all outside React state so nothing re-renders per frame:
- * the page wrapper (tagged data-overscroll-page in layout.tsx) is
- * translated up by the pull, opening a gap the fixed band fills
- * exactly. The band is an SVG redrawn each frame: five strips whose
- * shared boundaries bow upward in the middle, upper boundaries most, so
- * the stack reads as stretching under tension. Physics integrates by
- * wall-clock time in fixed substeps, so it behaves the same at 120Hz
- * and on a throttled tab.
+ * The page wrapper (tagged data-overscroll-page in layout.tsx) is
+ * translated up by the pull, opening a gap the fixed band fills exactly.
+ * The band is an SVG redrawn each frame: five strips whose shared
+ * boundaries bow upward in the middle, upper boundaries most, so the
+ * stack reads as stretching under tension. Physics integrates by
+ * wall-clock time in fixed substeps, so it behaves the same at 120Hz and
+ * on a throttled tab. None of it touches React state, so nothing
+ * re-renders per frame.
  *
  * At rest the SVG holds a flat 120px band, which is what platforms with
  * native elastic scrolling reveal before hydration, without JS, and
@@ -64,9 +54,9 @@ const MAX_BEND = 34
 const PRESSURE_DECAY = 0.08
 /** Pressure at which the stretch reaches ~63% of MAX_GAP. */
 const PRESSURE_SCALE = 260
-/** Underdamped on purpose: a sharp release shows one bounce. Kept at the
-    same damping ratio as before (~0.53) while raised, so the spring
-    chases faster without turning floppier. */
+/** Underdamped (damping ratio ~0.53), so a sharp release shows one
+    bounce. Raising both together keeps the ratio and only makes the
+    spring chase faster. */
 const SPRING_STIFFNESS = 320
 const SPRING_DAMPING = 19
 
@@ -104,7 +94,7 @@ export function OverscrollBand() {
       window.innerHeight + window.scrollY >=
       document.documentElement.scrollHeight - 1
 
-    /** Flat rest state: the static fallback the effect started from. */
+    /** Return to the flat band the server renders. */
     const settle = () => {
       page.style.transform = ""
       page.style.willChange = ""
@@ -184,8 +174,8 @@ export function OverscrollBand() {
     }
     const onTouchMove = (event: TouchEvent) => {
       if (touchY === null) return
-      /* Touch drags feed the same pressure model; drag speed maps to
-         stretch, and lifting the finger simply stops feeding it. */
+      /* Drag speed feeds the same pressure model; lifting the finger
+         just stops feeding it. */
       feed((touchY - event.touches[0].clientY) * 4)
       touchY = event.touches[0].clientY
     }
@@ -193,8 +183,8 @@ export function OverscrollBand() {
       touchY = null
     }
     /* A hidden tab gets throttled frames, so a mid-stretch tab switch
-       would otherwise crawl through its close in slow motion on return.
-       Nobody sees a hidden page: reset it outright. */
+       would crawl through its close in slow motion on return. Nobody
+       sees a hidden page, so reset it outright. */
     const onVisibility = () => {
       if (document.visibilityState !== "hidden") return
       cancelAnimationFrame(frame)

@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mnemo website
 
-## Getting Started
+The marketing site and documentation for [Mnemo](https://mnemo.one), a free,
+open-source, local-first learning platform. The desktop app itself lives in
+[onemnemo/mnemo](https://github.com/onemnemo/mnemo).
 
-First, run the development server:
+Built with Next.js 16 (App Router), React 19, and Tailwind CSS 4.
+
+## Requirements
+
+Node 22.12 or newer. Older majors fail to build.
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The dev server runs at http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script              | What it does                                  |
+| ------------------- | --------------------------------------------- |
+| `npm run dev`       | Start the dev server                          |
+| `npm run build`     | Production build                              |
+| `npm run start`     | Serve a production build                      |
+| `npm run lint`      | ESLint                                        |
+| `npm run typecheck` | `tsc --noEmit`                                |
 
-## Learn More
+## Layout
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/app/         Routes, metadata, sitemap, share card
+src/components/  UI, split by section and by feature area
+src/content/docs Documentation pages, authored in Markdown
+src/config/      Site-wide constants: nav, URLs, SEO strings
+src/lib/         Markdown pipeline and docs indexing
+scripts/         Asset processing
+assets/fonts/    TTFs the share card needs at build time
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Site-wide strings (navigation, titles, meta descriptions, external links) come
+from `src/config/site.ts`, so the SEO layer and the UI never drift apart.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Documentation content
 
-## Deploy on Vercel
+Docs pages are Markdown files under `src/content/docs`, compiled through
+unified/remark/rehype with Shiki for syntax highlighting. Images and other files
+referenced by those pages are served through the `/docs-assets` route.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Assets
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`scripts/process-assets.mjs` derives the site's image variants from the sources
+in `assets/`. Run it after changing a source image:
+
+```bash
+node scripts/process-assets.mjs
+```

@@ -18,8 +18,8 @@ import { GitHubIcon } from "./github-icon"
 
 /**
  * Mobile menu: a right-hand drawer holding the primary nav plus the actions
- * that are hidden at small widths. Controlled open state so navigating closes
- * the drawer instead of leaving it over the new page.
+ * hidden at small widths. Open state is controlled so that following a link
+ * closes the drawer instead of leaving it over the new page.
  */
 export function MobileNav() {
   const [open, setOpen] = useState(false)

@@ -11,14 +11,11 @@ import { Reveal } from "@/components/reveal"
 /**
  * The feature scan on the meadow band, as a two-tier bento: the three
  * product pillars get big illustrated cards, the three supporting features
- * get compact text cards. The hierarchy mirrors the product truth (notes,
- * flashcards, and mindmaps are full systems; the rest supports them) and
- * keeps the grid from reading as six identical template cards.
+ * get compact text cards. The hierarchy mirrors the product (notes,
+ * flashcards, and mindmaps are full systems; the rest supports them).
  *
- * The pillar art is drawn in the site's own line language (see
- * feature-figures.tsx for why the generated sticker PNGs were retired).
- * One Reveal wraps the whole row; each figure takes a growing base
- * delay, so the three draw as a left-to-right wave.
+ * One Reveal wraps the pillar row; each figure takes a growing base delay,
+ * so the three draw as a left-to-right wave.
  *
  * Section carries id="features" because the navbar's Features link targets
  * /#features. Top padding is oversized to receive the hero's overlapping

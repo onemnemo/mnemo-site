@@ -12,12 +12,11 @@ import { Reveal } from "@/components/reveal"
  * Alternating text-and-media rows for the three flagship flows. Screenshots
  * are real captures of the app, so AppFrame's synthetic chrome is off
  * (chrome={false}): the app's own window controls are already in the shot.
- * Swapping in new captures after an app redesign is the only edit this
- * section should ever need; captures are imported statically per the
- * house rule (real dimensions, content-hashed URLs, no stale caches).
+ * Captures are imported statically, which gives real dimensions and
+ * content-hashed URLs.
  *
- * Each row is its own Reveal: text rises first, the frame follows a
- * beat later, and rows far down the page wait for their own scroll-in.
+ * Each row is its own Reveal: text rises first, the frame follows a beat
+ * later, and rows far down the page wait for their own scroll-in.
  */
 
 const dives = [

@@ -14,15 +14,14 @@ import { MobileNav } from "./mobile-nav"
  *
  * Fixed height (h-16) so it never causes layout shift, translucent paper with
  * a blur so content scrolling underneath stays legible. Server component; the
- * two interactive children (MainNav, MobileNav) opt into the client on their
- * own.
+ * interactive children (MainNav, MobileNav) opt into the client themselves.
  */
 export function SiteHeader() {
   return (
     <header className="bg-background/80 sticky top-0 z-50 border-b backdrop-blur">
-      {/* Three-zone layout: logo left, nav dead center, actions right. The
-          1fr side columns keep the nav centered regardless of how wide the
-          logo or the action cluster happens to be. */}
+      {/* Three zones: logo left, nav center, actions right. The 1fr side
+          columns keep the nav centered whatever width the logo or the action
+          cluster takes. */}
       <Container className="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4">
         <Link href="/" className="inline-flex items-center justify-self-start">
           <Image

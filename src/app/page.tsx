@@ -21,9 +21,9 @@ export default function HomePage() {
       <ScienceTeaser />
       <Manifesto />
       <DownloadCta />
-      {/* The one soft edge on the page: the butter band tears off above the
-          paper footer, and Soma peeks over the tear. All other band edges
-          stay flat cuts, which is the editorial color-block language. */}
+      {/* The only soft edge on the page: the butter band tears off above the
+          paper footer and Soma peeks over the tear. Every other band edge is
+          a flat cut. */}
       <TornEdge mascot className="bg-butter text-background" />
       <SoftwareAppJsonLd />
     </main>

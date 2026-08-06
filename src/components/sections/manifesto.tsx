@@ -5,9 +5,9 @@ import { Reveal } from "@/components/reveal"
 import { siteConfig } from "@/config/site"
 
 /**
- * The ink band. The open-source and privacy values got moved out of the hero
- * on purpose: stated here, at full editorial volume, they land as conviction
- * instead of a feature list. Loudest typography on the page.
+ * The ink band, carrying the open-source and privacy values at the loudest
+ * typographic volume on the page. They live here rather than in the hero so
+ * they read as conviction instead of a feature list.
  */
 export function Manifesto() {
   return (

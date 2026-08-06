@@ -5,9 +5,8 @@ import { cn } from "@/lib/utils"
 
 type TornEdgeProps = {
   /**
-   * Render Soma peeking over the tear. The mascot only makes sense on an
-   * edge it can be cut off by, so it lives here rather than in the footer:
-   * a page without a tear would show it sliced flat against nothing.
+   * Render Soma peeking over the tear. The art is drawn cut off by the tear
+   * line, so it belongs to this component rather than to the footer.
    */
   mascot?: boolean
   /**
@@ -19,24 +18,21 @@ type TornEdgeProps = {
 }
 
 /**
- * Torn-paper edge between two canvas bands.
+ * Torn-paper edge between two canvas bands: a single irregular line, as if
+ * the outgoing band were a sheet torn off above the next one.
  *
- * A single irregular line, as if the outgoing band were a sheet torn off
- * above the next one. The tear IS the boundary; do not pair it with a rule
- * or border on the band beneath, that reintroduces the double-seam problem
- * this component exists to avoid. Used sparingly, only where the page
- * changes mood; every other band edge stays a flat cut.
+ * The tear is the boundary. Pairing it with a rule or border on the band
+ * beneath produces a double seam.
  */
 
 const WIDTH = 1440
 const HEIGHT = 30
 /**
- * Tear profile, hand-tuned. Torn paper is not periodic: short bumps sit
+ * Tear profile in viewBox units. Torn paper is not periodic: short bumps sit
  * inside long drifts, dips fall sharply and recover slowly, and segment
- * lengths never repeat. The broad sag from x=1100 onward is deliberate:
- * Soma peeks out of that valley in the footer, gripping the edge, so its
- * floor must stay in the 23-25 range for the paws to land on the line at
- * any viewport width. Roughen the left side freely; respect the valley.
+ * lengths never repeat. The broad sag from x=1100 onward is where the mascot
+ * grips the edge, so its floor must stay in the 23-25 range for the paws to
+ * land on the line at any viewport width. Points left of it are free.
  */
 const POINTS = [
   { x: 0, y: 11 },
@@ -72,12 +68,12 @@ function tearLine() {
 
 const LINE = tearLine()
 /**
- * The strip paints the INCOMING canvas below the tear and takes the outgoing
- * canvas from its own background, rather than the other way round. That way
- * both of the strip's box edges meet a band of their own color, so sub-pixel
+ * The strip paints the incoming canvas below the tear and takes the outgoing
+ * canvas from its own background, rather than the other way round. Both of
+ * the strip's box edges then meet a band of their own color, so sub-pixel
  * rounding at those edges cannot expose a hairline of the wrong color; the
  * two canvases only ever meet along the tear itself, mid-strip. The fill runs
- * past the viewBox bottom so the clip guarantees the last row is covered.
+ * past the viewBox bottom so the clip covers the last row.
  */
 const SHAPE = `M0 ${HEIGHT + 2} H${WIDTH} ${LINE.replace("M", "L")} Z`
 
@@ -93,8 +89,8 @@ export function TornEdge({ mascot = false, className }: TornEdgeProps) {
         <path d={SHAPE} fill="currentColor" />
         {/* Hairline highlight hugging the outgoing side of the tear: the
             torn sheet showing its paper thickness. White over any canvas
-            color reads as that canvas's cream; nearly invisible on
-            purpose. */}
+            color reads as that canvas's cream, so it stays nearly
+            invisible. */}
         <path
           d={LINE}
           fill="none"
@@ -110,8 +106,7 @@ export function TornEdge({ mascot = false, className }: TornEdgeProps) {
           parked on the tear line and the incoming canvas hides everything
           below it. The offsets are the tear's remaining depth: the valley
           sits at 25 of 30 viewBox units, so the line is a sixth of the
-          strip's height up from its bottom. Decorative only, so alt is
-          empty and it is hidden from assistive tech. */}
+          strip's height up from its bottom. */}
       {mascot ? (
         <Image
           src={peekArt}
