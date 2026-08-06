@@ -1,27 +1,56 @@
 ---
 title: Building from source
-description: Clone the repository and run a development build.
+description: "Two processes, one handshake: the backend host and the web UI."
 order: 1
 ---
 
-This guide gets a local development build of Mnemo running. It assumes you are comfortable with a terminal and have Git installed.
+Mnemo is mid-transition from its original Avalonia desktop UI to a React UI hosted by a C# backend. Active development currently happens on the React port branch (`port/react-ui`); the default branch keeps the stable Avalonia app intact until the port is finished. Check the repository if the branch name has moved on since this was written.
 
 ## Prerequisites
 
-Check the repository's README for the currently required toolchain versions before installing anything; this page intentionally does not duplicate them, because the README is updated with the code.
+- The .NET 10 SDK
+- A current Node.js LTS (the frontend uses Vite, which wants a recent Node)
+- Git
 
 ## Clone and run
 
 ```bash
 git clone https://github.com/onemnemo/mnemo.git
 cd mnemo
+git checkout port/react-ui
 ```
 
-From there, follow the setup steps in the repository's README. The standard flow is: install dependencies, then start the development target. When it works, you get a local build with hot reload against your working copy.
+Development runs as two processes. Start the backend host first:
 
-## Development data is separate
+```bash
+dotnet run --project Mnemo.Host -- --dev
+```
 
-A development build keeps its data separate from any installed release, so you can hack on Mnemo without risking the library you actually study with.
+Then, in a second terminal, the web UI:
+
+```bash
+cd mnemo-web
+npm install
+npm run dev
+```
+
+Order matters: in dev mode the host binds its API to `127.0.0.1:47210` and writes a small handshake file (`mnemo-web/.dev/api.json`) containing the port and a per-launch auth token. Vite's proxy reads that file and attaches the token to every API request, which is why the frontend never handles credentials in dev. The host waits for the Vite server to come up, then opens the app window pointed at it, hot reload and all.
+
+## A note on data
+
+A development build reads and writes the same local data folder as an installed Mnemo. If you want to hack without your real study library in the blast radius, point the app at a scratch folder first:
+
+```bash
+MNEMO_DATA_DIR=/tmp/mnemo-dev dotnet run --project Mnemo.Host -- --dev
+```
+
+## The Avalonia app
+
+The original desktop UI still builds and runs on this branch, and is what releases currently package:
+
+```bash
+dotnet run --project Mnemo.UI
+```
 
 ## When something breaks
 

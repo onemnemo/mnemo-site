@@ -13,7 +13,7 @@ Grab the latest release from the [download page](https://mnemo.one/download). Pi
 | Platform | File             | Notes                                              |
 | -------- | ---------------- | -------------------------------------------------- |
 | Windows  | `.exe` installer | Windows 10 or newer                                |
-| macOS    | `.dmg`           | Apple Silicon and Intel                            |
+| macOS    | `.pkg`           | Apple Silicon and Intel                            |
 | Linux    | `.AppImage`      | No installation needed; make it executable and run |
 
 Every release is also published on [GitHub Releases](https://github.com/onemnemo/mnemo/releases/latest) with checksums if you want to verify your download.

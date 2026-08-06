@@ -15,6 +15,7 @@ Browse the [issue tracker](https://github.com/onemnemo/mnemo/issues). Good first
 1. Fork the repository and create a branch for your change.
 2. Keep the change focused; one concern per pull request reviews faster.
 3. Explain the "why" in the pull request description, not just the "what".
+4. Write commit messages in the house format; [Commits and pull requests](./commits-and-pull-requests.md) has the details.
 
 ## What review looks for
 
