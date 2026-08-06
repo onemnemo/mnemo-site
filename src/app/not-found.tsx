@@ -1,9 +1,14 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
 import { NotFoundScene } from "@/components/not-found-scene"
 import { Button } from "@/components/ui/button"
+
+export const metadata: Metadata = {
+  title: "Page not found",
+}
 
 /**
  * 404 page. One of the mascot's sanctioned habitats: Soma contemplating a
