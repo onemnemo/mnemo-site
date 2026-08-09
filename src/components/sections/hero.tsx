@@ -5,10 +5,12 @@ import Link from "next/link"
 // unique to its deep dive.
 import notesShot from "@public/screenshots/notes.png"
 import { AppFrame } from "@/components/app-frame"
+import { ComingSoonPill } from "@/components/coming-soon-pill"
 import { Doodle } from "@/components/doodle"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
 import { Button } from "@/components/ui/button"
+import { rebuild } from "@/config/site"
 
 /**
  * Landing page hero.
@@ -44,13 +46,17 @@ export function Hero() {
           className="enter-rise mt-8 flex flex-wrap items-center justify-center gap-3"
           style={{ "--reveal-delay": "190ms" } as React.CSSProperties}
         >
-          <Button asChild size="lg" className="rounded-full px-6">
-            <Link href="/download">Download Mnemo</Link>
-          </Button>
+          {rebuild.active ? (
+            <ComingSoonPill href="/download" className="px-6 py-2.5" />
+          ) : (
+            <Button asChild size="lg" className="rounded-full px-6">
+              <Link href="/download">Download Mnemo</Link>
+            </Button>
+          )}
           <Button
             asChild
             size="lg"
-            variant="outline"
+            variant={rebuild.active ? "default" : "outline"}
             className="rounded-full px-6"
           >
             <Link href="/#features">See what&apos;s inside</Link>
@@ -60,7 +66,9 @@ export function Hero() {
           className="enter-rise text-muted-foreground/80 mt-5 text-sm"
           style={{ "--reveal-delay": "260ms" } as React.CSSProperties}
         >
-          Free and open source, for Windows, macOS, and Linux.
+          {rebuild.active
+            ? "Free and open source, for Windows, macOS, and Linux. Being rebuilt right now."
+            : "Free and open source, for Windows, macOS, and Linux."}
         </p>
 
         <AppFrame

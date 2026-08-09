@@ -12,7 +12,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { mainNav, siteConfig } from "@/config/site"
+import { mainNav, rebuild, siteConfig } from "@/config/site"
 
 import { GitHubIcon } from "./github-icon"
 
@@ -59,9 +59,14 @@ export function MobileNav() {
           </a>
         </nav>
         <div className="mt-auto p-4">
-          <Button asChild size="lg" className="w-full rounded-full">
+          <Button
+            asChild
+            size="lg"
+            variant={rebuild.active ? "outline" : "default"}
+            className="w-full rounded-full"
+          >
             <Link href="/download" onClick={() => setOpen(false)}>
-              Download Mnemo
+              {rebuild.active ? rebuild.ctaLabel : "Download Mnemo"}
             </Link>
           </Button>
         </div>

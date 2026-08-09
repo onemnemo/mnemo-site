@@ -5,6 +5,7 @@ import { SiteJsonLd } from "@/components/seo/json-ld"
 import { SiteFooter } from "@/components/site/footer"
 import { SiteHeader } from "@/components/site/header"
 import { OverscrollBand } from "@/components/site/overscroll-band"
+import { RebuildBanner } from "@/components/site/rebuild-banner"
 import { siteConfig } from "@/config/site"
 
 import "./globals.css"
@@ -117,6 +118,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             the attribute, the background, and the stacking all have to
             stay. */}
         <div data-overscroll-page className="bg-background relative z-0 min-h-svh">
+          <RebuildBanner />
           <SiteHeader />
           {children}
           <SiteFooter />

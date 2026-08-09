@@ -1,9 +1,11 @@
 import Link from "next/link"
 
+import { ComingSoonPill } from "@/components/coming-soon-pill"
 import { Doodle } from "@/components/doodle"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
 import { Reveal } from "@/components/reveal"
+import { rebuild } from "@/config/site"
 
 /**
  * Closing call to action on the butter canvas. The last thing before the
@@ -22,30 +24,40 @@ export function DownloadCta() {
       <Container className="relative text-center">
         <Reveal>
           <h2 className="reveal-rise mx-auto max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
-            Start studying with Mnemo.
+            {rebuild.active
+              ? "Almost ready to study."
+              : "Start studying with Mnemo."}
           </h2>
           <p
             className="reveal-rise mx-auto mt-4 max-w-md text-lg leading-relaxed opacity-70"
             style={{ "--reveal-delay": "110ms" } as React.CSSProperties}
           >
-            Download it, open it, and start writing. No signup, no trial clock.
+            {rebuild.active
+              ? "Mnemo is being rebuilt from the shell up. The next build is the one worth installing."
+              : "Download it, open it, and start writing. No signup, no trial clock."}
           </p>
           <div
             className="reveal-rise mt-8 flex justify-center"
             style={{ "--reveal-delay": "200ms" } as React.CSSProperties}
           >
-            <Link
-              href="/download"
-              className="bg-butter-ink text-butter rounded-full px-7 py-3.5 text-sm font-medium"
-            >
-              Download Mnemo
-            </Link>
+            {rebuild.active ? (
+              <ComingSoonPill href="/download" className="px-7 py-3.5" />
+            ) : (
+              <Link
+                href="/download"
+                className="bg-butter-ink text-butter rounded-full px-7 py-3.5 text-sm font-medium"
+              >
+                Download Mnemo
+              </Link>
+            )}
           </div>
           <p
             className="reveal-rise mt-6 text-sm opacity-60"
             style={{ "--reveal-delay": "260ms" } as React.CSSProperties}
           >
-            Free, no account, on Windows, macOS, and Linux.
+            {rebuild.active
+              ? "Free, no account, on Windows, macOS, and Linux, when it lands."
+              : "Free, no account, on Windows, macOS, and Linux."}
           </p>
         </Reveal>
       </Container>

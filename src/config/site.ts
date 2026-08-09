@@ -39,6 +39,40 @@ export const siteConfig = {
 } as const
 
 /**
+ * The rebuild.
+ *
+ * Mnemo is mid-port from Avalonia to React + Photino, with a full visual
+ * overhaul riding along, so the last shipped build is a step behind both the
+ * screenshots and the app being written. Until the new one lands there is
+ * nothing honest to hand someone, so `active` gates two things site-wide: the
+ * banner above the header, and the coming-soon state that stands in for every
+ * download CTA.
+ *
+ * Flip `active` to false when the first build of the new app ships. Nothing
+ * else needs editing; the original download module is untouched behind it.
+ */
+export const rebuild = {
+  active: true,
+
+  /** Short all-caps tag at the head of the banner. */
+  kicker: "Rebuilding",
+
+  /** The part that has to survive at every width. */
+  message:
+    "Mnemo is being rebuilt, so downloads are paused until the new app ships.",
+
+  /**
+   * The why, dropped below the sm breakpoint: at phone widths the full text
+   * costs a third of the fold, and /download carries the whole story anyway.
+   */
+  detail:
+    "We are porting from Avalonia to React and Photino and redrawing every screen, so the screenshots here are a mix of the old app and the new one.",
+
+  /** Label on the pills that replace the download buttons. */
+  ctaLabel: "Downloads coming soon",
+} as const
+
+/**
  * Primary navigation.
  *
  * `Features` points at a section on the home page rather than its own route.

@@ -10,6 +10,7 @@ import Link from "next/link"
  */
 import rescueArt from "@public/illos/science/rescue-well.png"
 
+import { ComingSoonPill } from "@/components/coming-soon-pill"
 import { Doodle } from "@/components/doodle"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
@@ -25,6 +26,7 @@ import { QuizCard } from "@/components/science/quiz-card"
 import { StageMarker } from "@/components/science/stage-marker"
 import { Reveal } from "@/components/reveal"
 import { TornEdge } from "@/components/torn-edge"
+import { rebuild } from "@/config/site"
 
 export const metadata: Metadata = {
   title: "Why it works",
@@ -306,12 +308,16 @@ export default function SciencePage() {
                 how memories survive.
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
-                <Link
-                  href="/download"
-                  className="bg-butter-ink text-butter rounded-full px-7 py-3.5 text-sm font-medium"
-                >
-                  Download Mnemo
-                </Link>
+                {rebuild.active ? (
+                  <ComingSoonPill href="/download" className="px-7 py-3.5" />
+                ) : (
+                  <Link
+                    href="/download"
+                    className="bg-butter-ink text-butter rounded-full px-7 py-3.5 text-sm font-medium"
+                  >
+                    Download Mnemo
+                  </Link>
+                )}
                 <Link
                   href="/#features"
                   className="text-sm font-medium underline underline-offset-4"

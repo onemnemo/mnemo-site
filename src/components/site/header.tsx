@@ -3,7 +3,7 @@ import Link from "next/link"
 
 import { Container } from "@/components/layout/container"
 import { Button } from "@/components/ui/button"
-import { siteConfig } from "@/config/site"
+import { rebuild, siteConfig } from "@/config/site"
 
 import { GitHubIcon } from "./github-icon"
 import { MainNav } from "./main-nav"
@@ -52,9 +52,20 @@ export function SiteHeader() {
               <GitHubIcon />
             </a>
           </Button>
-          <Button asChild className="rounded-full max-sm:hidden">
-            <Link href="/download">Download</Link>
-          </Button>
+          {rebuild.active ? (
+            // Still routes to /download, which explains the pause; only the
+            // promise of a file is withdrawn.
+            <Link
+              href="/download"
+              className="border-border text-muted-foreground hover:text-foreground rounded-full border border-dashed px-4 py-2 text-sm font-medium transition-colors max-sm:hidden"
+            >
+              Coming soon
+            </Link>
+          ) : (
+            <Button asChild className="rounded-full max-sm:hidden">
+              <Link href="/download">Download</Link>
+            </Button>
+          )}
           <MobileNav />
         </div>
       </Container>
