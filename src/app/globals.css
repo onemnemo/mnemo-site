@@ -1,0 +1,816 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens for the Mnemo site.
+ *
+ * A warm paper base plus a small set of named canvas colors used as
+ * full-width section bands. Every canvas is paired with exactly one ink (text)
+ * color, and components reference the pair, never a raw color.
+ *
+ * Canvas pairing rules:
+ *   1. Text on a canvas uses that canvas's ink, nothing else.
+ *   2. Muted text is the ink at reduced opacity (ink/70), not a new color.
+ *   3. The primary CTA on a colored canvas is an inverted pill: ink background,
+ *      canvas-colored text.
+ *   4. Paper is the default canvas and should cover roughly two thirds of any
+ *      page. Colored bands are punctuation for major moments, not wallpaper.
+ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-heading: var(--font-heading);
+
+  /* Brand canvases. Usable as bg-meadow, text-meadow-ink, and so on. */
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-meadow: var(--meadow);
+  --color-meadow-ink: var(--meadow-ink);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-ink: var(--cobalt-ink);
+  --color-butter: var(--butter);
+  --color-butter-ink: var(--butter-ink);
+  --color-blush: var(--blush);
+  --color-blush-ink: var(--blush-ink);
+
+  /* shadcn/ui semantic tokens, mapped onto the brand palette below. */
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Base pair. Warm off-white paper with a warm near-black ink. */
+  --paper: oklch(0.972 0.01 85);
+  --ink: oklch(0.245 0.018 55);
+
+  /* Meadow: growth and learning. The closest thing to "the" brand color. */
+  --meadow: oklch(0.76 0.13 125);
+  --meadow-ink: oklch(0.3 0.06 135);
+
+  /* Cobalt: depth and focus. The only canvas with light-on-dark body text. */
+  --cobalt: oklch(0.52 0.17 262);
+  --cobalt-ink: oklch(0.972 0.01 85);
+
+  /* Butter: optimism. Downloads, community, calls to action. */
+  --butter: oklch(0.88 0.12 92);
+  --butter-ink: oklch(0.245 0.018 55);
+
+  /* Blush: warmth. Testimonials and human moments. */
+  --blush: oklch(0.9 0.05 25);
+  --blush-ink: oklch(0.245 0.018 55);
+
+  /* Semantic tokens used by shadcn/ui components. */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: oklch(0.995 0.005 85);
+  --card-foreground: var(--ink);
+  --popover: oklch(0.995 0.005 85);
+  --popover-foreground: var(--ink);
+
+  /* Primary is a deepened coral: the app's original branding and Soma's
+     gills, dark enough to carry paper-colored text. Meadow green stays a
+     canvas color, not an action color. */
+  --primary: oklch(0.6 0.155 32);
+  --primary-foreground: var(--paper);
+
+  --secondary: oklch(0.93 0.015 85);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.93 0.015 85);
+  --muted-foreground: oklch(0.5 0.02 70);
+  --accent: oklch(0.93 0.015 85);
+  --accent-foreground: var(--ink);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.89 0.015 85);
+  --input: oklch(0.89 0.015 85);
+  --ring: oklch(0.68 0.13 32);
+
+  /* Charts recycle the canvas palette so data viz stays on brand. */
+  --chart-1: var(--meadow);
+  --chart-2: var(--cobalt);
+  --chart-3: var(--butter);
+  --chart-4: var(--blush);
+  --chart-5: var(--ink);
+
+  --radius: 0.75rem;
+
+  --sidebar: oklch(0.955 0.012 85);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--paper);
+  --sidebar-accent: oklch(0.93 0.015 85);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: oklch(0.89 0.015 85);
+  --sidebar-ring: var(--ring);
+}
+
+/*
+ * Dark mode is not designed yet: the canvas pairings have no dark
+ * counterparts. This block is the unmodified shadcn default, kept so a toggle
+ * can be wired later without re-scaffolding.
+ */
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  /* Display type is the serif; everything else stays on the sans. */
+  h1,
+  h2 {
+    @apply font-heading;
+  }
+}
+
+/*
+ * 404 scene (see components/not-found-scene.tsx)
+ *
+ * Idle motion only. The television and the character run on unrelated
+ * durations, so the scene has no visible loop point. Every rule below animates
+ * transform or opacity only, so the whole scene stays on the compositor.
+ *
+ * The set is drawn in three-quarter view, so the scanlines run at -18.5deg
+ * rather than flat. That value is the slope of the top edge of the screen
+ * mask, measured when the mask is generated; if the illustration is redrawn,
+ * remeasure it, or the lines read as lying across the glass instead of on it.
+ */
+
+.scene-404-screen {
+  -webkit-mask-image: url("/soma/404-screen-mask.png");
+  mask-image: url("/soma/404-screen-mask.png");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  pointer-events: none;
+  /* Two brief brightness drops per 27s cycle: a tube losing the picture. */
+  animation: scene-404-flicker 27s steps(1, end) infinite;
+}
+
+/*
+ * Both children overshoot the screen by 40% on every side: skewing a box
+ * swings its corners inward, and the rolling band starts above the glass and
+ * finishes below it. The mask defines the visible edge, so the overshoot never
+ * paints outside the screen.
+ */
+.scene-404-screen > * {
+  position: absolute;
+  inset: -40%;
+  transform: skewY(-18.5deg);
+}
+
+.scene-404-scanlines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0.16) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+/* One soft bright band sweeping down the glass: the vertical hold slipping. */
+.scene-404-roll > span {
+  position: absolute;
+  inset-inline: 0;
+  height: 18%;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(255 255 255 / 0.13) 40%,
+    rgb(255 255 255 / 0.3) 50%,
+    rgb(255 255 255 / 0.13) 60%,
+    transparent 100%
+  );
+  animation: scene-404-roll 7s linear infinite;
+}
+
+@keyframes scene-404-roll {
+  from {
+    transform: translateY(-120%);
+  }
+  to {
+    transform: translateY(420%);
+  }
+}
+
+/*
+ * Held steady for almost the whole cycle, then two short drops. Stepped rather
+ * than eased: a tube that fades in and out reads as a dimmer, one that drops
+ * and recovers reads as a fault.
+ */
+@keyframes scene-404-flicker {
+  0%,
+  38%,
+  40%,
+  67%,
+  68%,
+  100% {
+    opacity: 1;
+  }
+  39% {
+    opacity: 0.45;
+  }
+  67.5% {
+    opacity: 0.7;
+  }
+}
+
+/*
+ * Soma's idle. Both transforms pivot on the soles, at 73.4% across and 68.5%
+ * down the shared canvas, so the weight shifts and the chest rises without the
+ * body sliding.
+ */
+.scene-404-sway,
+.scene-404-breathe {
+  transform-origin: 73.4% 68.5%;
+}
+
+.scene-404-sway {
+  animation: scene-404-sway 11s ease-in-out infinite;
+}
+
+.scene-404-breathe {
+  animation: scene-404-breathe 4.4s ease-in-out infinite;
+}
+
+@keyframes scene-404-sway {
+  0%,
+  100% {
+    transform: rotate(-0.45deg);
+  }
+  50% {
+    transform: rotate(0.45deg);
+  }
+}
+
+/* Scales taller than wider, or it reads as a zoom rather than a breath. */
+@keyframes scene-404-breathe {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.005, 1.014);
+  }
+}
+
+/* Reduced motion keeps the scanlines, which are texture, and stops the rest. */
+@media (prefers-reduced-motion: reduce) {
+  .scene-404-screen,
+  .scene-404-roll > span,
+  .scene-404-sway,
+  .scene-404-breathe {
+    animation: none;
+  }
+  .scene-404-roll {
+    display: none;
+  }
+  .scene-404-sway,
+  .scene-404-breathe {
+    transform: none;
+  }
+}
+
+/*
+ * Canvas textures: faint print structure over a flat color band. Both draw
+ * with currentColor, so each canvas textures itself in its own ink and the
+ * Section pairing rule still holds. Applied per band, never globally.
+ *
+ * The butter CTA band stays untextured: the TornEdge strip below it is a plain
+ * bg-butter box, and a texture stopping at that boundary would show the seam
+ * the tear hides.
+ */
+
+/* Wide vertical rules, like the columns of a paste-up board. */
+.texture-rules {
+  background-image: repeating-linear-gradient(
+    to right,
+    color-mix(in oklab, currentColor 5%, transparent) 0 1px,
+    transparent 1px 140px
+  );
+}
+
+/* Graph paper, for the band where a chart is the focus. */
+.texture-grid {
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      color-mix(in oklab, currentColor 8%, transparent) 0 1px,
+      transparent 1px 48px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      color-mix(in oklab, currentColor 8%, transparent) 0 1px,
+      transparent 1px 48px
+    );
+}
+
+/*
+ * Reveal-on-scroll (see components/reveal.tsx for the trigger).
+ *
+ * Nothing here selects bare classes: every hidden state requires the
+ * [data-armed] ancestor that only hydrated JS applies, so the server
+ * HTML and no-JS visitors get the finished figures. The classes:
+ *
+ *   fig-draw    strokes that draw themselves. Each carries pathLength=1
+ *               in the markup, so dasharray/dashoffset of 1 covers any
+ *               shape without measuring it.
+ *   fig-pop     dots that spring in from nothing.
+ *   fig-fade    quiet supporting marks (floors, dashed rescue lines).
+ *   reveal-rise blocks that ease up into place (cards, small art).
+ *
+ * Choreography lives in the markup as --reveal-delay per element. The
+ * [data-armed] base rule covers the delay; "forwards" fill holds the finished
+ * state once the animation ends.
+ */
+
+[data-armed] .fig-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+[data-armed][data-revealed] .fig-draw {
+  animation: fig-draw 0.9s ease-out var(--reveal-delay, 0ms) forwards;
+}
+@keyframes fig-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+[data-armed] .fig-pop {
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+[data-armed][data-revealed] .fig-pop {
+  /* Overshooting ease: the dot lands like a pin pressed into a board. */
+  animation: fig-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)
+    var(--reveal-delay, 0ms) forwards;
+}
+@keyframes fig-pop {
+  to {
+    transform: scale(1);
+  }
+}
+
+[data-armed] .fig-fade {
+  opacity: 0;
+}
+[data-armed][data-revealed] .fig-fade {
+  animation: fig-fade 0.5s ease-out var(--reveal-delay, 0ms) forwards;
+}
+@keyframes fig-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+[data-armed] .reveal-rise {
+  opacity: 0;
+  transform: translateY(14px);
+}
+[data-armed][data-revealed] .reveal-rise {
+  animation: reveal-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1)
+    var(--reveal-delay, 0ms) forwards;
+}
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+ * Load entrance for above-the-fold heroes. Same rise as the scroll reveal, but
+ * pure CSS with no data-armed gating: on content visible at load, the reveal
+ * mechanism's arm-after-hydration step would paint the content, blink it away,
+ * and replay it. backwards fill holds the from state through the stagger
+ * delay; the keyframes end at the element's natural state, so no forwards fill
+ * is needed and no-JS visitors still see the entrance play. The from block on
+ * reveal-rise exists for this class; the [data-armed] base state duplicates it
+ * for the scroll-revealed elements.
+ */
+.enter-rise {
+  animation: reveal-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1)
+    var(--reveal-delay, 0ms) backwards;
+}
+
+/*
+ * Idle drift for the doodle atmosphere layer: a slow vertical float,
+ * desynced per doodle through the custom properties set in doodle.tsx.
+ * Animating the standalone translate property leaves the transform and
+ * rotate utilities on the same element untouched, so tilted doodles
+ * keep their tilt while floating.
+ */
+.doodle-drift {
+  animation: doodle-drift var(--drift-duration, 11s) ease-in-out
+    var(--drift-delay, 0s) infinite alternate;
+}
+
+@keyframes doodle-drift {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -9px;
+  }
+}
+
+/* Reduced motion: reveal.tsx still sets both attributes, so these rules pin
+   the gated elements straight to their final state. enter-rise and
+   doodle-drift are pure CSS, so dropping the animation is enough. */
+@media (prefers-reduced-motion: reduce) {
+  [data-armed] .fig-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  [data-armed] .fig-pop {
+    animation: none;
+    transform: scale(1);
+  }
+  [data-armed] .fig-fade {
+    animation: none;
+    opacity: 1;
+  }
+  [data-armed] .reveal-rise {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .enter-rise,
+  .doodle-drift {
+    animation: none;
+  }
+}
+
+/*
+ * Scene 7 of /science: Soma's reluctant graduation cap toss. An 8-frame
+ * sprite strip stepped by background-position: the toss plays across the
+ * first 42% of the cycle and the long tail parks on the standing frame, so
+ * it reads as an occasional event rather than a looping gif.
+ *
+ * step-end timing is required. Any interpolating timing function lets a
+ * display frame sample between keyframes and render a blended background
+ * position, which at 800% background-size is a horizontally torn half-frame
+ * flash. step-end holds each value and jumps between them atomically.
+ */
+.science-grad-toss {
+  animation: science-grad-toss 6s step-end infinite;
+}
+
+@keyframes science-grad-toss {
+  0% {
+    background-position-x: 0%;
+  }
+  6% {
+    background-position-x: 14.2857%;
+  }
+  12% {
+    background-position-x: 28.5714%;
+  }
+  18% {
+    background-position-x: 42.8571%;
+  }
+  24% {
+    background-position-x: 57.1429%;
+  }
+  30% {
+    background-position-x: 71.4286%;
+  }
+  36% {
+    background-position-x: 85.7143%;
+  }
+  42% {
+    background-position-x: 100%;
+  }
+  48% {
+    background-position-x: 0%;
+  }
+}
+
+/*
+ * Idle life for /science: the InkEdge squid, its sea, and the scene-6
+ * sleeper. All pure CSS, all infinite, all parked on a still state under
+ * reduced motion.
+ *
+ * The sprite loops use step-end for the same reason as science-grad-toss
+ * above. The squid sheet is a 5x2 grid rather than a strip, so both position
+ * axes step: x walks the row, y drops to the second row at the halfway
+ * keyframe.
+ */
+.science-squid-swim {
+  animation: science-squid-swim 1.5s step-end infinite;
+}
+
+@keyframes science-squid-swim {
+  0% {
+    background-position: 0% 0%;
+  }
+  10% {
+    background-position: 25% 0%;
+  }
+  20% {
+    background-position: 50% 0%;
+  }
+  30% {
+    background-position: 75% 0%;
+  }
+  40% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+  60% {
+    background-position: 25% 100%;
+  }
+  70% {
+    background-position: 50% 100%;
+  }
+  80% {
+    background-position: 75% 100%;
+  }
+  90% {
+    background-position: 100% 100%;
+  }
+}
+
+/* The squid treads water: a slow vertical drift on the wrapper, layered
+   under the frame-to-frame tentacle wiggle of the sprite itself. */
+.science-squid-float {
+  animation: science-squid-float 6s ease-in-out infinite;
+}
+
+@keyframes science-squid-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/*
+ * The back wave of the ink sea. The path is two identical periods wide,
+ * so sliding it left by half its own width (one full period) lands every
+ * point exactly where an identical point started: the loop has no seam.
+ * transform-box makes the percentage read the path's bounding box; SVG
+ * user units keep the drift proportional at every viewport width because
+ * the whole viewBox scales together.
+ */
+.science-ink-drift {
+  transform-box: fill-box;
+  animation: science-ink-drift 18s linear infinite;
+}
+
+@keyframes science-ink-drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Scene 6: Soma asleep, z's accumulating one per breath. Single-row
+   4-frame strip; only the x position animates, the y crop is set where
+   the sprite is declared. Half a second per frame keeps it reading as
+   breathing rather than blinking. */
+.science-night-doze {
+  animation: science-night-doze 2s step-end infinite;
+}
+
+@keyframes science-night-doze {
+  0% {
+    background-position-x: 0%;
+  }
+  25% {
+    background-position-x: 33.3333%;
+  }
+  50% {
+    background-position-x: 66.6667%;
+  }
+  75% {
+    background-position-x: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .science-grad-toss,
+  .science-squid-swim,
+  .science-squid-float,
+  .science-ink-drift,
+  .science-night-doze {
+    animation: none;
+  }
+}
+
+/*
+ * Docs article typography (see app/docs).
+ *
+ * Hand-rolled instead of a typography plugin so the article body matches the
+ * rest of the site: serif display headings, coral accents, soft corners.
+ * Applied to compiled markdown, so element selectors are the only handle
+ * available.
+ */
+
+.docs-prose {
+  line-height: 1.75;
+}
+
+.docs-prose > * + * {
+  margin-top: 1.1em;
+}
+
+.docs-prose h2 {
+  margin-top: 2.4em;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.docs-prose h3 {
+  margin-top: 1.8em;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Anchored headings must clear the sticky h-16 header when jumped to. */
+.docs-prose h2,
+.docs-prose h3 {
+  scroll-margin-top: 5.5rem;
+}
+
+.docs-prose a {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--primary) 50%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms;
+}
+
+.docs-prose a:hover {
+  text-decoration-color: var(--primary);
+}
+
+.docs-prose ul,
+.docs-prose ol {
+  padding-left: 1.4em;
+}
+
+.docs-prose ul {
+  list-style: disc;
+}
+
+.docs-prose ol {
+  list-style: decimal;
+}
+
+.docs-prose li + li {
+  margin-top: 0.4em;
+}
+
+.docs-prose li::marker {
+  color: var(--primary);
+}
+
+.docs-prose strong {
+  font-weight: 600;
+}
+
+.docs-prose blockquote {
+  border-left: 3px solid color-mix(in oklab, var(--primary) 45%, transparent);
+  padding-left: 1.1em;
+  color: var(--muted-foreground);
+}
+
+.docs-prose hr {
+  margin-block: 2.5em;
+  border-color: var(--border);
+}
+
+.docs-prose code {
+  font-size: 0.875em;
+}
+
+/* Inline code only; Shiki owns the code inside pre blocks. */
+.docs-prose :not(pre) > code {
+  background: var(--secondary);
+  border-radius: 0.375rem;
+  padding: 0.15em 0.4em;
+}
+
+.docs-prose pre {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.docs-prose img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+
+.docs-prose table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.docs-prose th,
+.docs-prose td {
+  border: 1px solid var(--border);
+  padding: 0.5em 0.9em;
+  text-align: left;
+}
+
+.docs-prose th {
+  background: var(--secondary);
+  font-weight: 600;
+}
