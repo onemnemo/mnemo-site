@@ -6,6 +6,7 @@ import notesShot from "@public/screenshots/notes.png"
 import { AppFrame } from "@/components/app-frame"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
+import { cn } from "@/lib/utils"
 import {
   FlashcardsFigure,
   MindmapFigure,
@@ -100,23 +101,9 @@ export function Modules() {
         </p>
 
         <div className="mt-16 grid gap-24 sm:mt-20 sm:gap-32">
-          {modules.map((module, index) => (
-            <Reveal
-              key={module.eyebrow}
-              /*
-               * The media column is the wider of the two. These are
-               * screenshots of a dense desktop app: at an even split they
-               * render small enough that the interface being described is
-               * unreadable, which defeats the point of showing it.
-               */
-              className="grid items-center gap-10 lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] lg:gap-16"
-            >
-              {/* Alternate media left/right per row at desktop widths. */}
-              <div
-                className={
-                  index % 2 === 1 ? "reveal-rise lg:order-last" : "reveal-rise"
-                }
-              >
+          {modules.map((module, index) => {
+            const text = (
+              <div className="reveal-rise">
                 {/* Decorative: the eyebrow and title state what it shows. */}
                 <module.Figure base={60} className="mb-6 h-24 w-auto" />
                 <p className="type-eyebrow">{module.eyebrow}</p>
@@ -125,6 +112,8 @@ export function Modules() {
                   {module.body}
                 </p>
               </div>
+            )
+            const media = (
               <AppFrame
                 chrome={false}
                 className="reveal-rise"
@@ -137,8 +126,44 @@ export function Modules() {
                   className="w-full"
                 />
               </AppFrame>
-            </Reveal>
-          ))}
+            )
+            const flipped = index % 2 === 1
+            return (
+              <Reveal
+                key={module.eyebrow}
+                /*
+                 * The media column is the wider of the two. These are
+                 * screenshots of a dense desktop app: at an even split they
+                 * render small enough that the interface being described is
+                 * unreadable, which defeats the point of showing it.
+                 *
+                 * The alternation is done by swapping DOM order (and the
+                 * matching column-size order) rather than with CSS `order`,
+                 * because `order` only changes visual position — grid
+                 * auto-placement still assigns items to tracks by DOM order,
+                 * so a reordered item would land in the wrong-sized track.
+                 */
+                className={cn(
+                  "grid items-center gap-10 lg:gap-16",
+                  flipped
+                    ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]"
+                    : "lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)]"
+                )}
+              >
+                {flipped ? (
+                  <>
+                    {media}
+                    {text}
+                  </>
+                ) : (
+                  <>
+                    {text}
+                    {media}
+                  </>
+                )}
+              </Reveal>
+            )
+          })}
         </div>
 
         <Reveal className="mt-24 sm:mt-32">
