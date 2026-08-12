@@ -7,17 +7,26 @@
 /*
  * Design tokens for the Mnemo site.
  *
- * A warm paper base plus a small set of named canvas colors used as
- * full-width section bands. Every canvas is paired with exactly one ink (text)
- * color, and components reference the pair, never a raw color.
+ * These are the app's tokens, ported. The site previously ran its own palette
+ * — a yellow-green paper, a coral primary, and four saturated canvas colours
+ * used as full-width wallpaper — none of which appear anywhere in the
+ * product. A visitor who downloaded the app met a different-looking thing
+ * than the page had promised, and the illustrations, which are the only
+ * Mnemo-native element on the page, had nothing around them to agree with.
  *
- * Canvas pairing rules:
- *   1. Text on a canvas uses that canvas's ink, nothing else.
- *   2. Muted text is the ink at reduced opacity (ink/70), not a new color.
- *   3. The primary CTA on a colored canvas is an inverted pill: ink background,
- *      canvas-colored text.
- *   4. Paper is the default canvas and should cover roughly two thirds of any
- *      page. Colored bands are punctuation for major moments, not wallpaper.
+ * The rules now match the ones in the app's tokens.css:
+ *
+ *   1. One material. Surfaces differ in depth (paper, sunken, canvas, deep),
+ *      not in hue, and the whole neutral ramp is built on the brand hue.
+ *   2. Depth is shadow, not border. Borders are a last resort.
+ *   3. One accent, spent sparingly. Buttons that matter are near-black; the
+ *      orange belongs to the brand and nothing else.
+ *   4. Colour is information, never decoration. Beyond the single brand tint,
+ *      colour appears only inside figures, using the app's own branch and
+ *      review-state hues.
+ *   5. Muted text is a step down the ink ramp, not the ink at reduced opacity.
+ *      Opacity-based "muted" is what pushed three of the old canvas bands
+ *      below 3.5:1.
  */
 
 @theme inline {
@@ -27,17 +36,68 @@
   --font-mono: var(--font-mono);
   --font-heading: var(--font-heading);
 
-  /* Brand canvases. Usable as bg-meadow, text-meadow-ink, and so on. */
+  /* Surfaces. One material at four depths; see :root for the reasoning. */
   --color-paper: var(--paper);
-  --color-ink: var(--ink);
-  --color-meadow: var(--meadow);
-  --color-meadow-ink: var(--meadow-ink);
-  --color-cobalt: var(--cobalt);
-  --color-cobalt-ink: var(--cobalt-ink);
+  --color-canvas: var(--canvas);
+  --color-sunken: var(--sunken);
+  --color-deep: var(--deep);
+  --color-deep-ink: var(--deep-ink);
+  --color-deep-ink-2: var(--deep-ink-2);
+  --color-sea: var(--sea);
+  --color-sea-ink: var(--sea-ink);
+  --color-sea-ink-2: var(--sea-ink-2);
   --color-butter: var(--butter);
-  --color-butter-ink: var(--butter-ink);
-  --color-blush: var(--blush);
-  --color-blush-ink: var(--blush-ink);
+
+  /* The spectrum, for the overscroll band and the share card only. */
+  --color-spectrum-1: var(--spectrum-1);
+  --color-spectrum-2: var(--spectrum-2);
+  --color-spectrum-3: var(--spectrum-3);
+  --color-spectrum-4: var(--spectrum-4);
+  --color-spectrum-5: var(--spectrum-5);
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+
+  /*
+   * The brand orange, deliberately NOT called `accent`: shadcn's --accent is
+   * a neutral hover background, and every ghost/outline control resolves
+   * hover:bg-accent against it. Naming the brand colour `accent` would turn
+   * every hover state orange.
+   */
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-wash: var(--brand-wash);
+  --color-brand-fg: var(--brand-fg);
+
+  --color-solid: var(--solid);
+  --color-solid-hover: var(--solid-hover);
+  --color-solid-fg: var(--solid-fg);
+
+  /* The app's branch hues, for colour that carries meaning inside a figure. */
+  --color-branch-1: var(--branch-1);
+  --color-branch-2: var(--branch-2);
+  --color-branch-3: var(--branch-3);
+  --color-branch-4: var(--branch-4);
+  --color-branch-5: var(--branch-5);
+  --color-branch-6: var(--branch-6);
+  --color-branch-7: var(--branch-7);
+  --color-branch-8: var(--branch-8);
+
+  /* Card states: the one place three hues earn their keep. */
+  --color-state-new: var(--state-new);
+  --color-state-learn: var(--state-learn);
+  --color-state-due: var(--state-due);
+  --color-state-new-wash: var(--state-new-wash);
+  --color-state-learn-wash: var(--state-learn-wash);
+  --color-state-due-wash: var(--state-due-wash);
+
+  /* Elevation, lifted from the app. Depth is shadow, not border. */
+  --shadow-canvas: var(--e-canvas);
+  --shadow-pop: var(--e-pop);
 
   /* shadcn/ui semantic tokens, mapped onto the brand palette below. */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -79,107 +139,304 @@
 }
 
 :root {
-  /* Base pair. Warm off-white paper with a warm near-black ink. */
-  --paper: oklch(0.972 0.01 85);
-  --ink: oklch(0.245 0.018 55);
+  /*
+   * Neutral temperature, taken from the app. 40 is the brand hue, so every
+   * grey on the site is a desaturated version of the orange rather than a
+   * separate cream. The previous system sat at hue 85, a yellow-green paper
+   * that never quite matched anything in the product.
+   */
+  --neutral-hue: 40;
+  --neutral-chroma: 0.005;
 
-  /* Meadow: growth and learning. The closest thing to "the" brand color. */
-  --meadow: oklch(0.76 0.13 125);
-  --meadow-ink: oklch(0.3 0.06 135);
+  /*
+   * Surfaces.
+   *
+   * The app's first principle is that the frame is ONE continuous surface and
+   * the canvas floats on top of it, with depth coming from shadow rather than
+   * from a change of colour. The site inherits that: `paper` is the page,
+   * `canvas` is anything that floats (product shots, cards), `sunken` marks a
+   * band as recessed without changing material, and `deep` is the app's own
+   * dark canvas, used for at most one moment per page.
+   *
+   * Two coloured bands survive, and only because the colour is doing a job no
+   * neutral can. See the note above --sea and --butter.
+   */
+  --paper: oklch(0.971 var(--neutral-chroma) var(--neutral-hue));
+  --canvas: oklch(1 0 0);
+  /*
+   * Sunken sat at 0.949, which is 1.06:1 against paper and 1.16:1 under a
+   * white card. That is below the point where an edge reads as an edge, and
+   * it is why the page lost its sense of separation between elements. This is
+   * still one material at two depths, just far enough apart to see.
+   */
+  --sunken: oklch(0.932 calc(var(--neutral-chroma) * 1.6) var(--neutral-hue));
+  --deep: oklch(0.218 0.006 var(--neutral-hue));
+  --deep-ink: oklch(0.955 0.003 var(--neutral-hue));
+  /*
+   * The deep band's quiet step, as a lightness step rather than an opacity
+   * utility. Opacity muting on revealed elements gets clobbered anyway:
+   * reveal-rise ends its keyframes at opacity 1 and holds them with a
+   * forwards fill, which beats any opacity-* class in the cascade.
+   */
+  --deep-ink-2: oklch(0.78 0.005 var(--neutral-hue));
 
-  /* Cobalt: depth and focus. The only canvas with light-on-dark body text. */
-  --cobalt: oklch(0.52 0.17 262);
-  --cobalt-ink: oklch(0.972 0.01 85);
-
-  /* Butter: optimism. Downloads, community, calls to action. */
+  /*
+   * The two bands where colour carries meaning rather than decorating.
+   *
+   * `sea` is /science's water. The scene sinks a fact into the deep, the
+   * squid's ink pool is the band's top edge, and the wave drifts across it —
+   * the whole sequence is built on the band being water, so a near-black
+   * canvas made the swimming animation and the octopus read as non-sequiturs.
+   * It is a couple of steps darker than the old cobalt purely for headroom:
+   * at the original lightness, secondary text on it could not clear 4.5:1,
+   * which is exactly the legibility complaint the band collected.
+   *
+   * `butter` is the closing call to action. Ink on it measures 10.8 and ink-2
+   * measures 5.4; what failed before was never the yellow, it was muting text
+   * with opacity instead of stepping down the ink ramp. ink-3 is NOT cleared
+   * for this band (3.67) — use ink-2.
+   */
+  --sea: oklch(0.46 0.17 262);
+  --sea-ink: oklch(0.972 0.01 85);
+  --sea-ink-2: oklch(0.86 0.04 262);
   --butter: oklch(0.88 0.12 92);
-  --butter-ink: oklch(0.245 0.018 55);
 
-  /* Blush: warmth. Testimonials and human moments. */
-  --blush: oklch(0.9 0.05 25);
-  --blush-ink: oklch(0.245 0.018 55);
+  /*
+   * The spectrum.
+   *
+   * The site's one full-palette moment, and the only place these five values
+   * appear: the elastic overscroll band at the foot of the page, and the
+   * share card, which is that band as a still. They are not surfaces, no text
+   * is ever set on them, and no section may use one as a background.
+   *
+   * Swapping them for the app's branch hues was a mistake — the band is the
+   * most-liked thing on the site and the branch palette is deliberately
+   * low-chroma so that eight of them can coexist in one mindmap without
+   * shouting. That restraint is right on a canvas and wrong here.
+   */
+  --spectrum-1: oklch(0.76 0.13 125);
+  --spectrum-2: oklch(0.52 0.17 262);
+  --spectrum-3: oklch(0.88 0.12 92);
+  --spectrum-4: oklch(0.9 0.05 25);
+  --spectrum-5: oklch(0.6 0.155 32);
+
+  /*
+   * Ink ramp, from the app but darkened at the quiet end. The app can afford
+   * a lighter ink-3 because its labels sit on a near-white frame at close
+   * range; on the web the app's own value measured 4.01 on paper and 3.77 on
+   * sunken, and every eyebrow on the site is 12px.
+   *
+   * ink-3 is tuned against sunken, not paper, because sunken is the harder
+   * background and deepening it for separation cost ink-3 a quarter of a
+   * point. At 0.515 it lands 5.19 on paper, 4.63 on sunken and 5.65 on a
+   * white card, so all three clear AA for small text. It is NOT cleared for
+   * butter (3.7) or for the sea band — use ink-2 and sea-ink-2 there.
+   */
+  --ink: oklch(0.26 0.008 var(--neutral-hue));
+  --ink-2: oklch(0.44 0.007 var(--neutral-hue));
+  --ink-3: oklch(0.515 0.006 var(--neutral-hue));
+
+  /* Borders are a last resort, not a layout tool. */
+  --line: oklch(0.9 calc(var(--neutral-chroma) * 1.5) var(--neutral-hue));
+  --line-soft: oklch(0.943 var(--neutral-chroma) var(--neutral-hue));
+
+  /*
+   * One accent, spent sparingly. The exact value from the app's wordmark, so
+   * the download button here and the primary action in the app are the same
+   * orange. `brand-ink` is the darkened variant for accent-coloured text on
+   * paper, which the raw accent is too light to carry.
+   */
+  --brand: oklch(0.63 0.185 40);
+  --brand-hover: oklch(0.58 0.19 40);
+  --brand-ink: oklch(0.52 0.17 40);
+  --brand-wash: oklch(0.962 0.022 40);
+  --brand-fg: oklch(0.99 0.01 40);
+
+  /*
+   * Neutral-primary. The app is explicit that buttons which matter are
+   * near-black rather than accent-coloured, because the accent belongs to the
+   * brand and nothing else. The site's primary CTA follows, which also
+   * retires a coral pill whose label sat at 3.9:1.
+   */
+  --solid: oklch(0.23 0.008 var(--neutral-hue));
+  --solid-hover: oklch(0.32 0.009 var(--neutral-hue));
+  --solid-fg: oklch(0.99 0 0);
+
+  /*
+   * Branch hues, copied from the app's mindmap palette: eight hues walked
+   * around the wheel and pulled to a similar lightness so none shouts louder
+   * than its siblings, deliberately off the brand hue at both ends. On the
+   * site they appear only inside figures and the overscroll band, never as
+   * page background.
+   */
+  --branch-1: oklch(0.55 0.15 22);
+  --branch-2: oklch(0.61 0.115 72);
+  --branch-3: oklch(0.53 0.105 148);
+  --branch-4: oklch(0.55 0.08 205);
+  --branch-5: oklch(0.52 0.115 258);
+  --branch-6: oklch(0.5 0.125 305);
+  --branch-7: oklch(0.52 0.115 350);
+  --branch-8: oklch(0.5 0.018 60);
+
+  /*
+   * Node fills. Far enough back that a node's label stays ink rather than
+   * white: a pill per branch in full chroma turns a map into a bag of sweets.
+   * Referenced as raw var() inside SVG fills, so they need no @theme entry.
+   */
+  --branch-1-wash: oklch(0.955 0.028 22);
+  --branch-2-wash: oklch(0.958 0.032 72);
+  --branch-3-wash: oklch(0.955 0.03 148);
+  --branch-4-wash: oklch(0.957 0.025 205);
+  --branch-5-wash: oklch(0.955 0.028 258);
+  --branch-6-wash: oklch(0.953 0.03 305);
+  --branch-7-wash: oklch(0.955 0.028 350);
+  --branch-8-wash: oklch(0.955 0.006 60);
+
+  /* Review states: new / learning / due, the app's one informational triad. */
+  --state-new: oklch(0.56 0.12 250);
+  --state-learn: oklch(0.6 0.11 75);
+  --state-due: oklch(0.55 0.17 40);
+  --state-new-wash: oklch(0.94 0.03 250);
+  --state-learn-wash: oklch(0.94 0.04 75);
+  --state-due-wash: oklch(0.94 0.035 40);
+
+  /*
+   * Elevation, from the app but carried further.
+   *
+   * The app's values are tuned for a window an arm's length away, where a 6%
+   * ring is plenty. A marketing page is read at a distance on a large display,
+   * and at those numbers a white card on a warm band had almost no edge — part
+   * of why the page lost its sense of separation. Same three-layer shape,
+   * roughly doubled.
+   */
+  --e-canvas:
+    0 0 0 1px oklch(0.7 0.01 var(--neutral-hue) / 0.11),
+    0 1px 2px oklch(0.4 0.02 var(--neutral-hue) / 0.06),
+    0 10px 28px -8px oklch(0.4 0.02 var(--neutral-hue) / 0.16);
+  --e-pop:
+    0 0 0 1px oklch(0.7 0.01 var(--neutral-hue) / 0.07),
+    0 8px 24px -6px oklch(0.4 0.02 var(--neutral-hue) / 0.14),
+    0 16px 48px -12px oklch(0.4 0.02 var(--neutral-hue) / 0.12);
 
   /* Semantic tokens used by shadcn/ui components. */
   --background: var(--paper);
   --foreground: var(--ink);
-  --card: oklch(0.995 0.005 85);
+  --card: var(--canvas);
   --card-foreground: var(--ink);
-  --popover: oklch(0.995 0.005 85);
+  --popover: var(--canvas);
   --popover-foreground: var(--ink);
 
-  /* Primary is a deepened coral: the app's original branding and Soma's
-     gills, dark enough to carry paper-colored text. Meadow green stays a
-     canvas color, not an action color. */
-  --primary: oklch(0.6 0.155 32);
-  --primary-foreground: var(--paper);
+  --primary: var(--solid);
+  --primary-foreground: var(--solid-fg);
 
-  --secondary: oklch(0.93 0.015 85);
+  --secondary: var(--sunken);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.93 0.015 85);
-  --muted-foreground: oklch(0.5 0.02 70);
-  --accent: oklch(0.93 0.015 85);
+  --muted: var(--sunken);
+  --muted-foreground: var(--ink-2);
+  /* shadcn's hover background. Neutral on purpose; see the note in @theme. */
+  --accent: oklch(0.937 calc(var(--neutral-chroma) * 2) var(--neutral-hue));
   --accent-foreground: var(--ink);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.89 0.015 85);
-  --input: oklch(0.89 0.015 85);
-  --ring: oklch(0.68 0.13 32);
+  /* Distinct from the brand orange: if "delete" and "mnemo" are the same
+     colour, neither means anything. */
+  --destructive: oklch(0.54 0.2 25);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--brand);
 
-  /* Charts recycle the canvas palette so data viz stays on brand. */
-  --chart-1: var(--meadow);
-  --chart-2: var(--cobalt);
-  --chart-3: var(--butter);
-  --chart-4: var(--blush);
-  --chart-5: var(--ink);
+  /* Charts use the branch hues, so data viz speaks the app's colour language. */
+  --chart-1: var(--branch-4);
+  --chart-2: var(--branch-2);
+  --chart-3: var(--branch-3);
+  --chart-4: var(--branch-7);
+  --chart-5: var(--ink-2);
 
   --radius: 0.75rem;
 
-  --sidebar: oklch(0.955 0.012 85);
+  --sidebar: var(--paper);
   --sidebar-foreground: var(--ink);
-  --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--paper);
-  --sidebar-accent: oklch(0.93 0.015 85);
+  --sidebar-primary: var(--solid);
+  --sidebar-primary-foreground: var(--solid-fg);
+  --sidebar-accent: var(--accent);
   --sidebar-accent-foreground: var(--ink);
-  --sidebar-border: oklch(0.89 0.015 85);
+  --sidebar-border: var(--line);
   --sidebar-ring: var(--ring);
 }
 
 /*
- * Dark mode is not designed yet: the canvas pairings have no dark
- * counterparts. This block is the unmodified shadcn default, kept so a toggle
- * can be wired later without re-scaffolding.
+ * Dark mode has no toggle yet, but the values are no longer placeholders:
+ * they are the app's dark theme, so wiring a switch later lands on the
+ * product's real dark surfaces rather than on neutral greys.
  */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --paper: oklch(0.203 0.005 var(--neutral-hue));
+  --canvas: oklch(0.218 0.006 var(--neutral-hue));
+  --sunken: oklch(0.192 0.005 var(--neutral-hue));
+  --deep: oklch(0.192 0.005 var(--neutral-hue));
+  --deep-ink: oklch(0.955 0.003 var(--neutral-hue));
+  --deep-ink-2: oklch(0.78 0.005 var(--neutral-hue));
+
+  --ink: oklch(0.955 0.003 var(--neutral-hue));
+  --ink-2: oklch(0.755 0.008 var(--neutral-hue));
+  --ink-3: oklch(0.6 0.009 var(--neutral-hue));
+
+  --line: oklch(0.31 0.008 var(--neutral-hue));
+  --line-soft: oklch(0.265 0.006 var(--neutral-hue));
+
+  --brand: oklch(0.7 0.17 40);
+  --brand-hover: oklch(0.75 0.17 40);
+  --brand-ink: oklch(0.78 0.15 40);
+  --brand-wash: oklch(0.32 0.075 40);
+  --brand-fg: oklch(0.18 0.03 40);
+
+  /* The two meaning-bearing bands hold their hue in dark mode; only their
+     lightness moves, so the sea is still the sea. */
+  --sea: oklch(0.36 0.14 262);
+  --sea-ink: oklch(0.955 0.01 262);
+  --sea-ink-2: oklch(0.8 0.05 262);
+  --butter: oklch(0.74 0.115 92);
+
+  --solid: oklch(0.96 0.003 var(--neutral-hue));
+  --solid-hover: oklch(0.88 0.004 var(--neutral-hue));
+  --solid-fg: oklch(0.2 0.008 var(--neutral-hue));
+
+  /* Lifted, not inverted: a branch has to stay legible as a thin ribbon
+     against a near-black canvas. */
+  --branch-1: oklch(0.7 0.145 22);
+  --branch-2: oklch(0.77 0.115 72);
+  --branch-3: oklch(0.72 0.11 148);
+  --branch-4: oklch(0.73 0.085 205);
+  --branch-5: oklch(0.7 0.115 258);
+  --branch-6: oklch(0.7 0.125 305);
+  --branch-7: oklch(0.71 0.115 350);
+  --branch-8: oklch(0.68 0.02 60);
+
+  --branch-1-wash: oklch(0.33 0.06 22);
+  --branch-2-wash: oklch(0.34 0.055 72);
+  --branch-3-wash: oklch(0.32 0.05 148);
+  --branch-4-wash: oklch(0.32 0.045 205);
+  --branch-5-wash: oklch(0.32 0.055 258);
+  --branch-6-wash: oklch(0.32 0.06 305);
+  --branch-7-wash: oklch(0.32 0.055 350);
+  --branch-8-wash: oklch(0.31 0.012 60);
+
+  --state-new: oklch(0.72 0.12 250);
+  --state-learn: oklch(0.78 0.11 75);
+  --state-due: oklch(0.74 0.16 40);
+  --state-new-wash: oklch(0.32 0.06 250);
+  --state-learn-wash: oklch(0.33 0.06 75);
+  --state-due-wash: oklch(0.32 0.07 40);
+
+  --accent: oklch(0.253 0.007 var(--neutral-hue));
+  --destructive: oklch(0.68 0.18 25);
+
+  --e-canvas:
+    0 0 0 1px oklch(1 0 0 / 0.055),
+    0 1px 2px oklch(0 0 0 / 0.3),
+    0 6px 16px -4px oklch(0 0 0 / 0.35);
+  --e-pop:
+    0 0 0 1px oklch(1 0 0 / 0.07),
+    0 8px 24px -6px oklch(0 0 0 / 0.45),
+    0 16px 48px -12px oklch(0 0 0 / 0.4);
 }
 
 @layer base {
@@ -188,6 +445,10 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Inter's disambiguated glyphs, matching the app. Small change, reads
+       noticeably more considered at UI sizes. */
+    font-feature-settings: "cv05", "cv11", "ss01";
+    font-optical-sizing: auto;
   }
   html {
     @apply font-sans;
@@ -196,6 +457,41 @@
   h1,
   h2 {
     @apply font-heading;
+  }
+}
+
+/*
+ * Type scale.
+ *
+ * Headings previously picked their own sizes per section, which is why two
+ * adjacent bands could disagree by two steps. These four classes are the only
+ * sanctioned display sizes; a section chooses a role, not a number.
+ */
+@layer components {
+  /*
+   * Caps at 60px rather than 72px. At 72 the hero's own headline measured
+   * 511px against a 432px column and broke "Keep everything." across two
+   * lines mid-phrase, which is what read as cramped and squished.
+   */
+  .type-display {
+    @apply font-heading text-[2.75rem] leading-[1.05] font-semibold tracking-tight text-balance sm:text-6xl;
+  }
+  .type-h2 {
+    @apply font-heading text-[2rem] leading-[1.12] font-semibold tracking-tight text-balance sm:text-[2.75rem];
+  }
+  /* Row and sub-band headings: still serif, one clear step under a band head. */
+  .type-h3 {
+    @apply font-heading text-[1.625rem] leading-[1.18] font-semibold tracking-tight text-balance sm:text-[1.9rem];
+  }
+  /* Card headings. Sans takes over below the serif range. */
+  .type-h4 {
+    @apply text-lg leading-snug font-semibold tracking-tight;
+  }
+  .type-lede {
+    @apply text-lg leading-relaxed sm:text-xl;
+  }
+  .type-eyebrow {
+    @apply text-ink-3 font-mono text-xs tracking-[0.18em] uppercase;
   }
 }
 
@@ -352,8 +648,8 @@
  * with currentColor, so each canvas textures itself in its own ink and the
  * Section pairing rule still holds. Applied per band, never globally.
  *
- * The butter CTA band stays untextured: the TornEdge strip below it is a plain
- * bg-butter box, and a texture stopping at that boundary would show the seam
+ * The CTA wash band stays untextured: the TornEdge strip below it is a plain
+ * bg-wash box, and a texture stopping at that boundary would show the seam
  * the tear hides.
  */
 
@@ -405,7 +701,7 @@
   stroke-dashoffset: 1;
 }
 [data-armed][data-revealed] .fig-draw {
-  animation: fig-draw 0.9s ease-out var(--reveal-delay, 0ms) forwards;
+  animation: fig-draw 0.42s ease-out var(--reveal-delay, 0ms) forwards;
 }
 @keyframes fig-draw {
   to {
@@ -420,7 +716,7 @@
 }
 [data-armed][data-revealed] .fig-pop {
   /* Overshooting ease: the dot lands like a pin pressed into a board. */
-  animation: fig-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)
+  animation: fig-pop 0.24s cubic-bezier(0.34, 1.56, 0.64, 1)
     var(--reveal-delay, 0ms) forwards;
 }
 @keyframes fig-pop {
@@ -433,7 +729,7 @@
   opacity: 0;
 }
 [data-armed][data-revealed] .fig-fade {
-  animation: fig-fade 0.5s ease-out var(--reveal-delay, 0ms) forwards;
+  animation: fig-fade 0.26s ease-out var(--reveal-delay, 0ms) forwards;
 }
 @keyframes fig-fade {
   to {
@@ -443,16 +739,16 @@
 
 [data-armed] .reveal-rise {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(10px);
 }
 [data-armed][data-revealed] .reveal-rise {
-  animation: reveal-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1)
+  animation: reveal-rise 0.28s cubic-bezier(0.16, 1, 0.3, 1)
     var(--reveal-delay, 0ms) forwards;
 }
 @keyframes reveal-rise {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -471,7 +767,7 @@
  * for the scroll-revealed elements.
  */
 .enter-rise {
-  animation: reveal-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1)
+  animation: reveal-rise 0.32s cubic-bezier(0.16, 1, 0.3, 1)
     var(--reveal-delay, 0ms) backwards;
 }
 
@@ -724,13 +1020,13 @@
 .docs-prose a {
   font-weight: 500;
   text-decoration: underline;
-  text-decoration-color: color-mix(in oklab, var(--primary) 50%, transparent);
+  text-decoration-color: color-mix(in oklab, var(--brand-ink) 50%, transparent);
   text-underline-offset: 3px;
   transition: text-decoration-color 150ms;
 }
 
 .docs-prose a:hover {
-  text-decoration-color: var(--primary);
+  text-decoration-color: var(--brand-ink);
 }
 
 .docs-prose ul,
@@ -751,7 +1047,7 @@
 }
 
 .docs-prose li::marker {
-  color: var(--primary);
+  color: var(--brand-ink);
 }
 
 .docs-prose strong {
@@ -759,7 +1055,7 @@
 }
 
 .docs-prose blockquote {
-  border-left: 3px solid color-mix(in oklab, var(--primary) 45%, transparent);
+  border-left: 3px solid color-mix(in oklab, var(--brand-ink) 45%, transparent);
   padding-left: 1.1em;
   color: var(--muted-foreground);
 }

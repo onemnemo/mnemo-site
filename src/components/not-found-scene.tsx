@@ -31,9 +31,20 @@ export function NotFoundScene({ className }: { className?: string }) {
         className="absolute inset-0 h-full w-full"
       />
 
-      {/* Screen overlay. The mask is the glass's exact quadrilateral, so
-          nothing inside can reach the cabinet however far it travels. */}
-      <div aria-hidden className="scene-404-screen absolute inset-0">
+      {/*
+       * Screen overlay. The mask is the glass's exact quadrilateral, so
+       * nothing inside can reach the cabinet however far it travels.
+       *
+       * overflow-hidden is about layout, not paint: the children deliberately
+       * overshoot by 40% on every side, and while the mask stops them being
+       * drawn, it does not stop them counting towards the document's scroll
+       * width. Without this the 404 page scrolls ~145px sideways at laptop
+       * widths.
+       */}
+      <div
+        aria-hidden
+        className="scene-404-screen absolute inset-0 overflow-hidden"
+      >
         <div className="scene-404-scanlines" />
         <div className="scene-404-roll">
           <span />

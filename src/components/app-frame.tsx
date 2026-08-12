@@ -20,6 +20,11 @@ type AppFrameProps = ComponentPropsWithoutRef<"div"> & {
  * The frame belongs to the site, not the app, so screenshots can be swapped
  * after an app redesign without touching the layout. Children should be the
  * screenshot itself (or a Placeholder) and are clipped to the frame's radius.
+ *
+ * Depth is shadow, not border. The app is explicit that borders are a last
+ * resort and that the canvas floats above the frame on elevation alone;
+ * shadow-canvas is that exact elevation token, and it already carries a
+ * hairline ring in its first layer, so an actual border would double it.
  */
 export function AppFrame({
   title = "Mnemo",
@@ -31,20 +36,20 @@ export function AppFrame({
   return (
     <div
       className={cn(
-        "bg-card overflow-hidden rounded-xl border shadow-sm",
+        "bg-canvas shadow-canvas overflow-hidden rounded-xl",
         className
       )}
       {...props}
     >
       {chrome && (
-        <div className="flex items-center gap-2 border-b px-4 py-2.5">
+        <div className="border-line-soft flex items-center gap-2 border-b px-4 py-2.5">
           {/* Window control dots, grayscale so the frame stays neutral. */}
           <span aria-hidden className="flex gap-1.5">
-            <span className="bg-muted-foreground/30 size-2.5 rounded-full" />
-            <span className="bg-muted-foreground/30 size-2.5 rounded-full" />
-            <span className="bg-muted-foreground/30 size-2.5 rounded-full" />
+            <span className="bg-ink-3/30 size-2.5 rounded-full" />
+            <span className="bg-ink-3/30 size-2.5 rounded-full" />
+            <span className="bg-ink-3/30 size-2.5 rounded-full" />
           </span>
-          <span className="text-muted-foreground ml-2 font-mono text-xs">
+          <span className="text-ink-3 ml-2 font-mono text-xs">
             {title}
           </span>
         </div>

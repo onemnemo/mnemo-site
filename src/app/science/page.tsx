@@ -26,6 +26,7 @@ import { QuizCard } from "@/components/science/quiz-card"
 import { StageMarker } from "@/components/science/stage-marker"
 import { Reveal } from "@/components/reveal"
 import { TornEdge } from "@/components/torn-edge"
+import { Button } from "@/components/ui/button"
 import { rebuild } from "@/config/site"
 
 export const metadata: Metadata = {
@@ -36,18 +37,27 @@ export const metadata: Metadata = {
 }
 
 /**
- * The science story, "the journey of one fact": seven scenes, one canvas
- * band each, following a single fact from encoding to survival. Full
- * storyboard and interaction plan live in docs/science-storyboard.md.
+ * The science story, "the journey of one fact": seven scenes, one band each,
+ * following a single fact from encoding to survival. Full storyboard and
+ * interaction plan live in docs/science-storyboard.md.
  *
- * The diagrams (curve, spaced curve, network) are the primary visuals;
- * mascot art appears only as small accents. Every scene opens with the
- * same StageMarker journey spine, and the fact itself appears as a card
- * from the same deck in scenes 1 and 3, so the page reads as one system.
+ * Every scene is a two-column row: prose in a measure narrow enough to read,
+ * its figure beside it. The page used to stack a max-w-xl paragraph above a
+ * max-w-2xl diagram inside a max-w-6xl container, which left the right-hand
+ * third of every band empty and made the page far taller than the story it
+ * tells. The columns close that gap without shortening a single sentence.
+ *
+ * Bands are surface depths except where colour is load-bearing: the fact
+ * sinks into water in scene 2, so that band is the sea, and scene 6 is night,
+ * so that one is the app's dark canvas. No two adjacent scenes match.
  *
  * The page is a complete semantic article on its own; nothing on it may
  * depend on scroll interaction.
  */
+
+/** Shared column geometry: prose left, figure right, stacked below lg. */
+const SCENE_GRID =
+  "grid items-center gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,30rem)_minmax(0,1fr)]"
 
 export default function SciencePage() {
   return (
@@ -55,89 +65,86 @@ export default function SciencePage() {
       {/* Scene 1: a fact is born. The fact card comes from the same deck as
           the scene-3 quiz card. The extra mobile bottom padding is headroom
           for the InkEdge squid's sprite frames. */}
-      <Section className="texture-rules pb-44 sm:pb-24">
+      <Section className="texture-rules pb-44 sm:pb-28">
         <Container>
-          <p className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
-            Why it works
-          </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Read this once.
-          </h1>
+          <p className="type-eyebrow">Why it works</p>
+          <h1 className="type-display mt-3 max-w-2xl">Read this once.</h1>
 
-          <StageMarker stage={1} className="mt-10" />
-          <Reveal>
-            <div className="reveal-rise relative mt-5 inline-block">
-              <div
-                aria-hidden
-                className="bg-card/70 absolute inset-0 translate-x-2 translate-y-3 rotate-[1.8deg] rounded-3xl border"
-              />
-              <div className="bg-card relative rounded-3xl border p-6 sm:rotate-[-1.2deg] sm:p-8">
-                <p className="text-muted-foreground font-mono text-[11px] tracking-widest uppercase">
-                  Fact No. 001
-                </p>
-                <p className="font-heading mt-2 text-2xl font-medium sm:text-3xl">
-                  Octopuses have three hearts.
-                </p>
+          <StageMarker stage={1} className="mt-12" />
+          <div className={`${SCENE_GRID} mt-6`}>
+            <p className="type-lede text-ink-2 max-w-xl">
+              That tiny idea just changed your brain. A few neurons
+              strengthened their connections to hold it: a fresh memory trace,
+              and a fragile one. This page follows what happens to it next.
+            </p>
+            <Reveal className="justify-self-start lg:justify-self-center">
+              <div className="reveal-rise relative inline-block">
+                <div
+                  aria-hidden
+                  className="bg-canvas/70 border-line absolute inset-0 translate-x-2 translate-y-3 rotate-[1.8deg] rounded-3xl border"
+                />
+                <div className="bg-canvas shadow-canvas relative rounded-3xl p-6 sm:rotate-[-1.2deg] sm:p-8">
+                  <p className="text-ink-3 font-mono text-[11px] tracking-widest uppercase">
+                    Fact No. 001
+                  </p>
+                  <p className="font-heading mt-2 text-2xl font-medium sm:text-3xl">
+                    Octopuses have three hearts.
+                  </p>
+                </div>
               </div>
-            </div>
-          </Reveal>
-
-          <p className="text-muted-foreground mt-9 max-w-xl text-lg leading-relaxed">
-            That tiny idea just changed your brain. A few neurons strengthened
-            their connections to hold it: a fresh memory trace, and a fragile
-            one. This page follows what happens to it next.
-          </p>
+            </Reveal>
+          </div>
         </Container>
       </Section>
 
       {/* The fact sinks into the deep: the squid's ink pool is the top
-          edge of the cobalt band. bg = outgoing canvas, text = incoming,
+          edge of the water below. bg = outgoing canvas, text = incoming,
           same convention as TornEdge. */}
-      <InkEdge className="bg-background text-cobalt" />
+      <InkEdge className="bg-paper text-sea" />
 
       {/* Scene 2: the forgetting curve. */}
-      <Section
-        canvas="cobalt"
-        className="texture-grid relative overflow-hidden"
-      >
+      <Section canvas="sea" className="texture-grid relative overflow-hidden">
         <Container className="relative">
-          <StageMarker stage={2} className="mb-6" />
-          <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            Left alone, it fades fast.
-          </h2>
-          <p className="mt-5 max-w-xl leading-relaxed opacity-80">
-            In 1885, Hermann Ebbinghaus memorized thousands of nonsense
-            syllables and tested himself on them for months. The curve he drew
-            has been replicated ever since: without review, most of a new memory
-            slips away within days.
-          </p>
-          <p className="mt-4 max-w-xl leading-relaxed opacity-80">
-            Not because your brain is broken. Forgetting is its filing policy.
-            Anything it does not see again gets marked as probably not
-            important.
-          </p>
-
-          <Reveal className="mt-12 max-w-2xl">
-            <ForgettingCurve />
-          </Reveal>
+          <StageMarker stage={2} className="mb-8" />
+          <div className={SCENE_GRID}>
+            <div>
+              <h2 className="type-h2 max-w-xl">Left alone, it fades fast.</h2>
+              {/* Explicit secondary ink rather than opacity: dimming the
+                  paper ink on this band is what put it at 3.4:1. */}
+              <p className="text-sea-ink-2 mt-5 max-w-xl leading-relaxed">
+                In 1885, Hermann Ebbinghaus memorized thousands of nonsense
+                syllables and tested himself on them for months. The curve he
+                drew has been replicated ever since: without review, most of a
+                new memory slips away within days.
+              </p>
+              <p className="text-sea-ink-2 mt-4 max-w-xl leading-relaxed">
+                Not because your brain is broken. Forgetting is its filing
+                policy. Anything it does not see again gets marked as probably
+                not important.
+              </p>
+            </div>
+            <Reveal>
+              <ForgettingCurve />
+            </Reveal>
+          </div>
         </Container>
       </Section>
 
       {/* Scene 3: retrieval, in a real quiz card that works without JS. */}
-      <Section canvas="blush">
+      <Section canvas="sunken">
         <Container>
-          <StageMarker stage={3} className="mb-6" />
-          <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          <StageMarker stage={3} className="mb-8" />
+          <h2 className="type-h2 max-w-xl">
             Pulling it back is what saves it.
           </h2>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed">
+          <p className="type-lede mt-5 max-w-xl">
             Quick, without scrolling up:
           </p>
 
           {/* Card and rescue art share the row: the card is short and wide
               (answers in a row, see quiz-card.tsx) so the whole scene fits a
               laptop viewport. */}
-          <div className="mt-8 grid items-end gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,36rem)_minmax(0,1fr)]">
+          <div className="mt-10 grid items-end gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,36rem)_minmax(0,1fr)]">
             <Reveal>
               <QuizCard className="reveal-rise" />
             </Reveal>
@@ -148,16 +155,16 @@ export default function SciencePage() {
                 src={rescueArt}
                 alt=""
                 aria-hidden
-                className="reveal-rise h-auto w-full max-w-[260px] lg:max-w-[300px]"
-                style={{ "--reveal-delay": "140ms" } as React.CSSProperties}
+                className="reveal-rise h-auto w-full max-w-[280px] lg:max-w-[320px]"
+                style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
               />
             </Reveal>
           </div>
 
-          <p className="mt-10 max-w-2xl leading-relaxed opacity-80">
-            That small tug you felt is retrieval. In 2006, Roediger and Karpicke
-            showed that students who tested themselves remembered far more a
-            week later than students who spent the same time re-reading.
+          <p className="text-ink-2 mt-12 max-w-2xl leading-relaxed">
+            That small tug you felt is retrieval. In 2006, Roediger and
+            Karpicke showed that students who tested themselves remembered far
+            more a week later than students who spent the same time re-reading.
             Successful retrieval changes the memory itself and makes the next
             recall easier.
           </p>
@@ -170,70 +177,69 @@ export default function SciencePage() {
       {/* Scene 4: spacing. */}
       <Section className="texture-rules">
         <Container>
-          <StageMarker stage={4} className="mb-6" />
-          <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            Timing beats trying.
-          </h2>
-          <p className="text-muted-foreground mt-5 max-w-xl leading-relaxed">
-            Every successful recall flattens the curve. The unintuitive part:
-            the best moment to review is not right after learning. It is just
-            before the memory would disappear. Tomorrow, then in three days,
-            then next week.
-          </p>
-          <p className="text-muted-foreground mt-4 max-w-xl leading-relaxed">
-            Psychologists call it the spacing effect, one of the most replicated
-            findings in the field. Cramming buys you the exam. Spacing buys you
-            the year.
-          </p>
-
-          <Reveal className="mt-12 max-w-2xl">
-            <SpacedCurve className="text-foreground" />
-          </Reveal>
+          <StageMarker stage={4} className="mb-8" />
+          <div className={SCENE_GRID}>
+            <div>
+              <h2 className="type-h2 max-w-xl">Timing beats trying.</h2>
+              <p className="text-ink-2 mt-5 max-w-xl leading-relaxed">
+                Every successful recall flattens the curve. The unintuitive
+                part: the best moment to review is not right after learning. It
+                is just before the memory would disappear. Tomorrow, then in
+                three days, then next week.
+              </p>
+              <p className="text-ink-2 mt-4 max-w-xl leading-relaxed">
+                Psychologists call it the spacing effect, one of the most
+                replicated findings in the field. Cramming buys you the exam.
+                Spacing buys you the year.
+              </p>
+            </div>
+            <Reveal>
+              <SpacedCurve className="text-ink" />
+            </Reveal>
+          </div>
         </Container>
       </Section>
 
       {/* Scene 5: connection. */}
-      <Section canvas="meadow" className="relative overflow-hidden">
-        <Doodle name="dark-02" className="top-10 right-10 w-12 opacity-25" />
+      <Section canvas="sunken" className="relative overflow-hidden">
         <Doodle
           name="dark-16"
-          className="bottom-12 left-8 w-14 -rotate-6 opacity-20"
+          className="bottom-10 left-[4%] w-20 -rotate-6 opacity-20"
         />
         <Container className="relative">
-          <StageMarker stage={5} className="mb-6" />
-          <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-            Facts survive by making friends.
-          </h2>
-          <p className="mt-5 max-w-xl leading-relaxed opacity-80">
-            Memory is a network. A fact wired to other facts has many roads
-            leading back to it, and every extra road is another chance to find
-            it.
-          </p>
-          <p className="mt-4 max-w-xl leading-relaxed opacity-80">
-            Write it in your own words and you lay one road. Map it against what
-            you already know and the roads start laying themselves.
-            Understanding something is mostly connecting it.
-          </p>
-
-          <Reveal className="mt-12 max-w-2xl">
-            <Constellation />
-          </Reveal>
+          <StageMarker stage={5} className="mb-8" />
+          <div className={SCENE_GRID}>
+            <div>
+              <h2 className="type-h2 max-w-xl">
+                Facts survive by making friends.
+              </h2>
+              <p className="text-ink-2 mt-5 max-w-xl leading-relaxed">
+                Memory is a network. A fact wired to other facts has many roads
+                leading back to it, and every extra road is another chance to
+                find it.
+              </p>
+              <p className="text-ink-2 mt-4 max-w-xl leading-relaxed">
+                Write it in your own words and you lay one road. Map it against
+                what you already know and the roads start laying themselves.
+                Understanding something is mostly connecting it.
+              </p>
+            </div>
+            <Reveal>
+              <Constellation />
+            </Reveal>
+          </div>
         </Container>
       </Section>
 
       {/* Scene 6: sleep. The lamp sits beside the text rather than under
           it, so the scene does not cost a viewport of scrolling. */}
-      <Section canvas="ink" className="relative overflow-hidden">
-        <Doodle name="light-05" className="top-12 left-12 w-8 opacity-40" />
-        <Doodle name="light-13" className="top-24 right-16 w-10 opacity-30" />
-        <Doodle name="light-18" className="bottom-14 left-1/3 w-8 opacity-30" />
+      <Section canvas="deep" className="relative overflow-hidden">
+        <Doodle name="light-13" className="top-16 right-[12%] w-16 opacity-30" />
         <Container className="relative">
-          <StageMarker stage={6} className="mb-6" />
+          <StageMarker stage={6} className="mb-8" />
           <div className="grid items-center gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,1fr)_auto]">
             <div>
-              <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-                Then sleep files it away.
-              </h2>
+              <h2 className="type-h2 max-w-xl">Then sleep files it away.</h2>
               <p className="mt-5 max-w-xl leading-relaxed opacity-80">
                 Sleep is when much of the brain&apos;s memory consolidation
                 happens. The hippocampus replays the day&apos;s keepers and
@@ -249,7 +255,7 @@ export default function SciencePage() {
               <div className="reveal-rise relative">
                 <div
                   aria-hidden
-                  className="absolute -inset-x-10 -inset-y-16 rounded-[50%] bg-[radial-gradient(ellipse_at_center,var(--butter)_0%,transparent_70%)] opacity-[0.13]"
+                  className="absolute -inset-x-10 -inset-y-16 rounded-[50%] bg-[radial-gradient(ellipse_at_center,var(--brand)_0%,transparent_70%)] opacity-[0.15]"
                 />
                 <NightDoze className="relative w-72 sm:w-80 lg:w-96" />
               </div>
@@ -261,17 +267,15 @@ export default function SciencePage() {
       {/* Scene 7: the payoff. */}
       <Section canvas="butter">
         <Container>
-          <StageMarker stage={7} className="mb-6" />
+          <StageMarker stage={7} className="mb-8" />
 
           {/* Two equal halves. The heading and lede sit with the mapping,
               since they are one thought (what you watched, and what maps to
               it), which leaves the ceremony a full half of the row. */}
           <div className="grid items-center gap-x-20 gap-y-16 lg:grid-cols-2">
             <div>
-              <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-                You just watched one fact survive.
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed">
+              <h2 className="type-h2">You just watched one fact survive.</h2>
+              <p className="type-lede mt-5">
                 Every tool in Mnemo exists to help that happen.
               </p>
               <dl className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-2">
@@ -288,7 +292,7 @@ export default function SciencePage() {
                   { term: "Sleep", tool: "That's your job." },
                 ].map((row) => (
                   <div key={row.term}>
-                    <dt className="font-mono text-[11px] tracking-widest uppercase opacity-60">
+                    <dt className="text-ink-2 font-mono text-[11px] tracking-widest uppercase">
                       {row.term}
                     </dt>
                     <dd className="mt-1.5 leading-snug font-medium">
@@ -311,12 +315,9 @@ export default function SciencePage() {
                 {rebuild.active ? (
                   <ComingSoonPill href="/download" className="px-7 py-3.5" />
                 ) : (
-                  <Link
-                    href="/download"
-                    className="bg-butter-ink text-butter rounded-full px-7 py-3.5 text-sm font-medium"
-                  >
-                    Download Mnemo
-                  </Link>
+                  <Button asChild size="lg" className="rounded-full px-7">
+                    <Link href="/download">Download Mnemo</Link>
+                  </Button>
                 )}
                 <Link
                   href="/#features"
@@ -330,7 +331,7 @@ export default function SciencePage() {
 
           {/* Sources, kept to one quiet line rather than a further content
               block. */}
-          <p className="border-butter-ink/15 mx-auto mt-16 max-w-3xl border-t pt-6 text-center font-mono text-[11px] leading-relaxed opacity-50 sm:mt-20">
+          <p className="border-ink/15 text-ink-2 mx-auto mt-16 max-w-3xl border-t pt-6 text-center font-mono text-[11px] leading-relaxed sm:mt-20">
             Sources: Ebbinghaus (1885), Über das Gedächtnis · Murre and Dros
             (2015), replication of the forgetting curve · Roediger and Karpicke
             (2006), test-enhanced learning · Cepeda et al. (2006), distributed
@@ -340,7 +341,7 @@ export default function SciencePage() {
         </Container>
       </Section>
 
-      <TornEdge mascot className="bg-butter text-background" />
+      <TornEdge mascot className="bg-butter text-paper" />
     </main>
   )
 }

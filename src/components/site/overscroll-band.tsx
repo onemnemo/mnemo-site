@@ -34,13 +34,20 @@ import { useEffect, useRef } from "react"
  * under prefers-reduced-motion, where none of the listeners attach.
  */
 
-/** Every canvas color, share-card order: meadow, cobalt, butter, blush, coral. */
+/**
+ * The spectrum, in share-card order.
+ *
+ * Briefly swapped for the app's branch hues, which was wrong: those are
+ * deliberately low-chroma so eight can share one mindmap without competing,
+ * and that restraint made the band muddy. Nothing here is a surface and no
+ * text is ever set on these, so they are free to be bright.
+ */
 const PALETTE_FILLS = [
-  "var(--meadow)",
-  "var(--cobalt)",
-  "var(--butter)",
-  "var(--blush)",
-  "var(--primary)",
+  "var(--spectrum-1)",
+  "var(--spectrum-2)",
+  "var(--spectrum-3)",
+  "var(--spectrum-4)",
+  "var(--spectrum-5)",
 ] as const
 
 const BAR_COUNT = PALETTE_FILLS.length

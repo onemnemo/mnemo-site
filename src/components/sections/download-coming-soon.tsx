@@ -62,9 +62,9 @@ export function DownloadComingSoon({
           <div className="relative">
             <div
               aria-hidden
-              className="bg-card/70 absolute inset-0 translate-x-2 translate-y-3 rotate-[1.4deg] rounded-3xl border"
+              className="bg-canvas/70 border-line absolute inset-0 translate-x-2 translate-y-3 rotate-[1.4deg] rounded-3xl border"
             />
-            <div className="bg-card relative rounded-3xl border p-6 shadow-sm sm:rotate-[-1deg] sm:p-7">
+            <div className="bg-canvas shadow-canvas relative rounded-3xl p-6 sm:rotate-[-1deg] sm:p-7">
               {/* Not a disabled button: there is no action behind it to
                   disable, and a dead control only invites the click. */}
               <span className="text-muted-foreground inline-flex items-center rounded-full border border-dashed px-6 py-4 text-base font-medium sm:px-8 sm:text-lg">

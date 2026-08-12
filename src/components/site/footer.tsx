@@ -65,14 +65,14 @@ export function SiteFooter() {
                 className="h-6 w-auto"
               />
             </Link>
-            <p className="text-muted-foreground mt-4 max-w-xs text-sm leading-relaxed">
+            <p className="text-ink-2 mt-4 max-w-xs text-sm leading-relaxed">
               Free, open-source studying. Built by learners, for learners.
             </p>
           </div>
 
           {footerColumns.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
-              <h2 className="font-mono text-xs tracking-widest uppercase opacity-60">
+              <h2 className="type-eyebrow">
                 {column.heading}
               </h2>
               <ul className="mt-4 grid gap-2.5">
@@ -83,14 +83,14 @@ export function SiteFooter() {
                         href={link.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                        className="text-ink-2 hover:text-ink text-sm transition-colors"
                       >
                         {link.label}
                       </a>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                        className="text-ink-2 hover:text-ink text-sm transition-colors"
                       >
                         {link.label}
                       </Link>
@@ -102,7 +102,7 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="text-muted-foreground mt-16 flex flex-wrap items-center justify-between gap-4 border-t pt-8 text-xs">
+        <div className="text-ink-2 border-line mt-16 flex flex-wrap items-center justify-between gap-4 border-t pt-8 text-xs">
           <p>
             © {new Date().getFullYear()} Mnemo contributors · {siteConfig.license}
           </p>

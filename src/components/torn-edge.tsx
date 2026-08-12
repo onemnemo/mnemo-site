@@ -12,7 +12,7 @@ type TornEdgeProps = {
   /**
    * Tailwind classes choosing the two canvases: the background class is the
    * outgoing canvas (the band above), the text class is the incoming canvas
-   * (the band below), e.g. "bg-butter text-background".
+   * (the band below), e.g. "bg-wash text-paper".
    */
   className?: string
 }

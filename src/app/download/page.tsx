@@ -8,6 +8,7 @@ import { SoftwareAppJsonLd } from "@/components/seo/json-ld"
 import { DownloadComingSoon } from "@/components/sections/download-coming-soon"
 import { DownloadOptions } from "@/components/sections/download-options"
 import { TornEdge } from "@/components/torn-edge"
+import { Button } from "@/components/ui/button"
 import { rebuild, siteConfig } from "@/config/site"
 
 export const metadata: Metadata = {
@@ -35,20 +36,19 @@ export default function DownloadPage() {
   return (
     <main id="main-content">
       <Section className="relative overflow-hidden pb-20 sm:pb-28">
-        <Doodle name="dark-05" className="top-16 right-10 w-12 opacity-20" />
         <Doodle
           name="dark-11"
-          className="bottom-12 left-8 w-14 -rotate-6 opacity-20"
+          className="right-[8%] bottom-10 w-20 -rotate-6 opacity-20"
         />
         <Container className="relative">
           {/* Load entrance: text rises in reading order, then the card. The
               card's own delay lives in download-options.tsx. */}
           <Module>
-            <p className="enter-rise text-muted-foreground font-mono text-xs tracking-widest uppercase">
+            <p className="type-eyebrow enter-rise">
               {rebuild.active ? "Rebuilding" : "Download"}
             </p>
             <h1
-              className="enter-rise mt-3 max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl"
+              className="type-display enter-rise mt-3 max-w-2xl"
               style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
             >
               {rebuild.active
@@ -56,7 +56,7 @@ export default function DownloadPage() {
                 : "Put Mnemo on your desk."}
             </h1>
             <p
-              className="enter-rise text-muted-foreground mt-4 max-w-xl text-lg leading-relaxed"
+              className="type-lede text-ink-2 enter-rise mt-4 max-w-xl"
               style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
             >
               {rebuild.active
@@ -67,27 +67,21 @@ export default function DownloadPage() {
         </Container>
       </Section>
 
-      <Section
-        canvas="butter"
-        className="relative overflow-hidden py-14 sm:py-16"
-      >
-        <Doodle name="dark-19" className="top-8 right-14 w-10 opacity-25" />
+      <Section canvas="butter" className="relative overflow-hidden py-16 sm:py-20">
+        <Doodle name="dark-19" className="top-10 right-[10%] w-16 opacity-25" />
         <Container className="relative">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+          <h2 className="type-h3">
             {rebuild.active ? "Want a say in it?" : "Stuck on the install?"}
           </h2>
-          <p className="mt-3 max-w-md leading-relaxed opacity-70">
+          <p className="text-ink-2 mt-3 max-w-md leading-relaxed">
             {rebuild.active
               ? "The docs describe how Mnemo works and mostly survive the port. The issue tracker is where the rebuild is argued out, in the open."
               : "The docs cover the common trip-ups, and the issue tracker is read by the people who wrote the code."}
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-5">
-            <Link
-              href="/docs"
-              className="bg-butter-ink text-butter rounded-full px-6 py-3 text-sm font-medium"
-            >
-              Read the docs
-            </Link>
+            <Button asChild size="lg" className="rounded-full px-6">
+              <Link href="/docs">Read the docs</Link>
+            </Button>
             <a
               href={siteConfig.links.issues}
               target="_blank"
@@ -101,7 +95,7 @@ export default function DownloadPage() {
           </div>
         </Container>
       </Section>
-      <TornEdge mascot className="bg-butter text-background" />
+      <TornEdge mascot className="bg-butter text-paper" />
       <SoftwareAppJsonLd />
     </main>
   )

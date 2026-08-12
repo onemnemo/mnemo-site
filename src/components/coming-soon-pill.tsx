@@ -8,7 +8,9 @@ import { cn } from "@/lib/utils"
  *
  * Shaped like the pill it replaces so the layouts hold, outlined and dashed
  * so it reads as "not yet" before the label is read. Colours come from
- * currentColor, so it sits on any canvas without knowing which one.
+ * currentColor, so it sits on any canvas without knowing which one. The
+ * dimming stops at 75%, which is where ink stays above 4.5:1 on both the
+ * paper and the wash band; at 60% it measured 4.07 and 3.77.
  *
  * Pass `href` on the CTAs that were only ever navigation (header, hero,
  * closing bands): they still lead to /download, which now carries the full
@@ -26,7 +28,7 @@ export function ComingSoonPill({
   className?: string
 }) {
   const classes = cn(
-    "inline-flex items-center rounded-full border border-current border-dashed px-6 py-3 text-sm font-medium opacity-60",
+    "inline-flex items-center rounded-full border border-current border-dashed px-6 py-3 text-sm font-medium opacity-75",
     href && "transition-opacity hover:opacity-100",
     className,
   )

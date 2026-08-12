@@ -4,9 +4,16 @@ import { cn } from "@/lib/utils"
 
 /**
  * Spot figures for the three feature pillars, drawn in the same line
- * language as the /science figures: currentColor strokes, flat fills from
- * the canvas tokens, no perspective, no baked shadows. Each one quotes a
- * motif from /science, so the home page rhymes with the rest of the site.
+ * language as the /science figures: currentColor strokes, flat fills, no
+ * perspective, no baked shadows. Each one quotes a motif from /science, so
+ * the home page rhymes with the rest of the site.
+ *
+ * Fills come from the app's own vocabulary rather than from a decorative
+ * palette: branch washes for mindmap nodes, the review-state hues for
+ * scheduling, the brand wash for anything selected. That is the product's
+ * rule — the interface stays monochrome and colour only appears where it is
+ * carrying information — so these figures are coloured the way the real
+ * screens are, not the way a marketing illustration would be.
  *
  * Reveal wiring matches science/figures.tsx: pathLength={1} strokes with
  * fig-draw, fills with fig-pop or fig-fade, delays via --reveal-delay.
@@ -147,7 +154,7 @@ export function NotesFigure({ className, base = 0 }: FigureProps) {
             width="76"
             height="36"
             rx="8"
-            fill="var(--butter)"
+            fill="var(--brand-wash)"
             stroke="currentColor"
             strokeWidth="2.5"
           />
@@ -240,7 +247,7 @@ export function FlashcardsFigure({ className, base = 0 }: FigureProps) {
             y1="32"
             x2={73 + i * 13}
             y2="32"
-            stroke={i === 2 ? "var(--primary)" : "currentColor"}
+            stroke={i === 2 ? "var(--state-due)" : "currentColor"}
             strokeOpacity={i === 2 ? 1 : 0.25}
             strokeWidth="3.5"
             strokeLinecap="round"
@@ -279,7 +286,7 @@ export function FlashcardsFigure({ className, base = 0 }: FigureProps) {
           width="32"
           height="15"
           rx="7.5"
-          fill="var(--meadow)"
+          fill="var(--brand-wash)"
           stroke="currentColor"
           strokeWidth="2"
           className="fig-fade"
@@ -304,7 +311,7 @@ export function FlashcardsFigure({ className, base = 0 }: FigureProps) {
           cx={dot.x}
           cy="122"
           r="5"
-          fill="var(--primary)"
+          fill="var(--state-due)"
           className="fig-pop"
           style={d(dot.delayMs)}
         />
@@ -371,7 +378,7 @@ export function MindmapFigure({ className, base = 0 }: FigureProps) {
         cx="62"
         cy="42"
         r="16"
-        fill="var(--blush)"
+        fill="var(--branch-7-wash)"
         stroke="currentColor"
         strokeWidth="2.5"
         className="fig-pop"
@@ -383,7 +390,7 @@ export function MindmapFigure({ className, base = 0 }: FigureProps) {
         width="42"
         height="28"
         rx="8"
-        fill="var(--butter)"
+        fill="var(--branch-2-wash)"
         stroke="currentColor"
         strokeWidth="2.5"
         className="fig-pop"
@@ -391,7 +398,7 @@ export function MindmapFigure({ className, base = 0 }: FigureProps) {
       />
       <path
         d="M110 90 l18 18 -18 18 -18 -18 Z"
-        fill="var(--meadow)"
+        fill="var(--branch-3-wash)"
         stroke="currentColor"
         strokeWidth="2.5"
         strokeLinejoin="round"

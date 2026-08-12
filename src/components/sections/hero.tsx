@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 // Swap for an overview capture once one exists, so the notes shot stays
-// unique to its deep dive.
+// unique to its module row.
 import notesShot from "@public/screenshots/notes.png"
 import { AppFrame } from "@/components/app-frame"
 import { ComingSoonPill } from "@/components/coming-soon-pill"
@@ -15,39 +15,53 @@ import { rebuild } from "@/config/site"
 /**
  * Landing page hero.
  *
- * Typographic and centered: the serif headline carries the identity and the
- * screenshot puts the product above the fold. The screenshot frame overlaps
- * into the meadow band below, which takes z-10 here plus matching top padding
- * on the feature section.
+ * Left-aligned rather than centered, and stacked rather than columned.
+ *
+ * The two-column version this replaces put a 60px display headline in a 27rem
+ * column, where "Keep everything." measured 511px against 432px of space and
+ * broke across two lines mid-phrase. Widening the column would have taken the
+ * width back out of the screenshot, and the screenshot is a dense desktop
+ * interface that stops being readable somewhere around 500px. There was no
+ * split of 1088px that served both.
+ *
+ * Stacking gives the copy a comfortable measure and the product the full
+ * container. Keeping the text left-aligned is what stops it collapsing into
+ * the centered-headline-over-centered-screenshot shape every product page
+ * already has.
  */
 export function Hero() {
   return (
-    <Section className="relative z-10 pt-14 pb-0 sm:pt-20 sm:pb-0">
-      <Doodle name="dark-04" className="top-16 left-[14%] w-8 opacity-30" />
+    <Section className="relative overflow-hidden pt-10 sm:pt-14">
+      {/*
+       * Positioned wholly inside the band. Anything with a negative offset
+       * gets sliced by the section's overflow-hidden, and a doodle cut off by
+       * an invisible edge reads as a rendering bug rather than as art.
+       */}
       <Doodle
-        name="dark-17"
-        className="top-40 right-[13%] w-7 rotate-12 opacity-30"
+        name="dark-04"
+        className="top-6 right-[6%] w-20 -rotate-6 opacity-[0.18] lg:w-24"
       />
-      {/* Load entrance: everything rises in reading order. enter-rise is
-          pure CSS, so visitors without JavaScript see the same welcome. */}
-      <Container className="flex flex-col items-center text-center">
-        <h1 className="enter-rise max-w-3xl text-5xl font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl">
+
+      <Container className="relative">
+        {/* Load entrance: everything rises in reading order. enter-rise is
+            pure CSS, so visitors without JavaScript see the same welcome. */}
+        <h1 className="type-display enter-rise max-w-3xl">
           Learn anything. Keep everything.
         </h1>
         <p
-          className="enter-rise text-muted-foreground mt-6 max-w-xl text-lg leading-relaxed"
-          style={{ "--reveal-delay": "100ms" } as React.CSSProperties}
+          className="type-lede text-ink-2 enter-rise mt-6 max-w-xl"
+          style={{ "--reveal-delay": "60ms" } as React.CSSProperties}
         >
           A real notes editor, flashcards that schedule themselves, and mind
           maps big enough to think in. One focused desktop app, and everything
           stays on your machine.
         </p>
         <div
-          className="enter-rise mt-8 flex flex-wrap items-center justify-center gap-3"
-          style={{ "--reveal-delay": "190ms" } as React.CSSProperties}
+          className="enter-rise mt-9 flex flex-wrap items-center gap-3"
+          style={{ "--reveal-delay": "110ms" } as React.CSSProperties}
         >
           {rebuild.active ? (
-            <ComingSoonPill href="/download" className="px-6 py-2.5" />
+            <ComingSoonPill href="/download" className="px-6 py-3" />
           ) : (
             <Button asChild size="lg" className="rounded-full px-6">
               <Link href="/download">Download Mnemo</Link>
@@ -63,8 +77,8 @@ export function Hero() {
           </Button>
         </div>
         <p
-          className="enter-rise text-muted-foreground/80 mt-5 text-sm"
-          style={{ "--reveal-delay": "260ms" } as React.CSSProperties}
+          className="text-ink-3 enter-rise mt-6 text-sm"
+          style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
         >
           {rebuild.active
             ? "Free and open source, for Windows, macOS, and Linux. Being rebuilt right now."
@@ -73,14 +87,14 @@ export function Hero() {
 
         <AppFrame
           chrome={false}
-          className="enter-rise mt-12 -mb-24 w-full max-w-5xl shadow-lg sm:mt-16 sm:-mb-32"
-          style={{ "--reveal-delay": "340ms" } as React.CSSProperties}
+          className="enter-rise mt-14 sm:mt-16"
+          style={{ "--reveal-delay": "190ms" } as React.CSSProperties}
         >
           <Image
             src={notesShot}
             alt="The Mnemo desktop app showing the block based notes editor with a note on Parkinson's disease"
             priority
-            sizes="(min-width: 1120px) 1024px, 92vw"
+            sizes="(min-width: 1200px) 1088px, 92vw"
             className="w-full"
           />
         </AppFrame>

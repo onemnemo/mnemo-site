@@ -27,7 +27,16 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
+        {/*
+         * size="icon" is 32px, well under the 44px minimum touch target, and
+         * this is the only navigation control that exists on a phone. Sized
+         * explicitly rather than by variant so it cannot drift back.
+         */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-11 md:hidden [&_svg:not([class*='size-'])]:size-5"
+        >
           <MenuIcon />
           <span className="sr-only">Open menu</span>
         </Button>

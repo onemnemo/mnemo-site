@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils"
 const option =
   "flex flex-1 cursor-pointer items-center justify-center gap-2.5 rounded-xl border px-4 py-3 font-medium select-none transition-colors " +
   "before:size-4 before:shrink-0 before:rounded-full before:border-2 before:border-foreground/30 before:transition-all before:content-[''] " +
-  "hover:bg-secondary/60 has-[:checked]:border-primary/40 has-[:checked]:bg-secondary/60 has-[:checked]:before:border-[5px] has-[:checked]:before:border-primary " +
+  "hover:bg-secondary/60 has-[:checked]:border-brand/45 has-[:checked]:bg-brand-wash has-[:checked]:before:border-[5px] has-[:checked]:before:border-brand " +
   "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring motion-reduce:transition-none motion-reduce:before:transition-none"
 
 export function QuizCard({ className }: { className?: string }) {
@@ -30,9 +30,9 @@ export function QuizCard({ className }: { className?: string }) {
       {/* The rest of the deck, peeking out behind the top card. */}
       <div
         aria-hidden
-        className="bg-card/70 absolute inset-0 translate-x-2 translate-y-3 rotate-[1.2deg] rounded-3xl border"
+        className="bg-canvas/70 border-line absolute inset-0 translate-x-2 translate-y-3 rotate-[1.2deg] rounded-3xl border"
       />
-      <fieldset className="group/quiz bg-card text-card-foreground relative rounded-3xl border p-6 shadow-sm sm:rotate-[-0.9deg] sm:p-7">
+      <fieldset className="group/quiz bg-canvas text-ink shadow-canvas relative rounded-3xl p-6 sm:rotate-[-0.9deg] sm:p-7">
         <legend className="sr-only">
           Quick check: how many hearts does an octopus have?
         </legend>
@@ -49,7 +49,7 @@ export function QuizCard({ className }: { className?: string }) {
           ))}
         </div>
 
-        <p className="text-muted-foreground mt-5 font-mono text-[11px] tracking-widest uppercase">
+        <p className="text-ink-2 mt-5 font-mono text-[11px] tracking-widest uppercase">
           Question 01 · Select one
         </p>
         <p className="font-heading mt-2 text-xl font-medium sm:text-2xl">
@@ -87,7 +87,7 @@ export function QuizCard({ className }: { className?: string }) {
         </div>
 
         <div className="mt-5 hidden group-has-[#octo-one:checked]/quiz:block group-has-[#octo-two:checked]/quiz:block">
-          <p className="text-muted-foreground text-sm leading-relaxed">
+          <p className="text-ink-2 text-sm leading-relaxed">
             <span className="text-foreground font-medium">
               Three, actually.
             </span>{" "}
@@ -96,7 +96,7 @@ export function QuizCard({ className }: { className?: string }) {
           </p>
         </div>
         <div className="mt-5 hidden group-has-[#octo-three:checked]/quiz:block">
-          <p className="text-muted-foreground text-sm leading-relaxed">
+          <p className="text-ink-2 text-sm leading-relaxed">
             <span className="text-foreground font-medium">Three it is.</span>{" "}
             Two pump blood to the gills, one pumps it everywhere else. And you
             just made the next recall easier.

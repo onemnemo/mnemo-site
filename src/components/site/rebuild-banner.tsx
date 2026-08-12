@@ -7,14 +7,15 @@ import { rebuild, siteConfig } from "@/config/site"
  *
  * Sits outside the sticky header rather than inside it: the notice is worth
  * reading once, not worth a permanent sixteenth of the viewport, so it
- * scrolls away and leaves the header to stick on its own. Cobalt because it
- * is the one canvas that reads as a system band against the paper header.
+ * scrolls away and leaves the header to stick on its own. It uses the app's
+ * dark canvas, which reads as a system band against the paper header without
+ * introducing a colour the product does not have.
  */
 export function RebuildBanner() {
   if (!rebuild.active) return null
 
   return (
-    <div className="bg-cobalt text-cobalt-ink">
+    <div className="bg-deep text-deep-ink">
       <Container className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 py-2.5 text-center">
         <span className="font-mono text-[11px] tracking-widest uppercase opacity-70">
           {rebuild.kicker}

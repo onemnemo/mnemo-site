@@ -5,55 +5,56 @@ import { Doodle } from "@/components/doodle"
 import { Container } from "@/components/layout/container"
 import { Section } from "@/components/layout/section"
 import { Reveal } from "@/components/reveal"
+import { Button } from "@/components/ui/button"
 import { rebuild } from "@/config/site"
 
 /**
- * Closing call to action on the butter canvas. The last thing before the
- * footer, so it repeats the one action that matters and nothing else.
+ * Closing call to action. The last thing before the footer, so it repeats the
+ * one action that matters and nothing else.
+ *
+ * The one warm band on the page. Ink on butter measures 10.8 and ink-2
+ * measures 5.4; the legibility problem this band used to have was opacity
+ * muting, not the yellow. ink-3 is not cleared here.
  */
 export function DownloadCta() {
   return (
     <Section canvas="butter" className="relative overflow-hidden">
-      {/* Atmosphere layer: celebration doodles around the closing CTA. */}
-      <Doodle name="dark-24" className="top-10 left-10 w-16 opacity-25" />
-      <Doodle name="dark-17" className="top-1/3 right-12 w-10 opacity-25" />
+      {/* Two doodles, big enough to read as drawings rather than as texture. */}
+      <Doodle name="dark-24" className="top-12 left-[8%] w-24 opacity-25" />
       <Doodle
         name="dark-18"
-        className="bottom-14 left-1/4 w-8 -rotate-12 opacity-20"
+        className="right-[10%] bottom-16 w-16 -rotate-12 opacity-20"
       />
       <Container className="relative text-center">
         <Reveal>
-          <h2 className="reveal-rise mx-auto max-w-2xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
+          <h2 className="type-h2 reveal-rise mx-auto max-w-2xl">
             {rebuild.active
               ? "Almost ready to study."
               : "Start studying with Mnemo."}
           </h2>
           <p
-            className="reveal-rise mx-auto mt-4 max-w-md text-lg leading-relaxed opacity-70"
-            style={{ "--reveal-delay": "110ms" } as React.CSSProperties}
+            className="type-lede text-ink-2 reveal-rise mx-auto mt-4 max-w-md"
+            style={{ "--reveal-delay": "60ms" } as React.CSSProperties}
           >
             {rebuild.active
               ? "Mnemo is being rebuilt from the shell up. The next build is the one worth installing."
               : "Download it, open it, and start writing. No signup, no trial clock."}
           </p>
           <div
-            className="reveal-rise mt-8 flex justify-center"
-            style={{ "--reveal-delay": "200ms" } as React.CSSProperties}
+            className="reveal-rise mt-9 flex justify-center"
+            style={{ "--reveal-delay": "110ms" } as React.CSSProperties}
           >
             {rebuild.active ? (
               <ComingSoonPill href="/download" className="px-7 py-3.5" />
             ) : (
-              <Link
-                href="/download"
-                className="bg-butter-ink text-butter rounded-full px-7 py-3.5 text-sm font-medium"
-              >
-                Download Mnemo
-              </Link>
+              <Button asChild size="lg" className="rounded-full px-7">
+                <Link href="/download">Download Mnemo</Link>
+              </Button>
             )}
           </div>
           <p
-            className="reveal-rise mt-6 text-sm opacity-60"
-            style={{ "--reveal-delay": "260ms" } as React.CSSProperties}
+            className="text-ink-2 reveal-rise mt-6 text-sm"
+            style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
           >
             {rebuild.active
               ? "Free, no account, on Windows, macOS, and Linux, when it lands."

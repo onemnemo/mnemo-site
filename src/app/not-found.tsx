@@ -17,13 +17,13 @@ export default function NotFound() {
       <Section>
         <Container className="grid items-center gap-10 lg:grid-cols-2">
           <div>
-            <p className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+            <p className="type-eyebrow">
               404
             </p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+            <h1 className="type-display mt-3">
               This page forgot to exist.
             </h1>
-            <p className="text-muted-foreground mt-4 max-w-md text-lg leading-relaxed">
+            <p className="type-lede text-ink-2 mt-4 max-w-md">
               Ironic, for a memory app. Soma is looking into it, with limited
               enthusiasm.
             </p>

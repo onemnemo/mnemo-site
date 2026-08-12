@@ -2,8 +2,8 @@ import squidSheet from "@public/illos/science/squid-sprite-sheet.png"
 import { cn } from "@/lib/utils"
 
 /**
- * The paper-to-cobalt boundary of /science: the scene-1 squid hovers over
- * a sea of ink whose surface is the top of the cobalt band.
+ * The paper-to-dark boundary of /science: the scene-1 squid hovers over
+ * a sea of ink whose surface is the top of the dark band below.
  *
  * The squid runs off a 5x2 sprite sheet (10 frames of tentacle drift and
  * one blip of bubbles) stepped by the science-squid-swim keyframes, with a

@@ -23,10 +23,14 @@ export const alt = `${siteConfig.name}: ${siteConfig.description}`
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
-const PAPER = "#f9f5ee"
-const INK = "#271e18"
-const MUTED = "#6b6157"
-/** meadow, cobalt, butter, blush, coral: every canvas, in page order. */
+const PAPER = "#f9f4f3"
+const INK = "#282321"
+const MUTED = "#565150"
+/**
+ * The spectrum, in the overscroll band's top-to-bottom order. Hard-coded
+ * because Satori resolves no CSS variables; keep in step with
+ * --spectrum-1..5 in globals.css.
+ */
 const PALETTE = ["#9ebf5f", "#2e62c9", "#f4d576", "#fed2cd", "#cc5641"]
 
 const asset = (path: string) => join(process.cwd(), path)

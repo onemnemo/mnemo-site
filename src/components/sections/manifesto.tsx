@@ -5,36 +5,49 @@ import { Reveal } from "@/components/reveal"
 import { siteConfig } from "@/config/site"
 
 /**
- * The ink band, carrying the open-source and privacy values at the loudest
- * typographic volume on the page. They live here rather than in the hero so
- * they read as conviction instead of a feature list.
+ * The one dark moment on the page, carrying the open-source and privacy
+ * values at the loudest typographic volume. They live here rather than in the
+ * hero so they read as conviction instead of a feature list.
+ *
+ * The surface is the app's own dark canvas rather than a marketing colour, so
+ * the page's single high-contrast band is a material the product actually
+ * has. This is also the only band that keeps the display size: it is the
+ * loudest thing said, and nothing else on the page competes with it.
  */
 export function Manifesto() {
   return (
-    <Section canvas="ink" className="relative overflow-hidden py-24 sm:py-32">
-      {/* Atmosphere layer: sparse constellation, quieter than the words. */}
-      <Doodle name="light-22" className="top-10 right-12 w-20 opacity-20" />
-      <Doodle name="light-25" className="bottom-12 left-1/3 w-9 opacity-20" />
-      <Doodle name="light-21" className="top-1/3 right-1/3 w-5 opacity-15" />
+    <Section canvas="deep" className="relative overflow-hidden py-28 sm:py-36">
+      {/* One constellation, larger and quieter than the old scatter of three. */}
+      <Doodle name="light-22" className="top-12 right-[10%] w-28 opacity-[0.16]" />
       <Container className="relative">
         <Reveal>
-          <h2 className="reveal-rise max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
+          <h2 className="type-display reveal-rise max-w-3xl">
             No subscriptions. No ads. No tracking. Ever.
           </h2>
+          {/* Muted by ink step, not opacity: reveal-rise's forwards fill
+              pins opacity at 1, so opacity-* utilities here silently lose. */}
           <p
-            className="reveal-rise mt-6 max-w-xl text-lg leading-relaxed opacity-70"
-            style={{ "--reveal-delay": "130ms" } as React.CSSProperties}
+            className="type-lede text-deep-ink-2 reveal-rise mt-7 max-w-xl"
+            style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
           >
             Mnemo is free and open source. There is no account to create and no
             server watching you study. Your notes live on your machine, and the
             code is public so you can hold us to every word.
           </p>
+          {/* The receipts, in the plainest possible voice. */}
+          <p
+            className="text-deep-ink-2 reveal-rise mt-9 font-mono text-xs tracking-wide"
+            style={{ "--reveal-delay": "110ms" } as React.CSSProperties}
+          >
+            {siteConfig.license} licensed · no account · no telemetry · your
+            files, on your disk
+          </p>
           <a
             href={siteConfig.links.github}
             target="_blank"
             rel="noreferrer"
-            className="reveal-rise mt-8 inline-block font-mono text-sm underline underline-offset-4 opacity-70 hover:opacity-100"
-            style={{ "--reveal-delay": "230ms" } as React.CSSProperties}
+            className="text-deep-ink-2 hover:text-deep-ink reveal-rise mt-7 inline-block font-mono text-sm underline underline-offset-4 transition-colors"
+            style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
           >
             Read the source
           </a>
