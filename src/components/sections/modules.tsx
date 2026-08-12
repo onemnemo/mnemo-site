@@ -41,7 +41,7 @@ const modules = [
   {
     eyebrow: "Notes",
     title: "A real editor, not a text box",
-    body: "Block based writing in the Notion tradition: headings, images, code, and math, rearranged by drag and exported to PDF when it counts. Local AI assistance is in the works — running on your machine, not in someone's cloud.",
+    body: "Block based writing in the Notion tradition: headings, images, code, and math, rearranged by drag and exported to PDF when it counts. Local AI assistance is in the works, running on your machine, not in someone's cloud.",
     Figure: NotesFigure,
     screenshot: {
       src: notesShot,
