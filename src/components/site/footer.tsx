@@ -102,12 +102,9 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="text-ink-2 border-line mt-16 flex flex-wrap items-center justify-between gap-4 border-t pt-8 text-xs">
+        <div className="text-ink-2 border-line mt-16 flex flex-wrap items-center gap-4 border-t pt-8 text-xs">
           <p>
             © {new Date().getFullYear()} Mnemo contributors · {siteConfig.license}
-          </p>
-          <p className="font-mono tracking-wide">
-            Local-first. Your notes are nobody&apos;s business.
           </p>
         </div>
       </Container>

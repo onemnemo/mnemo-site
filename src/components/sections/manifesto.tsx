@@ -34,20 +34,12 @@ export function Manifesto() {
             telemetry watching how you study, and no cloud service required to
             use the app. Your notes and study data stay on your machine.
           </p>
-          {/* The receipts, in the plainest possible voice. */}
-          <p
-            className="text-deep-ink-2 reveal-rise mt-9 font-mono text-xs tracking-wide"
-            style={{ "--reveal-delay": "110ms" } as React.CSSProperties}
-          >
-            {siteConfig.license} licensed · no account · no telemetry · your
-            files, on your disk
-          </p>
           <a
             href={siteConfig.links.github}
             target="_blank"
             rel="noreferrer"
             className="text-deep-ink-2 hover:text-deep-ink reveal-rise mt-7 inline-block font-mono text-sm underline underline-offset-4 transition-colors"
-            style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
+            style={{ "--reveal-delay": "110ms" } as React.CSSProperties}
           >
             Read the source
           </a>
