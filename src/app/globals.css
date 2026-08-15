@@ -925,25 +925,28 @@
 }
 
 /* Scene 6: Soma asleep, z's accumulating one per breath. Single-row
-   4-frame strip; only the x position animates, the y crop is set where
-   the sprite is declared. Half a second per frame keeps it reading as
-   breathing rather than blinking. */
+   4-frame strip; only the x position animates. Half a second per frame
+   keeps it reading as breathing rather than blinking.
+   The body sits a few px off-center within each frame (measured opaque
+   bounds, ignoring the z's): centers at 191.5, 188.5, 185.5, 186.5 of a
+   384px cell. Each step is nudged off the plain frame-width multiple by
+   that offset so the body itself holds still and only the z's animate. */
 .science-night-doze {
   animation: science-night-doze 2s step-end infinite;
 }
 
 @keyframes science-night-doze {
   0% {
-    background-position-x: 0%;
+    background-position-x: 0.304%;
   }
   25% {
-    background-position-x: 33.3333%;
+    background-position-x: 33.377%;
   }
   50% {
-    background-position-x: 66.6667%;
+    background-position-x: 66.450%;
   }
   75% {
-    background-position-x: 100%;
+    background-position-x: 99.870%;
   }
 }
 

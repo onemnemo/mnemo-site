@@ -8,22 +8,14 @@ import { cn } from "@/lib/utils"
  * few pixels between generations, which plays as hand-drawn boil under
  * the z animation.
  *
- * The sheet's frames are mostly dead canvas: the drawn content lives in
- * rows 276..604 of the 1024-row sheet (measured opaque bounds plus
- * padding). The box therefore gets the aspect ratio of that 328-row
- * window, and a constant background-position-y hides the rest. The
- * constant works at every rendered size because offset, box height, and
- * scaled image height all grow with the same width: the percentage is
- * cropTop / (sheetH - windowH) = 276 / (1024 - 328).
+ * The sheet is drawn tight to its frames, so the box just takes the
+ * sheet's own aspect ratio; no crop window needed.
  *
  * No JS, and with reduced motion the animation never starts, leaving the
  * one-z first frame as a still.
  */
 
 const FRAMES = 4
-const SHEET_H = 1024
-const CROP_TOP = 276
-const WINDOW_H = 328
 
 export function NightDoze({ className }: { className?: string }) {
   return (
@@ -31,10 +23,9 @@ export function NightDoze({ className }: { className?: string }) {
       aria-hidden
       className={cn("science-night-doze bg-no-repeat", className)}
       style={{
-        aspectRatio: `${nightSheet.width / FRAMES} / ${WINDOW_H}`,
+        aspectRatio: `${nightSheet.width / FRAMES} / ${nightSheet.height}`,
         backgroundImage: `url(${nightSheet.src})`,
-        backgroundSize: `${FRAMES * 100}% auto`,
-        backgroundPosition: `0% ${(100 * CROP_TOP) / (SHEET_H - WINDOW_H)}%`,
+        backgroundSize: `${FRAMES * 100}% 100%`,
       }}
     />
   )
