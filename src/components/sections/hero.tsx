@@ -52,9 +52,9 @@ export function Hero() {
           className="type-lede text-ink-2 enter-rise mt-6 max-w-xl"
           style={{ "--reveal-delay": "60ms" } as React.CSSProperties}
         >
-          A real notes editor, flashcards that schedule themselves, and mind
-          maps big enough to think in. One focused desktop app, and everything
-          stays on your machine.
+          A proper notes editor, powerful flashcards, and mind maps with room
+          to think. Everything you need to study in one focused desktop app,
+          with your work kept on your machine.
         </p>
         <div
           className="enter-rise mt-9 flex flex-wrap items-center gap-3"
@@ -81,8 +81,8 @@ export function Hero() {
           style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
         >
           {rebuild.active
-            ? "Free and open source, for Windows, macOS, and Linux. Being rebuilt right now."
-            : "Free and open source, for Windows, macOS, and Linux."}
+            ? "Free and open source for Windows, macOS, and Linux. The new version is in development now."
+            : "Free and open source for Windows, macOS, and Linux."}
         </p>
 
         <AppFrame

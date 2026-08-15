@@ -30,12 +30,12 @@ export function ScienceTeaser() {
           <div className="reveal-rise">
             <p className="type-eyebrow">Why it works</p>
             <h2 className="type-h3 mt-3 max-w-2xl">
-              Built on a century of memory research.
+              Built around how memory actually works.
             </h2>
             <p className="text-ink-2 mt-4 max-w-xl leading-relaxed">
-              Forgetting has a shape, and studying with it beats studying
-              against it. Follow one fact through your memory and see why
-              flashcards, spacing, and connection actually work.
+              Good studying is not just about doing more. Mnemo uses ideas like
+              active recall and spaced repetition to help you review at the
+              right time and strengthen what you are learning.
             </p>
           </div>
           <Button
@@ -45,7 +45,7 @@ export function ScienceTeaser() {
             className="reveal-rise rounded-full px-6"
             style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
           >
-            <Link href="/science">Take the tour</Link>
+            <Link href="/science">See the science</Link>
           </Button>
         </Reveal>
       </Container>

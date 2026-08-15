@@ -29,7 +29,7 @@ export function DownloadCta() {
         <Reveal>
           <h2 className="type-h2 reveal-rise mx-auto max-w-2xl">
             {rebuild.active
-              ? "Almost ready to study."
+              ? "A new Mnemo is on the way."
               : "Start studying with Mnemo."}
           </h2>
           <p
@@ -37,8 +37,8 @@ export function DownloadCta() {
             style={{ "--reveal-delay": "60ms" } as React.CSSProperties}
           >
             {rebuild.active
-              ? "Mnemo is being rebuilt from the shell up. The next build is the one worth installing."
-              : "Download it, open it, and start writing. No signup, no trial clock."}
+              ? "We are rebuilding the desktop app from the interface up. Downloads will return when the new version is ready to use every day."
+              : "Download Mnemo, open it, and start studying. No account, no trial, and no subscription."}
           </p>
           <div
             className="reveal-rise mt-9 flex justify-center"
@@ -57,8 +57,8 @@ export function DownloadCta() {
             style={{ "--reveal-delay": "150ms" } as React.CSSProperties}
           >
             {rebuild.active
-              ? "Free, no account, on Windows, macOS, and Linux, when it lands."
-              : "Free, no account, on Windows, macOS, and Linux."}
+              ? "Free and open source for Windows, macOS, and Linux when the new build ships."
+              : "Free and open source for Windows, macOS, and Linux."}
           </p>
         </Reveal>
       </Container>

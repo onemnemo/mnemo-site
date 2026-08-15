@@ -30,9 +30,9 @@ export function Manifesto() {
             className="type-lede text-deep-ink-2 reveal-rise mt-7 max-w-xl"
             style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
           >
-            Mnemo is free and open source. There is no account to create and no
-            server watching you study. Your notes live on your machine, and the
-            code is public so you can hold us to every word.
+            Mnemo is free and open source. There is no account to create, no
+            telemetry watching how you study, and no cloud service required to
+            use the app. Your notes and study data stay on your machine.
           </p>
           {/* The receipts, in the plainest possible voice. */}
           <p

@@ -91,15 +91,17 @@ export function QuizCard({ className }: { className?: string }) {
             <span className="text-foreground font-medium">
               Three, actually.
             </span>{" "}
-            Two pump blood to the gills, one pumps it everywhere else. A miss
-            is fine: the correction sticks harder after the reach.
+            Two pump blood to the gills, and one pumps it around the rest of
+            the body. Getting it wrong still gave you a chance to retrieve the
+            fact before seeing the correction.
           </p>
         </div>
         <div className="mt-5 hidden group-has-[#octo-three:checked]/quiz:block">
           <p className="text-ink-2 text-sm leading-relaxed">
-            <span className="text-foreground font-medium">Three it is.</span>{" "}
-            Two pump blood to the gills, one pumps it everywhere else. And you
-            just made the next recall easier.
+            <span className="text-foreground font-medium">Three.</span>{" "}
+            Two pump blood to the gills, and one pumps it around the rest of
+            the body. You have now retrieved the fact instead of simply
+            reading it again.
           </p>
         </div>
       </fieldset>

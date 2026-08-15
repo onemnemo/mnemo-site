@@ -13,13 +13,13 @@ export const siteConfig = {
    * Used verbatim as the `<title>` on the home page and as the fallback
    * OpenGraph title. Kept under 60 characters so search engines do not truncate.
    */
-  title: "Mnemo: Free, open-source, local-first learning platform",
+  title: "Mnemo: Notes, flashcards, and mind maps for serious studying",
 
   /**
    * Used as the default meta description. Kept under 160 characters.
    */
   description:
-    "Flashcards, notes, mindmaps, and learning paths in one focused desktop app. Free and open source, runs offline, and your data never leaves your machine.",
+    "A free, open-source study app with a Notion-style notes editor, FSRS flashcards, and flexible mind maps. Works offline and keeps your data on your machine.",
 
   /**
    * Absolute origin, no trailing slash. Required by the Metadata API to resolve
@@ -59,14 +59,14 @@ export const rebuild = {
 
   /** The part that has to survive at every width. */
   message:
-    "Mnemo is being rebuilt, so downloads are paused until the new app ships.",
+    "Mnemo is being rebuilt, so downloads are paused while we finish the new desktop app.",
 
   /**
    * The why, dropped below the sm breakpoint: at phone widths the full text
    * costs a third of the fold, and /download carries the whole story anyway.
    */
   detail:
-    "We are porting from Avalonia to React and Photino and redrawing every screen, so the screenshots here are a mix of the old app and the new one.",
+    "We are moving Mnemo to a new interface and rebuilding every screen. Some screenshots on the site still show the current app while the new version takes shape.",
 
   /** Label on the pills that replace the download buttons. */
   ctaLabel: "Downloads coming soon",

@@ -41,8 +41,8 @@ import { Reveal } from "@/components/reveal"
 const modules = [
   {
     eyebrow: "Notes",
-    title: "A real editor, not a text box",
-    body: "Block based writing in the Notion tradition: headings, images, code, and math, rearranged by drag and exported to PDF when it counts. Local AI assistance is in the works, running on your machine, not in someone's cloud.",
+    title: "The flexibility of a Notion-style editor, built for studying.",
+    body: "If you have used Notion, the basics will feel familiar. Write with blocks, move content around freely, use slash commands, and mix text with images, code, math, lists, and more. When you need to share or hand something in, export your notes to PDF.",
     Figure: NotesFigure,
     screenshot: {
       src: notesShot,
@@ -51,8 +51,8 @@ const modules = [
   },
   {
     eyebrow: "Flashcards",
-    title: "Reviews that respect your time",
-    body: "Spaced repetition schedules every card for the moment just before you would forget it, so the daily pile stays small enough to actually finish. Keyboard driven end to end, with scheduling algorithms you can swap.",
+    title: "Serious spaced repetition, without the friction.",
+    body: "Mnemo uses FSRS, the modern scheduling system also used by Anki. Reviews adapt to how well you remember each card, helping you spend less time repeating what you already know and more time on what still needs work. The whole review flow is fast and keyboard-friendly.",
     Figure: FlashcardsFigure,
     screenshot: {
       src: flashcardsShot,
@@ -60,9 +60,9 @@ const modules = [
     },
   },
   {
-    eyebrow: "Mindmaps",
+    eyebrow: "Mind maps",
     title: "Room to think",
-    body: "A full mapping canvas in the Miro spirit, not a widget: shape, color, and connect nodes like on a whiteboard, then flip to a clean preview when it is time to study.",
+    body: "Build mind maps without squeezing your ideas into a tiny widget. Move, connect, color, and organize nodes freely on a full canvas, then switch to a clean preview when you want to study from it.",
     Figure: MindmapFigure,
     screenshot: {
       src: mindmapsShot,
@@ -74,15 +74,15 @@ const modules = [
 const supporting = [
   {
     title: "Everything one keystroke away",
-    body: "Ctrl K jumps to any note, deck, or map. Quick Actions keep your hands on the keyboard.",
+    body: "Jump straight to a note, deck, map, or action without digging through menus. Mnemo is designed to stay quick when your library gets big.",
   },
   {
     title: "Your studying at a glance",
-    body: "A dashboard of review stats, recent decks, and goals, so you know where you stand.",
+    body: "See recent decks, review activity, goals, and what needs your attention next, all from one place.",
   },
   {
-    title: "Make it feel like home",
-    body: "Themes, custom keybinds, and multiple languages. It is your desk, after all.",
+    title: "Make Mnemo yours",
+    body: "Choose your theme, change keybinds, switch languages, and tune the app to fit how you study.",
   },
 ]
 
@@ -92,12 +92,12 @@ export function Modules() {
       <Container>
         <p className="type-eyebrow">What&apos;s inside</p>
         <h2 className="type-h2 mt-3 max-w-2xl">
-          Three tools, each built like it&apos;s the only one.
+          Three study tools, built to stand on their own.
         </h2>
         <p className="text-ink-2 mt-4 max-w-xl leading-relaxed">
-          Most study apps do one thing properly and bolt the rest on. Mnemo
-          doesn&apos;t: notes, flashcards, and mind maps are each a full
-          system, sharing one library and one desk.
+          Mnemo brings notes, flashcards, and mind maps together without
+          turning any of them into a side feature. Use one, use all three, and
+          keep everything in the same library.
         </p>
 
         <div className="mt-16 grid gap-24 sm:mt-20 sm:gap-32">

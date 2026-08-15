@@ -66,7 +66,7 @@ export function SiteFooter() {
               />
             </Link>
             <p className="text-ink-2 mt-4 max-w-xs text-sm leading-relaxed">
-              Free, open-source studying. Built by learners, for learners.
+              Notes, flashcards, and mind maps. Free and open source.
             </p>
           </div>
 
