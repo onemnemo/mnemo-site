@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils"
  * The paper-to-dark boundary of /science: the scene-1 squid hovers over
  * a sea of ink whose surface is the top of the dark band below.
  *
- * The squid runs off a 5x2 sprite sheet (10 frames of tentacle drift and
- * one blip of bubbles) stepped by the science-squid-swim keyframes, with a
- * slow vertical float on the wrapper (science-squid-float). Frame aspect
- * is derived from the sheet dimensions, so replacing the art keeps the box
- * proportions correct.
+ * The squid runs off a 3x1 sprite sheet (3 frames of tentacle drift)
+ * stepped by the science-squid-swim keyframes, with a slow vertical float
+ * on the wrapper (science-squid-float). Frame aspect is derived from the
+ * sheet dimensions, so replacing the art keeps the box proportions
+ * correct.
  *
  * Follows the TornEdge painting rule: the strip's own background is the
  * outgoing canvas (className carries bg-*) and the SVG paints the incoming
@@ -21,8 +21,8 @@ import { cn } from "@/lib/utils"
  * Decorative, so everything is aria-hidden.
  */
 
-const SHEET_COLS = 5
-const SHEET_ROWS = 2
+const SHEET_COLS = 3
+const SHEET_ROWS = 1
 
 /**
  * The pool: a long settled wash rising into a broad swell under the squid.
