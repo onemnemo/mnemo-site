@@ -30,6 +30,7 @@
 /.idea/
 AGENTS.md
 CLAUDE.md
+Writing.md
 
 # debug
 npm-debug.log*
