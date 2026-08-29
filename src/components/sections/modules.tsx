@@ -1,192 +1,181 @@
-import Image from "next/image"
-
 import flashcardsShot from "@public/screenshots/flashcards.png"
 import mindmapsShot from "@public/screenshots/mindmaps.png"
 import notesShot from "@public/screenshots/notes.png"
-import { AppFrame } from "@/components/app-frame"
+import { Annotation } from "@/components/annotation"
 import { Container } from "@/components/layout/container"
+import { ScreenshotCrop } from "@/components/screenshot-crop"
 import { Section } from "@/components/layout/section"
-import { cn } from "@/lib/utils"
-import {
-  FlashcardsFigure,
-  MindmapFigure,
-  NotesFigure,
-} from "@/components/sections/feature-figures"
 import { Reveal } from "@/components/reveal"
 
 /**
- * The three modules, told once each.
+ * The three modules, told once each, at full width.
  *
- * This replaces two sections — a bento of illustrated pillar cards and a set
- * of alternating screenshot rows — that made the same three claims in nearly
- * the same words a screen apart. Merged, each module gets one row carrying
- * everything it had across both: the drawn figure, the full pitch, and the
- * real screenshot as proof.
+ * This replaces a two-column alternating layout in which the screenshot got a
+ * 24rem-to-1fr split of the container. These are captures of a dense desktop
+ * app; at that width the interface being described was unreadable, so the
+ * proof shot was decoration. Each module now gets the full container: a
+ * cropped wide shot of the screen, plus one detail lifted out of the same
+ * capture and floated over it with a drawn note saying why it matters.
  *
- * Hierarchy on the recessed band follows the app's elevation rule: the
- * screenshots float (canvas surface, shadow), the supporting cards at the end
- * sit flat with a border. Importance is depth, never a louder colour.
+ * The detail is the argument. "Serious spaced repetition" is a claim anyone
+ * can print; the grading row pulled out of the real review screen is the
+ * thing that makes it checkable.
  *
- * Rows run capture → retain → connect (notes, flashcards, mindmaps), which is
- * the order the tools appear in a real study session.
+ * Both the section intro and the trailing "around the tools" cards are gone.
+ * The intro said in three sentences what the three rows underneath it then
+ * said properly, and the cards made three more claims with no proof attached
+ * at the point where the reader had just been given three that had it.
  *
- * Screenshots are real captures with the app's own window chrome, so
- * AppFrame's synthetic chrome is off. Each row is its own Reveal: text rises
- * first, the frame follows a beat later.
+ * The top padding is the standard band rhythm again. It was outsized to clear
+ * the hero screenshot hanging down into this band; the tear above now marks
+ * the boundary instead (see hero.tsx).
  *
  * Section carries id="features" because the navbar's Features link targets
  * /#features.
  */
 
-const modules = [
-  {
-    eyebrow: "Notes",
-    title: "The flexibility of a Notion-style editor, built for studying.",
-    body: "If you have used Notion, the basics will feel familiar. Write with blocks, move content around freely, use slash commands, and mix text with images, code, math, lists, and more. When you need to share or hand something in, export your notes to PDF.",
-    Figure: NotesFigure,
-    screenshot: {
-      src: notesShot,
-      alt: "The Mnemo notes editor showing a block based note on Parkinson's disease, with headings, bullet lists, and an inline diagram",
-    },
-  },
-  {
-    eyebrow: "Flashcards",
-    title: "Serious spaced repetition, without the friction.",
-    body: "Mnemo uses FSRS, the modern scheduling system also used by Anki. Reviews adapt to how well you remember each card, helping you spend less time repeating what you already know and more time on what still needs work. The whole review flow is fast and keyboard-friendly.",
-    Figure: FlashcardsFigure,
-    screenshot: {
-      src: flashcardsShot,
-      alt: "A Mnemo flashcard review session showing a medicine question with an answer, an inline image, and grading buttons",
-    },
-  },
-  {
-    eyebrow: "Mind maps",
-    title: "Room to think",
-    body: "Build mind maps without squeezing your ideas into a tiny widget. Move, connect, color, and organize nodes freely on a full canvas, then switch to a clean preview when you want to study from it.",
-    Figure: MindmapFigure,
-    screenshot: {
-      src: mindmapsShot,
-      alt: "A Mnemo mind map of photosynthesis, with colored nodes for inputs, reactions, and outputs connected by labeled edges",
-    },
-  },
-]
+function ModuleIntro({
+  eyebrow,
+  title,
+  body,
+}: {
+  eyebrow: string
+  title: string
+  body: string
+}) {
+  return (
+    <div className="reveal-rise">
+      <p className="type-eyebrow">{eyebrow}</p>
+      <h2 className="type-h2 mt-3 max-w-2xl">{title}</h2>
+      <p className="text-ink-2 mt-4 max-w-xl leading-relaxed">{body}</p>
+    </div>
+  )
+}
 
-const supporting = [
-  {
-    title: "Everything one keystroke away",
-    body: "Jump straight to a note, deck, map, or action without digging through menus. Mnemo is designed to stay quick when your library gets big.",
-  },
-  {
-    title: "Your studying at a glance",
-    body: "See recent decks, review activity, goals, and what needs your attention next, all from one place.",
-  },
-  {
-    title: "Make Mnemo yours",
-    body: "Choose your theme, change keybinds, switch languages, and tune the app to fit how you study.",
-  },
-]
+/** Wraps the media so the crop and its floated detail rise together. */
+const mediaDelay = { "--reveal-delay": "70ms" } as React.CSSProperties
 
 export function Modules() {
   return (
-    <Section canvas="sunken" id="features">
+    <Section
+      id="features"
+      canvas="sunken"
+      className="relative"
+    >
       <Container>
-        <p className="type-eyebrow">What&apos;s inside</p>
-        <h2 className="type-h2 mt-3 max-w-2xl">
-          Three study tools, built to stand on their own.
-        </h2>
-        <p className="text-ink-2 mt-4 max-w-xl leading-relaxed">
-          Mnemo brings notes, flashcards, and mind maps together without
-          turning any of them into a side feature. Use one, use all three, and
-          keep everything in the same library.
-        </p>
+        <Reveal>
+          <ModuleIntro
+            eyebrow="Notes"
+            title="Take notes your way."
+            body="Write freely with blocks, then shape things as you go. Text, images, math, code, lists, tables, and more all live on the same page."
+          />
+          <div className="reveal-rise relative mt-14" style={mediaDelay}>
+            <ScreenshotCrop
+              src={notesShot}
+              alt="Close crop of the Mnemo notes editor showing headings, highlights, and a callout block"
+              ratio="1131 / 560"
+              crop={{ width: "127.23%", left: "-27.23%", top: "-42.9%" }}
+              sizes="(min-width: 1200px) 1384px, 118vw"
+              className="shadow-canvas rounded-2xl"
+            />
+            {/*
+             * The sidebar, at the zoom you would actually read it at.
+             *
+             * Below lg the detail drops out of the overlay and into flow
+             * underneath, which is the same breakpoint the drawn asides
+             * appear at: either the whole annotated composition, or a plain
+             * screenshot with its detail beneath it, never half of one.
+             *
+             * The float is sized as a fraction of the shot it sits on, so as
+             * the shot shrinks the detail takes more and more of it. By the
+             * tablet range it covers about four fifths, and stops reading as
+             * a detail lifted out of a screenshot at all.
+             */}
+            <ScreenshotCrop
+              src={notesShot}
+              alt="The sidebar notes tree with subjects like Medicine, Biology, and Physics"
+              ratio="240 / 320"
+              crop={{ width: "599.6%", left: "-25%", top: "-90.6%" }}
+              sizes="(min-width: 1200px) 1248px, 45vw"
+              className="shadow-pop relative mt-4 w-44 rounded-xl lg:absolute lg:mt-0 lg:bottom-[-2.5rem] lg:left-0 lg:w-52 lg:max-w-[45%]"
+            />
+            <Annotation
+              points="left"
+              className="bottom-[-3rem] left-[14.5rem] max-lg:hidden"
+            >
+              your whole library, one sidebar
+            </Annotation>
+          </div>
+        </Reveal>
 
-        <div className="mt-16 grid gap-24 sm:mt-20 sm:gap-32">
-          {modules.map((module, index) => {
-            const text = (
-              <div className="reveal-rise">
-                {/* Decorative: the eyebrow and title state what it shows. */}
-                <module.Figure base={60} className="mb-6 h-24 w-auto" />
-                <p className="type-eyebrow">{module.eyebrow}</p>
-                <h3 className="type-h3 mt-3">{module.title}</h3>
-                <p className="text-ink-2 mt-4 max-w-lg leading-relaxed">
-                  {module.body}
-                </p>
-              </div>
-            )
-            const media = (
-              <AppFrame
-                chrome={false}
-                className="reveal-rise"
-                style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
-              >
-                <Image
-                  src={module.screenshot.src}
-                  alt={module.screenshot.alt}
-                  sizes="(min-width: 1024px) 58vw, 90vw"
-                  className="w-full"
-                />
-              </AppFrame>
-            )
-            const flipped = index % 2 === 1
-            return (
-              <Reveal
-                key={module.eyebrow}
-                /*
-                 * The media column is the wider of the two. These are
-                 * screenshots of a dense desktop app: at an even split they
-                 * render small enough that the interface being described is
-                 * unreadable, which defeats the point of showing it.
-                 *
-                 * The alternation is done by swapping DOM order (and the
-                 * matching column-size order) rather than with CSS `order`,
-                 * because `order` only changes visual position — grid
-                 * auto-placement still assigns items to tracks by DOM order,
-                 * so a reordered item would land in the wrong-sized track.
-                 */
-                className={cn(
-                  "grid items-center gap-10 lg:gap-16",
-                  flipped
-                    ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)]"
-                    : "lg:grid-cols-[minmax(0,24rem)_minmax(0,1fr)]"
-                )}
-              >
-                {flipped ? (
-                  <>
-                    {media}
-                    {text}
-                  </>
-                ) : (
-                  <>
-                    {text}
-                    {media}
-                  </>
-                )}
-              </Reveal>
-            )
-          })}
-        </div>
+        <Reveal className="mt-36 sm:mt-44">
+          <ModuleIntro
+            eyebrow="Flashcards"
+            title="Remember what you learn."
+            body="Mnemo uses FSRS to bring cards back when you need them. Hard things appear sooner. Easy things wait."
+          />
+          <div className="reveal-rise relative mt-14" style={mediaDelay}>
+            <ScreenshotCrop
+              src={flashcardsShot}
+              alt="A Mnemo flashcard with a medicine question, its answer, and an inline diagram"
+              ratio="1130 / 565"
+              crop={{ width: "127.2%", left: "-14.2%", top: "-29.2%" }}
+              sizes="(min-width: 1200px) 1384px, 118vw"
+              className="shadow-canvas rounded-2xl"
+            />
+            {/* Just the grading row: the whole scheduling claim in one strip. */}
+            <ScreenshotCrop
+              src={flashcardsShot}
+              alt="The Again, Hard, Good, and Easy grading buttons"
+              ratio="746 / 66"
+              crop={{ width: "192.6%", left: "-49.9%", top: "-1178.8%" }}
+              sizes="(min-width: 1200px) 740px, 135vw"
+              className="shadow-pop relative mt-4 w-full rounded-xl lg:absolute lg:mt-0 lg:right-8 lg:bottom-[-2rem] lg:w-96 lg:max-w-[70%]"
+            />
+            <Annotation
+              points="right"
+              className="right-[27rem] bottom-[-2.75rem] max-lg:hidden"
+            >
+              grade the card, Mnemo handles the timing
+            </Annotation>
+          </div>
+        </Reveal>
 
-        <Reveal className="mt-24 sm:mt-32">
-          <p className="type-eyebrow reveal-rise">Around the tools</p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-3">
-            {supporting.map((feature, index) => (
-              <article
-                key={feature.title}
-                /* line-soft is lighter than the sunken band it sits on, so it
-                   read as no border at all; line is the visible one. */
-                className="reveal-rise border-line rounded-2xl border p-5"
-                style={
-                  { "--reveal-delay": `${index * 70}ms` } as React.CSSProperties
-                }
-              >
-                <h3 className="text-base font-semibold tracking-tight">
-                  {feature.title}
-                </h3>
-                <p className="text-ink-2 mt-1.5 text-sm leading-relaxed">
-                  {feature.body}
-                </p>
-              </article>
-            ))}
+        <Reveal className="mt-36 sm:mt-44">
+          <ModuleIntro
+            eyebrow="Mind maps"
+            title="Room to think."
+            body="Spread ideas across a full canvas. Move them, connect them, group them, and make sense of the bigger picture."
+          />
+          <div className="reveal-rise relative mt-20" style={mediaDelay}>
+            <ScreenshotCrop
+              src={mindmapsShot}
+              alt="A wide crop of a Mnemo mind map of cell respiration with colored branches"
+              ratio="1380 / 690"
+              crop={{ width: "103.99%", left: "-3.99%", top: "-24.6%" }}
+              sizes="(min-width: 1200px) 1132px, 104vw"
+              className="shadow-canvas rounded-2xl"
+            />
+            {/*
+             * The canvas toolbar, which already has the pill shape this float
+             * is drawn with. Sits above the crop's top edge rather than below
+             * its bottom, so the three rows do not all resolve the same way.
+             */}
+            <ScreenshotCrop
+              src={mindmapsShot}
+              alt="The mind map canvas toolbar: select, add node, connect, frame, and zoom"
+              ratio="299 / 32"
+              crop={{ width: "479.6%", left: "-199.33%", top: "-2643.76%" }}
+              sizes="(min-width: 1200px) 1843px, 336vw"
+              className="shadow-pop relative mt-4 w-full rounded-full lg:absolute lg:mt-0 lg:top-[-1.25rem] lg:right-12 lg:w-96 lg:max-w-[70%]"
+            />
+            <Annotation
+              points="right"
+              tilt={20}
+              className="top-[-2.5rem] right-[28rem] items-center max-lg:hidden"
+            >
+              move, connect, and think freely
+            </Annotation>
           </div>
         </Reveal>
       </Container>

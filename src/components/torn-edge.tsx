@@ -10,12 +10,33 @@ type TornEdgeProps = {
    */
   mascot?: boolean
   /**
+   * Mirror the tear. The profile below is one fixed line, so a second tear on
+   * the same page reads as a literal repeat unless one of them is flipped.
+   * Not for use with `mascot`: the sag the paws grip is on the right.
+   */
+  flip?: boolean
+  /**
+   * Which paper the thickness hairline is drawn as. Cream disappears into a
+   * saturated canvas, which is what a tear off butter or the dark band wants;
+   * between two light neutrals it leaves the seam with no line at all, so
+   * that pairing takes ink instead.
+   */
+  hairline?: "cream" | "ink"
+  /**
    * Tailwind classes choosing the two canvases: the background class is the
    * outgoing canvas (the band above), the text class is the incoming canvas
    * (the band below), e.g. "bg-wash text-paper".
    */
   className?: string
 }
+
+/** Stroke and opacity per hairline paper. Ink is faint by a wide margin: at
+ *  full strength a dark line between two neutrals reads as a drawn border
+ *  rather than as a torn edge. */
+const HAIRLINE = {
+  cream: { stroke: "#fff", opacity: 0.4 },
+  ink: { stroke: "var(--ink)", opacity: 0.12 },
+} as const
 
 /**
  * Torn-paper edge between two canvas bands: a single irregular line, as if
@@ -77,25 +98,29 @@ const LINE = tearLine()
  */
 const SHAPE = `M0 ${HEIGHT + 2} H${WIDTH} ${LINE.replace("M", "L")} Z`
 
-export function TornEdge({ mascot = false, className }: TornEdgeProps) {
+export function TornEdge({
+  mascot = false,
+  flip = false,
+  hairline = "cream",
+  className,
+}: TornEdgeProps) {
   return (
     <div className={cn("relative h-6 w-full sm:h-8", className)}>
       <svg
         aria-hidden
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-        className="block h-full w-full"
+        className={cn("block h-full w-full", flip && "-scale-x-100")}
         preserveAspectRatio="none"
       >
         <path d={SHAPE} fill="currentColor" />
-        {/* Hairline highlight hugging the outgoing side of the tear: the
-            torn sheet showing its paper thickness. White over any canvas
-            color reads as that canvas's cream, so it stays nearly
-            invisible. */}
+        {/* Hairline hugging the outgoing side of the tear: the torn sheet
+            showing its paper thickness. Cream over any canvas color reads as
+            that canvas's own cream, so it stays nearly invisible. */}
         <path
           d={LINE}
           fill="none"
-          stroke="#fff"
-          strokeOpacity={0.4}
+          stroke={HAIRLINE[hairline].stroke}
+          strokeOpacity={HAIRLINE[hairline].opacity}
           strokeWidth={1}
           vectorEffect="non-scaling-stroke"
           transform="translate(0 -0.75)"
