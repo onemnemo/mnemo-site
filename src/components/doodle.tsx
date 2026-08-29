@@ -1,19 +1,11 @@
 import Image from "next/image"
 
+import { doodleArt, type DoodleName } from "@/components/doodle-art"
 import { cn } from "@/lib/utils"
-
-/**
- * Cell dimensions of the cut doodle sheets (see scripts/process-assets.mjs).
- * All doodles from one sheet share these, so aspect ratios stay correct.
- */
-const cellSize = {
-  dark: { width: 220, height: 220 },
-  light: { width: 255, height: 191 },
-} as const
 
 type DoodleProps = {
   /** File stem under public/illos/doodles, e.g. "dark-01" or "light-08". */
-  name: `dark-${string}` | `light-${string}`
+  name: DoodleName
   /** Positioning, size, rotation, and opacity, e.g. "top-10 right-8 w-12 opacity-25". */
   className?: string
 }
@@ -26,6 +18,10 @@ type DoodleProps = {
  * screens where every pixel belongs to content. The parent Section needs
  * `relative overflow-hidden`.
  *
+ * The art comes from a static import (see doodle-art.ts) rather than a
+ * hand-built URL string, so intrinsic dimensions come from the file itself
+ * and re-cutting a sheet busts every cache on the way to the browser.
+ *
  * Each doodle drifts on a slow float (doodle-drift in globals.css),
  * desynced by hashing its name into a duration and a negative delay, so
  * every instance is mid-cycle from the first frame and no two bob in
@@ -33,16 +29,13 @@ type DoodleProps = {
  * markup identical.
  */
 export function Doodle({ name, className }: DoodleProps) {
-  const sheet = name.startsWith("dark") ? "dark" : "light"
   let hash = 0
   for (const char of name) hash = (hash * 31 + char.charCodeAt(0)) % 997
   return (
     <Image
-      src={`/illos/doodles/${name}.png`}
+      src={doodleArt[name]}
       alt=""
       aria-hidden
-      width={cellSize[sheet].width}
-      height={cellSize[sheet].height}
       className={cn(
         "doodle-drift pointer-events-none absolute hidden select-none sm:block",
         className,

@@ -10,54 +10,164 @@ import { mkdirSync } from "node:fs"
 import sharp from "sharp"
 
 /**
- * Doodle sheets: both are 5x5 grids. Each cell becomes its own transparent
- * PNG (background keyed against the cell's corner pixel), named row-major:
- * dark-01 .. dark-25 and light-01 .. light-25. Cells are not trimmed, so
- * every doodle from one sheet shares the same dimensions and the rendering
- * component needs only one size.
+ * Doodle sheets: both hold a 5x5 layout of drawings. Each becomes its own
+ * transparent PNG (background keyed against the sheet's corner pixel), named
+ * row-major: dark-01 .. dark-25 and light-01 .. light-25. Every doodle from
+ * one sheet is emitted at the same size, so the rendering component needs
+ * only one width/height per sheet.
+ *
+ * The drawings are NOT laid out on an even split of the canvas. The sheets
+ * have unequal outer margins, so slicing them into five equal rows cut the
+ * top and bottom rows through the middle of the artwork: dark-24 lost its
+ * lower half, dark-03, dark-04 and dark-18 lost their bottoms. Insetting each
+ * cell to keep a neighbour's tip out of the cut made it worse, since the
+ * inset ate the same edge the drawing was already crossing.
+ *
+ * So the grid is measured rather than assumed. Projecting the keyed mask onto
+ * each axis gives five bands of ink separated by clean gutters, and those
+ * bands are where the drawings actually are. Each doodle is then cut as a
+ * fixed-size window centred on its own bounding box, which both keeps the
+ * uniform cell size and guarantees the whole drawing is inside it.
  */
 mkdirSync("public/illos/doodles", { recursive: true })
 
+/** How far a pixel must be from the background colour to count as ink. */
+const INK = 16
+
+/**
+ * Emitted cell size per sheet. Held fixed rather than derived, because every
+ * `w-*` class on a <Doodle> is tuned against it: changing these rescales
+ * every doodle on the site at once.
+ */
+const CELL = {
+  "doodles-dark": { width: 220, height: 220 },
+  "doodles-light": { width: 255, height: 191 },
+}
+
+/** Contiguous runs of ink, split on gutters of at least `minGap` empty rows. */
+function inkBands(profile, minGap) {
+  const bands = []
+  let start = -1
+  for (let i = 0; i < profile.length; i++) {
+    if (profile[i] > 0) {
+      if (start < 0) start = i
+      continue
+    }
+    if (start < 0) continue
+    let end = i
+    while (end < profile.length && profile[end] === 0) end++
+    if (end - i >= minGap || end >= profile.length) {
+      bands.push([start, i - 1])
+      start = -1
+    }
+  }
+  if (start >= 0) bands.push([start, profile.length - 1])
+  return bands
+}
+
 async function cutSheet(sheetName, outPrefix) {
   const path = `public/illos/${sheetName}.png`
-  const m = await sharp(path).metadata()
-  const cw = Math.floor(m.width / 5)
-  const ch = Math.floor(m.height / 5)
-  // Inset each cell so a neighboring doodle's tip cannot bleed into the cut.
-  const ix = Math.floor(cw * 0.06)
-  const iy = Math.floor(ch * 0.06)
+  const cell = CELL[sheetName]
+  const { data, info } = await sharp(path)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true })
+  const { width: W, height: H } = info
+  const bg = [data[0], data[1], data[2]]
+  const isInk = (x, y) => {
+    const i = (y * W + x) * 4
+    return (
+      Math.max(
+        Math.abs(data[i] - bg[0]),
+        Math.abs(data[i + 1] - bg[1]),
+        Math.abs(data[i + 2] - bg[2]),
+      ) >= INK
+    )
+  }
+
+  const colProfile = new Array(W).fill(0)
+  const rowProfile = new Array(H).fill(0)
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
+      if (!isInk(x, y)) continue
+      colProfile[x]++
+      rowProfile[y]++
+    }
+  }
+  // A gutter is far wider than any gap inside a drawing; 12px clears the
+  // widest internal gap on either sheet without merging two columns.
+  const cols = inkBands(colProfile, 12)
+  const rows = inkBands(rowProfile, 12)
+  if (cols.length !== 5 || rows.length !== 5) {
+    throw new Error(
+      `${sheetName}: expected a 5x5 layout, measured ${cols.length}x${rows.length}`,
+    )
+  }
+
   for (let row = 0; row < 5; row++) {
     for (let col = 0; col < 5; col++) {
+      const [x0, x1] = cols[col]
+      const [y0, y1] = rows[row]
+      // Each band is the union of five drawings, so re-measure inside the
+      // intersection to get this one drawing's own box.
+      let minX = x1
+      let minY = y1
+      let maxX = x0
+      let maxY = y0
+      for (let y = y0; y <= y1; y++) {
+        for (let x = x0; x <= x1; x++) {
+          if (!isInk(x, y)) continue
+          if (x < minX) minX = x
+          if (x > maxX) maxX = x
+          if (y < minY) minY = y
+          if (y > maxY) maxY = y
+        }
+      }
+      const artW = maxX - minX + 1
+      const artH = maxY - minY + 1
       const index = String(row * 5 + col + 1).padStart(2, "0")
+      if (artW > cell.width || artH > cell.height) {
+        throw new Error(
+          `${outPrefix}-${index}: art ${artW}x${artH} exceeds the ${cell.width}x${cell.height} cell`,
+        )
+      }
+      // Centre the drawing in the cell, clamped so the window stays on sheet.
+      const left = Math.min(
+        Math.max(0, Math.round((minX + maxX) / 2 - cell.width / 2)),
+        W - cell.width,
+      )
+      const top = Math.min(
+        Math.max(0, Math.round((minY + maxY) / 2 - cell.height / 2)),
+        H - cell.height,
+      )
+
       const buf = await sharp(path)
-        .extract({
-          left: col * cw + ix,
-          top: row * ch + iy,
-          width: cw - ix * 2,
-          height: ch - iy * 2,
-        })
+        .extract({ left, top, width: cell.width, height: cell.height })
         .toBuffer()
-      const { data, info } = await sharp(buf)
+      const cut = await sharp(buf)
         .ensureAlpha()
         .raw()
         .toBuffer({ resolveWithObject: true })
-      const cellBg = [data[0], data[1], data[2]]
-      for (let i = 0; i < data.length; i += 4) {
+      for (let i = 0; i < cut.data.length; i += 4) {
         const dist = Math.max(
-          Math.abs(data[i] - cellBg[0]),
-          Math.abs(data[i + 1] - cellBg[1]),
-          Math.abs(data[i + 2] - cellBg[2]),
+          Math.abs(cut.data[i] - bg[0]),
+          Math.abs(cut.data[i + 1] - bg[1]),
+          Math.abs(cut.data[i + 2] - bg[2]),
         )
-        if (dist < 16) data[i + 3] = 0
+        if (dist < INK) cut.data[i + 3] = 0
       }
-      await sharp(data, {
-        raw: { width: info.width, height: info.height, channels: 4 },
+      await sharp(cut.data, {
+        raw: {
+          width: cut.info.width,
+          height: cut.info.height,
+          channels: 4,
+        },
       })
         .png()
         .toFile(`public/illos/doodles/${outPrefix}-${index}.png`)
     }
   }
-  return { width: cw - ix * 2, height: ch - iy * 2 }
+  return { width: cell.width, height: cell.height }
 }
 
 const darkCell = await cutSheet("doodles-dark", "dark")
