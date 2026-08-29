@@ -1,26 +1,28 @@
 ---
 title: Themes
-description: Dawn, Noon, Dusk, Ember, and finding a look you can study in.
+description: Light, Dark, following the system, and how much the app moves.
 order: 1
 ---
 
-Mnemo ships four themes, chosen from Settings under Appearance. The best one is whichever you stop noticing after ten minutes.
+Mnemo ships two themes, Light and Dark, plus the option of letting your operating system pick between them. They live in Settings under Appearance.
 
-## The four
+## Light, Dark, and the system
 
-- **Dawn** is the default: a clean light theme.
-- **Noon** is the other light option, warmer and more editorial.
-- **Dusk** is the default dark theme.
-- **Ember** is the warm dark one, walnut surfaces with coral accents.
+Light is the default. **Match system** keeps listening while Mnemo is open, so a machine that flips to dark in the evening takes the app with it.
 
-All four keep the same layout and the same accent language, so switching costs nothing but the first glance.
+Earlier builds shipped four themes: Dawn, Noon, Dusk, and Ember. Those names are gone, but your choice is not. Dawn and Noon land on Light, Dusk and Ember land on Dark.
 
-<!-- image idea: the theme gallery in Settings, or a 2x2 of the four themes -->
+<!-- image idea: the Appearance theme gallery with the Light, Dark, and Match system cards side by side -->
 
-## A note on focus
+## How much the app moves
 
-Themes in Mnemo deliberately avoid loud color in study views. Review sessions and the editor keep color for meaning (due states, selection, links), not decoration, so your attention stays on the material.
+**Reduce motion**, in the Interface group, defaults to **Match system**; **Full motion** and **Reduced motion** override it. Reduced motion takes animation durations to zero and removes the short distance popovers and toasts travel.
 
-## While you are there
+## Also on this page
 
-The Appearance page also holds a small gallery of app icons, and your profile picture lives under Account. None of it changes how Mnemo works; all of it changes how much it feels like yours.
+**Taskbar icon** offers alternate app icons, and it is the one setting here that waits for a restart. Your profile picture is not here: it sits in Settings under Profile.
+
+## Related
+
+- [Tuning the editor](./editor-appearance.md) covers width, spacing, and text sizes.
+- [Keyboard shortcuts](./keyboard-shortcuts.md) is where the rest of the app's feel gets tuned.

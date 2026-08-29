@@ -12,7 +12,7 @@ Different data has different consistency needs, so `mnemo.db` hosts three storag
 
 1. **A generic key-value table** of JSON documents, behind the `IStorageProvider` interface. Settings and most module state live here.
 2. **A relational flashcard schema**: folders, decks, cards, presets, scheduling, and the append-only review log, running in WAL mode with a single serialized writer and pooled readers.
-3. **Transactional note commits**: note bodies are written through a commit store with optimistic concurrency. Every write carries the version it was based on; a stale write is answered with 409 and the stored version, and the client decides how to rebase. This is what makes "Mnemo never overwrites another writer" true all the way down.
+3. **Transactional note commits**: note bodies are written through a commit store with optimistic concurrency. Every write carries the version it was based on; a stale write is answered with 409 and the stored version, and the client decides how to rebase.
 
 Migrations run at startup, before the API accepts its first request.
 

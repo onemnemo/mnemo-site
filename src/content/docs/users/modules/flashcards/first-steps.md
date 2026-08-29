@@ -22,9 +22,9 @@ The quality of your reviews is set the moment you write the card:
 
 ## The review loop
 
-A session shows you each due card, waits for you to recall the answer, then asks how it went. That self-grade drives the schedule: hard cards return quickly, easy ones stretch out over days, then weeks, then months.
+A session shows you each due card and asks how it went once you have recalled the answer. That self-grade drives the schedule: hard cards return quickly, easy ones stretch out over days, then weeks, then months.
 
-Missing a day is fine. Due cards wait, and the schedule adapts; it is a rhythm, not a debt collector.
+Missing a day is fine. Due cards wait, and the schedule adapts.
 
 ## Related
 

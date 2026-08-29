@@ -4,7 +4,7 @@ description: Create a small deck and let the scheduler take over.
 order: 2
 ---
 
-The fastest way to understand Mnemo is to feed it ten cards and review them tomorrow. This guide sets that up.
+The fastest way to understand Mnemo is to feed it ten cards and review them tomorrow.
 
 ## Create a deck
 
@@ -14,11 +14,11 @@ Add a handful of cards. Keep each card to one fact. "What year did X happen?" is
 
 ## Review
 
-Start a review session. For each card, try to recall the answer before revealing it, then grade yourself. Your grade is not a score, it is scheduling input: cards you found hard come back sooner, cards you found easy drift further into the future.
+Start a review session and try to recall each answer before revealing it, then grade yourself. Your grade is not a score, it is scheduling input: cards you found hard come back sooner, cards you found easy drift further into the future.
 
 ## Come back tomorrow
 
-This is the part that feels wrong and is right: stop when the session ends. The scheduler will queue each card again just before you would forget it. A few minutes a day beats an hour once a week, and the [science page](https://mnemo.one/science) explains why.
+This is the part that feels wrong and is right: stop when the session ends. The scheduler queues each card again just before you would forget it. A few minutes a day beats an hour once a week, and the [science page](https://mnemo.one/science) explains why.
 
 ## Where to go next
 

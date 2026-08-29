@@ -1,27 +1,21 @@
 ---
 title: How saving works
-description: Autosave, the save pill, and why Mnemo never overwrites your work.
-order: 7
+description: The save shortcut, the conflict warning, and turning autosave off.
+order: 10
 ---
 
-There is no save button. Mnemo saves a moment after you stop typing, and never lets more than a few seconds of work sit unsaved. Most days you will never think about it; this page exists for the days you do.
+Mnemo saves as you write, and there is no save button. `Ctrl+S` (`Cmd+S` on macOS) writes immediately.
 
-## The save pill
+## When a save goes wrong
 
-A quiet pill in the bar above the editor tells you where things stand:
+The status line in the note's top right corner is blank until a save fails: **Retrying...** covers three attempts, **Couldn't save** means they ran out, and **Recovered** means a later one landed.
 
-- **Unsaved changes**, then **Saving...**, then **Saved** is the normal heartbeat of a writing session.
-- **Couldn't save** means a save failed. Mnemo retries a few times on its own, and any new edit starts the cycle again.
-- **Changed somewhere else** is the special one, covered below.
+**Changed somewhere else** is the one to act on. The note was written by something else since you opened it, so Mnemo stopped saving rather than overwrite that version. **Reload** adopts the other version and discards whatever you typed here that had not saved yet, so copy that out first.
 
-Closing the window is safe: Mnemo finishes the final save before it lets the window go.
+## Turning autosave off
 
-## Changed somewhere else
+**Auto-save** lives in Settings under Editor and is on by default. With it off you decide when the note is committed, with `Ctrl+S`. Closing a note or the window saves either way.
 
-If the note was written by something else since you opened it, Mnemo stops saving rather than overwrite that other version. This is deliberate; the app refuses to pick a winner between two versions of your work.
+## Related
 
-The pill offers a Reload button, which adopts the other version. Anything you typed in this window that had not saved yet is not in that version, so if you wrote something you care about, copy it out before reloading.
-
-## Where your notes live
-
-Everything is stored locally in Mnemo's data folder, as covered in [Installing Mnemo](../../getting-started/installation.md#where-your-data-lives). Back that folder up and your notes are backed up.
+- [Tuning the editor](../../customization/editor-appearance.md) for the rest of Settings under Editor.

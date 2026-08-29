@@ -1,34 +1,42 @@
 ---
 title: Writing cards
-description: Classic and cloze cards, formatting, tags, and images.
+description: Material and card types, cloze, formulas, images, and templates.
 order: 2
 ---
 
-The card editor is a small dialog with a big job: get the card out of your head and into the deck fast enough that you write the next one. It opens from any deck, lets you pick the deck at the top, and offers two card types.
+The card editor is a small dialog with a big job: get what you know into the deck fast enough that you write the next one. What you type into it is not a card: it is a piece of material, and the card type decides how many cards come out of it.
 
-## Classic and cloze
+## Material and card types
 
-A **Classic** card is the familiar pair: a front that asks, a back that answers.
+A card type is a set of named fields plus the cards those fields make. **Basic** takes a Front and a Back and makes one card. **Basic and reverse** takes the same two and makes two, one in each direction. **Vocabulary** takes Word, Meaning, and Example, and makes up to three. The type is fixed once the material is saved.
 
-A **Cloze** card hides pieces of a sentence instead. Wrap the part to hide with `{{c1::like this}}`, or select it and press the cloze button (or `Ctrl+Shift+C`). During study the hidden text shows as a blank, and revealing the answer fills it back in. Cloze shines for definitions and facts that live naturally inside a sentence.
+`Ctrl+Enter` saves (`Cmd+Enter` on macOS). Saving new material keeps the dialog open, holding the deck, card type, and tags for the next one. Tags attach to the material and become filters in the deck view later.
 
-<!-- image idea: card editor with a cloze card being written -->
+<!-- image idea: the card editor with the card count bar under the fields -->
 
-## Formatting and tags
+## Cloze
 
-The format bar offers bold and italic, written as markdown markers in the text, so what you type is what is stored. Tags attach to the card and become filters in the deck view later; a light habit of tagging by chapter or theme pays off the first time you need to cram one chapter.
+**Cloze** hides pieces of a sentence instead of pairing two sides. Wrap what to hide with `{{c1::like this}}`, or select it and press `Ctrl+Shift+C`. Each number makes its own card, blanking its own piece and showing the others as context, and the Extra field rides along on the back of all of them.
 
-`Ctrl+Enter` saves the card (`Cmd+Enter` on macOS).
+```text
+The {{c1::hippocampus}} consolidates memory during {{c2::sleep::stage}}.
+```
 
-## Images
+That is two cards. A hint after a second pair of colons, `::stage` above, shows in place of the blank.
 
-Cards can carry up to three images per side. Paste them, drop them, or use the insert button; PNG, JPEG, GIF, and WebP work, up to 20 MB each. Images render as framed figures under the text and can be clicked to zoom during a session, which makes them good for diagrams you want to be quizzed on.
+## Formulas and images
 
-## Add mode
+Formulas are LaTeX between dollar signs, `$E_k$` inline or `$$` on its own line, rendered through KaTeX during study; one that will not parse is shown marked, exactly as you typed it.
 
-When you are building a deck, save and the editor stays open, counting the cards you have added this session and keeping the deck, type, and tags you chose. The intended rhythm is: type, save, type, save, and stop noticing the dialog entirely.
+Each field takes up to three images. Paste them or drop them on the field; PNG, JPEG, GIF, and WebP work, up to 20 MB each. An image follows its field onto whichever card shows it, and can be clicked to zoom during a session.
+
+## Managing card types
+
+**Card types** on the deck menu opens the manager; types are collection wide, not per deck. A card is a front and a back template, each naming a field by writing it as `{{Front}}`. **Only when** holds a card back until one named field is filled, which is what keeps Vocabulary's third card dormant.
+
+The four types that ship cannot be deleted, and neither can one that still holds material. Saving updates every card those types already make, so a template change reaches the whole collection at once.
 
 ## Related
 
 - [First steps](./first-steps.md) for what makes a card worth writing.
-- [Study modes](./study-modes.md) for what happens to cards once they exist.
+- [Organizing the library](./organizing-the-library.md) for the tag and state filters in a deck.

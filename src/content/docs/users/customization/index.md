@@ -4,4 +4,4 @@ description: Make Mnemo look and behave the way you work.
 order: 3
 ---
 
-Mnemo ships with sensible defaults and stays out of your way, but most of it can be tuned: appearance, behavior, and where your data lives.
+Mnemo runs on sensible defaults, and most of it can be tuned: theme, editor feel, keyboard shortcuts, language, and notifications.

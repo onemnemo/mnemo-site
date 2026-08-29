@@ -1,21 +1,23 @@
 ---
 title: Tuning the editor
-description: Width, spacing, text sizes, and spell check.
+description: Width, spacing, text sizes, math rendering, and spell check.
 order: 4
 ---
 
-Long study sessions live or die on comfort, so the editor's feel has its own corner of Settings, under Editor. These are reading ergonomics, not decoration; small nudges here compound over hours.
+The editor's feel has its own corner of Settings, under Editor.
 
 ## Width and spacing
 
-**Editor Width** chooses how wide the writing column should run, from Super Compact to Super Wide. Narrower columns read faster; wider ones fit more structure on screen.
+**Editor Width** runs from Super Compact to Super Wide. The Markdown appearance group carries the finer dials: block spacing, line spacing, letter spacing, and separate font sizes for body text, code, and math. Some surfaces still run on their own built-in metrics, so expect these to reach further as the rehaul settles.
 
-The Markdown appearance group carries the finer dials: block spacing, line spacing, letter spacing, and separate font sizes for body text, code, and math. As the app's rehaul settles, expect these to reach further; today some surfaces still run on their built-in metrics.
+## Math
 
-## Spell check
+**Render math** is on by default and typesets LaTeX-style equations as you read them. Turn it off and they stay as the raw source you typed.
 
-Spell check is on by default, with a language setting offering English, German, Spanish, and Norwegian. The underlines are hints, not verdicts; write in peace and let the squiggles catch what they catch.
+**Math Font Size** applies to the typeset result, from 14px to 20px, independent of the body and code sizes.
 
-## Fonts
+## Spell check and fonts
 
-Typefaces are not user-selectable. Mnemo ships its own set, one for the UI, a matching monospace for code, and a dedicated math face for equations, tuned to sit well together at every size the settings above allow. If a setting you expect is missing here, the Settings search box is the fastest way to confirm whether it exists yet.
+Spell check is on by default, with a language setting offering English, German, Spanish, and Norwegian. Changing that language takes effect the next time Mnemo starts.
+
+Typefaces are not user-selectable. Mnemo ships its own set: one for the UI, a matching monospace for code, and a dedicated math face for equations.

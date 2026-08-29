@@ -1,10 +1,10 @@
 ---
 title: Running the tests
-description: The xUnit suites, the Vitest suite, and why local checks matter.
+description: The xUnit suites, the Vitest suite, and the CI gate they feed.
 order: 2
 ---
 
-There is no CI running tests on pull requests yet, which makes the local run the only run. Treat it as part of the change, not a courtesy.
+Every push to `main` and every pull request against it runs the same checks you can run locally. Run the half you touched before every push, and both halves before a pull request.
 
 ## Backend tests
 
@@ -22,12 +22,21 @@ The web UI uses Vitest, with test files co-located next to the code they cover (
 npm run test
 ```
 
-Tests default to a Node environment; files that need a DOM opt in with a `// @vitest-environment jsdom` pragma on their first line. Linting is a separate, fast pass:
+Tests default to a Node environment; files that need a DOM opt in with a `// @vitest-environment jsdom` pragma on their first line. Linting and typechecking are separate, fast passes:
 
 ```bash
 npm run lint
 ```
 
-## The habit that matters
+```bash
+npx tsc -b
+```
 
-Run the half you touched before every push, and both halves before a pull request. The suites are fast precisely so that this is a reasonable ask.
+## What CI checks
+
+The workflow runs two jobs. The web job guards against NUL bytes in tracked source files, installs with `npm ci`, then typechecks, lints, and tests. The solution job builds `MnemoApp.sln` in Release and runs the two xUnit projects against that build.
+
+## Related
+
+- [Building from source](./building-from-source.md)
+- [Commits and pull requests](../contributing/commits-and-pull-requests.md)
