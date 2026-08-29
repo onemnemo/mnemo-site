@@ -84,7 +84,7 @@ export const rebuild = {
  */
 export const mainNav = [
   { title: "Features", href: "/#features" },
-  { title: "Why it works", href: "/science" },
+  { title: "Why Mnemo", href: "/science" },
   { title: "Docs", href: "/docs" },
 ] as const
 

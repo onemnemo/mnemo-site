@@ -63,7 +63,7 @@ export function SiteHeader() {
             </Link>
           ) : (
             <Button asChild className="rounded-full max-sm:hidden">
-              <Link href="/download">Download</Link>
+              <Link href="/download">Get the beta</Link>
             </Button>
           )}
           <MobileNav />

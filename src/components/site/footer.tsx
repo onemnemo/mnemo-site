@@ -20,7 +20,7 @@ const footerColumns = [
     heading: "Product",
     links: [
       { label: "Features", href: "/#features" },
-      { label: "Why it works", href: "/science" },
+      { label: "Why Mnemo", href: "/science" },
       { label: "Download", href: "/download" },
     ],
   },
