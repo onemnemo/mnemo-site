@@ -24,9 +24,16 @@ const option =
   "hover:bg-secondary/60 has-[:checked]:border-brand/45 has-[:checked]:bg-brand-wash has-[:checked]:before:border-[5px] has-[:checked]:before:border-brand " +
   "has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring motion-reduce:transition-none motion-reduce:before:transition-none"
 
-export function QuizCard({ className }: { className?: string }) {
+export function QuizCard({
+  className,
+  style,
+}: {
+  className?: string
+  /** For the caller's reveal delay; see the science page's scene 3. */
+  style?: React.CSSProperties
+}) {
   return (
-    <div className={cn("relative max-w-xl", className)}>
+    <div className={cn("relative max-w-xl", className)} style={style}>
       {/* The rest of the deck, peeking out behind the top card. */}
       <div
         aria-hidden

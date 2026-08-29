@@ -1,14 +1,5 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
-
-/*
- * Art is imported, never referenced by URL string. Static imports carry
- * the file's real dimensions and resolve to a content-hashed URL, so
- * dropping in a replacement drawing updates the intrinsic size and busts
- * every cache between here and the browser. A string src does neither.
- */
-import rescueArt from "@public/illos/science/rescue-well.png"
 
 import { ComingSoonPill } from "@/components/coming-soon-pill"
 import { Doodle } from "@/components/doodle"
@@ -25,6 +16,7 @@ import { NightDoze } from "@/components/science/night-doze"
 import { QuizCard } from "@/components/science/quiz-card"
 import { StageMarker } from "@/components/science/stage-marker"
 import { Reveal } from "@/components/reveal"
+import { cn } from "@/lib/utils"
 import { TornEdge } from "@/components/torn-edge"
 import { Button } from "@/components/ui/button"
 import { rebuild } from "@/config/site"
@@ -138,41 +130,59 @@ export default function SciencePage() {
         <Container>
           <StageMarker stage={3} className="mb-8" />
           <h2 className="type-h2 max-w-xl">Retrieval makes a difference.</h2>
-          <p className="type-lede mt-5 max-w-xl">
-            Quick, without scrolling up:
-          </p>
 
-          {/* Card and rescue art share the row: the card is short and wide
-              (answers in a row, see quiz-card.tsx) so the whole scene fits a
-              laptop viewport. */}
-          <div className="mt-10 grid items-end gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,36rem)_minmax(0,1fr)]">
-            <Reveal>
-              <QuizCard className="reveal-rise" />
-            </Reveal>
-            {/* Small accent: Soma hauls the fact back out of the well it
-                was slipping into. */}
-            <Reveal className="justify-self-center lg:justify-self-end">
-              <Image
-                src={rescueArt}
-                alt=""
-                aria-hidden
-                className="reveal-rise h-auto w-full max-w-[280px] lg:max-w-[320px]"
+          {/*
+           * The card takes the figure column, so the scene reads like every
+           * other one on the page: prose left, the thing it is about on the
+           * right. It replaces a drawing of Soma hauling the fact out of a
+           * well, which said in a picture what the card already does for
+           * real, and pushed the prose into a third row underneath.
+           *
+           * The card stays first in the DOM and is placed into column two
+           * explicitly. Below lg the columns collapse to DOM order, and the
+           * scene only works if you meet the question before the paragraph
+           * explaining what answering it just did. Explicit placement rather
+           * than `order`, because `order` moves the visual position but grid
+           * auto-placement still assigns tracks by DOM order, so the card
+           * would land in the narrow one.
+           */}
+          {/*
+           * items-start, not the shared grid's items-center. Answering the
+           * card reveals its feedback and makes it taller; centred, that
+           * growth re-centres the prose beside it and the paragraph visibly
+           * jumps while you are reading it. Pinned to the top of the row,
+           * the card grows downward into empty space and nothing else on
+           * the page moves under the reader.
+           */}
+          <div className={cn(SCENE_GRID, "mt-10 items-start")}>
+            <Reveal className="lg:col-start-2 lg:row-start-1">
+              <p className="type-lede reveal-rise">
+                Quick, without scrolling up:
+              </p>
+              <QuizCard
+                className="reveal-rise mt-6"
                 style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
               />
             </Reveal>
+            <Reveal className="lg:col-start-1 lg:row-start-1">
+              <p className="text-ink-2 reveal-rise max-w-xl leading-relaxed">
+                That effort to bring the answer back is retrieval. In 2006,
+                Roediger and Karpicke found that students who practiced
+                recalling material retained more of it later than students
+                who spent the same time re-reading. Trying to retrieve an
+                answer is not just a way to check what you know. It is part
+                of the learning process.
+              </p>
+              <p
+                className="reveal-rise mt-4 max-w-xl leading-relaxed font-medium"
+                style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
+              >
+                A little effort during recall can be useful. If the answer
+                does not come immediately, that does not make the review
+                wasted.
+              </p>
+            </Reveal>
           </div>
-
-          <p className="text-ink-2 mt-12 max-w-2xl leading-relaxed">
-            That effort to bring the answer back is retrieval. In 2006,
-            Roediger and Karpicke found that students who practiced recalling
-            material retained more of it later than students who spent the
-            same time re-reading. Trying to retrieve an answer is not just a
-            way to check what you know. It is part of the learning process.
-          </p>
-          <p className="mt-4 max-w-2xl leading-relaxed font-medium">
-            A little effort during recall can be useful. If the answer does
-            not come immediately, that does not make the review wasted.
-          </p>
         </Container>
       </Section>
 
