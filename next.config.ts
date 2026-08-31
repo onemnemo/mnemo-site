@@ -1,6 +1,16 @@
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
+  images: {
+    /**
+     * 75 is next/image's own default, used everywhere quality is left
+     * unset. 90 is opt-in, for the small lifted-detail crops in
+     * ScreenshotCrop where compression softness compounds with the crop's
+     * own magnification.
+     */
+    qualities: [75, 90],
+  },
+
   /**
    * /docs has no landing page of its own: user docs are the front door, and
    * developers switch audience from the docs sidebar. The redirect stays

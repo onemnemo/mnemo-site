@@ -57,16 +57,9 @@ export const rebuild = {
   /** Short all-caps tag at the head of the banner. */
   kicker: "Rebuilding",
 
-  /** The part that has to survive at every width. */
+  /** The whole notice, kept to one line at every width. */
   message:
-    "Mnemo is being rebuilt, so downloads are paused while we finish the new desktop app.",
-
-  /**
-   * The why, dropped below the sm breakpoint: at phone widths the full text
-   * costs a third of the fold, and /download carries the whole story anyway.
-   */
-  detail:
-    "We are moving Mnemo to a new interface and rebuilding every screen. Some screenshots on the site still show the current app while the new version takes shape.",
+    "Mnemo is being rebuilt — downloads are paused and some screenshots are out of date.",
 
   /** Label on the pills that replace the download buttons. */
   ctaLabel: "Downloads coming soon",

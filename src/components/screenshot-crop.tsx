@@ -19,6 +19,8 @@ type ScreenshotCropProps = {
   crop: Crop
   /** Passed to next/image; the rendered width is `crop.width` of the window. */
   sizes: string
+  /** Passed to next/image. Defaults to Next's standard 75 when omitted. */
+  quality?: number
   priority?: boolean
   className?: string
 }
@@ -47,6 +49,7 @@ export function ScreenshotCrop({
   ratio,
   crop,
   sizes,
+  quality,
   priority,
   className,
 }: ScreenshotCropProps) {
@@ -59,6 +62,7 @@ export function ScreenshotCrop({
         src={src}
         alt={alt}
         sizes={sizes}
+        quality={quality}
         priority={priority}
         className="absolute h-auto max-w-none"
         style={{ width: crop.width, left: crop.left, top: crop.top }}

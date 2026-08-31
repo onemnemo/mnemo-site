@@ -16,13 +16,12 @@ export function RebuildBanner() {
 
   return (
     <div className="bg-deep text-deep-ink">
-      <Container className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 py-2.5 text-center">
+      <Container className="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 py-2 text-center">
         <span className="font-mono text-[11px] tracking-widest uppercase opacity-70">
           {rebuild.kicker}
         </span>
-        <p className="max-w-3xl text-sm leading-snug text-balance opacity-90">
-          {rebuild.message}{" "}
-          <span className="max-sm:hidden">{rebuild.detail}</span>
+        <p className="text-sm leading-snug text-balance opacity-90">
+          {rebuild.message}
         </p>
         <a
           href={siteConfig.links.github}

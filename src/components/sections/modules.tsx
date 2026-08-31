@@ -96,7 +96,8 @@ export function Modules() {
               alt="The sidebar notes tree with subjects like Medicine, Biology, and Physics"
               ratio="240 / 320"
               crop={{ width: "599.6%", left: "-25%", top: "-90.6%" }}
-              sizes="(min-width: 1200px) 1248px, 45vw"
+              sizes="(min-width: 1200px) 1248px, 1056px"
+              quality={90}
               className="shadow-pop relative mt-4 w-44 rounded-xl lg:absolute lg:mt-0 lg:bottom-[-2.5rem] lg:left-0 lg:w-52 lg:max-w-[45%]"
             />
             <Annotation
@@ -166,8 +167,9 @@ export function Modules() {
               alt="The mind map canvas toolbar: select, add node, connect, frame, and zoom"
               ratio="299 / 32"
               crop={{ width: "479.6%", left: "-199.33%", top: "-2643.76%" }}
-              sizes="(min-width: 1200px) 1843px, 336vw"
-              className="shadow-pop relative mt-4 w-full rounded-full lg:absolute lg:mt-0 lg:top-[-1.25rem] lg:right-12 lg:w-96 lg:max-w-[70%]"
+              sizes="(min-width: 1200px) 1535px, 460vw"
+              quality={90}
+              className="shadow-pop relative mt-4 w-full rounded-full lg:absolute lg:mt-0 lg:top-[-1.25rem] lg:right-12 lg:w-80 lg:max-w-[70%]"
             />
             <Annotation
               points="right"
