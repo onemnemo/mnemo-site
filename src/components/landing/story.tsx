@@ -1,11 +1,11 @@
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 
 import soma from "@public/soma/dl-idle.png"
 import sprout from "@public/illos/doodles/dark-16.png"
 import flourish from "@public/illos/doodles/dark-24.png"
 import { TornEdge } from "@/components/torn-edge"
-import { siteConfig } from "@/config/site"
 import { DownloadLink } from "./download-link"
 import styles from "./story.module.css"
 
@@ -35,9 +35,9 @@ export function LandingStory() {
             for you to try it, question it, and help make it better.
           </p>
           <blockquote>This has been my weird little obsession for years.<br />It would be pretty cool if it became ours.</blockquote>
-          <a href={siteConfig.links.github} target="_blank" rel="noreferrer">
-            Help shape Mnemo <ArrowUpRight size={18} aria-hidden />
-          </a>
+          <Link href="/story">
+            The story, questionable interfaces included <ArrowUpRight size={18} aria-hidden />
+          </Link>
         </div>
       </section>
 

@@ -35,6 +35,7 @@ const footerColumns = [
   {
     heading: "Community",
     links: [
+      { label: "Our story", href: "/story" },
       { label: "Issues", href: siteConfig.links.issues, external: true },
       {
         label: "Contributing",

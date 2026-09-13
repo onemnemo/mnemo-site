@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "", priority: 1 },
     { path: "/download", priority: 0.9 },
     { path: "/science", priority: 0.8 },
+    { path: "/story", priority: 0.8 },
     /* /docs itself is a redirect to /docs/users and stays out. */
     ...getAllDocSlugs().map((slug) => ({
       path: `/docs/${slug.join("/")}`,

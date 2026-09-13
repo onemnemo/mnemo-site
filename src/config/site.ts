@@ -23,7 +23,7 @@ export const rebuild = {
 export const mainNav = [
   { title: "The app", href: "/#features" },
   { title: "Science", href: "/science" },
-  { title: "Our story", href: "/#story" },
+  { title: "Our story", href: "/story" },
   { title: "Docs", href: "/docs" },
 ] as const
 
