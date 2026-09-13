@@ -18,8 +18,10 @@ On macOS, read Ctrl as Cmd.
 | `Ctrl+Shift+S`             | Strikethrough      |
 | `Ctrl+Shift+L`             | Open link popover  |
 | `Ctrl+Shift+H`             | Highlight          |
+| `Ctrl+E`                   | Inline code        |
 | `Ctrl+,`                   | Subscript          |
 | `Ctrl+.`                   | Superscript        |
+| `Ctrl+Shift+E`             | Insert inline equation |
 | `Ctrl+Z`                   | Undo               |
 | `Ctrl+Y` or `Ctrl+Shift+Z` | Redo               |
 
@@ -36,4 +38,4 @@ On macOS, read Ctrl as Cmd.
 
 ## Inline equations
 
-The sigma button drops a LaTeX equation into the line, and clicking any equation reopens it in a small editor with a live preview; if the LaTeX does not parse, Mnemo keeps your source and says so rather than eating it. For display math on its own line, use the Equation block from the [slash menu](./blocks-and-the-slash-menu.md).
+The sigma button, or `Ctrl+Shift+E`, drops a LaTeX equation into the line, and clicking any equation reopens it in a small editor with a live preview; if the LaTeX does not parse, Mnemo keeps your source and says so rather than eating it. For display math on its own line, use the Equation block from the [slash menu](./blocks-and-the-slash-menu.md).

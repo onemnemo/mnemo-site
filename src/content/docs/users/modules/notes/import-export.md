@@ -21,7 +21,11 @@ Five files is the cap on one batch, and one file can be up to 512 MB. `Ctrl+Ente
 
 <!-- image idea: the note import dialog with two queued files, one of them rejected -->
 
+The **Import notes** button in the sidebar header always imports into the library root; to land markdown notes in a folder instead, right-click that folder and choose **Import notes here**. A package ignores the destination and restores its own folders regardless.
+
 **If a note already exists** sets the policy for the whole batch: **Keep both**, the default, gives the incoming note a `(2)` suffix and overwrites nothing; **Skip** leaves what you already have; **Replace** overwrites it. What counts as the same note differs by format: a package matches on the note's id, and markdown matches on title, ignoring case. A markdown note is titled after its file name, not after any heading inside it, so rename the file first when the title matters.
+
+A package import that cannot place every note or folder still finishes, but the completion toast turns into a warning and names what it skipped; markdown imports do not raise these warnings.
 
 ## What markdown loses
 

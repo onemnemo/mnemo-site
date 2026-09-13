@@ -14,7 +14,7 @@ Click the grip for Move up, Move down, Duplicate, Turn into, and Delete. **Turn 
 
 ## Moving and selecting
 
-Drag the grip to move a block; Escape cancels a drag mid-flight. Dragging a block out of a two-column split lifts it back into the main flow, but dropping new blocks into a column is not supported yet, so build columns by writing inside them.
+Drag the grip to move a block; Escape cancels a drag mid-flight. Dragging a block over a two-column split drops it into the column under the pointer, whether it comes from the page, the split's other column, or further up the same column; dragging it back out lifts it into the main flow.
 
 Click a grip to select that block, then Ctrl-click or Shift-click to extend the selection, or drag from empty space to sweep up whatever the rectangle touches. `Ctrl+A` (`Cmd+A` on macOS) works in two stages: the first press selects the text inside the current block, the second selects every block in the note.
 

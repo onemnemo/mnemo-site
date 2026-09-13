@@ -22,8 +22,8 @@ Type `/` at the start of a block and keep typing to filter. The search is forgiv
 | Numbered List  | Ordered points; the numbers renumber themselves when you move things.                                         |
 | To-do          | A checklist item with a real checkbox.                                                                        |
 | Quote          | Material in someone else's words, so your own stay distinct.                                                  |
-| Callout        | A tinted aside for something that should stand out.                                                           |
-| Warning        | The same aside in a cautioning tone.                                                                          |
+| Callout        | A tinted aside for something that should stand out. Click the glyph to change its emoji.                      |
+| Warning        | The same aside in a cautioning tone, with the same clickable glyph.                                           |
 | Code           | Monospaced, with a language picker that drives syntax highlighting. Opens set to C#.                          |
 | Divider        | A horizontal rule.                                                                                            |
 | Two columns    | Splits the row into two side-by-side stacks with a draggable divider.                                         |
