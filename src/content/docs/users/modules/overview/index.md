@@ -18,7 +18,7 @@ Overview is the page Mnemo opens on: a board of widget tiles. A new profile star
 
 **Add widget** opens the gallery, where widgets are grouped under Study, Flashcards, Notes, and Soma. Adding drops a tile into the first free cell.
 
-The Soma widget appears only when the assistant is switched on in Settings under AI & Tools. The Community group is not usable in this release: you cannot install a widget somebody else wrote.
+The Soma widgets appear only once Soma is enabled; see [Soma](../../soma/index.md) for how. The Community group is not usable in this release: you cannot install a widget somebody else wrote.
 
 ## Related
 
