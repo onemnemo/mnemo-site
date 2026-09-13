@@ -1,365 +1,140 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
+import { ArrowDown, ArrowUpRight, Heart } from "lucide-react"
 
-import { ComingSoonPill } from "@/components/coming-soon-pill"
-import { Doodle } from "@/components/doodle"
-import { Container } from "@/components/layout/container"
-import { Section } from "@/components/layout/section"
-import {
-  Constellation,
-  ForgettingCurve,
-  SpacedCurve,
-} from "@/components/science/figures"
+import notes from "@public/screenshots/notes.png"
+import restingSoma from "@public/illos/science/soma-resting.webp"
+import { DownloadLink } from "@/components/landing/download-link"
+import { ProductImage } from "@/components/landing/product-image"
 import { GradToss } from "@/components/science/grad-toss"
-import { InkEdge } from "@/components/science/ink-edge"
-import { NightDoze } from "@/components/science/night-doze"
+import { Octopus } from "@/components/science/octopus"
 import { QuizCard } from "@/components/science/quiz-card"
-import { StageMarker } from "@/components/science/stage-marker"
-import { Reveal } from "@/components/reveal"
-import { cn } from "@/lib/utils"
+import { MemoryChart } from "@/components/science/memory-chart"
+import { HeartMap } from "@/components/science/heart-map"
 import { TornEdge } from "@/components/torn-edge"
-import { Button } from "@/components/ui/button"
-import { rebuild } from "@/config/site"
+import styles from "./science.module.css"
 
 export const metadata: Metadata = {
-  title: "Why it works",
+  title: "The science of remembering",
   description:
-    "Follow one fact through forgetting, retrieval, spacing, connection, and sleep to see why Mnemo uses the study methods it does.",
+    "Try recalling a fact, watch what spaced reviews change, and see how notes and flashcards in Mnemo put learning research into practice.",
   alternates: { canonical: "/science" },
 }
 
-/**
- * The science story, "the journey of one fact": seven scenes, one band each,
- * following a single fact from encoding to survival. Full storyboard and
- * interaction plan live in docs/science-storyboard.md.
- *
- * Every scene is a two-column row: prose in a measure narrow enough to read,
- * its figure beside it. The page used to stack a max-w-xl paragraph above a
- * max-w-2xl diagram inside a max-w-6xl container, which left the right-hand
- * third of every band empty and made the page far taller than the story it
- * tells. The columns close that gap without shortening a single sentence.
- *
- * Bands are surface depths except where colour is load-bearing: the fact
- * sinks into water in scene 2, so that band is the sea, and scene 6 is night,
- * so that one is the app's dark canvas. No two adjacent scenes match.
- *
- * The page is a complete semantic article on its own; nothing on it may
- * depend on scroll interaction.
- */
-
-/** Shared column geometry: prose left, figure right, stacked below lg. */
-const SCENE_GRID =
-  "grid items-center gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,30rem)_minmax(0,1fr)]"
+const research = [
+  { topic: "Recalling", authors: "Roediger & Karpicke, 2006", title: "Test-enhanced learning", href: "https://doi.org/10.1111/j.1467-9280.2006.01693.x" },
+  { topic: "Spacing", authors: "Cepeda et al., 2006", title: "Distributed practice in verbal recall tasks", href: "https://pubmed.ncbi.nlm.nih.gov/16719566/" },
+  { topic: "Forgetting", authors: "Murre & Dros, 2015", title: "Replication and analysis of Ebbinghaus’ forgetting curve", href: "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0120644" },
+  { topic: "Understanding", authors: "Dunlosky et al., 2013", title: "Improving students’ learning with effective learning techniques", href: "https://doi.org/10.1177/1529100612453266" },
+  { topic: "Sleep", authors: "Rasch & Born, 2013", title: "About sleep’s role in memory", href: "https://pubmed.ncbi.nlm.nih.gov/23589831/" },
+  { topic: "And the octopus", authors: "Natural History Museum", title: "Eight ways octopuses keep surprising us", href: "https://www.nhm.ac.uk/discover/octopuses-keep-surprising-us-here-are-eight-examples-how.html" },
+]
 
 export default function SciencePage() {
   return (
-    <main id="main-content">
-      {/* Scene 1: a fact is born. The fact card comes from the same deck as
-          the scene-3 quiz card. The extra mobile bottom padding is headroom
-          for the InkEdge squid's sprite frames. */}
-      <Section className="texture-rules pb-44 sm:pb-28">
-        <Container>
-          <p className="type-eyebrow">Why it works</p>
-          <h1 className="type-display mt-3 max-w-2xl">Read this once.</h1>
-
-          <StageMarker stage={1} className="mt-12" />
-          <div className={`${SCENE_GRID} mt-6`}>
-            <p className="type-lede text-ink-2 max-w-xl">
-              You have just learned a small piece of information. Right now
-              it is easy to recall, but without seeing or using it again,
-              that memory will become harder to access. This page follows
-              what happens next.
-            </p>
-            <Reveal className="justify-self-start lg:justify-self-center">
-              <div className="reveal-rise relative inline-block">
-                <div
-                  aria-hidden
-                  className="bg-canvas/70 border-line absolute inset-0 translate-x-2 translate-y-3 rotate-[1.8deg] rounded-3xl border"
-                />
-                <div className="bg-canvas shadow-canvas relative rounded-3xl p-6 sm:rotate-[-1.2deg] sm:p-8">
-                  <p className="text-ink-3 font-mono text-[11px] tracking-widest uppercase">
-                    Fact No. 001
-                  </p>
-                  <p className="font-heading mt-2 text-2xl font-medium sm:text-3xl">
-                    Octopuses have three hearts.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
+    <main id="main-content" className={styles.page}>
+      <div className={styles.container}>
+        <section className={styles.hero} aria-labelledby="science-title">
+          <div className={styles.heroCopy}>
+            <h1 id="science-title">Learning takes<br />more than<br />reading.</h1>
+            <p>You can know a page almost by heart and still draw a blank when you need it. What you do after reading makes a difference.</p>
+            <a className={styles.textLink} href="#recall">Try a little experiment <ArrowDown size={18} aria-hidden /></a>
           </div>
-        </Container>
-      </Section>
-
-      {/* The fact sinks into the deep: the squid's ink pool is the top
-          edge of the water below. bg = outgoing canvas, text = incoming,
-          same convention as TornEdge. */}
-      <InkEdge className="bg-paper text-sea" />
-
-      {/* Scene 2: the forgetting curve. */}
-      <Section canvas="sea" className="texture-grid relative overflow-hidden">
-        <Container className="relative">
-          <StageMarker stage={2} className="mb-8" />
-          <div className={SCENE_GRID}>
-            <div>
-              <h2 className="type-h2 max-w-xl">
-                Without review, new memories fade.
-              </h2>
-              {/* Explicit secondary ink rather than opacity: dimming the
-                  paper ink on this band is what put it at 3.4:1. */}
-              <p className="text-sea-ink-2 mt-5 max-w-xl leading-relaxed">
-                In 1885, Hermann Ebbinghaus studied how quickly newly learned
-                information becomes harder to recall. His work gave us the
-                forgetting curve, a pattern that has been studied repeatedly
-                since: without review, memory tends to decline over time.
-              </p>
-              <p className="text-sea-ink-2 mt-4 max-w-xl leading-relaxed">
-                That is a normal part of learning. Information that is not
-                revisited or used becomes harder to retrieve, while material
-                you return to has a better chance of sticking.
-              </p>
-            </div>
-            <Reveal>
-              <ForgettingCurve />
-            </Reveal>
+          <div className={styles.fact}>
+            <p className={styles.factTitle}>An octopus has<br /><span>three hearts.</span></p>
+            <div className={styles.hearts} aria-hidden><Heart /><Heart /><Heart /></div>
+            <p className={styles.factAside}>Keep that in mind.<br />We’ll come back to it.</p>
+            <Octopus className={styles.octopus} />
+            <svg className={styles.water} viewBox="0 0 600 130" preserveAspectRatio="none" aria-hidden>
+              <path d="M0 50 Q90 25 190 62 T400 60 T600 40 V130 H0Z" fill="currentColor" opacity=".35" />
+              <path d="M0 75 Q100 100 240 75 T450 72 T600 92 V130 H0Z" fill="currentColor" />
+            </svg>
           </div>
-        </Container>
-      </Section>
+        </section>
 
-      {/* Scene 3: retrieval, in a real quiz card that works without JS. */}
-      <Section canvas="sunken">
-        <Container>
-          <StageMarker stage={3} className="mb-8" />
-          <h2 className="type-h2 max-w-xl">Retrieval makes a difference.</h2>
-
-          {/*
-           * The card takes the figure column, so the scene reads like every
-           * other one on the page: prose left, the thing it is about on the
-           * right. It replaces a drawing of Soma hauling the fact out of a
-           * well, which said in a picture what the card already does for
-           * real, and pushed the prose into a third row underneath.
-           *
-           * The card stays first in the DOM and is placed into column two
-           * explicitly. Below lg the columns collapse to DOM order, and the
-           * scene only works if you meet the question before the paragraph
-           * explaining what answering it just did. Explicit placement rather
-           * than `order`, because `order` moves the visual position but grid
-           * auto-placement still assigns tracks by DOM order, so the card
-           * would land in the narrow one.
-           */}
-          {/*
-           * items-start, not the shared grid's items-center. Answering the
-           * card reveals its feedback and makes it taller; centred, that
-           * growth re-centres the prose beside it and the paragraph visibly
-           * jumps while you are reading it. Pinned to the top of the row,
-           * the card grows downward into empty space and nothing else on
-           * the page moves under the reader.
-           */}
-          <div className={cn(SCENE_GRID, "mt-10 items-start")}>
-            <Reveal className="lg:col-start-2 lg:row-start-1">
-              <p className="type-lede reveal-rise">
-                Quick, without scrolling up:
-              </p>
-              <QuizCard
-                className="reveal-rise mt-6"
-                style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
-              />
-            </Reveal>
-            <Reveal className="lg:col-start-1 lg:row-start-1">
-              <p className="text-ink-2 reveal-rise max-w-xl leading-relaxed">
-                That effort to bring the answer back is retrieval. In 2006,
-                Roediger and Karpicke found that students who practiced
-                recalling material retained more of it later than students
-                who spent the same time re-reading. Trying to retrieve an
-                answer is not just a way to check what you know. It is part
-                of the learning process.
-              </p>
-              <p
-                className="reveal-rise mt-4 max-w-xl leading-relaxed font-medium"
-                style={{ "--reveal-delay": "70ms" } as React.CSSProperties}
-              >
-                A little effort during recall can be useful. If the answer
-                does not come immediately, that does not make the review
-                wasted.
-              </p>
-            </Reveal>
+        <section id="recall" className={styles.recall} aria-labelledby="recall-title">
+          <div className={styles.copy}>
+            <h2 id="recall-title">Close the notes.<br />Find the answer.</h2>
+            <p>Rereading can make an answer feel familiar. Trying to recall it asks something different of you: can you bring it back without looking?</p>
+            <p>Research finds that practising retrieval can help you remember more later than spending the same time rereading. Check the answer afterwards, especially when you’re unsure.</p>
+            <Link className={styles.textLink} href="/#flashcards">This is what flashcards are for <ArrowUpRight size={17} aria-hidden /></Link>
           </div>
-        </Container>
-      </Section>
+          <div className={styles.recallStage}><QuizCard /></div>
+        </section>
 
-      {/* Scene 4: spacing. */}
-      <Section className="texture-rules">
-        <Container>
-          <StageMarker stage={4} className="mb-8" />
-          <div className={SCENE_GRID}>
-            <div>
-              <h2 className="type-h2 max-w-xl">Spacing matters.</h2>
-              <p className="text-ink-2 mt-5 max-w-xl leading-relaxed">
-                Reviewing something immediately can make it feel familiar, but
-                familiarity is not the same as long-term recall. Spaced
-                practice brings material back after some time has passed,
-                then increases or shortens the next interval based on how
-                well it was remembered.
-              </p>
-              <p className="text-ink-2 mt-4 max-w-xl leading-relaxed">
-                Psychologists call this the spacing effect. It is one of the
-                best established findings in learning research: spreading
-                practice over time generally supports longer-lasting memory
-                better than concentrating the same practice into one session.
-              </p>
-            </div>
-            <Reveal>
-              <SpacedCurve className="text-ink" />
-            </Reveal>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Scene 5: connection. */}
-      <Section canvas="sunken" className="relative overflow-hidden">
-        <Doodle
-          name="dark-16"
-          className="bottom-10 left-[4%] w-20 -rotate-6 opacity-20"
-        />
-        <Container className="relative">
-          <StageMarker stage={5} className="mb-8" />
-          <div className={SCENE_GRID}>
-            <div>
-              <h2 className="type-h2 max-w-xl">
-                Connections make recall easier.
-              </h2>
-              <p className="text-ink-2 mt-5 max-w-xl leading-relaxed">
-                New information is easier to work with when it connects to
-                ideas you already understand. Those relationships give you
-                more context and more possible routes back to the same fact.
-              </p>
-              <p className="text-ink-2 mt-4 max-w-xl leading-relaxed">
-                Writing something in your own words, comparing it with
-                related ideas, or mapping how concepts fit together can make
-                the material easier to understand and easier to retrieve
-                later.
-              </p>
-            </div>
-            <Reveal>
-              <Constellation />
-            </Reveal>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Scene 6: sleep. The lamp sits beside the text rather than under
-          it, so the scene does not cost a viewport of scrolling. */}
-      <Section canvas="deep" className="relative overflow-hidden">
-        <Doodle name="light-13" className="top-16 right-[12%] w-16 opacity-30" />
-        <Container className="relative">
-          <StageMarker stage={6} className="mb-8" />
-          <div className="grid items-center gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,1fr)_auto]">
-            <div>
-              <h2 className="type-h2 max-w-xl">
-                Sleep helps consolidate what you learned.
-              </h2>
-              <p className="mt-5 max-w-xl leading-relaxed opacity-80">
-                Sleep plays an important role in memory consolidation, the
-                process through which newly learned information becomes more
-                stable over time. Studying can give your brain something
-                worth keeping, but sleep is part of what happens after the
-                study session ends.
-              </p>
-            </div>
-            {/* Soma asleep and breathing under a quilt of everything it
-                learned that day (see night-doze.tsx). The art is a cutout
-                with dark outlines that would vanish into a near-black band,
-                so the page puts it in its own soft pool of warm light. */}
-            <Reveal className="justify-self-center">
-              <div className="reveal-rise relative">
-                <div
-                  aria-hidden
-                  className="absolute -inset-x-10 -inset-y-16 rounded-[50%] bg-[radial-gradient(ellipse_at_center,var(--brand)_0%,transparent_70%)] opacity-[0.15]"
-                />
-                <NightDoze className="relative w-72 sm:w-80 lg:w-96" />
-              </div>
-            </Reveal>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Scene 7: the payoff. */}
-      <Section canvas="butter">
-        <Container>
-          <StageMarker stage={7} className="mb-8" />
-
-          {/* Two equal halves. The heading and lede sit with the mapping,
-              since they are one thought (what you watched, and what maps to
-              it), which leaves the ceremony a full half of the row. */}
-          <div className="grid items-center gap-x-20 gap-y-16 lg:grid-cols-2">
-            <div>
-              <h2 className="type-h2">One fact, remembered.</h2>
-              <p className="type-lede mt-5">
-                The same ideas shape how Mnemo approaches studying.
-              </p>
-              <dl className="mt-10 grid gap-x-10 gap-y-7 sm:grid-cols-2">
-                {[
-                  { term: "Retrieval", tool: "Flashcards and quizzes." },
-                  {
-                    term: "Timing",
-                    tool: "Spaced reviews that adjust over time.",
-                  },
-                  {
-                    term: "Connections",
-                    tool: "Notes in your own words and maps of how ideas fit together.",
-                  },
-                  { term: "Sleep", tool: "That's your job." },
-                ].map((row) => (
-                  <div key={row.term}>
-                    <dt className="text-ink-2 font-mono text-[11px] tracking-widest uppercase">
-                      {row.term}
-                    </dt>
-                    <dd className="mt-1.5 leading-snug font-medium">
-                      {row.tool}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-
-            {/* The ceremony: graduate, thesis, act. Pure CSS sprite
-                animation; stands still under reduced motion. */}
-            <div className="flex flex-col items-center text-center">
-              <GradToss className="hidden h-48 sm:block" />
-              <p className="font-heading mt-6 max-w-md text-2xl leading-snug font-medium text-balance">
-                Mnemo brings retrieval, spacing, notes, and visual connections
-                together because they support different parts of the same
-                learning process.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
-                {rebuild.active ? (
-                  <ComingSoonPill href="/download" className="px-7 py-3.5" />
-                ) : (
-                  <Button asChild size="lg" className="rounded-full px-7">
-                    <Link href="/download">Download Mnemo</Link>
-                  </Button>
-                )}
-                <Link
-                  href="/#features"
-                  className="text-sm font-medium underline underline-offset-4"
-                >
-                  See what&apos;s inside
-                </Link>
-              </div>
+        <section id="spacing" className={styles.spacing} aria-labelledby="spacing-title">
+          <div className={styles.sectionHeading}>
+            <h2 id="spacing-title">Give it some time.<br />Then come back.</h2>
+            <div className={styles.copy}>
+              <p>New information tends to get harder to recall with time. Spreading your practice across several sessions helps it last longer than doing all your practice at once.</p>
+              <p>You don’t need to work out every interval yourself. Mnemo uses FSRS to schedule your flashcards around how well you remember them.</p>
+              <Link className={styles.textLink} href="/docs/users/modules/flashcards/how-scheduling-works">How Mnemo schedules reviews <ArrowUpRight size={17} aria-hidden /></Link>
             </div>
           </div>
+          <MemoryChart />
+        </section>
 
-          {/* Sources, kept to one quiet line rather than a further content
-              block. */}
-          <p className="border-ink/15 text-ink-2 mx-auto mt-16 max-w-3xl border-t pt-6 text-center font-mono text-[11px] leading-relaxed sm:mt-20">
-            Sources: Ebbinghaus (1885), Über das Gedächtnis · Murre and Dros
-            (2015), replication of the forgetting curve · Roediger and Karpicke
-            (2006), test-enhanced learning · Cepeda et al. (2006), distributed
-            practice · Dunlosky et al. (2013), effective learning techniques ·
-            Rasch and Born (2013), sleep and memory
-          </p>
-        </Container>
-      </Section>
+        <section className={styles.connections} aria-labelledby="connections-title">
+          <div className={styles.copy}>
+            <h2 id="connections-title">A fact is better<br />with a little context.</h2>
+            <p>Three is a number to remember. Two hearts sending blood past the gills, and one sending it around the body, is an explanation you can work with.</p>
+            <p>Ask why. Compare it with something you know. Explain it in your own words. The useful part of a mind map is thinking through the relationships you draw.</p>
+            <Link className={styles.textLink} href="/#mindmaps">Make room for those connections <ArrowUpRight size={17} aria-hidden /></Link>
+          </div>
+          <HeartMap />
+        </section>
 
+        <section className={styles.practice} aria-labelledby="practice-title">
+          <div className={styles.practiceCopy}>
+            <h2 id="practice-title">Back in<br /> your notes.</h2>
+            <p>A question you couldn’t answer is a useful place to start. Go back, fill in the gap, and write an explanation that makes sense to you.</p>
+            <p>Mnemo gives your notes, flashcards, and mind maps a home together, so each can be part of the same study session.</p>
+            <Link className={styles.textLink} href="/#notes">Take a look inside Mnemo <ArrowUpRight size={17} aria-hidden /></Link>
+          </div>
+          <div className={styles.notesImage}>
+            <ProductImage src={notes} alt="Mnemo’s notes editor, showing a chemistry curriculum with an equilibrium graph and subject folders in the sidebar" label="Enlarge Mnemo’s notes editor" />
+          </div>
+        </section>
+
+        <section className={styles.sleep} aria-labelledby="sleep-title">
+          <div className={styles.copy}>
+            <h2 id="sleep-title">Enough for today.</h2>
+            <p>Learning carries on after you close the laptop. During sleep, your brain helps stabilise and integrate what you’ve learned.</p>
+            <p>Leave some room for that part, too.</p>
+          </div>
+          <Image src={restingSoma} alt="Soma asleep on a closed notebook" sizes="(max-width: 650px) 90vw, 550px" className={styles.sleepArt} />
+        </section>
+
+        <section className={styles.research} aria-labelledby="research-title">
+          <div>
+            <h2 id="research-title">A little further reading.</h2>
+            <p>The research that informs how we think about studying in Mnemo, if you’d like to go a little deeper.</p>
+          </div>
+          <details>
+            <summary>The studies behind this page <span aria-hidden>+</span></summary>
+            <ul>
+              {research.map((item) => (
+                <li key={item.topic}>
+                  <span>{item.topic}</span>
+                  <a href={item.href} target="_blank" rel="noreferrer">{item.title}<ArrowUpRight size={16} aria-hidden /><small>{item.authors}</small></a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </section>
+      </div>
+
+      <section className={styles.closing} aria-labelledby="closing-title">
+        <div className={styles.closingInner}>
+          <div>
+            <h2 id="closing-title">On to the next<br />thing you’ll learn.</h2>
+            <p>A subject you love. An exam coming up.<br />There’s room for it in Mnemo.</p>
+            <div className={styles.closingActions}><DownloadLink /><Link href="/#features" className={styles.textLink}>Explore the app <ArrowUpRight size={17} aria-hidden /></Link></div>
+          </div>
+          <GradToss className={styles.graduate} />
+        </div>
+      </section>
       <TornEdge mascot className="bg-butter text-paper" />
     </main>
   )

@@ -1,0 +1,103 @@
+.cardStack { position: relative; width: min(100%, 425px); isolation: isolate; }
+.cardStack::before { content: ""; position: absolute; inset: 8px 0 -8px; background: #e8c569; border: 1px solid #29252735; border-radius: 16px; transform: rotate(4deg); z-index: -1; }
+.quiz { display: flex; flex-direction: column; min-height: 370px; border: 1px solid #29252770; border-radius: 16px; padding: 2rem; background: #fffcf5; color: #292527; box-shadow: 0 10px 25px -20px #292527; }
+.prompt { font-size: clamp(1.5rem, 2.2vw, 1.85rem); letter-spacing: -.045em; line-height: 1.25; font-weight: 500; margin: 0; }
+.answer { min-height: 132px; display: flex; align-items: center; padding: 1rem 0; }
+.answer p { font-size: .875rem; line-height: 1.6; color: #655a54; margin: 0; max-width: 245px; }
+.answer strong { display: block; font-size: 1.65rem; line-height: 1.4; font-weight: 500; letter-spacing: -.04em; color: var(--brand-ink); margin-bottom: .25rem; }
+.quiz button { display: flex; align-items: center; justify-content: space-between; gap: .75rem; width: 100%; min-height: 48px; padding: .8rem 1rem; border-radius: 8px; background: var(--solid); color: var(--solid-fg); margin-top: auto; cursor: pointer; font-size: .875rem; transition: background 180ms; }
+.quiz button:hover { background: var(--brand-hover); color: var(--brand-fg); }
+.quiz button:focus-visible, .chart button:focus-visible { outline: 3px solid var(--brand-ink); outline-offset: 4px; }
+
+.chart { padding: 2.3rem 3rem 2rem; border-radius: 24px; background: var(--studio-lilac); color: #292527; margin: 0; }
+.chartControls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 3rem; }
+.switch { display: flex; padding: 5px; border: 1px solid #29252730; border-radius: 11px; gap: 4px; }
+.switch button { padding: .65rem 1.1rem; min-height: 44px; font-size: .875rem; border-radius: 7px; cursor: pointer; transition: background 180ms, color 180ms; }
+.switch button[aria-pressed="true"] { background: #292527; color: #fffaf5; }
+.switch button[aria-pressed="false"]:hover { background: #ffffff50; }
+.replay { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #29252740; border-radius: 50%; flex-shrink: 0; cursor: pointer; }
+.replay:hover { background: #ffffff50; }
+.plotHeading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0 4.6875%; font-size: .875rem; }
+.legends { display: flex; gap: 1.5rem; }
+.legend, .baselineLegend { display: flex; align-items: center; gap: .6rem; }
+.legend i { width: 20px; height: 3px; background: #6d488d; border-radius: 2px; }
+.baselineLegend i { width: 20px; border-top: 2px dashed #706479; }
+.plot { position: relative; margin-top: .6rem; color: #6d488d; }
+.grid { position: absolute; top: 16.66%; bottom: 7.5%; left: 4.6875%; right: 4.6875%; background: repeating-linear-gradient(to bottom, #29252715 0px, #29252715 1px, transparent 1px, transparent 25%); }
+.curves { position: relative; }
+.curves > svg, .ghost svg { height: clamp(220px, 28vw, 360px); }
+.ghost { position: absolute; inset: 0; color: #706479; opacity: .4; }
+.ghost svg > path { stroke-dasharray: .012 .012; stroke-dashoffset: 0; stroke-width: 2; animation: none; }
+.ghost svg > line { opacity: 0; }
+.reviewLabels { position: absolute; left: 0; right: 0; bottom: 18%; font-size: .8rem; color: #51435b; }
+.reviewLabels span { position: absolute; transform: translateX(-50%); }
+.reviewLabels span:nth-child(1) { left: 23.4375%; }
+.reviewLabels span:nth-child(2) { left: 48.4375%; }
+.reviewLabels span:nth-child(3) { left: 81.25%; }
+.axis { display: flex; justify-content: space-between; margin: -.2rem 4.6875% 0; font-size: .875rem; }
+.axis > span:last-child { display: flex; align-items: center; gap: .6rem; }
+.chart figcaption { display: grid; grid-template-columns: 1.3fr 1fr; align-items: end; gap: 4rem; margin-top: 2rem; border-top: 1px solid #29252730; padding-top: 1.5rem; }
+.chart figcaption p { font-size: 1rem; line-height: 1.7; margin: 0; max-width: 520px; min-height: 3.4em; }
+.chart figcaption small { font-size: .8rem; line-height: 1.6; color: #51475a; max-width: 300px; justify-self: end; }
+
+.heartMap { display: flex; flex-direction: column; align-items: center; border-radius: 24px; background: var(--studio-peach); color: #292527; padding: 3rem 2rem 1.8rem; margin: 0; }
+.mapRoot { position: relative; text-align: center; padding: 1.15rem 1.5rem; border-radius: 10px; background: #fff8f2; font-size: 1rem; line-height: 1.7; border: 1px solid #29252760; }
+.mapRoot strong { font-weight: 500; }
+.mapRoot::after { content: ""; position: absolute; bottom: -31px; height: 30px; width: 1px; left: 50%; background: #87544c; }
+.mapBranches { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 1rem; margin-top: 60px; }
+.mapNode { position: relative; text-align: center; padding: 1.3rem .65rem; border: 1px solid #29252760; border-radius: 10px; background: #fff8f2; }
+.mapNode::before { content: ""; position: absolute; top: -31px; width: calc(50% + .5rem); height: 30px; border-top: 1px solid #87544c; }
+.mapNode:first-child::before { border-left: 1px solid #87544c; left: 50%; border-top-left-radius: 12px; }
+.mapNode:last-child::before { border-right: 1px solid #87544c; right: 50%; border-top-right-radius: 12px; }
+.mapNode > div { display: flex; justify-content: center; gap: .4rem; margin: .2rem 0 .8rem; color: #ad4a3e; }
+.mapNode svg { width: 32px; height: 32px; fill: #eec1af; stroke-width: 1.5; }
+.mapNode strong { font-size: 1.2rem; font-weight: 500; letter-spacing: -.03em; }
+.mapNode p { font-size: .875rem; line-height: 1.6; margin: .5rem 0 0; }
+.heartMap figcaption { font-size: .875rem; text-align: center; margin-top: 2rem; }
+
+@media (max-width: 1000px) {
+  .chart { padding: 2rem; }
+  .heartMap { padding: 2rem 1.3rem 1.5rem; }
+  .mapNode p br { display: none; }
+  .quiz { padding: 1.5rem; }
+}
+@media (max-width: 650px) {
+  .quiz { min-height: 345px; padding: 1.5rem; }
+  .prompt { font-size: 1.55rem; }
+  .answer { min-height: 122px; }
+  .chart { padding: 1.25rem 1rem 1.5rem; border-radius: 17px; }
+  .chartControls { margin-bottom: 2rem; gap: .5rem; }
+  .switch { padding: 3px; gap: 0; }
+  .switch button { padding: .6rem .7rem; font-size: .8rem; }
+  .replay { width: 40px; height: 44px; border-radius: 9px; }
+  .plotHeading { font-size: .75rem; padding: 0; gap: .5rem; }
+  .legends { gap: .6rem; }
+  .legend, .baselineLegend { gap: .3rem; }
+  .legend i { width: 12px; }
+  .baselineLegend i { width: 12px; }
+  .curves > svg, .ghost svg { height: 200px; }
+  .curves > svg { overflow: visible; }
+  .plot { margin-top: .8rem; }
+  .reviewLabels { font-size: .7rem; bottom: 18%; }
+  .axis { margin-top: .4rem; font-size: .75rem; }
+  .chart figcaption { grid-template-columns: 1fr; gap: .75rem; margin-top: 1.5rem; padding-top: 1.2rem; }
+  .chart figcaption p { font-size: .9rem; min-height: 5.1em; }
+  .chart figcaption small { justify-self: start; font-size: .75rem; }
+  .heartMap { padding: 1.75rem 1rem 1.5rem; border-radius: 17px; }
+  .mapRoot { font-size: .9rem; padding: 1rem; }
+  .mapBranches { gap: .75rem; }
+  .mapNode { padding: 1.25rem .5rem; }
+  .mapNode p { font-size: .8rem; }
+  .mapNode strong { font-size: 1.1rem; }
+  .mapNode:first-child::before, .mapNode:last-child::before { width: calc(50% + .375rem); }
+  .heartMap figcaption { font-size: .8rem; margin-top: 1.5rem; }
+}
+@media (max-width: 360px) {
+  .switch button { font-size: .75rem; padding: .6rem .4rem; white-space: nowrap; }
+  .replay { width: 36px; }
+  .plotHeading { flex-direction: column; align-items: flex-start; gap: .75rem; }
+  .legends { gap: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quiz button, .switch button { transition: none; }
+}

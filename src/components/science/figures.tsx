@@ -34,6 +34,7 @@ export function ForgettingCurve({ className }: FigureProps) {
     <svg
       aria-hidden
       viewBox="0 0 640 240"
+      preserveAspectRatio="none"
       fill="none"
       className={cn("block w-full", className)}
     >
@@ -49,7 +50,7 @@ export function ForgettingCurve({ className }: FigureProps) {
         className="fig-fade"
       />
       <path
-        d="M30 30 C 90 40, 120 140, 200 180 S 420 214, 610 218"
+        d="M30 40 C 70 60, 100 130, 150 168 S 420 214, 610 218"
         stroke="currentColor"
         strokeWidth="4"
         strokeLinecap="round"
@@ -84,6 +85,7 @@ export function SpacedCurve({ className }: FigureProps) {
     <svg
       aria-hidden
       viewBox="0 0 640 240"
+      preserveAspectRatio="none"
       fill="none"
       className={cn("block w-full", className)}
     >
