@@ -20,9 +20,10 @@ Earlier builds shipped four themes: Dawn, Noon, Dusk, and Ember. Those names are
 
 ## Also on this page
 
-**Taskbar icon** offers alternate app icons, and it is the one setting here that waits for a restart. Your profile picture is not here: it sits in Settings under Profile.
+Your profile picture is not here: it sits in Settings under Profile.
 
 ## Related
 
 - [Tuning the editor](./editor-appearance.md) covers width, spacing, and text sizes.
 - [Keyboard shortcuts](./keyboard-shortcuts.md) is where the rest of the app's feel gets tuned.
+- [Profile](./profile.md) covers the picture and identity settings that Appearance does not.
