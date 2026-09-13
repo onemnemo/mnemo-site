@@ -15,7 +15,7 @@ Mnemo's standard lives in the repository under `standards/`, split by topic. Tha
 | `00-principles.md`               | Engineering philosophy, and why the other rules exist                          |
 | `01-architecture.md`             | Layer map, dependency injection, modules, persisted data, security invariants  |
 | `02-naming-and-structure.md`     | Folder layout, the naming table for C# and TypeScript, file size               |
-| `03-dotnet.md`                   | C#, async and cancellation, errors, lifecycle, MVVM and Avalonia               |
+| `03-dotnet.md`                   | C#, async and cancellation, errors, lifecycle                                  |
 | `04-web.md`                      | React and TypeScript, design tokens, component libraries, internationalization |
 | `05-testing-and-verification.md` | What gets a test, how to run things, what a performance claim requires         |
 | `06-comments-and-copy.md`        | Comment style, the no-dash rule, user-facing copy                              |
@@ -35,8 +35,6 @@ Mnemo's standard lives in the repository under `standards/`, split by topic. Tha
 
 - **On the .NET side,** all I/O is `Task`-returning and cancellation-aware, `.Result` and `.Wait()` are banned outright, exceptions carry exceptional failures while `Result<T>` or a boolean carries expected ones, nothing is swallowed, and collaborators arrive by constructor injection.
 - **On the web side,** `mnemo-web` styles through the design tokens in `src/styles/tokens.css`, with no hex colors and no `rgba()` in component code. Icons come from the `AppIcon` wrapper rather than a direct `lucide-react` import, popovers and menus use Radix, server state goes through React Query, and strings are translated with the `useT()` hook. oxlint is the enforced floor, and the hook rules are errors rather than warnings.
-
-The MVVM and Avalonia rules in `03-dotnet.md` are the temporary part: they apply while the Avalonia app in `Mnemo.UI` still builds beside the React UI, and they stop mattering to most contributors once the port completes.
 
 ## When a rule gets in the way
 

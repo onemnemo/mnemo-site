@@ -14,13 +14,11 @@ Mnemo is a local-first desktop app built as strict layers. The rule that holds e
 
 **Mnemo.Host** is the delivery layer for the new UI: an ASP.NET Core minimal API bound strictly to loopback, plus the native window that hosts the web app. It composes the whole service graph and exposes it as REST endpoints under `/api`. See [The local API](./the-local-api.md).
 
-**mnemo-web** is the React SPA: React, TypeScript, Vite, with the ProseMirror-based notes editor. It holds presentation state and talks to the Host through a small typed fetch wrapper; business rules stay on the C# side. Source is organized folder-by-feature (`src/notes`, `src/flashcards`, `src/settings`, and so on).
-
-During the port, the original Avalonia app (**Mnemo.UI**) still builds and runs beside all of this. The Host temporarily references it for module discovery; that link is severed when the port completes.
+**mnemo-web** is the React SPA: React, TypeScript, Vite, with the ProseMirror-based notes editor. It holds presentation state and talks to the Host through a small typed fetch wrapper; business rules stay on the C# side. Source is organized folder-by-feature (`src/notes`, `src/flashcards`, `src/settings`, and so on). For the toast, dialog, modal, and tooltip primitives a feature reaches for instead of building its own, see [Web UI primitives](../ui/index.md).
 
 ## Modules
 
-Features are modules implementing `IModule`, with hooks for registering services, translations, keybind manifests, and sidebar entries. Modules are discovered by reflection rather than hard-coded, so adding a feature does not mean editing a central registry. The Host replays each module's backend-side hooks and substitutes headless implementations for anything that used to touch Avalonia directly, so both UIs run from the same registrations.
+Features are modules implementing `IModule`, with hooks for registering services, translations, keybind manifests, sidebar entries, and widgets. Modules are discovered by reflection rather than hard-coded, so adding a feature does not mean editing a central registry. `Mnemo.Host/Composition/HostComposition.cs` replays each module's hooks itself: `ConfigureServices` builds the service graph while the Host is starting up, and `RegisterSidebarItems` and `RegisterWidgets` run once it is built. The Host's own headless shell, in `Mnemo.Host/HeadlessShell`, then satisfies the Core interfaces those services expect, such as `IThemeService`, `IOverlayService`, `IToastService`, and `INavigationService`, in place of a UI toolkit.
 
 ## Where code goes
 
@@ -32,3 +30,8 @@ Features are modules implementing `IModule`, with hooks for registering services
 | A screen, component, or UI state    | `mnemo-web/src/<feature>`              |
 
 A change that spans layers lands as: interface in Core, implementation in Infrastructure, endpoint in Host, consumption in mnemo-web, in that order.
+
+## Related
+
+- [Web UI primitives](../ui/index.md) for the toast, dialog, modal, and tooltip building blocks most `mnemo-web` features reach for.
+- [The local API](./the-local-api.md) for how mnemo-web reaches the Host.

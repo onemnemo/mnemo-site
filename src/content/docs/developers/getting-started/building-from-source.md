@@ -9,7 +9,7 @@ Mnemo is one desktop application built from two halves: a React frontend in `mne
 ## Prerequisites
 
 - **The .NET 10 SDK,** which the whole backend targets.
-- **Node.js 22 or later, with npm.**
+- **Node.js 24, with npm.**
 - **Git,** and on Linux or macOS **`jq`,** which the Typst restore script uses to read its manifest.
 
 ## Clone and restore
@@ -62,7 +62,7 @@ cd mnemo-web
 npm run dev
 ```
 
-There is one application to run. `Mnemo.UI`, the original Avalonia project, is still in the solution but only as a library; the publish deletes its stray executable so nobody starts a second, broken copy. See [The layers](../architecture/the-layers.md).
+`Mnemo.Host` is the only application left in `MnemoApp.sln`: the Avalonia project the port started from is gone from the solution entirely. See [The layers](../architecture/the-layers.md) for how Core, Infrastructure, Host, and the web UI divide the work.
 
 ## Two processes, one handshake
 

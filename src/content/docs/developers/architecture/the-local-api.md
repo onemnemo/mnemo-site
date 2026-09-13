@@ -36,12 +36,6 @@ frame-ancestors 'none'
 
 A script without the current nonce is refused, which stops chat-rendered model output from executing. `connect-src 'self'` blocks fetch and XHR to any origin but the Host's own. Styles keep `unsafe-inline`, since editor components inject styles at runtime.
 
-## A second loopback server, for MCP
-
-Mnemo carries a second HTTP server for the Model Context Protocol, so clients such as Claude Desktop could call Mnemo's tools directly. It does not run in a packaged build. It lives in `Mnemo.UI/Mcp/MnemoMcpServer.cs`, is registered and started only by the Avalonia shell, and `HostComposition.cs` leaves it deliberately unbound with a note that the move into the Host is scheduled rather than done. The publish deletes the shell's executable, so nothing launches it.
-
-Run the Avalonia shell yourself and it does start, on `127.0.0.1:48200`, since `MnemoMcpOptions.Enabled` defaults to `true`. A Host-header guard blocks any host but `localhost` or `127.0.0.1`. Its token is separate from the main API's per-launch token and unset today: `MnemoMcpOptions.BearerToken` is only checked when non-empty, so a same-machine client reaches a tool with no token. The in-app assistant never touches this server, dispatching tools in-process instead.
-
 ## The event stream
 
 Server-to-client push is one SSE channel, `GET /api/events`. The Host publishes typed events (toasts, shutdown) into a bounded per-subscriber channel that drops its oldest entries rather than blocking the publisher, and never replays to a client that connects later, so nothing may treat the stream as a source of truth. On the SPA, an event whose payload alone decides the effect gets a case in one dispatch switch; an event whose meaning depends on what a page currently has open gets no case and reaches that page through a subscriber instead. Chat streaming is separate: each assistant turn streams its own SSE response with deltas, tool calls, and status events.
