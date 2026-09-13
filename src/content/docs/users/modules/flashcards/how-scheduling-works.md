@@ -30,6 +30,17 @@ A study day does not end at midnight. By default it ends at four in the morning,
 
 The rollover hour, both limits, and the leech threshold and action are all preset settings; see [Review settings](./review-settings.md).
 
+## Review forecast
+
+Overview can show a forecast widget: a bar chart of how many cards will come due on each of the next several days, from a week up to thirty, set per tile.
+Each bar splits reviews already due from new cards your library would introduce that day.
+The window follows the same study day boundary as the rest of the scheduler, so a review logged after midnight still lands on the right bar instead of the next one.
+Add it from Overview's widget gallery, under Study.
+
 ## Retention
 
 A deck's retention figure is the share of scheduled reviews you passed (anything but Again) over the recent past. If it sits far below your target, the cause is usually the cards rather than the algorithm; see [First steps](./first-steps.md) for what good ones look like.
+
+## Related
+
+- [Overview](../overview/index.md) covers the forecast widget and the rest of the widget board.

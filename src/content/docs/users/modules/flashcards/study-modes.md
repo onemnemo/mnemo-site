@@ -26,7 +26,7 @@ The score screen offers to retake just the cards you graded Missed. The retake d
 
 ## Keyboard shortcuts
 
-On macOS, read Ctrl as Cmd.
+On macOS, read Ctrl as Cmd. Every chord below is the default; you can remap any of them from Settings under Keyboard.
 
 | In Review  | Does                             |
 | ---------- | -------------------------------- |
@@ -42,7 +42,12 @@ On macOS, read Ctrl as Cmd.
 | `1` / `2` / `3` | Missed, Close, Got it |
 | `E`             | Edit the current card |
 | `Ctrl+Z`        | Undo the last grade   |
+| `Escape`        | Leave the test        |
 
 ## What counts where
 
 All three modes count toward your overall study activity (cards seen, minutes studied). Only Review ever changes scheduling and retention.
+
+## Related
+
+- [Keyboard shortcuts](../../customization/keyboard-shortcuts.md) covers the remapping manager, including how conflicts are flagged.
