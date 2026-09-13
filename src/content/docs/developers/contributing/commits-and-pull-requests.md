@@ -29,6 +29,17 @@ registered under Keybinds, so every user saw raw key strings whenever
 more than one image was pasted.
 ```
 
+## Granularity and when to commit
+
+A milestone lands in roughly two or three commits along its natural seams: one per user-visible surface, or one per layer.
+
+- **Bundle related work into one commit.** A pure-logic module and its only consumer belong together, and so does a shared primitive touched along the way.
+- **Fold trivial follow-ups into their parent** instead of adding a new commit for a small refinement.
+- **Commit at a verified logical boundary.** Build it, run the tests, then commit; never a mid-refactor or unverified state.
+- **Never skip a guardrail.** No `--no-verify`, no skipping the sign-off, and no amending or rewriting a commit that is already pushed.
+
+Anything pushed is public history, so read the message and diff once more before it leaves your machine.
+
 ## Sign-off and license
 
 Contributions are made under Apache-2.0, and you keep your copyright. The project uses the Developer Certificate of Origin, so sign your commits off:
