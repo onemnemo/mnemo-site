@@ -49,7 +49,7 @@ export function MainNav({ className }: { className?: string }) {
         // Strip any #fragment so "/#features" compares against "/".
         const targetPath = item.href.split("#")[0] || "/"
         const isActive = item.href.startsWith("/#")
-          ? pathname === "/" && featuresInView
+          ? item.href === "/#features" && pathname === "/" && featuresInView
           : targetPath !== "/" && pathname.startsWith(targetPath)
 
         return (

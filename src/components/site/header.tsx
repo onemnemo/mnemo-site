@@ -1,74 +1,31 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { Container } from "@/components/layout/container"
-import { Button } from "@/components/ui/button"
-import { rebuild, siteConfig } from "@/config/site"
-
-import { GitHubIcon } from "./github-icon"
+import { DownloadLink } from "@/components/landing/download-link"
+import { siteConfig } from "@/config/site"
 import { MainNav } from "./main-nav"
 import { MobileNav } from "./mobile-nav"
 
-/**
- * Site-wide sticky header.
- *
- * Fixed height (h-16) so it never causes layout shift, translucent paper with
- * a blur so content scrolling underneath stays legible. Server component; the
- * interactive children (MainNav, MobileNav) opt into the client themselves.
- */
 export function SiteHeader() {
   return (
-    <header className="bg-background/80 sticky top-0 z-50 border-b backdrop-blur">
-      {/* Three zones: logo left, nav center, actions right. The 1fr side
-          columns keep the nav centered whatever width the logo or the action
-          cluster takes. */}
-      <Container className="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4">
-        <Link href="/" className="inline-flex items-center justify-self-start">
+    <header className="site-masthead sticky top-0 z-50">
+      <div className="site-masthead-inner">
+        <Link href="/" className="justify-self-start">
           <Image
             src="/logos/logo_full.svg"
             alt={`${siteConfig.name} home`}
             width={340}
             height={50}
             priority
-            className="h-4 w-auto"
+            className="site-masthead-logo"
           />
         </Link>
-
         <MainNav className="justify-self-center max-md:hidden" />
-
-        <div className="flex items-center gap-1.5 justify-self-end">
-          <Button
-            asChild
-            variant="ghost"
-            size="icon"
-            className="max-md:hidden"
-          >
-            <a
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Mnemo on GitHub"
-            >
-              <GitHubIcon />
-            </a>
-          </Button>
-          {rebuild.active ? (
-            // Still routes to /download, which explains the pause; only the
-            // promise of a file is withdrawn.
-            <Link
-              href="/download"
-              className="border-border text-muted-foreground hover:text-foreground rounded-full border border-dashed px-4 py-2 text-sm font-medium transition-colors max-sm:hidden"
-            >
-              Coming soon
-            </Link>
-          ) : (
-            <Button asChild className="rounded-full max-sm:hidden">
-              <Link href="/download">Get the beta</Link>
-            </Button>
-          )}
+        <div className="site-masthead-actions">
+          <DownloadLink />
           <MobileNav />
         </div>
-      </Container>
+      </div>
     </header>
   )
 }

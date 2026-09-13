@@ -1,0 +1,35 @@
+.story { width: min(100% - 6rem, 1180px); display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 6rem; margin: 0 auto; padding: 4rem 0 7rem; }
+.story h2, .download h2 { font-family: var(--font-sans), sans-serif; font-size: clamp(2.25rem, 3.7vw, 3.6rem); line-height: 1.12; letter-spacing: -0.06em; font-weight: 500; margin: 0; }
+.storyLeft { display: flex; flex-direction: column; align-items: flex-start; }
+.somaPortrait { position: relative; margin: auto 0 0 4rem; width: 200px; padding-top: 2.5rem; }
+.somaPortrait img { width: 100%; height: auto; }
+.storyCopy p { font-size: 1rem; line-height: 1.9; margin: 0 0 1.25rem; color: var(--ink-2); }
+.storyCopy blockquote { font-size: 1.45rem; line-height: 1.55; font-weight: 500; letter-spacing: -0.04em; margin: 2rem 0 1.5rem; }
+.storyCopy > a { min-height: 44px; display: inline-flex; align-items: center; gap: 0.8rem; font-size: 0.875rem; text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--line); }
+.storyCopy > a:hover { color: var(--brand-ink); }
+.download { position: relative; background: var(--butter); padding: 6rem 2rem 7rem; text-align: center; color: #292527; }
+.download h2 { font-size: clamp(2.75rem, 4.8vw, 4.75rem); }
+.download p { margin: 1.5rem auto 2rem; max-width: 490px; font-size: 1rem; line-height: 1.8; }
+.flourish { position: absolute; top: 3rem; left: max(7%, calc((100% - 1260px) / 2)); width: 80px; transform: rotate(-15deg); }
+.sprout { position: absolute; bottom: 4rem; right: max(11%, calc((100% - 1100px) / 2)); width: 60px; transform: rotate(12deg); }
+
+@media (max-width: 1000px) {
+  .story { width: calc(100% - 4rem); gap: 3rem; padding-top: 2rem; padding-bottom: 5rem; }
+  .somaPortrait { margin-left: 1rem; width: 180px; }
+  .storyCopy blockquote { font-size: 1.3rem; }
+}
+
+@media (max-width: 650px) {
+  .story { display: flex; flex-direction: column; gap: 2rem; width: calc(100% - 2.5rem); padding: 1rem 0 3.5rem; }
+  .storyLeft { flex-direction: row; align-items: center; justify-content: space-between; gap: 1rem; }
+  .story h2 { font-size: 2rem; }
+  .somaPortrait { margin: 0; padding: 0; width: 80px; flex: 0 0 80px; }
+  .storyCopy p { line-height: 1.8; }
+  .storyCopy blockquote { font-size: 1.25rem; margin-top: 1.75rem; }
+  .download { padding: 4rem 1.25rem 5rem; }
+  .download h2 { font-size: clamp(2.2rem, 8.8vw, 3rem); }
+  .download p { font-size: 1rem; margin: 1.4rem auto 1.8rem; }
+  .desktopBreak { display: none; }
+  .flourish { top: 1.3rem; left: 1.2rem; width: 35px; }
+  .sprout { width: 34px; right: 1.5rem; bottom: 1.6rem; }
+}

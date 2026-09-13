@@ -20,7 +20,7 @@ const footerColumns = [
     heading: "Product",
     links: [
       { label: "Features", href: "/#features" },
-      { label: "Why Mnemo", href: "/science" },
+      { label: "Science", href: "/science" },
       { label: "Download", href: "/download" },
     ],
   },
@@ -66,13 +66,13 @@ export function SiteFooter() {
               />
             </Link>
             <p className="text-ink-2 mt-4 max-w-xs text-sm leading-relaxed">
-              Notes, flashcards, and mind maps. Free and open source.
+              Free and open source. Your work stays on your computer.
             </p>
           </div>
 
           {footerColumns.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
-              <h2 className="type-eyebrow">
+              <h2 className="site-footer-heading">
                 {column.heading}
               </h2>
               <ul className="mt-4 grid gap-2.5">

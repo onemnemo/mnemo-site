@@ -72,7 +72,7 @@ export function MobileNav() {
             asChild
             size="lg"
             variant={rebuild.active ? "outline" : "default"}
-            className="w-full rounded-full"
+            className="mnemo-download w-full"
           >
             <Link href="/download" onClick={() => setOpen(false)}>
               {rebuild.active ? rebuild.ctaLabel : "Download Mnemo"}

@@ -9,6 +9,7 @@ import { RebuildBanner } from "@/components/site/rebuild-banner"
 import { siteConfig } from "@/config/site"
 
 import "./globals.css"
+import "@/components/landing/theme.css"
 
 /**
  * next/font downloads and self-hosts these at build time, so there is no
