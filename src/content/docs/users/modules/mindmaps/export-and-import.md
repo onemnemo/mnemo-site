@@ -27,7 +27,9 @@ The outline is built from the stored document instead, so it ignores collapse st
 
 Export one map from **Export** in its menu in the library, or the whole library from **Transfer** in the library header. **Transfer** is also the way in: drop up to five files at a time onto the dialog, or browse for them.
 
-Before confirming, say what happens when a map already exists: **Keep both** gives the incoming copy a suffix, **Skip** leaves yours untouched, and **Replace** overwrites it. `Ctrl+Enter` confirms the dialog (`Cmd+Enter` on macOS).
+Before confirming, say what happens when a map already exists: **Keep both** gives the incoming copy a suffix, **Skip** leaves yours untouched, and **Replace** overwrites it. Choosing **Replace** adds a checkbox, "Delete what is here and put this file in its place", and Confirm stays disabled until you tick it. `Ctrl+Enter` confirms the dialog (`Cmd+Enter` on macOS).
+
+If the import turns up anything worth flagging, Mnemo reports it in a toast once the import finishes.
 
 <!-- image idea: the mindmap transfer dialog on its export side with the .mnemo tile selected -->
 

@@ -31,9 +31,10 @@ Dragging a node carries its whole subtree, and dragging a frame carries its memb
 | Shape   | `S` | Plants the shape chosen in the picker.           |
 | Text    | `T` | Plants a loose text label.                       |
 | Connect | `C` | Draws an edge between two nodes.                 |
-| Frame   | `F` | Sweeps a rectangle to frame what it catches.     |
+| Frame   | `F` | Sweeps a rectangle to frame what it catches, and its members hold their place through an arrange. |
+| Image   | `I` | Opens a file picker and drops the picture in the center of the view. |
 
-Every tool but Select is one-shot: it does its one thing and hands the map back. The shape tool opens a picker of eight primitives.
+Every tool but Select is one-shot: it does its one thing and hands the map back. The shape tool opens a picker of eight primitives. Image is not really a tool either: a picture has to be chosen before it can be placed, so the press opens the picker instead of arming the canvas for the next click.
 
 <!-- image idea: the tool dock along the bottom of a map with the shape picker open above it -->
 

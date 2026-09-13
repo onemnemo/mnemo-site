@@ -49,7 +49,26 @@ Double click the node, or press the mark on its leading edge, and Mnemo follows 
 
 **Save style as template**, in the node bar's overflow menu, turns a branch you like into a palette entry of your own: you choose how many levels deep to capture, and the result applies to any map. Templates you saved can be deleted; the six that ship cannot.
 
+The same overflow menu holds **Pin**: a pinned node keeps its stored position when **Arrange now** runs, so the layout rebuilds around it instead of moving it. **Unpin** hands it back to the layout.
+
 <!-- image idea: the map style panel open with the arrangement tiles visible -->
+
+## Edge styling
+
+Select an edge and its own bar replaces the node bar, one panel per group.
+
+| Group              | Choices                                                       |
+| ------------------ | ------------------------------------------------------------- |
+| Line and thickness | Solid, Dashed, Dotted, Double; Hairline, Normal, Bold         |
+| Routing            | Curve, Straight, Orthogonal                                   |
+| Ends               | None, Arrow, Dot, set separately for the start and the end    |
+| Color              | The branch palette, or a colour of its own                    |
+
+**And everything below it**, inside each panel, carries the value you just picked down through every edge under this one; a link edge has nothing below it, so the toggle sits there disabled.
+
+An edge with no colour of its own reads its branch's colour. **Match the branch**, at the bottom of the colour panel, gives that back; a link edge shows **Default color** there instead, since it has no branch to match.
+
+<!-- image idea: the edge bar open on a selected edge with the line and thickness panel expanded -->
 
 ## Related
 
