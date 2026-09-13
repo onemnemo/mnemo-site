@@ -24,6 +24,12 @@ Mnemo will not let you drop a folder into itself or its own subtree.
 
 Star a note from its row menu or from the breadcrumb bar above the editor. Favourites sit in their own section at the top of the sidebar, sorted by most recently touched. Four show at once, and **Show more** reveals the rest.
 
+## Deleting notes
+
+Delete a note or folder from its row menu, with **Delete Note** or **Delete Folder**; deleting a folder removes everything filed inside it too.
+There is no confirmation dialog: a toast reports the move to the trash and offers **Undo**, active long enough to catch a mistake before it is gone.
+The same toast says how many days the trash keeps the item before the deletion becomes final; see [The trash](../../customization/trash.md) for what happens next.
+
 ## Finding things
 
 - **By title:** press `Ctrl+P` to jump to the sidebar search.

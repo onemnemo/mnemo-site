@@ -28,9 +28,10 @@ Filters stack, and **Clear** removes every filter and empties the search box in 
 
 Right-click a row for peek, edit, flag, suspend, move to another deck, or delete. Tick several rows instead and a bar rises at the bottom offering the same work across the selection: **Move to**, **Tag**, **Suspend**, **Flag**, and **Delete**.
 
-**Delete asks first.** A confirmation dialog names the count ("Delete 12 cards from the deck?") and nothing is removed until you confirm it. There is no undo afterwards, so a card you delete here comes back only from a backup.
+**Delete moves the cards to the trash, no confirmation first.** A toast names the count ("Moved 12 items to the trash"), says how long they are kept, and carries an **Undo** button; clicking it puts them straight back. Past the toast, they still sit in the trash for 30 days before Mnemo deletes them for good.
 
 ## Related
 
 - [Organizing the library](./organizing-the-library.md) covers decks, folders, and the per-deck table this page widens.
-- [Import and export](./import-and-export.md) is where the backup comes from, which is worth having before a bulk delete.
+- [Trash](../../customization/trash.md) covers restoring a card after the undo toast is gone, and how the 30-day countdown works.
+- [Import and export](./import-and-export.md) is where the backup comes from, which is worth having for anything past the trash window.

@@ -12,6 +12,12 @@ The library is what the mindmaps module opens on: every map you have made, drawn
 
 **New** creates either a **Map** or a **Folder** at whatever level is open, and folders nest. Filing a map is a drag: drop it on a folder card or row to move it in, or on a crumb in the breadcrumb trail, the root crumb included, to move it back out.
 
+Every card also carries a menu: an overflow button that appears on hover, or a right-click anywhere on the card, and either opens the same list.
+
+A map's menu holds **Rename**, **Duplicate**, **Export**, and **Delete**; a folder's holds just **Rename** and **Delete**, since filing one is the drag above, not a menu item.
+
+**Delete** does not ask you to confirm. It moves the map or folder to the trash and raises an undo toast instead; see [Trash](../../customization/trash.md) for how long it waits there and what a restore brings back.
+
 ## The due badge does not appear yet
 
 A map card can carry a badge counting the cards waiting in the decks that map is linked to, and a folder header the same sum for its subtree. The link is stored with the map, and nothing in this beta writes one, so no badge appears in practice. A node pointing at a deck is a reference you can follow, not that link.

@@ -8,15 +8,15 @@ The library holds every deck, and a deck holds its cards. This page covers keepi
 
 ## Decks and folders
 
-The New button creates a deck or a folder; folders nest, and drag-and-drop moves decks between them. Prefer a few broad decks organized by folder over many tiny ones: the scheduler works per card, so slicing a subject into twenty decks adds bookkeeping without adding control, and tags and filters do the fine-grained slicing better.
+The **New** button creates a deck or a folder; folders nest, and drag-and-drop moves a deck or a folder between them. Drop on the empty space below the list to send something back to the top level. Right-click a folder, or open its own menu, for rename and delete plus a way to expand or collapse it without clicking the row. Prefer a few broad decks organized by folder over many tiny ones: the scheduler works per card, so slicing a subject into twenty decks adds bookkeeping without adding control, and tags and filters do the fine-grained slicing better.
 
 <!-- image idea: the library with folders expanded and the due-today banner -->
 
-A deck's own menu handles rename, move to a folder, its review settings, export, suspending every card at once, and deletion. **Card types** sits on the same menu, but the manager it opens belongs to the whole collection rather than the one deck you opened it from; it is covered in [Writing cards](./writing-cards.md).
+A deck can carry an emoji icon: click the mark beside its name to add or change one, and a deck left without one shows a plain book mark instead of empty space. A deck's own menu handles rename, move to a folder, its review settings, export, suspending every card at once, and deletion. **Card types** sits on the same menu, but the manager it opens belongs to the whole collection rather than the one deck you opened it from; it is covered in [Writing cards](./writing-cards.md).
 
 ## Inside a deck
 
-The deck view is a table of cards with search, state filters (Due, New, Learning, Suspended, Flagged), and tag filters. Select several cards and a bar appears for bulk actions: move them to another deck, tag them, suspend, flag, or delete. This table only ever shows the open deck; to search or edit cards across every deck at once, use **Browse cards** at the top of the library.
+The deck view is a table of cards with search, state filters (Due, New, Learning, Suspended, Flagged) as chips, and a **Filter** menu for tag, card type, and how often a card has been forgotten (Forgotten at least once, Forgotten 3+ times, Never forgotten). Select several cards and a bar appears for bulk actions: move them to another deck, tag them, suspend, flag, or delete. This table only ever shows the open deck; to search or edit cards across every deck at once, use **Browse cards** at the top of the library.
 
 ## Suspend and flag
 
@@ -24,7 +24,12 @@ The deck view is a table of cards with search, state filters (Due, New, Learning
 
 **Flagging** is a neutral marker that means whatever you want it to mean: "check this fact", "rewrite later", "ask the professor". Flagged cards get their own filter, and you can flag a card mid-session without breaking stride.
 
+## Deletion and the trash
+
+Deleting a deck or a folder does not ask first: it moves to the trash and a toast offers **Undo** right away. A folder takes everything nested under it along, decks and subfolders alike, and restoring the folder brings all of it back in one move. Anything not restored is kept for 30 days before it is gone for good; see [Trash](../../customization/trash.md) for how to browse it and restore something after the toast is gone.
+
 ## Related
 
 - [Writing cards](./writing-cards.md) covers card types in depth, including the manager opened from the deck menu.
 - [Browsing and search](./browsing-and-search.md) covers the collection-wide card browser.
+- [Trash](../../customization/trash.md) covers restoring a deck or folder after the undo toast is gone.
