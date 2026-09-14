@@ -1,46 +1,68 @@
 ---
+
 title: Installing Mnemo
-description: Which platforms have a build, and where your library lives.
+description: Download Mnemo, install it, and find where your data is stored.
 order: 1
 ---
 
-Mnemo is a desktop app with no account to create and no server to connect to, so downloading it is most of the setup.
+Mnemo is a desktop app. There is no account to create, and your library stays on your computer.
 
-## What is published today
+## Download Mnemo
 
-Mnemo is in the 0.8.0 beta, and all three desktop platforms have a packaged build.
+Mnemo 0.8.0 is available for Windows, macOS, and Linux.
 
-| Platform               | Build                                 | Status                                  |
-| ---------------------- | ------------------------------------- | --------------------------------------- |
-| Windows 10 and 11, x64 | Installer or portable zip             | Used daily, unsigned                    |
-| macOS, Apple silicon   | Installer package or portable archive | First preview, unsigned and not notarized |
-| Linux, x64             | AppImage or portable archive          | First preview                           |
+| Platform             | Download                      | Status  |
+| -------------------- | ----------------------------- | ------- |
+| Windows 10/11, x64   | Installer or portable zip     | Beta    |
+| macOS, Apple silicon | Installer or portable archive | Preview |
+| Linux, x64           | AppImage or portable archive  | Preview |
 
-Windows has had months of daily use. The macOS and Linux packages are new and still need wider hardware coverage, so treat them as previews and report anything platform specific.
+Windows is currently the most tested platform. macOS and Linux builds are newer, so you may run into platform-specific issues.
 
-Releases go to the [download page](https://mnemo.one/download) and to [GitHub Releases](https://github.com/onemnemo/mnemo/releases/latest). The installer is the normal route; the portable build is the same app in a folder you can move, and it cannot install an update into itself, so Mnemo sends you back to GitHub for the next version.
+Download Mnemo from the [download page](https://mnemo.one/download) or [GitHub Releases](https://github.com/onemnemo/mnemo/releases/latest).
 
-## The first launch
+For most people, the installer is the best option. Portable builds run without installation and can be moved between folders or drives.
 
-No build is code signed yet, so the operating system warns the first time you open Mnemo: on Windows, SmartScreen wants **More info**, then **Run anyway**, and on macOS, Gatekeeper warns before the first run.
+## First launch
 
-A short setup wizard runs once; every answer lives in Settings afterwards, and **Skip setup** counts as finishing, so it does not come back.
+Mnemo is not code signed yet, so your operating system may show a warning the first time you open it.
 
-A beta build then says once that it is a beta, because some parts still have rough edges. The notice carries a button that makes the same one file backup Settings offers and a link to the issue form, and it appears once per beta version rather than on every launch.
+On Windows, choose **More info** → **Run anyway**.
 
-## Where your data lives
+On macOS, you may need to allow Mnemo through Gatekeeper before opening it for the first time.
 
-Mnemo creates a data folder on first launch and keeps your decks, notes, maps, and the images and files inside them there: `%LOCALAPPDATA%\Mnemo` on Windows, and the per-user local application data directory on macOS and Linux. Setting `MNEMO_DATA_DIR` points the app at a different root, which is how a second install runs against its own profile.
+Mnemo will then take you through a short setup wizard.
 
-Copying that folder is not the only way to keep a copy: [Storage and backup](../customization/storage-and-backup.md) covers the single restorable file Settings under Storage & data writes, and restoring from one.
+## Where your data is stored
 
-## Staying up to date
+Mnemo stores your notes, decks, mindmaps, attachments, and other library data locally.
 
-Settings under Updates holds the controls. **Check for updates automatically** is on by default and asks GitHub for a newer version when Mnemo starts, rate limited so it does not ask on every launch. When an automatic check finds one, a notification says which version is ready and offers **Update now** or **Later**; it waits for an answer rather than fading, and dismissing it counts as **Later**. After the restart, Mnemo confirms once which version it came up as.
+On Windows:
 
-**Release channel** decides how close to development you sit: Stable carries finished releases only, Beta gets new features earlier and can contain bugs, and Nightly carries the latest development changes and can be unstable. Each channel offers its own builds and every calmer channel's, so Beta still gets the finished release when it lands. **Check for updates** runs a check on demand, and **Release notes** opens the changelog on GitHub.
+`%LOCALAPPDATA%\Mnemo`
 
-## Related
+On macOS and Linux, Mnemo uses the normal per-user application data directory.
 
-- [Your first session](./your-first-session.md) turns a fresh install into a deck you review tomorrow.
-- [Customization](../customization/index.md) covers the theme and language the wizard asked for.
+You can set `MNEMO_DATA_DIR` to use a different data folder. This is useful for separate profiles or development installs.
+
+For backups and restoring your library, see [Storage and backup](../customization/storage-and-backup.md).
+
+## Updates
+
+Update settings are available under **Settings → Updates**.
+
+Automatic update checks are enabled by default. When a new version is available, Mnemo will let you update immediately or leave it for later.
+
+You can also choose a release channel:
+
+* **Stable** — finished releases
+* **Beta** — new features earlier, with a higher chance of bugs
+* **Nightly** — latest development builds
+
+Use **Check for updates** to check manually, or **Release notes** to view the changelog.
+
+## Next
+
+[Your first session](./your-first-session.md) walks through creating your first deck and starting a review.
+
+[Customization](../customization/index.md) covers themes, language, and other preferences.

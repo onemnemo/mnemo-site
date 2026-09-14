@@ -26,26 +26,19 @@ Portable import/export uses the `.mnemo` format: a ZIP with a `manifest.json` an
 
 ## Profile backup and restore
 
-`Mnemo.Host/Backup/ProfileBackupEndpoints.cs` maps `/api/backups/export`, `/api/backups/select`, `/api/backups/restore`, and `/api/backups/restore/restart`.
-A backup is a `.mnemo-backup` ZIP: a `manifest.json` (creation time, source app version, a collection id, a content summary) beside a sanitized `profile.db` snapshot and copies of the managed asset directories.
-`ProfileBackupService.CreateAsync` takes the snapshot inside a rolled-back SQLite transaction, so the export is internally consistent without holding writers for longer than the copy takes.
+`Mnemo.Host/Backup/ProfileBackupEndpoints.cs` maps `/api/backups/export`, `/api/backups/select`, `/api/backups/restore`, and `/api/backups/restore/restart`. A backup is a `.mnemo-backup` ZIP: a `manifest.json` (creation time, source app version, a collection id, a content summary) beside a sanitized `profile.db` snapshot and copies of the managed asset directories. `ProfileBackupService.CreateAsync` takes the snapshot inside a rolled-back SQLite transaction, so the export is internally consistent without holding writers for longer than the copy takes.
 
-Restore is a validated handoff, not an in-place overwrite.
-Selecting a file returns an inspection (source version, whether it is from this same collection) and a short-lived grant; `/api/backups/restore` stages the archive under `restore-staging` without touching the live profile; `/api/backups/restore/restart` restarts the app, and the swap itself runs in `ProfileRestoreStartup.ApplyPendingAsync` before the database opens.
-The previous `mnemo.db` and asset directories move into `restore-recovery/<timestamp>-<operationId>` first, and a journal on disk rolls an interrupted swap back automatically on the next start; only the most recent recovery copy is kept.
+Restore is a validated handoff, not an in-place overwrite. Selecting a file returns an inspection (source version, whether it is from this same collection) and a short-lived grant; `/api/backups/restore` stages the archive under `restore-staging` without touching the live profile; `/api/backups/restore/restart` restarts the app, and the swap itself runs in `ProfileRestoreStartup.ApplyPendingAsync` before the database opens. The previous `mnemo.db` and asset directories move into `restore-recovery/<timestamp>-<operationId>` first, and a journal on disk rolls an interrupted swap back automatically on the next start; only the most recent recovery copy is kept.
 
 ## The application trash
 
-Deleting a deck, a note, or a mindmap leaves its rows and files in place.
-Each module owns an `ITrashSource` per kind it deletes and captures the item into a shared ledger, with the snapshot the trash needs to put it back, in one module transaction.
-Retention is 30 days from deletion (`TrashRetention.Days`).
+Deleting a deck, a note, or a mindmap leaves its rows and files in place. Each module owns an `ITrashSource` per kind it deletes and captures the item into a shared ledger, with the snapshot the trash needs to put it back, in one module transaction. Retention is 30 days from deletion (`TrashRetention.Days`).
 
-`Mnemo.Host/Trash/TrashEndpoints.cs` maps `/api/trash` (listing, paged and filterable), single and bulk `restore`, `restore` by batch, `DELETE /api/trash/{entryId}` to purge, and `/api/trash/empty`.
-A purge that would strand rows another entry still owns answers with a 409 naming them, instead of a bare error.
+`Mnemo.Host/Trash/TrashEndpoints.cs` maps `/api/trash` (listing, paged and filterable), single and bulk `restore`, `restore` by batch, `DELETE /api/trash/{entryId}` to purge, and `/api/trash/empty`. A purge that would strand rows another entry still owns answers with a 409 naming them, instead of a bare error.
 
 `TrashMaintenance` runs a background loop, started only once Kestrel is listening: it reconciles the ledger against each source at startup, then sweeps expired entries and hands orphaned files to `AssetCleanupWorker`, hourly or on demand.
 
 ## Related
 
-- **Back up and restore your library from the app.** See [Storage and backup](../../users/customization/storage-and-backup.md) for the user-facing walkthrough.
-- **Recover something you deleted.** See [Trash](../../users/customization/trash.md) for how to find and restore it within the retention window.
+- [Storage and backup](../../users/customization/storage-and-backup.md) is the user-facing side of backup and restore.
+- [Trash](../../users/customization/trash.md) is the user-facing side of the trash ledger.

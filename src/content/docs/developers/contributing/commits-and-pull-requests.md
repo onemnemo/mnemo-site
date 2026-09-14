@@ -19,7 +19,7 @@ perf(notes): mint identity for a pasted run in one grouped step
 - **Types** in use: `feat`, `fix`, `perf`, `refactor`, `test`, `chore`.
 - **Scope** is the feature area: `notes`, `web`, `host`, `i18n`, `dnd`, `repo`, and friends.
 - When the change needs explaining, the body opens with a one-line summary, then a bullet for each distinct part. Bullets are terse by default, stating what changed; a reason gets added to a bullet only when the change is non-obvious, a bug fix, a migration, or a deliberate divergence.
-- A single-idea change skips the bullet altogether: no summary line, just the reason, since the subject already says what changed.
+- A single-idea change skips the bullets altogether: no summary line, just the reason, since the subject already says what changed.
 
 ```text
 fix(notes): read the paste progress strings from the namespace they live in
@@ -31,7 +31,7 @@ more than one image was pasted.
 
 ## Granularity and when to commit
 
-A milestone lands in roughly two or three commits along its natural seams: one per user-visible surface, or one per layer.
+A feature lands in roughly two or three commits along its natural seams: one per user-visible surface, or one per layer.
 
 - **Bundle related work into one commit.** A pure-logic module and its only consumer belong together, and so does a shared primitive touched along the way.
 - **Fold trivial follow-ups into their parent** instead of adding a new commit for a small refinement.
@@ -49,7 +49,7 @@ git commit -s -m "fix(web): keep the toast host above overlays"
 ```
 
 - **`Signed-off-by` is required.** It is the line `git commit -s` adds, and it is the only trailer a commit carries.
-- **Every other trailer is forbidden.** No `Co-Authored-By`, no attribution line of any kind, in a commit or in a pull request body. The commit author is the author.
+- **Every other trailer is forbidden.** No `Co-Authored-By` and no AI attribution line of any kind, in a commit or in a pull request body. The commit author is the author; take responsibility for your own code.
 
 The Mnemo name and logo are trademarks and not part of the code license, which matters if you fork; `BRAND.md` covers what is and is not fine.
 
@@ -59,3 +59,8 @@ The Mnemo name and logo are trademarks and not part of the code license, which m
 - Keep it focused: one concern per PR, no drive-by reformatting of untouched code.
 - Say what and why in the description, link the issue, and attach screenshots or clips for anything visual.
 - Run [the tests](../getting-started/running-the-tests.md) before you push; the same checks gate every push and pull request against `main`.
+
+## Related
+
+- [The coding standard](./coding-standard.md) for the rules a reviewer holds the diff to.
+- [How to contribute](./how-to-contribute.md) for the path from issue to merged pull request.

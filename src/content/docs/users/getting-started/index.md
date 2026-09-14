@@ -1,7 +1,12 @@
 ---
+
 title: Getting started
 description: From download to your first review session.
 order: 1
 ---
 
-New to Mnemo? The first two guides get you from nothing to a working study setup: install the app, then run your first session. The other two cover the tools that reach across every module: [search and the command palette](./global-search.md), and [the side peek](./side-peek.md).
+Start here if you’re new to Mnemo.
+
+[Install Mnemo](./installation.md), then follow [Your first session](./your-first-session.md) to create your first study setup.
+
+You can also learn about features available throughout Mnemo, including [Search and the command palette](./global-search.md) and [Side peek](./side-peek.md).

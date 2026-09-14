@@ -1,39 +1,37 @@
 ---
 title: Export and import
-description: Pictures, outlines, and the package format that comes back.
+description: Pictures, outlines, and the package format that imports back.
 order: 5
 ---
 
-A map leaves Mnemo in one of two ways, and the difference is whether it is coming back. A picture or an outline is a one-way copy for use elsewhere; a `.mnemo` package is the round trip.
+A map exports as a picture, an outline, or a Mnemo package. Only the package can be imported again.
 
-## The formats
+## Formats
 
-| Format                   | Best for                                                            |
-| ------------------------ | ------------------------------------------------------------------- |
-| PNG (`.png`)             | A picture of the map as it looks on screen                          |
-| SVG (`.svg`)             | The same picture as vectors, for scaling or editing elsewhere       |
-| Markdown (`.md`)         | The whole map as a nested outline, for a note or a document         |
+| Format                   | Best for                                                              |
+| ------------------------ | --------------------------------------------------------------------- |
+| PNG (`.png`)             | A picture of the map as it looks on screen                            |
+| SVG (`.svg`)             | The same picture as vectors, for scaling or editing elsewhere         |
+| Markdown (`.md`)         | The whole map as a nested outline                                     |
 | Mnemo Package (`.mnemo`) | Backup and transfer: maps, folders, images, and styles, re-importable |
-
-Only the package comes back; nothing reads a PNG, an SVG, or an outline into the library again.
 
 ## Pictures and outlines
 
-**Export** on the map toolbar holds those three. PNG and SVG are drawn from the map as it currently sits, so a collapsed branch is not in the picture. Images travel inside both files, but fonts travel only in the PNG: an `.svg` opened where Inter is not installed falls back to another face.
+**Export** on the map toolbar holds PNG, SVG, and Markdown.
 
-The outline is built from the stored document instead, so it ignores collapse state and styling and gives you the whole map: the title as a heading, each tree as a nested bullet list, loose elements and frames in sections of their own, and cross-links as numbered footnotes.
+PNG and SVG show the map as it is on screen, so collapsed branches are left out. Images are embedded in both; fonts are embedded only in the PNG.
 
-## Packages in and out
+The outline ignores collapse state and styling and includes everything: the title as a heading, each tree as a nested list, loose elements and frames in their own sections, and links between branches as footnotes.
 
-Export one map from **Export** in its menu in the library, or the whole library from **Transfer** in the library header. **Transfer** is also the way in: drop up to five files at a time onto the dialog, or browse for them.
+## Packages
 
-Before confirming, say what happens when a map already exists: **Keep both** gives the incoming copy a suffix, **Skip** leaves yours untouched, and **Replace** overwrites it. Choosing **Replace** adds a checkbox, "Delete what is here and put this file in its place", and Confirm stays disabled until you tick it. `Ctrl+Enter` confirms the dialog (`Cmd+Enter` on macOS).
+Export one map with **Export** on its card menu in the library, or the whole library with **Transfer** in the library header. **Transfer** also imports: drop up to five files onto the dialog or browse for them. `Ctrl+Enter` confirms (`Cmd+Enter` on macOS).
 
-If the import turns up anything worth flagging, Mnemo reports it in a toast once the import finishes.
+If a map already exists, choose what happens: **Keep both** adds a suffix to the incoming map, **Skip** leaves yours, and **Replace** overwrites it. Replace requires ticking a confirmation checkbox before it runs.
 
 <!-- image idea: the mindmap transfer dialog on its export side with the .mnemo tile selected -->
 
 ## Related
 
-- [The library](./library.md) holds **Transfer** and receives what an import restores.
-- [Flashcards import and export](../flashcards/import-and-export.md) meets the same `.mnemo` package from the other side.
+- [The map library](./library.md) covers the library that **Transfer** restores into.
+- [Flashcards import and export](../flashcards/import-and-export.md) covers the same package format for decks.

@@ -1,7 +1,7 @@
 ---
 title: Mindmaps
-description: Connect what you know into a picture you can navigate.
+description: Maps of concepts as nodes and relationships as edges.
 order: 4
 ---
 
-The mindmaps module turns a subject into a map: concepts as nodes, relationships as edges. Facts survive by making friends, and this is where the friendships get drawn.
+Build maps of a subject: concepts as nodes, relationships as edges, with links to your notes and decks.

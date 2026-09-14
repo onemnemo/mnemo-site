@@ -1,28 +1,37 @@
 ---
 title: Working with blocks
-description: The drag handle, the block menu, multi-select, and undo.
+description: The block menu, drag and drop, multi-select, and undo.
 order: 4
 ---
 
-Rearranging blocks runs through the gutter that appears when you hover one: a plus button that inserts an empty text block below, and a grip handle that does everything else.
+Hover a block to show its gutter: a plus button that inserts an empty block below, and a grip handle for everything else.
 
 ## The block menu
 
-Click the grip for Move up, Move down, Duplicate, Turn into, and Delete. **Turn into** converts any text-bearing block into another type with the text untouched, so a paragraph that turned out to be a heading is two clicks from being one.
+Click the grip for **Move up**, **Move down**, **Duplicate**, **Turn into**, and **Delete**. **Turn into** converts the block to another type and keeps its text.
 
 <!-- image idea: grip menu open on a block, Turn into submenu visible -->
 
-## Moving and selecting
+## Moving blocks
 
-Drag the grip to move a block; Escape cancels a drag mid-flight. Dragging a block over a two-column split drops it into the column under the pointer, whether it comes from the page, the split's other column, or further up the same column; dragging it back out lifts it into the main flow.
+Drag the grip to move a block. `Escape` cancels the drag. Drop a block onto a two-column split to place it in the column under the pointer, or drag it out of a column to return it to the main flow.
 
-Click a grip to select that block, then Ctrl-click or Shift-click to extend the selection, or drag from empty space to sweep up whatever the rectangle touches. `Ctrl+A` (`Cmd+A` on macOS) works in two stages: the first press selects the text inside the current block, the second selects every block in the note.
+## Selecting blocks
 
-`Ctrl+Z` undoes and `Ctrl+Y` redoes, and one gesture is always one step: a drag, a paste, a slash-menu conversion, or a burst of typing each undo as a unit.
+Click a grip to select its block, then Ctrl-click or Shift-click to extend the selection, or drag from empty space to select everything the rectangle touches. `Ctrl+A` (`Cmd+A` on macOS) selects the text in the current block on the first press and every block in the note on the second.
 
-## Enter and Backspace do what you mean
+## Undo
 
-- Enter on an empty list item exits the list instead of adding another empty bullet.
-- Quotes and code blocks wrap to a new line on Enter; a quote exits when you press Enter on a blank line inside it.
-- Backspace at the start of a formatted block turns it back into plain text first, and only merges into the block above on the next press.
-- `Ctrl+Enter` always inserts a plain line break, wherever you are.
+`Ctrl+Z` undoes and `Ctrl+Y` redoes. A drag, a paste, a block conversion, or a run of typing each undo as one step.
+
+## Enter and Backspace
+
+- **Enter on an empty list item** ends the list.
+- **Enter in a quote or code block** adds a line. Enter on an empty line inside a quote ends the quote.
+- **Backspace at the start of a formatted block** turns it into plain text first, and merges it into the block above on the next press.
+- **`Ctrl+Enter`** inserts a plain line break anywhere.
+
+## Related
+
+- [Blocks and the slash menu](./blocks-and-the-slash-menu.md) covers the block types.
+- [Tables](./tables.md) covers the extra handles a table has.

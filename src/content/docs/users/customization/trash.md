@@ -1,45 +1,64 @@
 ---
+
 title: Trash
-description: Undo a delete, and recover anything from the thirty-day trash.
+description: Recover deleted items for up to 30 days.
 order: 8
 ---
 
-Deleting something in Mnemo does not ask you to confirm it. The delete goes through, a toast offers the way back, and whatever went waits in one list for thirty days. Settings under Trash is that list, and the number beside it in the settings sidebar is how much it is holding.
+Deleted items stay in **Settings → Trash** for 30 days before being permanently removed.
 
-## What lands there
+## What goes to trash
 
-Notes, note folders, mindmaps, mindmap folders, decks, deck folders, cards, and material.
+Trash can contain:
 
-Deleting a container takes what was inside it. A note folder goes with its notes and subfolders and comes back the way it stood. A deck goes with its cards and the material behind them, every schedule and every review kept, so a restore gives back a deck you can carry on studying rather than a fresh copy of its contents.
+* notes and note folders
+* mindmaps and mindmap folders
+* decks and deck folders
+* cards
+* material
 
-## The undo toast
+Deleting a folder or deck also moves its contents to trash.
 
-A delete raises a toast naming what went ("Moved Chemistry to the trash", or a count when it took more than one thing) with "Kept for 30 days, then deleted for good." underneath. It holds for nine seconds rather than the usual five, because noticing a mistake takes longer than reading about it.
+Restoring a deck keeps its cards, scheduling, review history, and material intact.
 
-**Undo** puts back everything that one delete took, contents included. Missing the toast costs you nothing: the trash is the same recovery, one click further away.
+## Undo a delete
 
-## Working through the list
+After deleting something, Mnemo shows an **Undo** notification.
 
-Search covers every row, and the filter beside it narrows to one kind at a time, starting at **Everything**. Kinds are listed separately rather than grouped by module, so picking one never hides deleted folders from someone looking for them.
+Choose **Undo** to restore everything from that delete immediately. If you miss it, you can restore the same items later from Trash.
 
-Each row says what it was, where it came from, how much came with it, when it went, and how long is left: "6 days left" while there are days, then hours, then "expires shortly" inside the last one.
+## Restore items
+
+Use search and filters to find deleted items.
+
+Each entry shows what was deleted, where it came from, when it was deleted, and how long remains before it expires.
 
 <!-- image idea: the Trash page in settings with the kind filter open over a list of rows -->
 
-**Restore** puts a row back where it came from. If the folder it came from is gone too, it lands at the top level and says so. If what it was inside is still in the trash, Mnemo asks you to restore that first, since a subtree has to come back from the outside in. A card whose deck is already destroyed gets **Restore into** instead, a menu of decks to choose from.
+Choose **Restore** to return an item to its previous location.
 
-**Delete for good** on a row and **Empty trash** in the toolbar both confirm first and neither can be undone. Empty is offered only while the list is unfiltered, so the button cannot mean two different things.
+If its original folder no longer exists, Mnemo restores it at the top level. Some items may require their parent to be restored first.
 
-## Expiry and backups
+Deleted cards whose original deck is no longer available can be restored into another deck.
 
-Mnemo sweeps expired entries at startup and once an hour after that, so a row can outlive its own deadline by a few minutes before it goes.
+## Delete permanently
 
-A full backup includes the trash. A `.mnemo` export does not: it carries only the notes, decks, or maps selected for it.
+Choose **Delete for good** to permanently remove an individual item.
+
+**Empty trash** permanently removes everything currently in Trash.
+
+Both actions require confirmation and cannot be undone.
+
+## Backups
+
+Mnemo backups include items in Trash.
+
+Exports only include the content you selected for export.
 
 ## Related
 
-- [Storage and backup](./storage-and-backup.md) for the backup file the trash travels in.
-- [Notifications](./notifications.md) covers the toast the undo arrives on.
-- [Organizing notes](../modules/notes/organizing-notes.md) for what a folder delete takes with it.
-- [Organizing the library](../modules/flashcards/organizing-the-library.md) for decks and the material behind cards.
-- [The mindmap library](../modules/mindmaps/library.md) for deleting maps and their folders.
+* [Storage and backup](./storage-and-backup.md)
+* [Notifications](./notifications.md)
+* [Organizing notes](../modules/notes/organizing-notes.md)
+* [Organizing the library](../modules/flashcards/organizing-the-library.md)
+* [The mindmap library](../modules/mindmaps/library.md)

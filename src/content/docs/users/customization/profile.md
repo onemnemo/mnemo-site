@@ -1,30 +1,40 @@
 ---
+
 title: Profile
-description: Display name, profile picture, and colour that follow you everywhere.
+description: Set your display name, picture, and profile colour.
 order: 6
 ---
 
-Settings under Profile is where you tell Mnemo who you are. Three controls live under Identity: your display name, a picture, and a colour, and every other surface that needs to show you pulls from here.
+Manage your profile under **Settings → Profile**.
 
 ## Name, picture, and colour
 
-**Display name** is a plain text field; leave it empty and the sidebar falls back to **Profile & settings** instead of a name.
+**Display name** sets the name shown around Mnemo.
 
-**Picture** adds an image with the **Add** button, or **Change** and **Remove** once one is set. Mnemo accepts a PNG, JPEG, GIF, WebP, or BMP up to 20 MB; anything larger or in another format is rejected before it uploads.
+**Picture** lets you add, change, or remove your profile image. Mnemo supports PNG, JPEG, GIF, WebP, and BMP files up to 20 MB.
 
-**Colour** picks one of six swatches: None, Clay, Sand, Moss, Sky, and Iris. It sits behind your initials whenever there is no picture, so it is the one identity control everybody actually sees.
+**Colour** sets the background used for your initials when no profile picture is set. Available colours are:
+
+* None
+* Clay
+* Sand
+* Moss
+* Sky
+* Iris
 
 <!-- image idea: the Profile page with the name field, picture control, and colour swatches together -->
 
-## Where it shows up
+## Where your profile appears
 
-The same name, picture, and colour appear in the sidebar's profile row at the bottom of the rail, and in the setup wizard's identity step the first time you open Mnemo. The picture also shows on anything you share as an export.
+Your profile is used in the sidebar, during first-run setup, and in supported exports.
 
-## Nothing leaves your machine
+## Privacy
 
-The picture you upload is copied into a local folder on disk and served back to the app from there; nothing is sent anywhere else, because Mnemo has no accounts and no server to hold it. Backing up that folder along with the rest of your library is a job for Settings under Storage & data, not for this page.
+Your profile information stays on your device.
+
+For backups, see [Storage and backup](./storage-and-backup.md).
 
 ## Related
 
-- [Themes](./themes.md) covers the appearance settings that sit next to Profile in Settings.
-- [Your first session](../getting-started/your-first-session.md) for what comes after the setup wizard asks for your name.
+* [Themes](./themes.md)
+* [Your first session](../getting-started/your-first-session.md)

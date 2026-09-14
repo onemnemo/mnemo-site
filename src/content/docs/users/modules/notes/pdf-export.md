@@ -1,10 +1,10 @@
 ---
 title: Export to PDF
-description: Page setup, what to include, and what does not make it onto paper.
+description: Page setup, what to include, and what does not print.
 order: 11
 ---
 
-A PDF is the copy of a note you hand to someone who does not run Mnemo: a fixed layout that prints. **Export as PDF** sits in the note pane's actions menu, and `Ctrl+Enter` saves from anywhere in the dialog (`Cmd+Enter` on macOS).
+**Export as PDF** is in the note's actions menu. `Ctrl+Enter` exports from anywhere in the dialog (`Cmd+Enter` on macOS).
 
 ## Page setup
 
@@ -17,24 +17,22 @@ A PDF is the copy of a note you hand to someone who does not run Mnemo: a fixed 
 | Page numbers   | None, Left, Centered, Right                                       |
 | Number style   | `x`, `x / y`, "Page x of y"                                       |
 
-The dialog opens on A4, portrait, Normal margins, Medium text, and centered `x / y` numbering every time.
+The dialog always opens with A4, portrait, Normal margins, Medium text, and centered `x / y` page numbers.
 
 <!-- image idea: the PDF export dialog with the page setup rail beside a two-page preview -->
 
 ## What to include
 
-Five switches, all on: **Note title**, **Tags**, **Highlights & colors**, **Images & figures**, and **Sub-page links**. Turning images off drops every picture and sketch, the quickest way to shorten a long note.
+Five switches, all on by default: **Note title**, **Tags**, **Highlights & colors**, **Images & figures**, and **Sub-page links**. Turning images off also drops sketches.
 
-## What does not make it onto paper
+## What does not print
 
-Blocks keep their formatting, with four exceptions:
-
-- **Per-cell table tints are dropped.** Header rows and columns keep their shading.
-- **Emoji do not print.** The document uses Mnemo's bundled fonts rather than whatever is installed on your machine, and those fonts carry no emoji.
-- **Sub-page content does not come along.** Sub-page rows print as titles; export a sub-page separately when you need it.
-- **An image whose file cannot be read prints its alt text.** It appears in italics rather than failing the document.
+- **Per-cell table colors.** Header row and column shading is kept.
+- **Emoji.** They are left out of the document.
+- **Sub-page content.** Sub-pages print as their titles only. Export a sub-page separately if you need it.
+- **Images whose file cannot be read.** Their alt text prints in italics instead.
 
 ## Related
 
-- [Import and export](./import-export.md) for the formats that come back in again.
-- [Tables](./tables.md) for the header shading and column widths that survive the trip.
+- [Import and export](./import-export.md) covers formats that can be imported back.
+- [Tables](./tables.md) covers header shading and column widths.

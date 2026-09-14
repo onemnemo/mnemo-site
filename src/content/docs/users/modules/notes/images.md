@@ -1,37 +1,36 @@
 ---
 title: Images in notes
-description: Importing, captions, resizing, and where pictures are stored.
+description: Adding images, captions, resizing, cropping, and where images are stored.
 order: 6
 ---
 
-An image in a note is a block like any other: it drags, duplicates, and deletes the same way text does.
+Images are blocks: they move, duplicate, and delete like any other block.
 
 ## Adding an image
 
-Three ways, in rough order of frequency:
+- **Paste** an image from the clipboard.
+- **Drop** image files onto the editor. Each file becomes its own block.
+- **Insert an Image block** from the slash menu and click it to pick a file.
 
-1. **Paste.** Copy an image anywhere, including from a browser, and paste it into the note.
-2. **Drop.** Drag image files straight into the editor; each becomes its own block, and the whole drop undoes as one step.
-3. **The slash menu.** Insert an Image block and click it to open a file picker.
-
-PNG, JPEG, GIF, WebP, and BMP work, up to 20 MB per image.
-
-Pasting a picture that already lives in another note restages it as a fresh copy of its own, so the two notes never point at the same file; while that runs, a progress card reports how many images are done and offers a cancel, which drops the whole paste before anything lands in the note.
+PNG, JPEG, GIF, WebP, and BMP are supported, up to 20 MB per image. Pasting an image from another note creates a separate copy.
 
 ## Captions, size, and alignment
 
-Every image carries an editable caption line that travels with it, a drag handle on its edge for resizing, and controls to sit it left, center, or right.
+Every image has a caption line, a drag handle for resizing, and controls to align it left, center, or right.
 
 <!-- image idea: an image block selected, showing resize handle and align controls -->
 
 ## The image menu
 
-Right-click a picture, or hover it for its **Image options** button, for **Replace image**, **Crop and reposition**, **Caption**, **Align**, and **Size**, then **Copy image** and **Download**, then **Delete**.
-**Crop and reposition** opens the crop dialog: pick an aspect preset or crop freely, then drag the window to frame the picture; dropping or pasting a different picture in while the dialog is open replaces the image outright.
-**Size** snaps the width to 25%, 50%, 75%, or 100% of the column.
-**Copy image** and **Download** act on the picture as cropped, not the original file behind it.
-**Delete** removes the block, or the whole selection when several blocks are selected.
+Right-click an image, or hover it and press **Image options**, for **Replace image**, **Crop and reposition**, **Caption**, **Align**, **Size**, **Copy image**, **Download**, and **Delete**.
 
-## Where images live
+**Crop and reposition** lets you pick an aspect ratio or crop freely, then drag to frame the picture. **Size** snaps the width to 25%, 50%, 75%, or 100% of the column. **Copy image** and **Download** use the cropped image, not the original file.
 
-Images are stored inside Mnemo's local data folder and referenced by the note rather than embedded in it. A pasted picture is uploaded as actual pixels, not hotlinked, so the note never depends on some website staying up.
+## Where images are stored
+
+Images are stored in Mnemo's local data folder and referenced by the note, not embedded in it. Pasted images are saved as files, not linked to their source.
+
+## Related
+
+- [Working with blocks](./working-with-blocks.md) covers moving and selecting blocks.
+- [Import and export](./import-export.md) covers which export formats keep images.

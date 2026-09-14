@@ -42,9 +42,9 @@ export interface ToastOptions {
 - **`notificationAction` is a link, not a callback.** A callback cannot outlive the toast that carried it; the notification list takes an `href` instead.
 - **`onDismissed` fires only on the close control,** never on auto-dismiss and never after an action.
 
-Strings arrive translated, since the stores are i18n-agnostic: callers resolve text with `t(namespace, key)`, from `useT` inside a component and `createTranslate` outside one. The standard is absolute: "Every string is a translation key, present in `en`, `de`, `es`, `ja`, `nb`."
+Strings arrive translated, since the stores are i18n-agnostic: callers resolve text with `t(namespace, key)`, from `useT` inside a component and `createTranslate` outside one.
 
-## A progress toast becomes its own receipt
+## Updating a progress toast
 
 Do not raise a second toast when long work finishes. Keep the id and patch the card already on screen:
 
@@ -63,7 +63,7 @@ Leaving `progress` restores the default duration, and the notification entry is 
 
 ## Asking a question and waiting for the answer
 
-`dialog.confirm` resolves to a boolean, and `dialog.prompt` to the entered string or to `null` on cancel. `ConfirmOptions` takes `title`, `message`, `confirmLabel` (default `"Confirm"`), `cancelLabel` (default `"Cancel"`), and `destructive`, which paints the accept button in the danger colour. `InputOptions` swaps `destructive` for `defaultValue` and `placeholder`, and defaults `confirmLabel` to `"Save"`.
+`dialog.confirm` resolves to a boolean, and `dialog.prompt` to the entered string or to `null` on cancel. `ConfirmOptions` takes `title`, `message`, `confirmLabel` (default `"Confirm"`), `cancelLabel` (default `"Cancel"`), and `destructive`, which paints the accept button in the danger color. `InputOptions` swaps `destructive` for `defaultValue` and `placeholder`, and defaults `confirmLabel` to `"Save"`.
 
 ```ts
 return dialog.confirm({

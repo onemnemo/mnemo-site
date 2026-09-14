@@ -1,29 +1,38 @@
 ---
+
 title: Themes
-description: Light, Dark, following the system, and how much the app moves.
+description: Choose how Mnemo looks and how much it moves.
 order: 1
 ---
 
-Mnemo ships two themes, Light and Dark, plus the option of letting your operating system pick between them. They live in Settings under Appearance.
+Theme settings are available under **Settings → Appearance**.
 
-## Light, Dark, and the system
+## Theme
 
-Light is the default. **Match system** keeps listening while Mnemo is open, so a machine that flips to dark in the evening takes the app with it.
+Choose between:
 
-Earlier builds shipped four themes: Dawn, Noon, Dusk, and Ember. Those names are gone, but your choice is not. Dawn and Noon land on Light, Dusk and Ember land on Dark.
+* **Light**
+* **Dark**
+* **Match system**
+
+**Match system** follows your operating system's current appearance.
 
 <!-- image idea: the Appearance theme gallery with the Light, Dark, and Match system cards side by side -->
 
-## How much the app moves
+## Motion
 
-**Reduce motion**, in the Interface group, defaults to **Match system**; **Full motion** and **Reduced motion** override it. Reduced motion takes animation durations to zero and removes the short distance popovers and toasts travel.
+**Reduce motion** controls interface animations.
 
-## Also on this page
+Choose:
 
-Your profile picture is not here: it sits in Settings under Profile.
+* **Match system**
+* **Full motion**
+* **Reduced motion**
+
+Reduced motion minimizes animations throughout Mnemo.
 
 ## Related
 
-- [Tuning the editor](./editor-appearance.md) covers width, spacing, and text sizes.
-- [Keyboard shortcuts](./keyboard-shortcuts.md) is where the rest of the app's feel gets tuned.
-- [Profile](./profile.md) covers the picture and identity settings that Appearance does not.
+* [Tuning the editor](./editor-appearance.md)
+* [Keyboard shortcuts](./keyboard-shortcuts.md)
+* [Profile](./profile.md)

@@ -4,29 +4,27 @@ description: Review, Cram, and Test, and what each one records.
 order: 4
 ---
 
-The Study button on a deck starts a scheduled Review; the menu behind it holds two practice modes that deliberately leave your schedule alone. Knowing which mode records what keeps practice from polluting the data your scheduler learns from.
+**Study** on a deck starts a scheduled Review. The menu beside it holds two practice modes, Cram and Test, which never change your schedule.
 
 ## Review
 
-Review is the real thing: the scheduler builds a queue of cards that are due, you grade each one, and every grade updates that card's future.
+Review shows the cards that are due. Each grade updates that card's schedule.
 
-`Ctrl+Z` undoes more than the last grade: press it again to keep stepping back through the cards you have graded this session, one at a time, and each step restores the schedule that card had before you graded it. `E` opens the card editor without leaving the session, and the session picks up where you left off.
+`Ctrl+Z` undoes the last grade, and pressing it again steps back through earlier cards, restoring each one's previous schedule. `E` opens the card editor without leaving the session.
 
 ## Cram
 
-Cram runs through a deck's cards (due ones, or all of them) without touching scheduling at all. It is for the night before an exam, or for warming up a deck you have been away from.
+Cram runs through a deck's due cards, or all of them, without touching the schedule. Use it before an exam or to warm up on a deck you have not seen for a while.
 
 ## Test
 
-Test is typed practice: the front appears with an answer box, you type what you recall, reveal, and see your answer next to the correct one. You grade yourself **Missed**, **Close**, or **Got it**, with Close counting half. At the end you get a score, how it compares to your last attempt, your best, and a small trend of recent tests.
-
-The score screen offers to retake just the cards you graded Missed. The retake draws a fresh queue, so a card suspended or deleted since your last attempt does not come back.
+Test is typed practice. Type your answer, reveal the correct one, and grade yourself **Missed**, **Close**, or **Got it**. Close counts as half. The score screen compares the result with your last attempt and your best, and offers a retake of the cards you missed.
 
 <!-- image idea: test mode score screen with the trend sparkline -->
 
 ## Keyboard shortcuts
 
-On macOS, read Ctrl as Cmd. Every chord below is the default; you can remap any of them from Settings under Keyboard.
+On macOS, read Ctrl as Cmd. All shortcuts can be remapped in Settings under Keyboard.
 
 | In Review  | Does                             |
 | ---------- | -------------------------------- |
@@ -46,8 +44,9 @@ On macOS, read Ctrl as Cmd. Every chord below is the default; you can remap any 
 
 ## What counts where
 
-All three modes count toward your overall study activity (cards seen, minutes studied). Only Review ever changes scheduling and retention.
+All three modes count toward study activity (cards seen, minutes studied). Only Review changes scheduling and retention.
 
 ## Related
 
-- [Keyboard shortcuts](../../customization/keyboard-shortcuts.md) covers the remapping manager, including how conflicts are flagged.
+- [Keyboard shortcuts](../../customization/keyboard-shortcuts.md) covers remapping.
+- [How scheduling works](./how-scheduling-works.md) covers what a Review grade does.

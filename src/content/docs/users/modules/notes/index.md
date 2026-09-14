@@ -1,7 +1,7 @@
 ---
 title: Notes
-description: A focused editor for learning in your own words.
+description: A block-based editor for your own notes.
 order: 3
 ---
 
-The notes module is where material gets rewritten into something your brain owns: every line is a block, and structure comes from the slash menu or from markdown as you type.
+Write and organize notes in a block-based editor. Structure comes from the slash menu or from markdown shortcuts as you type.

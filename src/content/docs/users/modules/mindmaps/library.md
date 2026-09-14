@@ -1,35 +1,29 @@
 ---
 title: The map library
-description: Folders, filing, and the badge that ties maps to study.
+description: Folders, filing, and creating a map.
 order: 2
 ---
 
-The library is what the mindmaps module opens on: every map you have made, drawn as itself, because a map is recognized by its shape long before its title is read.
+The mindmaps module opens on the library: every map, shown as a thumbnail, with folders to file them in.
 
-<!-- image idea: the mindmap library in grid view with a folder card, several map thumbnails, and a due badge -->
+<!-- image idea: the mindmap library in grid view with a folder card and several map thumbnails -->
 
 ## Folders and filing
 
-**New** creates either a **Map** or a **Folder** at whatever level is open, and folders nest. Filing a map is a drag: drop it on a folder card or row to move it in, or on a crumb in the breadcrumb trail, the root crumb included, to move it back out.
+**New** creates a **Map** or a **Folder** at the current level. Folders nest. Drag a map onto a folder to file it, or onto a crumb in the breadcrumb trail to move it back out.
 
-Every card also carries a menu: an overflow button that appears on hover, or a right-click anywhere on the card, and either opens the same list.
+Hover a card for its menu button, or right-click it. A map's menu holds **Rename**, **Duplicate**, **Export**, and **Delete**; a folder's holds **Rename** and **Delete**.
 
-A map's menu holds **Rename**, **Duplicate**, **Export**, and **Delete**; a folder's holds just **Rename** and **Delete**, since filing one is the drag above, not a menu item.
+**Delete** moves the map or folder to the trash without asking first, and a toast offers **Undo**. See [Trash](../../customization/trash.md) for restoring it later.
 
-**Delete** does not ask you to confirm. It moves the map or folder to the trash and raises an undo toast instead; see [Trash](../../customization/trash.md) for how long it waits there and what a restore brings back.
+## Creating a map
 
-## The due badge does not appear yet
-
-A map card can carry a badge counting the cards waiting in the decks that map is linked to, and a folder header the same sum for its subtree. The link is stored with the map, and nothing in this beta writes one, so no badge appears in practice. A node pointing at a deck is a reference you can follow, not that link.
-
-## Making a map
-
-**New** and then **Map** opens a small dialog holding a name and a starting template. Six ship: **Dawn Classic**, the default, plus **Rainbow Branches**, **Monochrome**, **Study**, **Org Chart**, and **Blueprint**. The template is asked for here because changing it later restyles a map you have already made decisions about.
+**New** and then **Map** asks for a name and a starting template. Six templates ship: **Dawn Classic** (the default), **Rainbow Branches**, **Monochrome**, **Study**, **Org Chart**, and **Blueprint**. You can switch palette later from **Map style** on the canvas.
 
 <!-- image idea: the new mindmap dialog with the starting template row and one template selected -->
 
 ## Related
 
-- [First steps](./first-steps.md): build your first map once the library has made you one.
-- [Node types and styling](./node-types-and-styling.md): what a template actually changes.
-- [Export and import](./export-and-import.md): the **Transfer** button in the library header, in full.
+- [First steps](./first-steps.md) covers building your first map.
+- [Node types and styling](./node-types-and-styling.md) covers what a template changes.
+- [Export and import](./export-and-import.md) covers **Transfer** in the library header.

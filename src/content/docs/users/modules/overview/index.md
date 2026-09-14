@@ -1,26 +1,27 @@
 ---
 title: Overview
-description: The widget board you land on, and how to rearrange it.
+description: The home board and its widgets.
 order: 1
 ---
 
-Overview is the page Mnemo opens on: a board of widget tiles. A new profile starts with one already filled in.
+Overview is the page Mnemo opens on: a board of widgets drawn from the rest of your library.
 
 <!-- image idea: the overview board on first run, Today across the top and five tiles under it -->
 
 ## Customizing the board
 
-**Customize** starts an edit session. Drag a tile to move it, resize it with the size chips, or remove it; each widget supports its own set of sizes. Some widgets also carry a gear, and those settings belong to the tile rather than the widget type, so two copies of one widget can be set differently.
+**Customize** puts the board in edit mode. Drag a widget to move it, use the size chips to resize it, or remove it. Widgets with a gear have settings of their own, set per tile, so two copies of the same widget can be configured differently.
 
-**Done** saves. Escape cancels, and so does leaving Overview, reverting the board to how it stood when you pressed **Customize**. **Reset layout** restores the starter board, and cancelling undoes that too.
+**Done** saves the layout. `Escape` or leaving the page discards the changes. **Reset layout** restores the default board.
 
 ## Adding widgets
 
-**Add widget** opens the gallery, where widgets are grouped under Study, Flashcards, Notes, and Soma. Adding drops a tile into the first free cell.
+**Add widget** opens the gallery, grouped into Study, Flashcards, Notes, and Soma. Soma widgets appear only when Soma is enabled.
 
-The Soma widgets appear only once Soma is enabled; see [Soma](../../soma/index.md) for how. The Community group is not usable in this release: you cannot install a widget somebody else wrote.
+The Community group is not usable in this release; widgets made by other people cannot be installed.
 
 ## Related
 
-- [Flashcards](../flashcards/index.md) covers the decks the study tiles count.
-- [Notes](../notes/index.md) covers the notes the recent list draws from.
+- [Flashcards](../flashcards/index.md) covers the decks the study widgets count.
+- [Notes](../notes/index.md) covers the notes the recent list shows.
+- [Soma](../../soma/index.md) covers enabling Soma.

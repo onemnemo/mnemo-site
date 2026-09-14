@@ -1,21 +1,21 @@
 ---
 title: How saving works
-description: The save shortcut, the conflict warning, and turning autosave off.
+description: Autosave, the save shortcut, and the conflict warning.
 order: 10
 ---
 
-Mnemo saves as you write, and there is no save button. `Ctrl+S` (`Cmd+S` on macOS) writes immediately.
+Notes save automatically as you write. `Ctrl+S` (`Cmd+S` on macOS) saves immediately.
 
-## When a save goes wrong
+## When a save fails
 
-The status line in the note's top right corner is blank until a save fails: **Retrying...** covers three attempts, **Couldn't save** means they ran out, and **Recovered** means a later one landed.
+The status in the note's top right corner shows **Retrying** while Mnemo tries again, **Couldn't save** if it gave up, and **Recovered** once a later save succeeds.
 
-**Changed somewhere else** is the one to act on. The note was written by something else since you opened it, so Mnemo stopped saving rather than overwrite that version. **Reload** adopts the other version and discards whatever you typed here that had not saved yet, so copy that out first.
+**Changed somewhere else** means the note was modified outside this editor since you opened it, and Mnemo has stopped saving to avoid overwriting that version. **Reload** loads the other version and discards your unsaved changes, so copy them out first.
 
 ## Turning autosave off
 
-**Auto-save** lives in Settings under Editor and is on by default. With it off you decide when the note is committed, with `Ctrl+S`. Closing a note or the window saves either way.
+**Auto-save** is in Settings under Editor, on by default. With it off, save with `Ctrl+S`. Closing the note or the window saves either way.
 
 ## Related
 
-- [Tuning the editor](../../customization/editor-appearance.md) for the rest of Settings under Editor.
+- [Tuning the editor](../../customization/editor-appearance.md) covers the rest of Settings under Editor.

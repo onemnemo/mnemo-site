@@ -14,7 +14,7 @@ Mnemo is a local-first desktop app built as strict layers. The rule that holds e
 
 **Mnemo.Host** is the delivery layer for the new UI: an ASP.NET Core minimal API bound strictly to loopback, plus the native window that hosts the web app. It composes the whole service graph and exposes it as REST endpoints under `/api`. See [The local API](./the-local-api.md).
 
-**mnemo-web** is the React SPA: React, TypeScript, Vite, with the ProseMirror-based notes editor. It holds presentation state and talks to the Host through a small typed fetch wrapper; business rules stay on the C# side. Source is organized folder-by-feature (`src/notes`, `src/flashcards`, `src/settings`, and so on). For the toast, dialog, modal, and tooltip primitives a feature reaches for instead of building its own, see [Web UI primitives](../ui/index.md).
+**mnemo-web** is the React SPA: React, TypeScript, Vite, with the ProseMirror-based notes editor. It holds presentation state and talks to the Host through a small typed fetch wrapper; business rules stay on the C# side. Source is organized folder-by-feature (`src/notes`, `src/flashcards`, `src/settings`, and so on).
 
 ## Modules
 
@@ -33,5 +33,5 @@ A change that spans layers lands as: interface in Core, implementation in Infras
 
 ## Related
 
-- [Web UI primitives](../ui/index.md) for the toast, dialog, modal, and tooltip building blocks most `mnemo-web` features reach for.
+- [Web UI primitives](../ui/index.md) for the shared toast, dialog, modal, and tooltip components.
 - [The local API](./the-local-api.md) for how mnemo-web reaches the Host.

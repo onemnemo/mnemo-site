@@ -1,38 +1,65 @@
 ---
+
 title: The side peek
-description: A read-only panel for looking at one thing without leaving another.
+description: View a note, card, or Soma without leaving your current page.
 order: 4
 ---
 
-The side peek holds one note, one card, or Soma beside or over whatever you are working on, so you can check something without navigating away.
+The side peek lets you keep a note, card, or Soma open beside your current work.
 
-## What you can open in it
+## Open something in the side peek
 
-A note from the sidebar tree: hold `Alt` and click the row, or focus it and press `Alt+Enter`. Alt plus a drag is the window gesture on most Linux desktops, so `Alt+Enter` is the binding that always works. **Open in side peek** also sits in the row's right-click menu and in a note tab's menu.
+For notes, you can:
 
-A card from **Browse cards**: right-click a row and choose **Open in side peek**, the roomier cousin of the same menu's **Peek**.
+* Hold `Alt` and click a note in the sidebar
+* Focus a note and press `Alt+Enter`
+* Choose **Open in side peek** from a note's context menu or tab menu
 
-Soma, from the panel button in the assistant dock's header; the dock closes as the peek opens, since one conversation with two composers is a way to lose half of what you typed.
+For cards, open **Browse cards**, right-click a card, and choose **Open in side peek**.
 
-It shows one item at a time, so opening something new replaces what was there.
+Soma can also be opened in the side peek from the assistant dock.
 
-## Nothing in it can be edited
+The side peek shows one item at a time. Opening another replaces the current one.
 
-The peek reads and never writes. A peeked note is a snapshot taken when the panel opened, and **Refresh** re-reads it. A link inside it opens that note in the peek, and an external address opens in your system browser. **Open full** promotes the item to the main view and closes the panel, unless you pinned it. A note past two thousand blocks is not rendered: the panel says so and offers **Open full** instead.
+## Notes are read-only
+
+Notes opened in the side peek cannot be edited.
+
+Use **Refresh** to reload the note if it changed elsewhere. Links to other notes open inside the side peek, while external links open in your browser.
+
+Choose **Open full** to open the current item in the main view.
+
+Very large notes with more than 2,000 blocks open in the main view instead.
 
 <!-- image idea: a note open in a tab with a second note in the side peek beside it -->
 
-## Where it sits and how it closes
+## Layout
 
-The options menu offers **Overlay**, **Dock right**, and **Dock left**. An overlay floats over the module and leaves a strip of it showing; docked, it takes a column of its own and the module reflows around it. Overlay adds two controls docking has no use for: **Background** opacity, from 40 to 100 percent, and **Collapse**, which folds the panel into a rail without dropping the item.
+The side peek can be:
 
-Drag the seam on the panel's inner edge to resize it, or focus the seam and use the arrow keys. The width stays between 400 and 760 pixels.
+* **Overlay**
+* **Dock right**
+* **Dock left**
 
-Escape closes an unpinned overlay and nothing else: docked or pinned, the panel is furniture you put there on purpose, so it closes from its own button. The shape you pick survives a restart; the item never does, so the peek always starts closed.
+Overlay mode floats above the current module. Docked mode gives the panel its own column.
+
+In overlay mode, you can also adjust the background opacity or collapse the panel into a narrow rail.
+
+Drag the inner edge to resize the panel. You can also focus the resize handle and use the arrow keys.
+
+The panel can be between 400 and 760 pixels wide.
+
+## Closing and pinning
+
+Press `Escape` to close an unpinned overlay.
+
+Pinned or docked panels stay open until you close them manually.
+
+Your layout choice is remembered between launches, but the side peek itself starts closed.
 
 ## Related
 
-- [Global search](./global-search.md) is the other way to reach something without losing your place.
-- [Browsing and search](../modules/flashcards/browsing-and-search.md) covers the card browser the card peek opens from.
-- [Tabs](../modules/notes/tabs.md) explains the notes workspace the peek sits beside.
-- [Soma](../soma/index.md) covers the assistant that also lives in the dock and on its own page.
+* [Global search](./global-search.md)
+* [Browsing and search](../modules/flashcards/browsing-and-search.md)
+* [Tabs](../modules/notes/tabs.md)
+* [Soma](../soma/index.md)

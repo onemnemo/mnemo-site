@@ -1,29 +1,29 @@
 ---
 title: First steps
-description: Your first map, from a single central idea outward.
+description: Creating a map and the keys that grow it.
 order: 1
 ---
 
-A mindmap starts with one node and grows outward. This guide builds a small map and covers the moves you will use constantly.
+A mindmap starts from one node and grows outward. This page covers creating a map and the moves you use most.
 
 <!-- image idea: a small map on the canvas with the floating tool dock at the bottom and a selected node showing its bar -->
 
-## Plant the center
+## Create a map
 
-A new map asks for a name and a starting style, then opens on an empty canvas. Press the node tool (or `N`), click where the node belongs, and type. Name that first node after the subject, as one word or a short phrase. Everything else hangs off it, so keep it broad: "Photosynthesis", not "Photosynthesis chapter 4.2".
+**New** and then **Map** asks for a name and a starting template, then opens an empty canvas. Press `N` for the node tool, click where the first node should go, and type. Name it after the subject and keep it broad; everything else hangs off it.
 
-## Grow branches, not lists
+## Grow the map from the keyboard
 
-Two keys carry the map once a node is selected: `Tab` adds a child under it and puts the caret straight in the new node, and `Enter` adds a sibling next to it. That pair is why a map is quicker to write than to draw. `Shift+Tab` is the way back, taking a node out from under its parent and dropping it beside it. Double-click any node to reopen its label.
+With a node selected, `Tab` adds a child and puts the caret in it, `Enter` adds a sibling, and `Shift+Tab` moves the node out from under its parent. Double-click any node to edit its label.
 
-## Cross-link the branches
+## Link branches
 
-Arm the connect tool (`C`) and drag from one node to another to link two branches that touch the same concept; drawing the same link a second time takes it away again. A map without cross-links is an outline with extra steps.
+Press `C` for the connect tool and drag from one node to another to draw a link between branches. Drawing the same link again removes it.
 
-Keep a map small enough to take in at a glance, because that glance is what you replay later. When a branch gets crowded, promote it to its own map.
+When a branch gets crowded, move it into its own map.
 
 ## Related
 
-- [Editing the canvas](./editing-the-canvas.md): the outliner keys, the tool dock, and the radial menu.
-- [The map library](./library.md): where your maps live and how folders find one again.
-- [Node types and styling](./node-types-and-styling.md): what a node can hold beyond text.
+- [Editing the canvas](./editing-the-canvas.md) covers every key, the tool dock, and the radial menu.
+- [The map library](./library.md) covers folders and the new map dialog.
+- [Node types and styling](./node-types-and-styling.md) covers what a node can hold and how a map looks.

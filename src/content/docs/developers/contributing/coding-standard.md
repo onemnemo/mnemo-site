@@ -4,7 +4,7 @@ description: What the standard covers, where it lives, and what gets a pull requ
 order: 2
 ---
 
-Mnemo's standard lives in the repository under `standards/`, split by topic. That directory is the source of truth; where this page disagrees with it, the repo wins.
+Mnemo's standard lives in the repository under `standards/`, split by topic. It exists to keep the codebase clean, maintainable, and consistent, and to give contributors a clear picture of how the codebase should be handled. That directory is the source of truth; where this page disagrees with it, the repo wins.
 
 ## Where the standard lives
 
@@ -23,11 +23,11 @@ Mnemo's standard lives in the repository under `standards/`, split by topic. Tha
 
 ## The rules that get a pull request sent back
 
-`AGENTS.md` at the root carries the non-negotiables. The ones reviewers catch most often:
+`AGENTS.md` at the repository root carries the non-negotiables. It is written so that AI-assisted workflows follow the project's standards and reviews need fewer rounds. The rules reviewers catch most often:
 
 - **No em dashes or en dashes, anywhere a person can read.** Comments, commit messages, translation JSON, release notes. Use a comma, parentheses, or a new sentence.
-- **No `TODO`, `FIXME`, or `HACK` markers.** The follow-up goes into `future-review/` instead, with what is wrong and what a fix involves.
-- **No references to internal documents in code or commits.** No milestone identifiers, no section numbers, no plan filenames; those files are private.
+- **No `TODO`, `FIXME`, or `HACK` markers.** The follow-up goes into `future-review/` instead, with what is wrong and what a fix involves. An entry there can later be turned into [an issue](https://github.com/onemnemo/mnemo/issues/new).
+- **No references to internal documents in code or commits.** No milestone identifiers, section numbers, or plan filenames. Those files are private, and a reference to them means nothing to anyone who cannot open them.
 - **Every user-facing string is a translation key,** present in `en`, `de`, `es`, `ja`, and `nb`.
 - **A performance number needs a proof of correct output from the same run.** A render optimization that renders nothing always wins the benchmark.
 

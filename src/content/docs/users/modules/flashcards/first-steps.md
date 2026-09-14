@@ -4,29 +4,27 @@ description: Decks, cards, and the review loop.
 order: 1
 ---
 
-This guide covers the three ideas the flashcards module is built on: decks hold cards, sessions review them, and the scheduler decides when.
+The flashcards module has three parts: decks hold cards, sessions review them, and the scheduler decides when each card is due.
 
 ![A review session in the flashcards module](./assets/review-session.png)
 
 ## Decks
 
-A deck is a container for cards that belong together, usually one subject or one course. Prefer a few broad decks over many narrow ones; the scheduler works per card, so splitting a subject into twenty decks only adds bookkeeping.
+A deck holds cards that belong together, usually one subject or course. Prefer a few broad decks over many small ones; tags and filters handle finer grouping.
 
 ## Writing cards that work
 
-The quality of your reviews is set the moment you write the card:
-
 - **One fact per card.** If the answer has three parts, make three cards.
-- **Ask, do not describe.** A card should pose a question your brain can genuinely try to answer before the reveal.
-- **Write in your own words.** Copied sentences test recognition; your own phrasing tests recall.
+- **Ask a question.** A card should be something you can try to answer before revealing the back.
+- **Use your own words.** Copied sentences test recognition; your own phrasing tests recall.
 
 ## The review loop
 
-A session shows you each due card and asks how it went once you have recalled the answer. That self-grade drives the schedule: hard cards return quickly, easy ones stretch out over days, then weeks, then months.
+A session shows each due card. You recall the answer, reveal it, and grade how well it went. The grade sets when the card comes back: hard cards return soon, easy ones stretch out over weeks and months.
 
-Missing a day is fine. Due cards wait, and the schedule adapts.
+Missing a day is fine. Due cards wait until you return.
 
 ## Related
 
-- [Your first session](../../getting-started/your-first-session.md) if you have not run a review yet.
-- [Notes first steps](../notes/first-steps.md) for capturing material before it becomes cards.
+- [Your first session](../../getting-started/your-first-session.md) walks through a review.
+- [Writing cards](./writing-cards.md) covers card types, cloze, formulas, and images.

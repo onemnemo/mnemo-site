@@ -1,7 +1,7 @@
 ---
 title: Modules
-description: Overview, flashcards, notes, and mindmaps, one section each.
+description: Overview, flashcards, notes, and mindmaps.
 order: 2
 ---
 
-Mnemo is built from modules that share one library. Overview pulls from all of them; the rest stand alone, so you can live entirely in flashcards and never open a mindmap.
+Mnemo is organized into modules: Overview, flashcards, notes, and mindmaps. They share one library, and each one works on its own.

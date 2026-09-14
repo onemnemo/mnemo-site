@@ -1,43 +1,43 @@
 ---
 title: Review settings
-description: Presets, daily limits, scheduling, leeches, fitted weights, and session options.
+description: Presets, daily limits, retention, leeches, fitted weights, and session options.
 order: 5
 ---
 
-Every deck points at a preset, a named bundle of scheduling settings. Presets are shared: edit one and every deck using it follows. Mnemo ships a Standard preset that new decks use; add your own from the Review settings dialog on any deck's menu. **Restore defaults** returns the selected preset to those values, its name aside.
+Every deck uses a preset, a named bundle of scheduling settings. Presets are shared: editing one changes every deck that uses it. New decks use the built-in Standard preset. Open **Review settings** from a deck's menu to edit the preset or create a new one. **Restore defaults** resets the selected preset's values.
 
 ## Daily limits
 
-**New cards per day** and **Maximum reviews per day** are the throttle, defaulting to 20 new and 200 reviews. If a backlog is drowning you, lowering new cards is almost always the right lever; every new card is a stream of future reviews.
+**New cards per day** (default 20) and **Maximum reviews per day** (default 200). If reviews are piling up, lower the new card limit first; every new card adds future reviews.
 
 ## Desired retention
 
-The algorithm is FSRS-6 and cannot be changed. The retention slider (80% to 97%) tells the scheduler how much forgetting you will tolerate: higher retention means shorter intervals and more daily work, lower means fewer reviews and more lapses. The default is 90%; nudge it up for high-stakes exams, down for low-stakes volume.
+The share of reviews you want to pass, from 80% to 97%, default 90%. Higher retention means shorter intervals and more daily reviews; lower means fewer reviews and more lapses. Mnemo uses FSRS, and the algorithm itself cannot be changed.
 
 ## Learning steps
 
-The minute-scale ladder new cards climb before they graduate to day-scale scheduling, written as spaced values like `1m 10m`. Fewer or shorter steps push cards out to FSRS faster; more steps give shaky material extra same-day repetitions.
+The same-session steps a new card goes through before it gets day-scale intervals, written as space-separated values such as `1m 10m`. Fewer steps move cards to long intervals sooner; more steps give difficult material extra repetitions on the first day.
 
 ## Day start and leeches
 
-[How scheduling works](./how-scheduling-works.md) explains what a leech is and why a study day needs a rollover hour; this is where both are set.
+| Setting                   | Controls                                        | Default      | Range          |
+| ------------------------- | ----------------------------------------------- | ------------ | -------------- |
+| Next day starts at        | The hour a study day rolls over                 | 04:00        | 00:00 to 23:00 |
+| Lapse limit               | Again grades before a card counts as a leech    | 8            | 1 to 999       |
+| When the limit is reached | Do nothing, tag the card, or tag and suspend it | Tag the card | n/a            |
 
-| Setting                    | Controls                                        | Default      | Range          |
-| -------------------------- | ------------------------------------------------ | ------------ | -------------- |
-| Next day starts at         | The local hour a study day rolls over           | 04:00        | 00:00 to 23:00 |
-| Lapse limit                | Again grades before a card counts as a leech    | 8            | 1 to 999       |
-| When the limit is reached  | Do nothing, tag the card, or tag and suspend it | Tag the card | n/a            |
-
-Tag and suspend also pulls the card out of review until you deal with it; the other two leave it in the queue.
+See [How scheduling works](./how-scheduling-works.md) for what leeches and the study day mean.
 
 ## Fitted weights
 
-**Fit weights to your reviews** fits FSRS's memory weights to every review logged by decks on this preset, and only when you press **Optimize**; nothing runs on its own. It needs 400 scored reviews before it produces anything, and reports how far along you are short of that. Past that, it either offers **Apply** for a vector that predicts your recall meaningfully better than what is running, or confirms your history already matches it. Applying lands immediately, not on the dialog's own **Save**, since every deck on the preset schedules from the new vector at once. A preset with fitted weights also offers **Use defaults**, which drops the fit for FSRS's built-in defaults immediately.
+**Fit weights to your reviews** tunes FSRS to your own review history. Nothing runs automatically: press **Optimize** to start. It needs at least 400 reviews on the preset's decks. If the result predicts your recall better than the current weights, **Apply** puts it into effect immediately, without saving the dialog. **Use defaults** returns to the built-in weights.
 
 ## Session options
 
-**Shuffle card order** randomizes the queue, so your memory of the order cannot do the card's job. **Bury related cards until tomorrow** holds back the other cards generated from the same note until the next study day; it is on by default, so several cloze deletions from one note will not all surface in one session. **Auto-reveal answer** flips each card for you after 5 or 10 seconds.
+- **Shuffle card order.** Randomizes the review queue.
+- **Bury related cards until tomorrow.** Holds back other cards made from the same material until the next study day, so several cloze cards from one text do not all appear in one session. On by default.
+- **Auto-reveal answer.** Reveals each card after 5 or 10 seconds.
 
 ## Related
 
-- [How scheduling works](./how-scheduling-works.md) for what these dials actually feed.
+- [How scheduling works](./how-scheduling-works.md) explains what these settings feed.

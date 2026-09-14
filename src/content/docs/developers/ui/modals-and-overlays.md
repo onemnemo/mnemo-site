@@ -8,7 +8,7 @@ Two things share a name here and should not be confused. `Modal` is a real compo
 
 ## The Modal shell
 
-`mnemo-web/src/components/ui/modal.tsx` is hand-built rather than a Radix dialog, because the body of a Mnemo dialog is a row, not a column: the widget gallery puts a category rail beside a scrolling grid and both have to reach the dialog's full height. The rule in `standards/04-web.md` still stands for everything anchored to a control: "Popovers, dropdowns, and context menus use Radix. Do not hand-roll portals, anchoring, or flip logic." A modal anchors to nothing, which is why it is the one surface built by hand.
+`mnemo-web/src/components/ui/modal.tsx` is hand-built rather than a Radix dialog, because the body of a Mnemo dialog is a row, not a column: the widget gallery puts a category rail beside a scrolling grid, and both need the dialog's full height. The Radix rule in `standards/04-web.md` covers surfaces anchored to a control; a modal anchors to nothing, so it is the one surface built by hand.
 
 ```tsx
 interface ModalBaseProps {
@@ -38,7 +38,7 @@ type ModalCloseControl =
   | { closeButton: false; closeLabel?: undefined }
 ```
 
-The union is the interesting part: the close button is there by default, and the type refuses to compile without a localized name for it. A dialog whose footer carries the only way out passes `closeButton: false` instead.
+The close button is present by default, and the type refuses to compile without a localized name for it. A dialog whose footer carries the only way out passes `closeButton: false` instead.
 
 ## What the shell already handles
 

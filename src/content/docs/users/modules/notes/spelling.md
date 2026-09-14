@@ -1,49 +1,38 @@
 ---
 title: Spelling
-description: The spell check switch, its languages, and your own word lists.
+description: Spell check, its languages, and your own word lists.
 order: 13
 ---
 
-Mnemo checks spelling itself rather than handing the job to the browser: bundled dictionaries, a word list you control, and a per-note say in which languages apply. Mnemo's marks replace the browser's, so two sets of underlines never disagree.
+Mnemo has its own spell checker with bundled dictionaries, a personal word list, and per-note language settings.
 
-## The switch and the languages
+## Turning it on and choosing languages
 
-Spelling has its own page in Settings under Application. One switch, **Spell check**, decides whether anything is checked at all.
+Spelling has its own page in Settings under Application. **Spell check** turns checking on or off.
 
-Under it, **Languages you write in** is an ordered list rather than a single choice: a word is correct when any language in the list knows it. The first entry is the one whose corrections are offered first, so put the language you write most at the top. Each row can move up, move down, or be removed, and **Add a language** opens the catalogue.
+**Languages you write in** is an ordered list. A word is correct if any listed language knows it, and the first language's suggestions are offered first, so put the language you write most at the top. **Add a language** opens the list of available languages.
 
-Two dictionaries ship with Mnemo, English (United States) and Spanish (Spain), and English is the one active on a fresh install. Nothing is downloaded here, so the picker's **Not available** group records what the build knows about and cannot check rather than offering a shelf to install from.
+Two dictionaries ship with Mnemo: English (United States), on by default, and Spanish (Spain). No other dictionaries can be downloaded; the **Not available** group lists languages Mnemo knows about but cannot check.
 
 <!-- image idea: the Spelling settings page with two languages listed and the add row below them -->
 
-## What a flagged word looks like
+## Fixing a flagged word
 
-A flagged word gets a straight underline and a faint wash behind it, not a wavy line: the colour already carries the message.
-
-Three things open the card that answers for it. Click the word, right-click it with nothing selected, or put the caret inside it and press `Alt+Enter`. The card names what it found, repeats the word, offers replacements as buttons, and then gives you **Add to dictionary** and **Ignore in this note**.
-
-Clicking leaves the caret where you put it, since repairing a word by hand is the commonest answer to an underline. Opening from the keyboard takes focus instead, and waits on Close until suggestions arrive so the first key press cannot teach the dictionary your typo.
-
-Past 2000 marks in a single note, checking pauses and the note says so.
+A flagged word is underlined. Click it, right-click it, or place the caret inside it and press `Alt+Enter` to open the suggestion card, which offers replacements plus **Add to dictionary** and **Ignore in this note**.
 
 <!-- image idea: the suggestion card open under an underlined word, showing replacements and the two actions -->
 
-## Choosing a note's languages
+## Languages per note
 
-A note's own menu carries a **Spelling** submenu, with the note's current languages on the row itself.
+A note's menu has a **Spelling** submenu. **Use my defaults** follows the list in Settings, including later changes. Ticking specific languages pins the note to that set. **Don't check this note** turns checking off for that note. The submenu also holds **Words ignored here** and a shortcut to **Spelling settings**.
 
-**Use my defaults** is a state rather than a snapshot: a note left on it follows the Settings list as that list changes, while ticking a language pins that note to its own set. **Don't check this note** turns it off entirely, and the same submenu holds **Words ignored here** and a shortcut to **Spelling settings**.
+## Your dictionary and ignored words
 
-## Your dictionary and the ignore list
+**Your dictionary** on the Spelling settings page holds every word you have added. **Manage** opens the full list. Each word applies to all languages unless you narrow it with **Applies to** in the word's menu. Words added from the suggestion card apply to all languages.
 
-**Your dictionary** on the Spelling page holds every word you have taught the checker; **Manage** opens the full list with a field to add another. A word applies to all languages unless you narrow it: each row's menu has an **Applies to** choice offering **All languages** or one installed dictionary. Adding from a card always adds for all languages.
-
-**Ignore in this note** is separate and local. **Words ignored here** lists what one note accepts, and lifting an ignore is undoable from the message that follows it.
-
-Both lists apply live: teach the checker a word and its underlines go in every open note at once.
+**Ignore in this note** only affects that note. **Words ignored here** in the note's Spelling submenu lists them, and removing one can be undone from the message that follows.
 
 ## Related
 
-- [Formatting text](./formatting-text.md) for the marks and shortcuts spelling runs alongside.
-- [Tuning the editor](../../customization/editor-appearance.md) for the rest of the editor's settings.
-- [Language](../../customization/language.md) for the app's own interface language, which is a separate choice.
+- [Formatting text](./formatting-text.md) covers the editor's formatting shortcuts.
+- [Language](../../customization/language.md) covers the interface language, which is a separate setting.

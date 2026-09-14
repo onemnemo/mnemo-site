@@ -1,27 +1,41 @@
 ---
+
 title: Your first session
-description: Create a small deck and let the scheduler take over.
+description: Create a small deck and complete your first review.
 order: 2
 ---
 
-The fastest way to understand Mnemo is to feed it ten cards and review them tomorrow.
+The easiest way to get started is to create a small deck and review it.
 
 ## Create a deck
 
-Open the flashcards module and create a new deck. Name it after something you are actually studying this week; real material beats demo material for getting a feel for the rhythm.
+Open **Flashcards** and create a new deck.
 
-Add a handful of cards. Keep each card to one fact. "What year did X happen?" is a good card; "Summarize chapter 3" is not, because your brain cannot check its own answer honestly.
+Add a few cards from something you are already studying. Keep each card focused on one question or fact.
 
-## Review
+For example:
 
-Start a review session and try to recall each answer before revealing it, then grade yourself. Your grade is not a score, it is scheduling input: cards you found hard come back sooner, cards you found easy drift further into the future.
+* **Good:** What year did X happen?
+* **Less useful:** Summarize chapter 3.
 
-## Come back tomorrow
+## Review your cards
 
-This is the part that feels wrong and is right: stop when the session ends. The scheduler queues each card again just before you would forget it. A few minutes a day beats an hour once a week, and the [science page](https://mnemo.one/science) explains why.
+Start a review session.
 
-## Where to go next
+Try to recall the answer before revealing it, then choose the grade that best matches how difficult the card felt.
 
-- [Flashcards first steps](../modules/flashcards/first-steps.md) for deck organization and card writing habits.
-- [Notes first steps](../modules/notes/first-steps.md) if you learn best by writing things in your own words.
-- [Mindmaps first steps](../modules/mindmaps/first-steps.md) for connecting what you know into a bigger picture.
+Mnemo uses that grade to decide when the card should appear again.
+
+## Come back later
+
+Once the session is finished, you are done for now.
+
+Cards will return as they become due. Reviewing regularly is more useful than trying to repeat everything at once.
+
+You can read more about the scheduling approach on the [science page](https://mnemo.one/science).
+
+## Next steps
+
+* [Flashcards first steps](../modules/flashcards/first-steps.md) covers decks, cards, and review habits.
+* [Notes first steps](../modules/notes/first-steps.md) covers writing and organizing notes.
+* [Mindmaps first steps](../modules/mindmaps/first-steps.md) covers building and connecting ideas visually.

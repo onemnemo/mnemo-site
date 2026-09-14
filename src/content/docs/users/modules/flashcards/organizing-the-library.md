@@ -1,35 +1,37 @@
 ---
 title: Organizing the library
-description: Decks, folders, per-deck filters, bulk edits, suspending, and flagging.
+description: Decks, folders, deck filters, bulk edits, suspending, and flagging.
 order: 6
 ---
 
-The library holds every deck, and a deck holds its cards. This page covers keeping both tidy.
+The library holds every deck, and a deck holds its cards.
 
 ## Decks and folders
 
-The **New** button creates a deck or a folder; folders nest, and drag-and-drop moves a deck or a folder between them. Drop on the empty space below the list to send something back to the top level. Right-click a folder, or open its own menu, for rename and delete plus a way to expand or collapse it without clicking the row. Prefer a few broad decks organized by folder over many tiny ones: the scheduler works per card, so slicing a subject into twenty decks adds bookkeeping without adding control, and tags and filters do the fine-grained slicing better.
+**New** creates a deck or a folder. Folders nest. Drag a deck or folder onto a folder to move it there, or onto the empty space below the list to move it back to the top level. Right-click a folder to rename, delete, or collapse it.
 
 <!-- image idea: the library with folders expanded and the due-today banner -->
 
-A deck can carry an emoji icon: click the mark beside its name to add or change one, and a deck left without one shows a plain book mark instead of empty space. A deck's own menu handles rename, move to a folder, its review settings, export, suspending every card at once, and deletion. **Card types** sits on the same menu, but the manager it opens belongs to the whole collection rather than the one deck you opened it from; it is covered in [Writing cards](./writing-cards.md).
+Click the icon beside a deck's name to give it an emoji. A deck's menu holds rename, move to folder, review settings, export, suspend all cards, and delete. **Card types** is on the same menu, but it manages card types for the whole collection; see [Writing cards](./writing-cards.md).
 
 ## Inside a deck
 
-The deck view is a table of cards with search, state filters (Due, New, Learning, Suspended, Flagged) as chips, and a **Filter** menu for tag, card type, and how often a card has been forgotten (Forgotten at least once, Forgotten 3+ times, Never forgotten). Select several cards and a bar appears for bulk actions: move them to another deck, tag them, suspend, flag, or delete. This table only ever shows the open deck; to search or edit cards across every deck at once, use **Browse cards** at the top of the library.
+A deck opens as a table of its cards, with search, state filter chips (Due, New, Learning, Suspended, Flagged), and a **Filter** menu for tag, card type, and how often a card has been forgotten. Select several cards to get a bar of bulk actions: move, tag, suspend, flag, or delete.
+
+The deck table only shows the open deck. To search or edit across every deck, use **Browse cards** at the top of the library.
 
 ## Suspend and flag
 
-**Suspending** a card removes it from every queue without deleting it. Suspended cards stay visible in the deck, ready to be woken; it is the right tool for material that is out of scope this term but too good to throw away.
+**Suspend** removes a card from every queue without deleting it. Suspended cards stay in the deck and can be unsuspended later.
 
-**Flagging** is a neutral marker that means whatever you want it to mean: "check this fact", "rewrite later", "ask the professor". Flagged cards get their own filter, and you can flag a card mid-session without breaking stride.
+**Flag** is a neutral marker with no fixed meaning. Flagged cards have their own filter, and you can flag a card during a session.
 
-## Deletion and the trash
+## Deleting
 
-Deleting a deck or a folder does not ask first: it moves to the trash and a toast offers **Undo** right away. A folder takes everything nested under it along, decks and subfolders alike, and restoring the folder brings all of it back in one move. Anything not restored is kept for 30 days before it is gone for good; see [Trash](../../customization/trash.md) for how to browse it and restore something after the toast is gone.
+Deleting a deck or folder moves it to the trash without asking first. A toast offers **Undo**. Deleting a folder takes everything inside it, and restoring the folder brings all of it back. Items stay in the trash for 30 days; see [Trash](../../customization/trash.md).
 
 ## Related
 
-- [Writing cards](./writing-cards.md) covers card types in depth, including the manager opened from the deck menu.
-- [Browsing and search](./browsing-and-search.md) covers the collection-wide card browser.
-- [Trash](../../customization/trash.md) covers restoring a deck or folder after the undo toast is gone.
+- [Writing cards](./writing-cards.md) covers card types and the card type manager.
+- [Browsing and search](./browsing-and-search.md) covers searching across every deck.
+- [Trash](../../customization/trash.md) covers restoring after the undo toast is gone.

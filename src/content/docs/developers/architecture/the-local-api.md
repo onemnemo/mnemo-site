@@ -47,3 +47,8 @@ Closing the window does not kill the process mid-save: the first close request i
 ## Adding an endpoint
 
 Endpoints are minimal-API handlers mapped feature by feature over services resolved from DI, living with their feature (for example `Mnemo.Host/Flashcards`). Copy any existing feature folder: contracts in, service call, DTO out, nothing clever in the route handler.
+
+## Related
+
+- [Building from source](../getting-started/building-from-source.md) for the dev-mode handshake in practice.
+- [The layers](./the-layers.md) for where an endpoint's contract and service live.

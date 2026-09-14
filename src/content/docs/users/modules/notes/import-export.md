@@ -1,43 +1,41 @@
 ---
 title: Import and export
-description: Moving notes in and out as packages or markdown files.
+description: Moving notes in and out as packages or markdown.
 order: 12
 ---
 
-Notes leave Mnemo in two formats and come back in the same two. Import is the **Import notes** button in the notes sidebar header; export is the **Export** item in a note's menu. PDF has its own dialog, covered in [Export to PDF](./pdf-export.md).
+Notes import and export in two formats. **Import notes** is in the notes sidebar header, and **Export** is on a note's menu. PDF has its own dialog; see [Export to PDF](./pdf-export.md).
 
-## The formats
+## Formats
 
-| Format                   | Best for                                                     |
-| ------------------------ | ------------------------------------------------------------ |
-| Mnemo Package (`.mnemo`) | Full fidelity: notes, folders, and images, re-importable     |
-| Markdown (`.md`)         | One note as portable text any other editor can open          |
+| Format                   | Best for                                                 |
+| ------------------------ | -------------------------------------------------------- |
+| Mnemo Package (`.mnemo`) | Full fidelity: notes, folders, and images, re-importable |
+| Markdown (`.md`)         | One note as plain text any editor can open               |
 
-A package carries any number of notes plus the folders around them; markdown is one note per file, since a `.md` file has no id and no place to record its folder. There is no CSV or third-party format yet.
+A package holds any number of notes and their folders. Markdown is one note per file. There is no CSV or third-party format yet.
 
 ## Importing
 
-Five files is the cap on one batch, and one file can be up to 512 MB. `Ctrl+Enter` confirms the dialog (`Cmd+Enter` on macOS).
+Import up to five files at a time. `Ctrl+Enter` confirms (`Cmd+Enter` on macOS).
 
 <!-- image idea: the note import dialog with two queued files, one of them rejected -->
 
-The **Import notes** button in the sidebar header always imports into the library root; to land markdown notes in a folder instead, right-click that folder and choose **Import notes here**. A package ignores the destination and restores its own folders regardless.
+**Import notes** in the sidebar header imports into the top level. To import markdown into a folder, right-click the folder and choose **Import notes here**. A package always restores its own folders, whatever the destination.
 
-**If a note already exists** sets the policy for the whole batch: **Keep both**, the default, gives the incoming note a `(2)` suffix and overwrites nothing; **Skip** leaves what you already have; **Replace** overwrites it. What counts as the same note differs by format: a package matches on the note's id, and markdown matches on title, ignoring case. A markdown note is titled after its file name, not after any heading inside it, so rename the file first when the title matters.
-
-A package import that cannot place every note or folder still finishes, but the completion toast turns into a warning and names what it skipped; markdown imports do not raise these warnings.
+**If a note already exists** sets the policy for the batch. **Keep both** (the default) adds a `(2)` suffix to the incoming note. **Skip** keeps yours. **Replace** overwrites it. A package matches existing notes by id; markdown matches by title, ignoring case. A markdown note takes its title from the file name, not from a heading inside it, so rename the file first if the title matters.
 
 ## What markdown loses
 
-Headings, bullet, numbered, and checklist items, quotes, callouts, code blocks, dividers, equations, and tables all serialize out and read back as themselves. Three things do not make the trip cleanly:
+Headings, lists, checklists, quotes, callouts, code blocks, dividers, equations, and tables round-trip through markdown. Three things do not:
 
-- **Images are dropped.** An image block has nothing markdown can carry.
-- **Column layouts flatten.** They become a plain run of blocks, because the separator that would mark the split reads back as a divider.
-- **Sketches and sub-page references travel only between copies of Mnemo.** A sketch goes out in a fenced `sketch` block and a sub-page as a `[[page:id]]` marker; both return intact here and mean nothing to another editor.
+- **Images are dropped.**
+- **Column layouts flatten** into a single run of blocks.
+- **Sketches and sub-page links only survive between copies of Mnemo.** Other editors show them as raw markers.
 
-Export to `.mnemo` when you want the note back exactly as it left.
+Export as `.mnemo` when the note needs to come back exactly as it left.
 
 ## Related
 
-- [Export to PDF](./pdf-export.md) for a printable copy rather than a re-importable one.
-- [Images](./images.md) for what markdown export leaves behind.
+- [Export to PDF](./pdf-export.md) covers a printable copy.
+- [Images](./images.md) covers what markdown export leaves behind.

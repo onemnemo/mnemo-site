@@ -1,76 +1,74 @@
 ---
 title: Node types and styling
-description: The seven kinds a node can be, and the choices that set how a map looks.
+description: The seven node types, reference nodes, map style, and edge styling.
 order: 4
 ---
 
-Every node has a kind, and the kind decides what it holds and what happens when you open it. How the map looks is a separate set of choices, and they belong to the map rather than to a selection.
+Every node has a type that decides what it holds and what happens when you open it. How the map looks is set for the whole map under **Map style**.
 
-## The seven kinds
+## Node types
 
-Select a node and the **Type** slot on the node bar converts it in place, keeping the words already on it.
+Select a node and use **Type** on the node bar to convert it. The text is kept.
 
-| Kind | What the node holds                                       |
-| ---- | --------------------------------------------------------- |
-| Text | Plain words. Every node starts here.                      |
-| Task | Words plus a checkbox you tick on the node itself.        |
-| Code | Source, kept as typed, set in a monospace face.           |
-| Math | LaTeX, rendered as an equation.                           |
-| Link | A web address, with an optional title of your own.        |
-| Note | A pointer at a note in your library.                      |
-| Deck | A pointer at a flashcard deck.                            |
+| Type | What the node holds                    |
+| ---- | -------------------------------------- |
+| Text | Plain text. Every node starts as this. |
+| Task | Text plus a checkbox on the node.      |
+| Code | Source code in a monospace face.       |
+| Math | LaTeX, rendered as an equation.        |
+| Link | A web address, with an optional title. |
+| Note | A reference to a note in your library. |
+| Deck | A reference to a flashcard deck.       |
 
-The first four convert on the spot. **Link** prompts for an address, and an address that will not open is refused rather than stored; **Note** and **Deck** open a picker over the library you are pointing into.
+**Link** asks for an address and rejects one that cannot open. **Note** and **Deck** open a picker.
 
-Shapes, loose text, frames, and images are not node kinds; they come from the tool dock in [Editing the canvas](./editing-the-canvas.md).
+Shapes, loose text, frames, and images are not node types; they come from the tool dock. See [Editing the canvas](./editing-the-canvas.md).
 
 <!-- image idea: the node type menu open over a selected node -->
 
-## References that reach the rest of your library
+## Reference nodes
 
-A **Note** or **Deck** node has no label of its own: it reads as its target's title, looked up live, so you cannot type over one. A deck with cards waiting also wears a chip reading "3 due". A target that has been deleted reads "Missing reference" rather than going blank.
+A **Note** or **Deck** node shows its target's current title and cannot be edited. A deck node also shows how many cards are due. If the target has been deleted, the node reads "Missing reference".
 
-Double click the node, or press the mark on its leading edge, and Mnemo follows the reference: to the note, to the deck, or to the address in your browser.
+Double-click the node, or click the mark on its edge, to open the note, the deck, or the link in your browser.
 
 <!-- image idea: a deck reference node on a map showing a due chip -->
 
-## How the whole map looks
+## Map style
 
-**Map style** in the header holds four groups of choices.
+**Map style** in the header has four groups.
 
-| Group       | Choices                                                                       |
-| ----------- | ----------------------------------------------------------------------------- |
-| Arrangement | Balanced, Tree right, Tree down, Radial, Timeline, Free                       |
-| Branches    | Line, Taper, Step                                                             |
-| Palette     | Dawn Classic, Rainbow Branches, Monochrome, Study, Org Chart, Blueprint       |
-| Background  | Dots, Grid, Plain                                                             |
+| Group       | Choices                                                                 |
+| ----------- | ----------------------------------------------------------------------- |
+| Arrangement | Balanced, Tree right, Tree down, Radial, Timeline, Free                 |
+| Branches    | Line, Taper, Step                                                       |
+| Palette     | Dawn Classic, Rainbow Branches, Monochrome, Study, Org Chart, Blueprint |
+| Background  | Dots, Grid, Plain                                                       |
 
-**Free** leaves every node where you dropped it. **Arrange now**, under the arrangement tiles, lays the map out again after you have added to it.
+**Free** leaves every node where you put it. **Arrange now**, under the arrangement tiles, lays the map out again.
 
-**Save style as template**, in the node bar's overflow menu, turns a branch you like into a palette entry of your own: you choose how many levels deep to capture, and the result applies to any map. Templates you saved can be deleted; the six that ship cannot.
+**Pin**, in the node bar's overflow menu, keeps a node in place when the map is arranged. **Unpin** releases it.
 
-The same overflow menu holds **Pin**: a pinned node keeps its stored position when **Arrange now** runs, so the layout rebuilds around it instead of moving it. **Unpin** hands it back to the layout.
+**Save style as template**, in the same menu, turns the selected branch's styling into a palette of your own. Choose how many levels to capture; the result is available in every map. Saved templates can be deleted; the six built-in ones cannot.
 
 <!-- image idea: the map style panel open with the arrangement tiles visible -->
 
 ## Edge styling
 
-Select an edge and its own bar replaces the node bar, one panel per group.
+Select an edge to get its own bar.
 
-| Group              | Choices                                                       |
-| ------------------ | ------------------------------------------------------------- |
-| Line and thickness | Solid, Dashed, Dotted, Double; Hairline, Normal, Bold         |
-| Routing            | Curve, Straight, Orthogonal                                   |
-| Ends               | None, Arrow, Dot, set separately for the start and the end    |
-| Color              | The branch palette, or a colour of its own                    |
+| Group              | Choices                                                    |
+| ------------------ | ---------------------------------------------------------- |
+| Line and thickness | Solid, Dashed, Dotted, Double; Hairline, Normal, Bold      |
+| Routing            | Curve, Straight, Orthogonal                                |
+| Ends               | None, Arrow, Dot, set separately for the start and the end |
+| Color              | The branch color, or a color of its own                    |
 
-**And everything below it**, inside each panel, carries the value you just picked down through every edge under this one; a link edge has nothing below it, so the toggle sits there disabled.
-
-An edge with no colour of its own reads its branch's colour. **Match the branch**, at the bottom of the colour panel, gives that back; a link edge shows **Default color** there instead, since it has no branch to match.
+**And everything below it**, in each panel, applies the choice to every edge further down the branch. An edge without its own color uses its branch color; **Match the branch** returns to that.
 
 <!-- image idea: the edge bar open on a selected edge with the line and thickness panel expanded -->
 
 ## Related
 
-- [Editing the canvas](./editing-the-canvas.md) for the gestures that build a map.
-- [Export and import](./export-and-import.md) for getting a styled map back out.
+- [Editing the canvas](./editing-the-canvas.md) covers the gestures that build a map.
+- [Export and import](./export-and-import.md) covers getting a map out.

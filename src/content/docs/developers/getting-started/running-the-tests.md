@@ -38,5 +38,5 @@ The workflow runs two jobs. The web job guards against NUL bytes in tracked sour
 
 ## Related
 
-- [Building from source](./building-from-source.md)
-- [Commits and pull requests](../contributing/commits-and-pull-requests.md)
+- [Building from source](./building-from-source.md) for getting a build running first.
+- [Commits and pull requests](../contributing/commits-and-pull-requests.md) for what a pull request needs besides green checks.

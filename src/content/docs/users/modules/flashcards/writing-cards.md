@@ -1,42 +1,49 @@
 ---
 title: Writing cards
-description: Material and card types, cloze, formulas, images, and templates.
+description: Card types, cloze deletions, formulas, and images.
 order: 2
 ---
 
-The card editor is a small dialog with a big job: get what you know into the deck fast enough that you write the next one. What you type into it is not a card: it is a piece of material, and the card type decides how many cards come out of it.
+The card editor takes a set of fields and a card type, and the card type decides how many cards are made from them.
 
-## Material and card types
+## Card types
 
-A card type is a set of named fields plus the cards those fields make. **Basic** takes a Front and a Back and makes one card. **Basic and reverse** takes the same two and makes two, one in each direction. **Vocabulary** takes Word, Meaning, and Example, and makes up to three. The type is fixed once the material is saved.
+- **Basic.** Front and Back, one card.
+- **Basic and reverse.** The same two fields, one card in each direction.
+- **Vocabulary.** Word, Meaning, and Example, up to three cards.
+- **Cloze.** One text with blanks, one card per blank.
 
-`Ctrl+Enter` saves (`Cmd+Enter` on macOS). Saving new material keeps the dialog open, holding the deck, card type, and tags for the next one. Tags attach to the material and become filters in the deck view later.
+The card type cannot be changed after saving.
+
+`Ctrl+Enter` saves (`Cmd+Enter` on macOS). After saving a new card the dialog stays open with the same deck, card type, and tags, ready for the next one. Tags become filters in the deck view.
 
 <!-- image idea: the card editor with the card count bar under the fields -->
 
 ## Cloze
 
-**Cloze** hides pieces of a sentence instead of pairing two sides. Wrap what to hide with `{{c1::like this}}`, or select it and press `Ctrl+Shift+C`. Each number makes its own card, blanking its own piece and showing the others as context, and the Extra field rides along on the back of all of them.
+Wrap the text to hide in `{{c1::...}}`, or select it and press `Ctrl+Shift+C`. Each number makes its own card, and the other blanks show as context. Add a hint after a second pair of colons.
 
 ```text
 The {{c1::hippocampus}} consolidates memory during {{c2::sleep::stage}}.
 ```
 
-That is two cards. A hint after a second pair of colons, `::stage` above, shows in place of the blank.
+This makes two cards. The second shows "stage" in place of the blank. The Extra field appears on the back of every card.
 
 ## Formulas and images
 
-Formulas are LaTeX between dollar signs, `$E_k$` inline or `$$` on its own line, rendered through KaTeX during study; one that will not parse is shown marked, exactly as you typed it.
+Write LaTeX between dollar signs: `$E_k$` inline, or `$$` on its own line for display math. Invalid LaTeX is shown as typed.
 
-Each field takes up to three images. Paste them or drop them on the field; PNG, JPEG, GIF, and WebP work, up to 20 MB each. An image follows its field onto whichever card shows it, and can be clicked to zoom during a session.
+Each field holds up to three images. Paste or drop them onto the field. PNG, JPEG, GIF, and WebP are supported, up to 20 MB each. Click an image during a session to zoom in.
 
 ## Managing card types
 
-**Card types** on the deck menu opens the manager; types are collection wide, not per deck. A card is a front and a back template, each naming a field by writing it as `{{Front}}`. **Only when** holds a card back until one named field is filled, which is what keeps Vocabulary's third card dormant.
+**Card types** on a deck's menu opens the card type manager. Card types are shared across the whole collection, not per deck.
 
-The four types that ship cannot be deleted, and neither can one that still holds material. Saving updates every card those types already make, so a template change reaches the whole collection at once.
+A card type is a set of fields plus front and back templates that reference those fields as `{{Front}}`. **Only when** holds a card back until a named field is filled; Vocabulary uses it so the third card is only made when Example has content.
+
+The four built-in types cannot be deleted, and neither can a type that still has cards. Saving a template change updates every existing card of that type.
 
 ## Related
 
-- [First steps](./first-steps.md) for what makes a card worth writing.
-- [Organizing the library](./organizing-the-library.md) for the tag and state filters in a deck.
+- [First steps](./first-steps.md) covers what makes a card worth writing.
+- [Organizing the library](./organizing-the-library.md) covers tags and filters in the deck view.
