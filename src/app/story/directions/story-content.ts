@@ -16,62 +16,59 @@ export type StoryScreen = {
   id: string
   image: StaticImageData
   alt: string
-  caption: string
+  label: string
 }
 
 export const editions = [
   {
     id: "terminal",
-    when: "Age fourteen",
     title: "The first one actually shipped.",
     copy: [
       "I was fourteen. I published a terminal program that turned notes into a quiz.",
-      "In this screenshot, it decides the missing word is ‘what’, marks my answer wrong, and ends with ‘maybe study more lol’.",
+      "In this screenshot, it decides the missing word is ‘what’, marks my answer wrong, and ends with ‘maybe study more lol’. The product voice was finished before the product.",
     ],
     image: terminal,
     alt: "The terminal quiz choosing what as the missing word, marking powerhouse wrong, and ending with maybe study more lol",
-    caption: "The product voice was finished before the product.",
+    label: "terminal quiz",
   },
   {
     id: "sidebars",
-    when: "The early apps",
     title: "Then I discovered sidebars.",
     copy: [
       "The quiz became flashcards. Then I added study goals, notes, and dashboards. I kept adding things I’d wanted in the apps I was using.",
-      "Somewhere in all of this, it became Mnemo.",
+      "The quizzes were still listed as ‘Comming soon’. Somewhere in all of this, it became Mnemo.",
     ],
     image: early,
     alt: "An early flashcard dashboard with study goals and a sidebar entry reading Quizzes (Comming soon)",
-    caption: "Quizzes were ‘Comming soon’. Spellcheck arrived eventually.",
+    label: "early flashcard dashboard",
   },
   {
     id: "restarts",
-    when: "Several rewrites later",
     title: "I kept restarting.",
     copy: [
       "I’d redesign it, rewrite it, get annoyed with it, and start again. Some versions barely got past the interface. Others got much further before I abandoned them.",
-      "By this one, I was back to working on notes. There’s a note called ‘Issues & Annoyance’ in the sidebar.",
+      "This was one of the later notes editors. I was still rebuilding it.",
     ],
     image: editor,
     alt: "A later Mnemo editor showing notes on Parkinson’s disease, with Issues & Annoyance in the favourites list",
-    caption: "A later notes editor. Still not the current one.",
+    label: "later notes editor",
   },
 ] as const
 
 export const archiveScreens: readonly StoryScreen[] = [
-  { id: "quiz", image: quiz, alt: "Study AI quiz maker with question type switches and a large empty text box", caption: "Before the sidebars: a text box and a lot of quiz options." },
-  { id: "notes", image: notes, alt: "Two early Mnemo notes layouts side by side, both showing a respiratory system lesson", caption: "Two versions of the same notes page." },
-  { id: "dark", image: dark, alt: "A dark Mnemo dashboard with a long sidebar and an almost empty main area", caption: "Plenty of navigation. Not much in the middle." },
-  { id: "lesson", image: lesson, alt: "A respiratory system lesson with Theory, Quiz, Flashcards and Adaptive tabs", caption: "The respiratory system, again. This time with learning paths." },
-  { id: "dashboard", image: dashboard, alt: "A dark dashboard with study statistics, recent work, games and extensions", caption: "Statistics, recent work, games, extensions." },
-  { id: "gradient", image: gradient, alt: "A dashboard with a blue Mnemo wordmark and repeated Biology entries", caption: "Five copies of Biology. One gradient logo." },
-  { id: "warm", image: warm, alt: "A light Mnemo design showing a lesson on the Pythagorean theorem", caption: "A different sidebar. A different subject." },
-  { id: "night", image: night, alt: "The same Pythagorean theorem lesson in a dark Mnemo design", caption: "And the same thing in dark mode." },
+  { id: "quiz", image: quiz, alt: "Study AI quiz maker with question type switches and a large empty text box", label: "quiz maker" },
+  { id: "notes", image: notes, alt: "Two early Mnemo notes layouts side by side, both showing a respiratory system lesson", label: "early notes layouts" },
+  { id: "dark", image: dark, alt: "A dark Mnemo dashboard with a long sidebar and an almost empty main area", label: "empty dark dashboard" },
+  { id: "lesson", image: lesson, alt: "A respiratory system lesson with Theory, Quiz, Flashcards and Adaptive tabs", label: "respiratory lesson" },
+  { id: "dashboard", image: dashboard, alt: "A dark dashboard with study statistics, recent work, games and extensions", label: "statistics dashboard" },
+  { id: "gradient", image: gradient, alt: "A dashboard with a blue Mnemo wordmark and repeated Biology entries", label: "gradient dashboard" },
+  { id: "warm", image: warm, alt: "A light Mnemo design showing a lesson on the Pythagorean theorem", label: "light lesson design" },
+  { id: "night", image: night, alt: "The same Pythagorean theorem lesson in a dark Mnemo design", label: "dark lesson design" },
 ]
 
 export const currentScreen: StoryScreen = {
   id: "today",
   image: current,
   alt: "Current Mnemo showing chemistry notes, subject folders and an equilibrium graph",
-  caption: "Mnemo now, with my chemistry notes open.",
+  label: "current Mnemo notes editor",
 }
