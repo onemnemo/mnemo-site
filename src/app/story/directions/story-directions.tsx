@@ -3,6 +3,8 @@ import Link from "next/link"
 import { ArrowDown, ArrowUpRight } from "lucide-react"
 
 import { ProductImage } from "@/components/landing/product-image"
+import { TornEdge } from "@/components/torn-edge"
+import { Button } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
 import { archiveScreens, currentScreen, editions, type StoryScreen } from "./story-content"
 import styles from "./directions.module.css"
@@ -100,25 +102,23 @@ export function StoryDirections() {
             <p>People I’ve never met now use it, file bugs, suggest features and occasionally send code. That’s still slightly strange considering this started as a terminal quiz I made at fourteen.</p>
           </div>
         </section>
-        <section className={styles.nextChapter} aria-labelledby="next-heading">
+      </div>
+      <section className={styles.nextChapter} aria-labelledby="next-heading">
           <div className={styles.nextGrid}>
             <h2 id="next-heading">Mnemo isn’t finished.</h2>
             <div className={styles.prose}>
               <p>If something annoys you, tell us. If you know how to fix it, even better.</p>
               <p>Design, documentation, testing and translations need work too.</p>
+              <div className={styles.joinLinks}>
+                <Button asChild size="lg" className={`mnemo-download ${styles.tryLink}`}>
+                  <Link href="/download">Try Mnemo <ArrowDown size={16} aria-hidden /></Link>
+                </Button>
+                <a href={siteConfig.links.github} target="_blank" rel="noreferrer">Help shape the project <ArrowUpRight size={16} aria-hidden /></a>
+              </div>
             </div>
           </div>
-          <div className={styles.joinLinks}>
-            <Link href="/download">Try Mnemo <ArrowDown size={26} aria-hidden /></Link>
-            <a href={siteConfig.links.github} target="_blank" rel="noreferrer">Help shape the project <ArrowUpRight size={26} aria-hidden /></a>
-          </div>
-        </section>
-      </div>
-      <div className={styles.closing}>
-        <Link href="/download" className={styles.wordmark} aria-label="Download Mnemo">mnemo</Link>
-        <p>Bring something<br />you want to learn.</p>
-        <Link href="/download" className={styles.closingArrow} aria-label="Try Mnemo"><ArrowUpRight size={30} aria-hidden /></Link>
-      </div>
+      </section>
+      <TornEdge mascot className="bg-butter text-paper" />
     </main>
   )
 }
