@@ -30,7 +30,7 @@ export function ProductImage({ src, alt, label, priority = false }: {
           <Dialog.Title className="sr-only">{label}</Dialog.Title>
           <Dialog.Description className="sr-only">{alt}</Dialog.Description>
           <div className={styles.imageScroll}>
-            <Image src={src} alt={alt} sizes="100vw" quality={90} />
+            <Image src={src} alt={alt} sizes="(max-width: 650px) 900px, 100vw" quality={90} />
           </div>
           <Dialog.Close className={styles.closeImage} aria-label="Close screenshot"><X size={22} /></Dialog.Close>
         </Dialog.Content>
