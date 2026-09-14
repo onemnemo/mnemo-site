@@ -2,7 +2,7 @@
 
 import Image, { type StaticImageData } from "next/image"
 import { Dialog } from "radix-ui"
-import { Expand, X } from "lucide-react"
+import { X } from "lucide-react"
 
 import styles from "./product-tour.module.css"
 
@@ -22,7 +22,6 @@ export function ProductImage({ src, alt, label, priority = false }: {
           quality={90}
           priority={priority}
         />
-        <span className={styles.expandIcon} aria-hidden><Expand size={18} /></span>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.imageOverlay} />

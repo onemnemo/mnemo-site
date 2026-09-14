@@ -32,7 +32,6 @@
 .editionCopy .prose { margin-top: 24px; }
 .screenshot { min-width: 0; }
 .screenshot > button { border-radius: 3px; box-shadow: 0 12px 24px -22px #30263780; cursor: zoom-in; }
-.screenshot > button > span[aria-hidden] { display: none; }
 .archive { margin-block: var(--chapter-gap); }
 .archiveIntro { max-width: 640px; margin-bottom: var(--content-gap); }
 .archiveIntro > p { max-width: 50ch; margin-top: 22px; font-size: 16px; line-height: 1.8; color: var(--ink-2); }
