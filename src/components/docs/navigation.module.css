@@ -1,0 +1,17 @@
+.navigation { font-size: 0.8rem; }
+.home { display: flex; align-items: center; gap: 0.5rem; color: var(--ink-2); min-height: 36px; margin: 0.7rem 0; }
+.home:hover { color: var(--ink); }
+.audience { display: block; font-size: 1.05rem; font-weight: 550; margin: 0 0 1.4rem; letter-spacing: -0.025em; }
+.group { border-bottom: 1px solid var(--line-soft); padding: 0.8rem 0; }
+.group summary { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; cursor: pointer; list-style: none; font-weight: 500; min-height: 28px; }
+.group summary::-webkit-details-marker { display: none; }
+.group[open] > summary { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.035em; margin-bottom: 0.35rem; }
+.group[open] > summary svg { transform: rotate(180deg); }
+.group .group { padding-left: 0.7rem; border-bottom: 0; }
+.link { display: block; padding: 0.4rem 0.75rem; border-radius: 6px; color: var(--ink-2); line-height: 1.5; }
+.link:hover { background: var(--sunken); color: var(--ink); }
+.link[aria-current="page"] { color: #63458e; background: #eae2f5; font-weight: 500; }
+.standalone { padding: 0.7rem 0; border-bottom: 1px solid var(--line-soft); }
+.standalone .link { padding-left: 0; color: var(--ink); }
+.standalone .link[aria-current="page"] { padding-left: 0.75rem; }
+.navigation a:focus-visible, .group summary:focus-visible { outline: 2px solid #8060a5; outline-offset: 3px; }

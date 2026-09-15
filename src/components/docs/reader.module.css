@@ -1,0 +1,73 @@
+.reader { --docs-accent: #76529f; width: min(100% - 6rem, 1160px); margin: 0 auto; display: grid; grid-template-columns: 228px minmax(0, 1fr) 190px; column-gap: 30px; align-items: start; padding: 2rem 0 5rem; }
+.sidebar { position: sticky; top: 7rem; max-height: calc(100svh - 8rem); overflow-y: auto; scrollbar-width: thin; padding: 0.2rem 20px 1.5rem 2px; border-right: 1px solid var(--line-soft); }
+.mobileNav { display: none; }
+.article { min-width: 0; padding: 0.1rem 0 1rem; }
+.breadcrumbs { font-size: 0.7rem; color: var(--ink-2); margin-bottom: 0.7rem; }
+.breadcrumbs ol, .breadcrumbs li { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+.breadcrumbs li > span { color: var(--ink-3); }
+.breadcrumbs a:hover { color: var(--docs-accent); }
+.article > h1 { font-family: var(--font-sans), sans-serif; font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 550; letter-spacing: -0.055em; line-height: 1.12; text-wrap: balance; }
+.lead { color: var(--ink-2); font-size: 1.05rem; line-height: 1.5; margin-top: 0.7rem; }
+.prose { margin-top: 1.8rem; color: var(--ink-2); font-size: 0.9rem; line-height: 1.75; overflow-wrap: anywhere; }
+.prose > * + * { margin-top: 1em; }
+.prose h2, .prose h3, .prose h4 { color: var(--ink); font-family: var(--font-sans), sans-serif; font-weight: 550; letter-spacing: -0.035em; line-height: 1.3; scroll-margin-top: 7rem; }
+.prose h2 { font-size: 1.4rem; margin-top: 1.7em; }
+.prose h3 { font-size: 1.1rem; margin-top: 1.5em; }
+.prose h2 + *, .prose h3 + * { margin-top: 0.5em; }
+.prose a { color: var(--ink); text-decoration: underline; text-decoration-color: #76529f55; text-underline-offset: 3px; }
+.prose a:hover { color: var(--docs-accent); }
+.prose strong { color: var(--ink); font-weight: 550; }
+.prose ul, .prose ol { padding-left: 1.3em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li + li { margin-top: 0.25em; }
+.prose blockquote { border-left: 3px solid #b49bcf; border-radius: 0 10px 10px 0; background: #eae2f575; padding: 1rem 1.2rem; }
+.prose blockquote > * + * { margin-top: 0.7em; }
+.prose hr { margin-block: 2rem; border-color: var(--line-soft); }
+.prose code { font-size: 0.85em; }
+.prose :not(pre) > code { background: var(--sunken); border: 1px solid var(--line-soft); padding: 0.1em 0.3em; border-radius: 4px; }
+.prose pre { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; padding: 1rem; line-height: 1.7; }
+.prose pre code { font-size: 0.8rem; }
+.prose img { width: auto; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
+.prose table { display: block; overflow-x: auto; border-collapse: collapse; font-size: 0.85rem; }
+.prose th, .prose td { border: 1px solid var(--line); padding: 0.6em 0.85em; text-align: left; }
+.prose th { background: var(--sunken); font-weight: 550; color: var(--ink); }
+.prevNext { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+.prevNext a { display: flex; align-items: center; gap: 0.8rem; border: 1px solid var(--line); padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.8rem; }
+.prevNext svg { flex-shrink: 0; }
+.prevNext small { display: block; font-size: 0.65rem; color: var(--ink-2); margin-bottom: 0.15rem; }
+.next { justify-content: flex-end; text-align: right; }
+.prevNext a:hover { border-color: #b49bcf; background: #eae2f535; }
+.folderIndex { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; margin-top: 2rem; }
+.folderIndex > a { padding: 1.1rem; border: 1px solid var(--line); border-radius: 10px; }
+.folderIndex > a:hover { border-color: #b49bcf; background: #eae2f535; }
+.folderIndex h2 { font-family: var(--font-sans), sans-serif; display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.95rem; font-weight: 550; }
+.folderIndex svg { flex-shrink: 0; margin-top: 0.2rem; }
+.folderIndex p { color: var(--ink-2); font-size: 0.8rem; line-height: 1.6; margin-top: 0.6rem; }
+.rail { position: sticky; top: 7rem; max-height: calc(100svh - 8rem); overflow-y: auto; padding: 0.35rem 0 1rem 20px; border-left: 1px solid var(--line-soft); scrollbar-width: thin; }
+.railSection { border-top: 1px solid var(--line-soft); margin-top: 1.8rem; padding-top: 1.5rem; font-size: 0.72rem; }
+.railSection:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
+.railSection h2 { font-family: var(--font-sans), sans-serif; font-size: 0.72rem; font-weight: 550; margin-bottom: 0.7rem; }
+.railSection p { color: var(--ink-2); line-height: 1.6; margin-bottom: 0.6rem; }
+.railSection a { display: flex; gap: 0.5rem; align-items: center; line-height: 1.5; padding: 0.4rem 0; color: var(--ink-2); }
+.railSection a:hover { color: var(--docs-accent); }
+.railSection svg { flex-shrink: 0; }
+.reader a:focus-visible, .mobileNav summary:focus-visible { outline: 2px solid var(--docs-accent); outline-offset: 3px; }
+@media (max-width: 1150px) { .reader { width: calc(100% - 4rem); grid-template-columns: 210px minmax(0, 1fr); gap: 26px; } .rail { position: static; grid-column: 2; display: flex; flex-wrap: wrap; gap: 2rem; max-height: none; padding: 1.5rem 0 0; border-left: 0; border-top: 1px solid var(--line-soft); } .rail > nav[aria-label="On this page"] { display: none; } .railSection { margin: 0; padding: 0; border: 0; flex: 1; } }
+@media (max-width: 760px) {
+  .reader { width: calc(100% - 2.5rem); grid-template-columns: minmax(0, 1fr); gap: 1.7rem; padding: 1.4rem 0 3rem; }
+  .sidebar { position: static; max-height: none; padding: 0; border: 0; overflow: visible; }
+  .desktopNav { display: none; }
+  .mobileNav { display: block; margin-top: 0.8rem; border-bottom: 1px solid var(--line-soft); }
+  .mobileNav > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; font-size: 0.8rem; padding: 0.7rem 0; cursor: pointer; }
+  .mobileNav > summary::-webkit-details-marker { display: none; }
+  .mobileNav[open] > summary svg { transform: rotate(180deg); }
+  .mobileNav > nav { padding: 0.3rem 0.2rem 1.5rem; }
+  .article > h1 { font-size: 2.15rem; }
+  .lead { font-size: 1rem; }
+  .prose { font-size: 0.93rem; }
+  .rail { grid-column: 1; }
+  .prevNext { gap: 0.6rem; }
+  .prevNext a { padding: 0.65rem; gap: 0.5rem; }
+}
+@media (max-width: 450px) { .folderIndex { grid-template-columns: 1fr; } }

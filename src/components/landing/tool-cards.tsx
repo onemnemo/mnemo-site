@@ -20,13 +20,13 @@ function CardLink({ href, number, children }: {
   )
 }
 
-function RecallExample() {
+export function RecallExample({ className = "" }: { className?: string }) {
   const [revealed, setRevealed] = useState(false)
 
   return (
     <button
       type="button"
-      className={styles.recall}
+      className={`${styles.recall} ${className}`}
       data-revealed={revealed}
       aria-pressed={revealed}
       aria-label={revealed ? "Show the flashcard question" : "Reveal the flashcard answer"}
@@ -42,9 +42,9 @@ function RecallExample() {
   )
 }
 
-function ConnectionExample() {
+export function ConnectionExample({ className = "" }: { className?: string }) {
   return (
-    <svg className={styles.connections} viewBox="0 0 260 230" role="img" aria-label="A mind map connects a question to what, how, and why">
+    <svg className={`${styles.connections} ${className}`} viewBox="0 0 260 230" role="img" aria-label="A mind map connects a question to what, how, and why">
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M126 112 C126 70 48 85 48 47" />
         <path d="M148 119 C188 119 208 95 208 71" />

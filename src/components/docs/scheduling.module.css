@@ -1,0 +1,5 @@
+.figure { border-radius: 13px; padding: 1.15rem 1.5rem 0.9rem; background: #e7dff5; color: #655079; margin-top: 1.2rem; }
+.figure figcaption { font-size: 0.75rem; margin-bottom: 0.2rem; }
+.figure svg { display: block; width: 100%; height: auto; }
+.labels { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.6rem; }
+@media (max-width: 650px) { .figure { padding: 1rem; } .figure figcaption { font-size: 0.7rem; } }

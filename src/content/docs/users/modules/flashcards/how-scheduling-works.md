@@ -1,6 +1,6 @@
 ---
 title: How scheduling works
-description: FSRS, the four grades, learning steps, leeches, and daily limits.
+description: Mnemo uses spaced repetition to bring difficult cards back sooner and let familiar ones wait longer. Over time, this helps you remember more with less effort.
 order: 3
 ---
 

@@ -1,0 +1,38 @@
+.home { width: min(100% - 6rem, 1440px); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.65fr); align-items: center; gap: 2.6rem; padding: clamp(3rem, 5vw, 5rem) 0 6rem; }
+.intro h1 { font-family: var(--font-sans), sans-serif; font-size: clamp(2.8rem, 4.2vw, 4.6rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.065em; max-width: 540px; }
+.intro p { color: var(--ink-2); font-size: clamp(1rem, 1.4vw, 1.25rem); line-height: 1.7; max-width: 440px; margin-top: 2.2rem; }
+.intro h1 span { display: block; }
+@media (min-width: 1151px) { .intro { transform: translateY(-2rem); } }
+.guides { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.guide { display: flex; flex-direction: column; min-width: 0; padding: 2.2rem 2rem 1.8rem; border-radius: 20px; color: #242125; }
+.use { background: #e1daf3; }
+.build { background: #f4cec0; }
+.guide h2 { font-family: var(--font-sans), sans-serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.06em; }
+.guide > p { min-height: 5.2em; margin-top: 1.1rem; color: #615961; font-size: 1rem; line-height: 1.6; }
+.links { margin-top: 1.6rem; }
+.links li + li { border-top: 1px solid #29252720; }
+.links a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 49px; padding: 0.65rem 0.2rem; font-size: 1rem; }
+.links a svg, .action svg { flex-shrink: 0; transition: transform 180ms; }
+.links a:hover svg, .action:hover svg { transform: translateX(4px); }
+.action { display: inline-flex; justify-content: space-between; align-items: center; align-self: flex-start; gap: 1.3rem; padding: 1rem 1.2rem; margin-top: auto; background: #242125; color: #fffaf7; border-radius: 10px; font-size: 0.95rem; min-height: 52px; }
+.action:hover { background: #413a43; }
+.home a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+@media (max-width: 1150px) {
+  .home { width: min(100% - 4rem, 960px); grid-template-columns: 1fr; gap: 2.5rem; }
+  .intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: center; }
+  .intro h1 { font-size: clamp(2.8rem, 5vw, 3.5rem); }
+  .intro p { margin: 0; }
+  .guide h2 { font-size: 2.6rem; }
+}
+@media (max-width: 650px) {
+  .home { width: calc(100% - 2.5rem); padding: 2.5rem 0 3.5rem; }
+  .intro { display: block; }
+  .intro h1 { font-size: clamp(2.5rem, 9vw, 3.4rem); max-width: 470px; }
+  .intro p { margin-top: 1.5rem; }
+  .guides { grid-template-columns: 1fr; gap: 1.3rem; }
+  .guide { padding: 1.8rem 1.5rem; }
+  .guide > p { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .links a svg, .action svg { transition: none; }
+}

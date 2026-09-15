@@ -1,0 +1,7 @@
+.toc h2 { font-family: var(--font-sans), sans-serif; font-size: 0.72rem; font-weight: 550; margin-bottom: 0.65rem; }
+.toc li { position: relative; margin-left: -4px; }
+.toc li[data-depth="3"] { padding-left: 0.6rem; }
+.toc a { display: block; padding: 0.35rem 0 0.35rem 0.6rem; color: var(--ink-2); font-size: 0.72rem; line-height: 1.5; }
+.toc a:hover { color: var(--docs-accent); }
+.toc a[aria-current="location"] { color: var(--docs-accent); }
+.toc a[aria-current="location"]::before { content: ""; position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem; width: 2px; border-radius: 2px; background: var(--docs-accent); }
