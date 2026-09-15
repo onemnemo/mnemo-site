@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, ArrowUpRight } from "lucide-react"
 
 import { BuildIllustration, UseIllustration } from "@/components/docs/docs-illustrations"
+import { siteConfig } from "@/config/site"
 import styles from "./home.module.css"
 
 export const metadata: Metadata = {
@@ -43,6 +44,11 @@ const guides = [
 ]
 
 export default function DocsHome() {
+  const feedbackHref = `${siteConfig.links.siteIssues}/new?${new URLSearchParams({
+    title: "Documentation feedback",
+    body: `Page: ${siteConfig.url}/docs\n\nSuggestion or correction:\n`,
+  })}`
+
   return (
     <main id="main-content" className={styles.home}>
       <div className={styles.intro}>
@@ -64,6 +70,20 @@ export default function DocsHome() {
           </section>
         ))}
       </div>
+      <section className={styles.feedback} aria-labelledby="docs-feedback-heading">
+        <h2 id="docs-feedback-heading">The docs aren’t finished either.</h2>
+        <div>
+          <p>If anything annoys you, feels off, or is wrong, tell us. If you want to fix it, even better.</p>
+          <div className={styles.feedbackLinks}>
+            <a href={feedbackHref} target="_blank" rel="noreferrer">
+              Share feedback <ArrowUpRight size={16} aria-hidden />
+            </a>
+            <a href={siteConfig.links.siteGithub} target="_blank" rel="noreferrer">
+              Fix it on GitHub <ArrowUpRight size={16} aria-hidden />
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
   )
 }

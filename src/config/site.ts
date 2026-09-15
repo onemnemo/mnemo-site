@@ -9,6 +9,8 @@ export const siteConfig = {
     github: "https://github.com/onemnemo/mnemo",
     releases: "https://github.com/onemnemo/mnemo/releases",
     issues: "https://github.com/onemnemo/mnemo/issues",
+    siteGithub: "https://github.com/onemnemo/mnemo-site",
+    siteIssues: "https://github.com/onemnemo/mnemo-site/issues",
     org: "https://github.com/onemnemo",
   },
 } as const

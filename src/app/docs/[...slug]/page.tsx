@@ -1,10 +1,11 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react"
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 
 import { DocsSidebar } from "@/components/docs/docs-sidebar"
 import { DocsSearch } from "@/components/docs/docs-search"
+import { MobileDocsNav } from "@/components/docs/mobile-docs-nav"
 import { SchedulingFigure } from "@/components/docs/scheduling-figure"
 import { TocRail } from "@/components/docs/toc-rail"
 import { siteConfig } from "@/config/site"
@@ -114,7 +115,7 @@ export default async function DocPage({ params }: Params) {
   const compiled = page ? await compileDoc(page) : null
   const title = slug.length === 1 ? (audience === "users" ? "Use Mnemo" : "Build Mnemo") : node.kind === "page" ? node.meta.title : node.title
   const description = node.kind === "page" ? node.meta.description : node.description
-  const feedbackHref = `${siteConfig.links.issues}/new?${new URLSearchParams({ title: `Documentation: ${title}`, body: `Page: ${siteConfig.url}${docHref(slug)}\n\nSuggestion or correction:\n` })}`
+  const feedbackHref = `${siteConfig.links.siteIssues}/new?${new URLSearchParams({ title: `Documentation: ${title}`, body: `Page: ${siteConfig.url}${docHref(slug)}\n\nSuggestion or correction:\n` })}`
   const isScheduling = slug.join("/") === "users/modules/flashcards/how-scheduling-works"
 
   return (
@@ -122,10 +123,9 @@ export default async function DocPage({ params }: Params) {
       <aside className={styles.sidebar}>
         <DocsSearch entries={getDocSearchEntries()} />
         <div className={styles.desktopNav}><DocsSidebar key={slug.join("/")} audience={audience} activeSlug={slug} /></div>
-        <details className={styles.mobileNav} key={slug.join("/")}>
-          <summary>Browse {audience === "users" ? "user" : "developer"} docs<ChevronDown size={16} aria-hidden /></summary>
+        <MobileDocsNav label={audience === "users" ? "user" : "developer"}>
           <DocsSidebar audience={audience} activeSlug={slug} />
-        </details>
+        </MobileDocsNav>
       </aside>
       <article className={styles.article}>
         <Breadcrumbs slug={slug} />
