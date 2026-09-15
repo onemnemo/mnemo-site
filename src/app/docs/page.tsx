@@ -16,7 +16,7 @@ const guides = [
   {
     title: "Use Mnemo",
     description: "Learn how to use Mnemo to take notes, make flashcards, and build mind maps.",
-    href: "/docs/users",
+    href: "/docs/users/getting-started",
     action: "Open user docs",
     className: styles.use,
     Illustration: UseIllustration,

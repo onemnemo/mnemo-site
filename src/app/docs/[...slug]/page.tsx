@@ -26,7 +26,9 @@ import styles from "@/components/docs/reader.module.css"
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return getAllDocSlugs().map((slug) => ({ slug }))
+  return getAllDocSlugs()
+    .filter((slug) => slug.join("/") !== "users")
+    .map((slug) => ({ slug }))
 }
 
 type Params = { params: Promise<{ slug: string[] }> }
@@ -43,7 +45,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 const docHref = (slug: string[]) => `/docs/${slug.join("/")}`
 
 function Breadcrumbs({ slug }: { slug: string[] }) {
-  const crumbs = getBreadcrumbs(slug).filter((crumb) => crumb.slug.at(-1) !== "modules")
+  const crumbs = getBreadcrumbs(slug).filter(
+    (crumb) => crumb.slug.at(-1) !== "modules" && !(crumb.slug.length === 1 && crumb.slug[0] === "users"),
+  )
   return (
     <nav aria-label="Breadcrumb" className={styles.breadcrumbs}>
       <ol>
@@ -51,7 +55,7 @@ function Breadcrumbs({ slug }: { slug: string[] }) {
         {crumbs.map((crumb) => (
           <li key={docHref(crumb.slug)}>
             <span aria-hidden>/</span>
-            <Link href={docHref(crumb.slug)}>{crumb.slug.length === 1 ? (crumb.slug[0] === "users" ? "Use Mnemo" : "Build Mnemo") : crumb.title}</Link>
+            <Link href={docHref(crumb.slug)}>{crumb.slug.length === 1 ? "Build Mnemo" : crumb.title}</Link>
           </li>
         ))}
       </ol>
@@ -60,7 +64,9 @@ function Breadcrumbs({ slug }: { slug: string[] }) {
 }
 
 function PrevNext({ audience, slug }: { audience: AudienceSlug; slug: string[] }) {
-  const flat = flattenAudience(getAudienceTree(audience))
+  const flat = flattenAudience(getAudienceTree(audience)).filter(
+    (entry) => !(audience === "users" && entry.slug.length === 1),
+  )
   const here = flat.findIndex((entry) => entry.slug.join("/") === slug.join("/"))
   const prev = here > 0 ? flat[here - 1] : null
   const next = here >= 0 && here < flat.length - 1 ? flat[here + 1] : null

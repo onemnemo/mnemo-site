@@ -13,14 +13,19 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      {
+        source: "/docs/users",
+        destination: "/docs/users/getting-started",
+        permanent: true,
+      },
       /**
        * The old Astro site filed user docs under /docs/students. The article
        * sets do not match one to one, so inbound links land on the users
-       * front door rather than 404ing on a guessed path.
+       * getting started guide rather than 404ing on a guessed path.
        */
       {
         source: "/docs/students/:path*",
-        destination: "/docs/users",
+        destination: "/docs/users/getting-started",
         permanent: true,
       },
     ]

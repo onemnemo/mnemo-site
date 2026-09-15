@@ -30,7 +30,11 @@ export function getDocSearchEntries(): DocSearchEntry[] {
   for (const audience of audiences) {
     const tree = getAudienceTree(audience.slug)
     tree.title = audience.slug === "users" ? "Use Mnemo" : "Build Mnemo"
-    walk(tree, "Documentation")
+    if (audience.slug === "users") {
+      for (const child of tree.children) walk(child, "Documentation")
+    } else {
+      walk(tree, "Documentation")
+    }
   }
   return entries
 }

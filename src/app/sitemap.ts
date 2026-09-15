@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/science", priority: 0.8 },
     { path: "/story", priority: 0.8 },
     { path: "/docs", priority: 0.8 },
-    ...getAllDocSlugs().map((slug) => ({
+    ...getAllDocSlugs().filter((slug) => slug.join("/") !== "users").map((slug) => ({
       path: `/docs/${slug.join("/")}`,
       priority: 0.6,
     })),

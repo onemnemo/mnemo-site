@@ -14,11 +14,9 @@ export interface DocsNavSection {
 }
 
 export function DocsSidebarClient({
-  label,
   activeHref,
   sections,
 }: {
-  label: string
   activeHref: string
   sections: DocsNavSection[]
 }) {
@@ -35,7 +33,6 @@ export function DocsSidebarClient({
 
   return (
     <nav aria-label="Docs sections" className={styles.navigation}>
-      <p className={styles.audience}>{label}</p>
       <div className={styles.sections}>
         {sections.map((section) => {
           if (section.items.length === 0) {
@@ -64,7 +61,13 @@ export function DocsSidebarClient({
                 {section.title}
                 <ChevronDown size={13} aria-hidden />
               </button>
-              <div id={panelId} className={styles.panel} aria-hidden={!isOpen}>
+              <div
+                id={panelId}
+                className={styles.panel}
+                aria-hidden={!isOpen}
+                inert={!isOpen ? true : undefined}
+                style={{ maxHeight: isOpen ? "32rem" : 0 }}
+              >
                 <ul>
                   {section.items.map((item) => (
                     <li key={item.href}>

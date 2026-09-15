@@ -46,7 +46,6 @@ export function DocsSidebar({ audience, activeSlug }: { audience: AudienceSlug; 
   return (
     <DocsSidebarClient
       key={activeHref}
-      label={audience === "users" ? "Use Mnemo" : "Build Mnemo"}
       activeHref={activeHref}
       sections={sections}
     />
