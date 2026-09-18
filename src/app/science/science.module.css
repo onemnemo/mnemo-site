@@ -24,7 +24,7 @@
 .recallStage { display: grid; place-items: center; padding: 3rem; background: var(--studio-yellow); border-radius: 24px; }
 .sectionHeading { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-bottom: 2.5rem; }
 .spacing { padding: 2rem 0 6rem; }
-.connections { display: grid; grid-template-columns: 1fr 1.15fr; align-items: center; gap: 5rem; padding: 2rem 0 6rem; }
+.connections { padding: 2rem 0 6rem; }
 .practice { display: grid; grid-template-columns: .7fr 1.3fr; align-items: center; gap: 4rem; padding: 1rem 0 7rem; }
 .practice h2 { margin-bottom: 1.5rem; }
 .practiceCopy p { max-width: 345px; }
@@ -59,7 +59,7 @@
 
 @media (max-width: 1100px) {
   .container { width: calc(100% - 4rem); }
-  .hero, .recall, .sectionHeading, .connections { gap: 3rem; }
+  .hero, .recall, .sectionHeading { gap: 3rem; }
   .hero { padding-top: 3.5rem; }
   .fact { min-height: 440px; padding: 2rem; }
   .octopus { width: 220px; right: .25rem; bottom: 3rem; }
@@ -83,9 +83,6 @@
   .factAside { left: 1.5rem; bottom: 1.6rem; }
   .recall { gap: 2rem; }
   .recallStage { padding: 1.5rem; }
-  .connections { grid-template-columns: 1fr; }
-  .connections .copy { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
-  .connections h2 { grid-row: span 3; }
   .practice { grid-template-columns: 1fr; }
   .practice h2 br { display: none; }
   .practiceCopy p { max-width: 580px; }
@@ -107,7 +104,8 @@
   .octopus { width: 215px; right: .7rem; bottom: 3.3rem; }
   .factAside { left: 1.75rem; bottom: 1.75rem; font-size: .8rem; }
   .water { height: 105px; }
-  .recall, .connections, .practice { display: flex; flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 1rem 0 3.5rem; }
+  .recall, .practice { display: flex; flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 1rem 0 3.5rem; }
+  .connections { padding: 1rem 0 3.5rem; }
   .copy h2 { margin-bottom: 1.3rem; }
   .copy p, .practiceCopy p { line-height: 1.75; max-width: none; }
   .recallStage { padding: 1.7rem 1.4rem; border-radius: 17px; }

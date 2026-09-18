@@ -11,7 +11,7 @@ import { GradToss } from "@/components/science/grad-toss"
 import { Octopus } from "@/components/science/octopus"
 import { QuizCard } from "@/components/science/quiz-card"
 import { MemoryChart } from "@/components/science/memory-chart"
-import { HeartMap } from "@/components/science/heart-map"
+import { ContextSection } from "@/components/science/context-section"
 import { TornEdge } from "@/components/torn-edge"
 import styles from "./science.module.css"
 
@@ -75,15 +75,7 @@ export default function SciencePage() {
           <MemoryChart />
         </section>
 
-        <section className={styles.connections} aria-labelledby="connections-title">
-          <div className={styles.copy}>
-            <h2 id="connections-title">A fact is better<br />with a little context.</h2>
-            <p>Three is a number to remember. Two hearts sending blood past the gills, and one sending it around the body, is an explanation you can work with.</p>
-            <p>Ask why. Compare it with something you know. Explain it in your own words. The useful part of a mind map is thinking through the relationships you draw.</p>
-            <Link className={styles.textLink} href="/#mindmaps">Make room for those connections <ArrowUpRight size={17} aria-hidden /></Link>
-          </div>
-          <HeartMap />
-        </section>
+        <ContextSection className={styles.connections} href="/#mindmaps" />
 
         <section className={styles.practice} aria-labelledby="practice-title">
           <div className={styles.practiceCopy}>
