@@ -21,22 +21,16 @@ export function LandingStory() {
         </div>
         <div className={styles.storyCopy}>
           <p>
-            I’ve wanted to study medicine since I was ten. Somewhere along the
-            way, I became the person quizzing classmates before tests, and the
-            person trying every study app I could find.
+            I wanted better tools for the way I studied, so I started making
+            them. Then remaking them. Then remaking them again.
           </p>
           <p>
-            I kept wanting the same thing: good notes, flashcards, and mind maps
-            that belonged together. So I started making it. There were a lot of
-            versions. Most weren’t very good. Each one taught me something.
-          </p>
-          <p>
-            Today, I study with Mnemo myself. It’s still young, and I’d love
-            for you to try it, question it, and help make it better.
+            A few years and a questionable number of interfaces later, that
+            became Mnemo.
           </p>
           <blockquote>This has been my weird little obsession for years.<br />It would be pretty cool if it became ours.</blockquote>
           <Link href="/story">
-            The story, questionable interfaces included <ArrowUpRight size={18} aria-hidden />
+            Curious how we got here? <ArrowUpRight size={18} aria-hidden />
           </Link>
         </div>
       </section>

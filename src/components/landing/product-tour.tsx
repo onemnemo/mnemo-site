@@ -14,12 +14,16 @@ export function ProductTour() {
     <div id="features" className={styles.tour}>
       <section id="notes" className={styles.notes} aria-labelledby="notes-title">
         <div className={styles.sectionHeading}>
-          <h2 id="notes-title">Long notes.<br />Room to think.</h2>
+          <h2 id="notes-title">From a quick note to a whole subject.</h2>
           <div>
             <p>
-              A quick thought or an entire chemistry curriculum. Write with
-              headings, images, equations, and the space to put it all together.
-              Your subjects stay within reach in the sidebar.
+              Start with one thought or build out a whole curriculum. Mnemo
+              is block based, unlike Word or Google Docs. Each paragraph,
+              heading, image, equation, or table is a piece you can move and
+              rearrange. Most formatting happens as you type, so you are not
+              always reaching for the toolbar. Familiar if you know Notion,
+              easy if you do not. It stays responsive as your notes grow,
+              even on your old laptop.
             </p>
             <Link href="/docs/users/modules/notes">Explore notes <ArrowUpRight aria-hidden size={17} /></Link>
           </div>
@@ -39,9 +43,26 @@ export function ProductTour() {
         <div className={styles.flashcardCopy}>
           <h2 id="flashcards-title">You’ve read it.<br />Now remember it.</h2>
           <p>
-            Make cards from what you’re learning, then practise recalling it.
-            Mnemo schedules your next review with FSRS, bringing difficult cards
-            back sooner and giving familiar ones more time.
+            In 1885, Hermann Ebbinghaus showed how quickly new memories fade
+            without another encounter. Retrieval practice and spaced
+            repetition remain among the best ways we have to fight that. It
+            is why flashcards became a staple for students, including
+            medicine, where one{" "}
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10403443/"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.inlineLink}
+            >
+              US medical student survey
+            </a>{" "}
+            found 68% of students using Anki.
+          </p>
+          <p>
+            Mnemo uses FSRS-6, the same modern scheduling algorithm as Anki.
+            It learns from your reviews and works out when each card should
+            return, so you spend more time on what you are starting to
+            forget and less on what you already know.
           </p>
           <Link href="/docs/users/modules/flashcards">Explore flashcards <ArrowUpRight aria-hidden size={17} /></Link>
           <Link href="/science" className={styles.scienceLink}>The science behind the practice</Link>
@@ -60,9 +81,11 @@ export function ProductTour() {
           <h2 id="mindmaps-title">There’s a connection<br />in there somewhere.</h2>
           <div>
             <p>
-              Give an idea a branch. Follow it into the details, then zoom out
-              and see how they fit. Build mind maps alongside the notes and
-              flashcards you already study with.
+              Give an idea a branch. Follow it into the details, then zoom
+              out and see how they fit together. New facts stick better when
+              they’re linked to something, not memorized on their own. Build
+              mind maps alongside the notes and flashcards you already study
+              with.
             </p>
             <Link href="/docs/users/modules/mindmaps">Explore mind maps <ArrowUpRight aria-hidden size={17} /></Link>
           </div>
