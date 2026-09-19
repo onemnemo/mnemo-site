@@ -1,6 +1,6 @@
 .section {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
+  grid-template-columns: 1fr 1.25fr;
   gap: 5rem;
   align-items: center;
 }
@@ -19,74 +19,19 @@
 .copy .extraInner p { margin: 0 0 .9rem; font-size: .875rem; line-height: 1.75; }
 .copy .extraInner p:last-child { margin-bottom: 0; }
 
-.link { display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; font-size: .875rem; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 6px; transition: color 180ms; }
-.link:hover { color: var(--brand-ink); }
+.link { display: inline-flex; align-items: center; gap: .75rem; min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: .875rem; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 6px; cursor: pointer; transition: color 180ms, text-decoration-color 180ms; }
+.link:hover { color: var(--brand-ink); text-decoration-color: currentColor; }
 .link:focus-visible { outline: 2px solid var(--brand-ink); outline-offset: 5px; border-radius: 3px; }
 .link svg { flex-shrink: 0; }
 
-/* The plate sits on the peach studio panel with the page's fixed dark ink. */
-.panel {
-  --plate-rich: #ad4a3e;
-  --plate-poor: #bf8f80;
-  --plate-muscle: #fff8f2;
-  --plate-dot: #fff8f2;
-  --plate-soft: #6f5a52;
-  margin: 0;
-  padding: 2.3rem 3rem 2.3rem;
-  border-radius: 24px;
-  background: var(--studio-peach);
-  color: #292527;
-}
-.plateHeading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: .875rem; }
-.plateHeading h3 { margin: 0; font-size: inherit; font-weight: 500; letter-spacing: -.01em; }
-.legends { display: flex; gap: 1.5rem; }
-.legend { display: flex; align-items: center; gap: .6rem; }
-.legend i { width: 20px; height: 3px; border-radius: 2px; }
-.legendRich { background: var(--plate-rich); }
-.legendPoor { background: var(--plate-poor); }
-.plate { display: block; width: 100%; height: auto; overflow: visible; }
-
-/* vessels */
-.vessel, .gill, .capillaries { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.vesselPoor { stroke: var(--plate-poor); stroke-width: 3; }
-.vesselTrunk { stroke-width: 4; }
-.vesselRich { stroke: var(--plate-rich); stroke-width: 3; }
-.vesselMain { stroke: var(--plate-rich); stroke-width: 6.5; }
-.gill { stroke-width: 2.4; }
-.capillaries { stroke-width: 1.5; }
-.stopPoor { stop-color: var(--plate-poor); }
-.stopRich { stop-color: var(--plate-rich); }
-
-.arrow { stroke-width: 1; stroke-linejoin: round; }
-.arrowRich { fill: var(--plate-rich); stroke: var(--plate-rich); }
-.arrowPoor { fill: var(--plate-poor); stroke: var(--plate-poor); }
-
-/* moving blood */
-.flow { fill: none; stroke: var(--plate-dot); stroke-width: 1.7; stroke-linecap: round; stroke-dasharray: .1 19.9; opacity: .8; animation: flow 2.15s linear infinite; }
-.flowMain { stroke-width: 3; }
-.still { display: none; }
-@keyframes flow { to { stroke-dashoffset: -20; } }
-
-/* hearts */
-.heartHalo { fill: var(--studio-peach); }
-.heart { fill: var(--plate-muscle); stroke: var(--plate-rich); stroke-width: 2.5; }
-.heartFolds { fill: none; stroke: var(--plate-rich); stroke-width: 1.15; stroke-linecap: round; opacity: .72; }
-.squeeze { animation: squeeze 2.15s ease-in-out infinite; }
-@keyframes squeeze {
-  0%, 34%, 100% { transform: scale(1, 1); }
-  12% { transform: scale(1.035, .82); }
-}
-
-/* labels */
-.count { fill: #292527; font-size: 15px; font-weight: 500; letter-spacing: -.03em; }
-.role { fill: var(--plate-soft); font-size: 10.5px; }
-.anno { fill: var(--plate-soft); font-size: 8.5px; font-weight: 500; letter-spacing: .14em; text-anchor: middle; }
-.end { text-anchor: end; }
-.leader { fill: none; stroke: #292527; stroke-width: .8; stroke-linecap: round; stroke-linejoin: round; opacity: .6; }
+/* After the transform: the link into the product, and a quiet way back. */
+.actions { display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
+.back { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink-3); font: inherit; font-size: .8rem; cursor: pointer; transition: color 180ms; }
+.back:hover { color: var(--ink); }
+.back:focus-visible { outline: 2px solid var(--brand-ink); outline-offset: 5px; border-radius: 3px; }
 
 @media (max-width: 1100px) {
   .section { gap: 3rem; }
-  .panel { padding: 2rem; }
 }
 @media (max-width: 800px) {
   .section { grid-template-columns: 1fr; }
@@ -97,17 +42,8 @@
   .copy p { line-height: 1.75; max-width: none; }
   .extra { max-width: none; }
   .link { font-size: .825rem; gap: .5rem; }
-  .panel { padding: 1.25rem 1rem 1.5rem; border-radius: 17px; }
-  .plateHeading { font-size: .75rem; margin-bottom: 1rem; }
-  .legends { gap: .6rem; }
-  .legend { gap: .3rem; }
-  .legend i { width: 12px; }
-  .count { font-size: 17px; }
-  .role { font-size: 12px; }
-  .anno { font-size: 11px; }
+  .actions { gap: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .flow, .squeeze, .extraPanel, .link, .extraToggle { animation: none; transition: none; }
-  .flow { display: none; }
-  .still { display: block; }
+  .extraPanel, .link, .back, .extraToggle { transition: none; }
 }

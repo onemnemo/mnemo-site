@@ -1,0 +1,85 @@
+/* The peach studio panel is the canvas, with the page's fixed dark ink. */
+.stage {
+  --rich: #ad4a3e;
+  --poor: #bf8f80;
+  --ink: #292527;
+  --beat: 2.15s;
+  position: relative;
+  margin: 0;
+  padding: 1.5rem 1.75rem;
+  border-radius: 24px;
+  background: radial-gradient(120% 90% at 18% 0%, #f5d2c3 0%, #f5d2c300 60%), var(--studio-peach);
+  color: var(--ink);
+  overflow: hidden;
+  isolation: isolate;
+}
+.ground { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 30%; z-index: 0; }
+.groundFar { fill: #e7b29e; opacity: .55; }
+.groundNear { fill: #e2a68f; opacity: .75; }
+.art { position: relative; z-index: 1; display: block; width: 100%; height: auto; overflow: visible; }
+
+/* vessels */
+.pen { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3.6; }
+.poor { stroke: var(--poor); }
+.rich { stroke: var(--rich); }
+.main { stroke-width: 6; }
+.gill { stroke-width: 3; }
+.stopPoor { stop-color: var(--poor); }
+.stopRich { stop-color: var(--rich); }
+.body { fill: #f5d5c6; stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+
+/* direction cues */
+.still { display: none; }
+.arrow { fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; opacity: .75; }
+
+/* moving blood */
+.flow { fill: none; stroke: #fff8f2; stroke-width: 1.9; stroke-linecap: round; stroke-dasharray: .1 19.9; opacity: .9; animation: flow var(--beat) linear infinite; transition: opacity .25s, stroke-width .25s; }
+.flowMain { stroke-width: 3; }
+.flowMap .flow { stroke-width: 1.6; animation-duration: 3.4s; }
+@keyframes flow { to { stroke-dashoffset: -20; } }
+
+/* In the circulation state the systemic route swells a little on its pump's beat. */
+.isLoop .main { animation: surge var(--beat) ease-in-out infinite .45s; }
+@keyframes surge {
+  0%, 32%, 100% { stroke-width: 6; }
+  9%, 18% { stroke-width: 7; }
+}
+
+/* pumps */
+.pump { fill: #fff8f2; stroke: var(--rich); stroke-width: 2.5; transition: stroke-width .25s; }
+.pumpFolds { fill: none; stroke: var(--rich); stroke-width: 1.15; stroke-linecap: round; opacity: .72; }
+.squeeze { animation: squeeze var(--beat) ease-in-out infinite; }
+@keyframes squeeze {
+  0%, 34%, 100% { transform: scale(1, 1); }
+  12% { transform: scale(1.035, .82); }
+}
+
+/* A readiness cue while the CTA is hovered or focused: the blood and pumps come forward a touch. */
+.armed .flow { opacity: 1; stroke-width: 2.3; }
+.armed .flowMain { stroke-width: 3.4; }
+.armed .pump { stroke-width: 3.1; }
+
+/* centre node of the map */
+.node rect { fill: var(--ink); }
+.node text { fill: #fffaf5; font-size: 9.5px; font-weight: 500; letter-spacing: -.02em; text-anchor: middle; }
+
+/* labels */
+.anno { fill: var(--ink); font-size: 7px; font-weight: 500; letter-spacing: .01em; text-anchor: middle; opacity: .78; }
+.label { fill: var(--ink); font-size: 7.4px; font-weight: 500; letter-spacing: -.01em; text-anchor: middle; }
+.sub { fill: var(--ink); font-size: 5.6px; text-anchor: middle; opacity: .72; }
+
+@media (max-width: 1100px) {
+  .stage { padding: 1.25rem; }
+}
+@media (max-width: 650px) {
+  .stage { padding: 1rem .9rem; border-radius: 17px; }
+  .anno { font-size: 9.5px; }
+  .label { font-size: 8.5px; }
+  .sub { font-size: 7.4px; }
+  .node text { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow, .squeeze, .main { animation: none; }
+  .flow { display: none; }
+  .isLoop .still { display: block; }
+}

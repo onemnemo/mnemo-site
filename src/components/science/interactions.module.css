@@ -36,9 +36,8 @@
 .reviewLabels span:nth-child(3) { left: 81.25%; }
 .axis { display: flex; justify-content: space-between; margin: -.2rem 4.6875% 0; font-size: .875rem; }
 .axis > span:last-child { display: flex; align-items: center; gap: .6rem; }
-.chart figcaption { display: grid; grid-template-columns: 1.3fr 1fr; align-items: end; gap: 4rem; margin-top: 2rem; border-top: 1px solid #29252730; padding-top: 1.5rem; }
-.chart figcaption p { font-size: 1rem; line-height: 1.7; margin: 0; max-width: 520px; min-height: 3.4em; }
-.chart figcaption small { font-size: .8rem; line-height: 1.6; color: #51475a; max-width: 300px; justify-self: end; }
+.chart figcaption { margin-top: 2rem; border-top: 1px solid #29252730; padding-top: 1.5rem; }
+.chart figcaption p { font-size: 1rem; line-height: 1.7; margin: 0; }
 
 
 @media (max-width: 1000px) {
@@ -64,9 +63,8 @@
   .plot { margin-top: .8rem; }
   .reviewLabels { font-size: .7rem; bottom: 18%; }
   .axis { margin-top: .4rem; font-size: .75rem; }
-  .chart figcaption { grid-template-columns: 1fr; gap: .75rem; margin-top: 1.5rem; padding-top: 1.2rem; }
-  .chart figcaption p { font-size: .9rem; min-height: 5.1em; }
-  .chart figcaption small { justify-self: start; font-size: .75rem; }
+  .chart figcaption { margin-top: 1.5rem; padding-top: 1.2rem; }
+  .chart figcaption p { font-size: .9rem; }
 }
 @media (max-width: 360px) {
   .switch button { font-size: .75rem; padding: .6rem .4rem; white-space: nowrap; }

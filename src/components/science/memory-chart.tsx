@@ -36,8 +36,7 @@ export function MemoryChart() {
       </div>
       <div className={styles.axis}><span>Just learned</span><span>Time passes <ArrowRight size={16} aria-hidden /></span></div>
       <figcaption aria-live="polite" aria-atomic="true">
-        <p>{spaced ? "Each review gives you another chance to recall it. Over time, you can leave more room between reviews." : "Without another encounter, something you’ve just learned can become harder to bring to mind."}</p>
-        <small>An illustration of the pattern, not measured results. Everyone’s timing is different.</small>
+        <p>{spaced ? "Successful recalls push the next review further out." : "Without a review, it fades."}</p>
       </figcaption>
     </figure>
   )
