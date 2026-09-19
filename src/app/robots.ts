@@ -5,8 +5,8 @@ import { siteConfig } from "@/config/site"
 /**
  * Robots policy, served at /robots.txt.
  *
- * Everything is crawlable except the internal brand sheet. llms.txt in
- * /public carries a curated summary for crawlers that look for it.
+ * Everything is crawlable. llms.txt in /public carries a curated summary
+ * for crawlers that look for it.
  */
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -14,7 +14,6 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: "/brand",
       },
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,
