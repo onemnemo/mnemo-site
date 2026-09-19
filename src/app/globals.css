@@ -452,6 +452,14 @@
   }
   html {
     @apply font-sans;
+    /* In-page links ("Look around", "Try a little experiment", the tool
+       cards) glide to their target instead of jumping. */
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
   /* Display type is the serif; everything else stays on the sans. */
   h1,
