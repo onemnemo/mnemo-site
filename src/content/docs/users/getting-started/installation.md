@@ -9,17 +9,19 @@ Mnemo is a desktop app. There is no account to create, and your library stays on
 
 ## Download Mnemo
 
-Mnemo 0.8.0 is available for Windows, macOS, and Linux.
+Mnemo 0.8 is launching in beta. This is the first proper release since the app was rebuilt on a different framework. Expect bugs and quirks, and frequent updates as more people try it on different hardware.
 
 | Platform             | Download                      | Status  |
 | -------------------- | ----------------------------- | ------- |
-| Windows 10/11, x64   | Installer or portable zip     | Beta    |
-| macOS, Apple silicon | Installer or portable archive | Preview |
-| Linux, x64           | AppImage or portable archive  | Preview |
+| Windows 10/11, x64   | Installer or portable zip     | Most tested |
+| macOS, Apple silicon | Installer or portable archive | Unverified |
+| Linux, x64           | AppImage or portable archive  | Limited testing |
 
-Windows is currently the most tested platform. macOS and Linux builds are newer, so you may run into platform-specific issues.
+Windows is further along and has had substantially more testing. Linux has had less development attention and only limited testing. The macOS packages have not yet been downloaded, installed, or verified on a Mac and may not work correctly. There is no Intel Mac build.
 
-Download Mnemo from the [download page](https://mnemo.one/download) or [GitHub Releases](https://github.com/onemnemo/mnemo/releases/latest).
+Use the [download page](https://mnemo.one/download) for the current version and direct downloads, or browse [all GitHub releases](https://github.com/onemnemo/mnemo/releases). The first beta tag is `v0.8.0-rc.1`, followed by numbered release candidates. `v0.8.0` will be the finished stable release. Downloads appear when the release and its files are published.
+
+All release candidates are beta software. Bugs can cause data loss. Keep a separate [backup of your library](../customization/storage-and-backup.md), especially before updating. Early updates may include urgent fixes as well as improvements and new features.
 
 For most people, the installer is the best option. Portable builds run without installation and can be moved between folders or drives.
 
@@ -32,6 +34,22 @@ On Windows, choose **More info** → **Run anyway**.
 On macOS, you may need to allow Mnemo through Gatekeeper before opening it for the first time.
 
 Mnemo will then take you through a short setup wizard.
+
+### Windows requirements
+
+Mnemo needs the [Microsoft Edge WebView2 Evergreen Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/consumer/). It is usually already installed on Windows 10 and 11. If Mnemo will not start, check that this runtime is present.
+
+### Linux requirements
+
+The x64 build targets Ubuntu 22.04 or newer. The AppImage needs permission to run: open its file properties and enable execution, or run `chmod +x` with the downloaded filename.
+
+Linux needs GTK 3, WebKitGTK 4.1, JavaScriptCoreGTK, libnotify, and FUSE 2. On Ubuntu 24.04, install them with:
+
+```bash
+sudo apt install libfuse2t64 libwebkit2gtk-4.1-0 libjavascriptcoregtk-4.1-0 libgtk-3-0t64 libnotify4
+```
+
+Package names differ on other distributions. The portable archive also needs the native runtime libraries; it does not need FUSE to unpack.
 
 ## Where your data is stored
 
@@ -55,9 +73,9 @@ Automatic update checks are enabled by default. When a new version is available,
 
 You can also choose a release channel:
 
-* **Stable** — finished releases
-* **Beta** — new features earlier, with a higher chance of bugs
-* **Nightly** — latest development builds
+* **Stable**: finished releases
+* **Beta**: new features earlier, with a higher chance of bugs
+* **Nightly**: latest development builds
 
 Use **Check for updates** to check manually, or **Release notes** to view the changelog.
 
