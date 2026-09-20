@@ -35,19 +35,19 @@ export default async function DownloadPage() {
               we haven’t found yet.
             </p>
           </DownloadOptions>
+          <article aria-labelledby="beta-note-title" className="mx-auto mt-20 max-w-2xl border-t pt-8 sm:mt-28 sm:pt-10">
+            <h2 id="beta-note-title" className="font-sans text-2xl font-medium tracking-tight">About this beta</h2>
+            <div className="text-ink-2 mt-5 space-y-5 text-base leading-7">
+              <p>Until now, Mnemo has mostly run on our own development machines. New hardware will uncover things we’ve missed, so expect frequent fixes and improvements in the first few weeks.</p>
+              <p>Some of those fixes may address serious problems, including data loss. Keep a backup outside the app and read the release notes before updating. The <Link href="/docs/users/customization/storage-and-backup" className="text-ink underline decoration-line underline-offset-4 hover:decoration-ink">backup guide</Link> explains how.</p>
+              <p>There’s more to build. Tell us what breaks, what feels awkward, and what you’d like to see next. Your feedback will help shape Mnemo as it grows.</p>
+            </div>
+            <p className="mt-6 text-sm leading-relaxed">Thanks for trying Mnemo and supporting the project.</p>
+          </article>
         </Container>
       </Section>
       <Section canvas="butter">
         <Container>
-          <div className="mb-14 grid gap-6 border-b pb-12 md:grid-cols-[1fr_1.4fr] md:gap-16">
-            <h2 className="max-w-xs font-sans text-3xl font-medium tracking-tight">A new start.<br />Still a work in progress.</h2>
-            <div className="text-ink-2 max-w-xl space-y-4 leading-relaxed">
-              <p>Until now, Mnemo has mostly run on our own development machines. As more people try it on different hardware, we’ll find things our testing missed.</p>
-              <p>Expect frequent updates in the early days: fixes, improvements, and work to make the app more reliable. Some fixes may address serious issues, including bugs that can cause data loss. Keep backups outside the app and read the release notes before updating.</p>
-              <p>We’re still early in development, with more features to come. Tell us what breaks, what feels awkward, and what you’d like to see next. Your feedback will help shape Mnemo. Thanks for giving it a try and supporting the project.</p>
-              <Link href="/docs/users/customization/storage-and-backup" className="inline-block py-2 text-sm underline underline-offset-4">How to back up your library</Link>
-            </div>
-          </div>
           <h2 className="font-sans text-3xl font-medium tracking-tight">Need a hand?</h2>
           <p className="text-ink-2 mt-4 max-w-lg leading-relaxed">The installation guide covers setup. If something goes wrong, report it so we can help.</p>
           <div className="mt-6 flex flex-wrap gap-6">
