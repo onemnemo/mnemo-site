@@ -28,6 +28,7 @@ const footerColumns = [
     heading: "Resources",
     links: [
       { label: "Docs", href: "/docs" },
+      { label: "Changelog", href: siteConfig.links.changelog, external: true },
       { label: "Releases", href: siteConfig.links.releases, external: true },
       { label: "Source code", href: siteConfig.links.github, external: true },
     ],
@@ -36,6 +37,7 @@ const footerColumns = [
     heading: "Community",
     links: [
       { label: "Our story", href: "/story" },
+      { label: "Reddit", href: siteConfig.links.reddit, external: true },
       { label: "Issues", href: siteConfig.links.issues, external: true },
       {
         label: "Contributing",
@@ -105,7 +107,15 @@ export function SiteFooter() {
 
         <div className="text-ink-2 border-line mt-16 flex flex-wrap items-center gap-4 border-t pt-8 text-xs">
           <p>
-            © {new Date().getFullYear()} Mnemo contributors · {siteConfig.license}
+            © {new Date().getFullYear()} Mnemo contributors ·{" "}
+            <a
+              href={siteConfig.links.licenseText}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-ink transition-colors"
+            >
+              {siteConfig.license}
+            </a>
           </p>
         </div>
       </Container>
