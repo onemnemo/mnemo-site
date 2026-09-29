@@ -27,7 +27,7 @@ export function LandingHero({ release }: { release: ReleaseResult }) {
           </a>
         </div>
         <p className={styles.release}>
-          {version} for Windows, Linux, and macOS
+          {version} for Windows, macOS, and Linux
           <span aria-hidden className={styles.separator}> · </span>
           <a href={current?.url ?? releasesUrl} target="_blank" rel="noreferrer">
             Release notes

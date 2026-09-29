@@ -9,7 +9,7 @@ import { detectPlatform, platforms, releasesUrl, type Platform, type ReleaseResu
 const subscribe = () => () => {}
 const serverPlatform = () => "unknown" as const
 const browserPlatform = () => detectPlatform(navigator.userAgent, navigator.platform, navigator.maxTouchPoints)
-const platformOptions: (Platform | null)[] = [null, "windows", "linux", "macos"]
+const platformOptions: (Platform | null)[] = [null, "windows", "macos", "linux"]
 
 export function BetaDownloadPicker({ result }: { result: ReleaseResult }) {
   const detected = useSyncExternalStore(subscribe, browserPlatform, serverPlatform)

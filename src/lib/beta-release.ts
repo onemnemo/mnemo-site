@@ -4,10 +4,17 @@ export const releasesUrl = "https://github.com/onemnemo/mnemo/releases"
 export const platforms = {
   windows: {
     name: "Windows", architecture: "x64", status: "Most tested",
-    notice: "Windows is the furthest along and has had the most testing. Linux and macOS have not had the same level of testing yet.",
+    notice: "Windows is the furthest along and has had the most testing. macOS has been verified on a Mac, and Linux has had limited testing so far.",
     requirement: "Windows 10 or 11, 64-bit Intel or AMD.",
     installer: "Mnemo.Desktop.V2-win-x64-beta-Setup.exe",
     portable: "Mnemo-Portable-win-x64.zip", format: "Installer (.exe)",
+  },
+  macos: {
+    name: "macOS", architecture: "Apple silicon", status: "Verified",
+    notice: "The macOS build has been installed and verified on an Apple silicon Mac, and it is notarized by Apple. It has had less testing than Windows, so expect a few more rough edges.",
+    requirement: "Apple silicon (M1 or newer). No Intel Mac build. Notarized by Apple.",
+    installer: "Mnemo.Desktop.V2-osx-arm64-beta-Setup.pkg",
+    portable: "Mnemo-Portable-osx-arm64.tar.gz", format: "Installer (.pkg)",
   },
   linux: {
     name: "Linux", architecture: "x64", status: "Limited testing",
@@ -15,13 +22,6 @@ export const platforms = {
     requirement: "64-bit Intel or AMD. Targets Ubuntu 22.04 or newer; see the installation guide for dependencies.",
     installer: "Mnemo.Desktop.V2-linux-x64-beta.AppImage",
     portable: "Mnemo-Portable-linux-x64.tar.gz", format: "AppImage",
-  },
-  macos: {
-    name: "macOS", architecture: "Apple silicon", status: "Unverified",
-    notice: "The macOS packages have not yet been downloaded, installed, or verified on a Mac. Treat this as an experimental build; it may not launch or work correctly.",
-    requirement: "Apple silicon (M1 or newer). No Intel Mac build. Unsigned and not notarized.",
-    installer: "Mnemo.Desktop.V2-osx-arm64-beta-Setup.pkg",
-    portable: "Mnemo-Portable-osx-arm64.tar.gz", format: "Installer (.pkg)",
   },
 } as const
 

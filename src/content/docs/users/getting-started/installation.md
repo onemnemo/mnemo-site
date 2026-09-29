@@ -14,10 +14,10 @@ Mnemo 0.8 is launching in beta. This is the first proper release since the app w
 | Platform             | Download                      | Status  |
 | -------------------- | ----------------------------- | ------- |
 | Windows 10/11, x64   | Installer or portable zip     | Most tested |
-| macOS, Apple silicon | Installer or portable archive | Unverified |
+| macOS, Apple silicon | Installer or portable archive | Verified |
 | Linux, x64           | AppImage or portable archive  | Limited testing |
 
-Windows is further along and has had substantially more testing. Linux has had less development attention and only limited testing. The macOS packages have not yet been downloaded, installed, or verified on a Mac and may not work correctly. There is no Intel Mac build.
+Windows is further along and has had substantially more testing. The macOS build has been installed and verified on an Apple silicon Mac and is notarized by Apple, but it has had less testing than Windows. There is no Intel Mac build. Linux has had less development attention and only limited testing.
 
 Use the [download page](https://mnemo.one/download) for the current version and direct downloads, or browse [all GitHub releases](https://github.com/onemnemo/mnemo/releases). The first beta tag is `v0.8.0-rc.1`, followed by numbered release candidates. `v0.8.0` will be the finished stable release. Downloads appear when the release and its files are published.
 
@@ -27,11 +27,9 @@ For most people, the installer is the best option. Portable builds run without i
 
 ## First launch
 
-Mnemo is not code signed yet, so your operating system may show a warning the first time you open it.
+The Windows build is not code signed yet, so Windows may show a warning the first time you open it. Choose **More info** → **Run anyway**.
 
-On Windows, choose **More info** → **Run anyway**.
-
-On macOS, you may need to allow Mnemo through Gatekeeper before opening it for the first time.
+The macOS build is notarized by Apple, so Gatekeeper lets it open without an override. macOS still asks you to confirm the first time you open an app downloaded from the internet.
 
 Mnemo will then take you through a short setup wizard.
 
