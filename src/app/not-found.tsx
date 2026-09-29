@@ -20,15 +20,15 @@ export default function NotFound() {
             <p className="type-eyebrow">
               404
             </p>
-            <h1 className="type-display mt-3">
+            <h1 className="mt-3 font-sans text-5xl leading-[1.08] font-medium tracking-[-0.055em] sm:text-6xl">
               This page forgot to exist.
             </h1>
-            <p className="type-lede text-ink-2 mt-4 max-w-md">
+            <p className="text-ink-2 mt-5 max-w-md text-base leading-relaxed">
               Ironic, for a memory app. Soma is looking into it, with limited
               enthusiasm.
             </p>
             <div className="mt-8">
-              <Button asChild size="lg" className="rounded-full px-6">
+              <Button asChild className="mnemo-download">
                 <Link href="/">Back to the homepage</Link>
               </Button>
             </div>

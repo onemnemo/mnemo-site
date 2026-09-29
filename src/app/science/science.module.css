@@ -29,7 +29,7 @@
 .practice h2 { margin-bottom: 1.5rem; }
 .practiceCopy p { max-width: 345px; }
 .notesImage { padding: 2.5rem 2rem; border-radius: 24px; background: #e9e3da; min-width: 0; }
-.sleep { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 2rem; padding: 3rem 3.5rem; background: var(--studio-lilac); border-radius: 24px; color: #292527; }
+.sleep { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 2rem; padding: 3rem 3.5rem; background: #d3cbf0; /* matches the art's own ground so its faded edge disappears */ border-radius: 24px; color: #292527; }
 .sleep h2 { font-size: clamp(2.3rem, 3.5vw, 3.5rem); }
 .sleep p { color: #51475a; max-width: 390px; }
 .sleep p:last-child { margin-bottom: 0; }
@@ -51,7 +51,7 @@
 .research li a svg { position: absolute; right: 0; top: .3rem; }
 .research small { display: block; color: var(--ink-2); margin-top: .4rem; font-size: .8rem; }
 .closing { background: var(--butter); padding: 4rem 0 5rem; color: #292527; }
-.closingInner { width: min(100% - 6rem, 1100px); margin: 0 auto; display: grid; grid-template-columns: 1fr 280px; align-items: center; gap: 5rem; }
+.closingInner { width: var(--page-width); margin: 0 auto; display: grid; grid-template-columns: 1fr 280px; align-items: center; gap: 5rem; }
 .closing h2 { font-size: clamp(2.75rem, 4.8vw, 4.75rem); }
 .closing p { font-size: 1rem; line-height: 1.8; margin: 1.5rem 0 1.8rem; }
 .closingActions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
@@ -70,7 +70,7 @@
   .notesImage { padding: 2rem 1.25rem; }
   .sleep { padding: 2.5rem; gap: 1rem; }
   .research { gap: 3rem; }
-  .closingInner { width: calc(100% - 6rem); grid-template-columns: 1fr 200px; gap: 3rem; }
+  .closingInner { grid-template-columns: 1fr 200px; gap: 3rem; }
 }
 @media (max-width: 800px) and (min-width: 651px) {
   .hero { gap: 2rem; }
@@ -121,7 +121,7 @@
   .research summary { font-size: .9rem; }
   .research li { grid-template-columns: 1fr; gap: .4rem; }
   .closing { padding: 3.5rem 0 4rem; }
-  .closingInner { width: calc(100% - 2.5rem); grid-template-columns: 1fr; gap: 1rem; text-align: center; }
+  .closingInner { grid-template-columns: 1fr; gap: 1rem; text-align: center; }
   .closing h2 { font-size: clamp(2.35rem, 9vw, 3rem); }
   .closing p { margin: 1.3rem 0 1.5rem; }
   .closingActions { justify-content: center; gap: .75rem 1.25rem; }
