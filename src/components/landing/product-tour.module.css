@@ -1,4 +1,4 @@
-.tour { width: min(100% - 6rem, 1320px); margin: 0 auto; padding: 1rem 0 6rem; }
+.tour { width: var(--page-width); margin: 0 auto; padding: 1rem 0 6rem; }
 .tour section { scroll-margin-top: 7rem; }
 .sectionHeading { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 5rem; align-items: start; padding: 2rem 0 3rem; }
 .tour h2 { font-family: var(--font-sans), sans-serif; font-size: clamp(2.25rem, 3.7vw, 3.7rem); font-weight: 500; line-height: 1.12; letter-spacing: -0.055em; margin: 0; }
@@ -9,16 +9,18 @@
 .flourish { position: absolute; width: 75px; right: 0.4rem; top: -2.8rem; transform: rotate(22deg); z-index: 1; }
 .imageTrigger { position: relative; display: block; width: 100%; padding: 0; border: 1px solid #29252720; border-radius: 12px; overflow: hidden; background: #fff; cursor: zoom-in; box-shadow: 0 18px 50px -25px #2d1d4c45; }
 .imageTrigger > img { width: 100%; height: auto; display: block; }
+/* A crop shows a detail of the capture; the dialog still opens the full screenshot. */
+.imageTrigger[data-crop] { aspect-ratio: var(--crop-ratio); }
+.imageTrigger[data-crop] > img { position: absolute; max-width: none; width: var(--crop-width); left: var(--crop-left); top: var(--crop-top); }
 .notesStage .imageTrigger { border-bottom: none; border-radius: 12px 12px 0 0; }
 .imageTrigger:focus-visible { outline: 3px solid var(--brand-ink); outline-offset: 6px; }
 .flashcards { display: grid; grid-template-columns: 0.7fr 1.3fr; align-items: center; gap: 4rem; margin: 7rem 0; }
 .flashcardCopy h2 { font-size: clamp(2.2rem, 3.1vw, 3.2rem); margin-bottom: 1.5rem; }
 .flashcardCopy p { max-width: 345px; }
-.flashcardCopy .scienceLink { display: flex; font-size: 0.8rem; color: var(--ink-2); margin-top: 0.8rem; }
+.links { display: flex; flex-wrap: wrap; column-gap: 1.75rem; }
 .flashcardCopy .inlineLink { display: inline; min-height: auto; font-size: inherit; text-underline-offset: 3px; }
 .flashcardStage { background: var(--studio-yellow); padding: 3rem 2.2rem; border-radius: 24px; transform: rotate(1deg); }
 .flashcardStage .imageTrigger { transform: rotate(-1deg); }
-.mindmaps .sectionHeading { grid-template-columns: 1.25fr 0.75fr; }
 .mindmapStage { border-radius: 24px; background: var(--studio-peach); padding: 3.5rem 4rem; }
 .imageOverlay { position: fixed; inset: 0; background: #1f1b24d9; backdrop-filter: blur(8px); z-index: 80; }
 .imageDialog { position: fixed; z-index: 81; inset: 5vh 3vw; display: flex; align-items: center; justify-content: center; outline: none; }
@@ -28,7 +30,7 @@
 .closeImage:focus-visible { outline: 3px solid #e98450; outline-offset: 4px; }
 
 @media (max-width: 1000px) {
-  .tour { width: calc(100% - 4rem); padding-bottom: 4rem; }
+  .tour { padding-bottom: 4rem; }
   .sectionHeading { gap: 3rem; }
   .notesStage { padding: 2.5rem 2.5rem 0; }
   .flashcards { gap: 2rem; grid-template-columns: 0.85fr 1.15fr; }
@@ -37,8 +39,8 @@
 }
 
 @media (max-width: 650px) {
-  .tour { width: calc(100% - 2.5rem); padding: 0 0 3.5rem; }
-  .sectionHeading, .mindmaps .sectionHeading { display: block; padding: 1rem 0 1.6rem; }
+  .tour { padding: 0 0 3.5rem; }
+  .sectionHeading { display: block; padding: 1rem 0 1.6rem; }
   .tour h2 { font-size: clamp(2rem, 8vw, 2.7rem); letter-spacing: -0.05em; margin-bottom: 1.25rem; }
   .tour p { font-size: 1rem; line-height: 1.75; margin-bottom: 0.8rem; }
   .notesStage { border-radius: 16px; padding: 1.4rem 1rem 0; }

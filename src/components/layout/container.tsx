@@ -14,7 +14,7 @@ export function Container({
 }: ComponentPropsWithoutRef<"div">) {
   return (
     <div
-      className={cn("mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8", className)}
+      className={cn("mx-auto w-(--page-width)", className)}
       {...props}
     />
   )

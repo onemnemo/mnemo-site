@@ -1,5 +1,5 @@
 .page { color: var(--ink); }
-.container { width: min(100% - 6rem, 1320px); margin: 0 auto; }
+.container { width: var(--page-width); margin: 0 auto; }
 .page h1, .page h2 { font-family: var(--font-sans), sans-serif; font-weight: 500; margin: 0; }
 .page h2 { font-size: clamp(2.25rem, 3.7vw, 3.7rem); letter-spacing: -.055em; line-height: 1.12; }
 .page section { scroll-margin-top: 8rem; }
@@ -58,7 +58,6 @@
 .graduate { height: 310px; justify-self: center; }
 
 @media (max-width: 1100px) {
-  .container { width: calc(100% - 4rem); }
   .hero, .recall, .sectionHeading { gap: 3rem; }
   .hero { padding-top: 3.5rem; }
   .fact { min-height: 440px; padding: 2rem; }
@@ -91,7 +90,6 @@
   .research p { max-width: 520px; }
 }
 @media (max-width: 650px) {
-  .container { width: calc(100% - 2.5rem); }
   .page section { scroll-margin-top: 6rem; }
   .page h2 { font-size: clamp(2rem, 8vw, 2.7rem); }
   .hero { grid-template-columns: 1fr; gap: 2rem; padding: 2.8rem 0 3.5rem; }

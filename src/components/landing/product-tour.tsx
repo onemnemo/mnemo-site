@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowRight, ArrowUpRight } from "lucide-react"
 
 import notes from "@public/screenshots/notes.png"
 import flashcards from "@public/screenshots/flashcards.png"
@@ -64,14 +64,17 @@ export function ProductTour() {
             return, so you spend more time on what you are starting to
             forget and less on what you already know.
           </p>
-          <Link href="/docs/users/modules/flashcards">Explore flashcards <ArrowUpRight aria-hidden size={17} /></Link>
-          <Link href="/science" className={styles.scienceLink}>The science behind the practice</Link>
+          <div className={styles.links}>
+            <Link href="/docs/users/modules/flashcards">Explore flashcards <ArrowUpRight aria-hidden size={17} /></Link>
+            <Link href="/science">The science behind it <ArrowRight aria-hidden size={17} /></Link>
+          </div>
         </div>
         <div className={styles.flashcardStage}>
           <ProductImage
             src={flashcards}
             alt="A Mnemo review session with a medicine flashcard, its illustrated answer, and the Again, Hard, Good, and Easy controls"
             label="Enlarge the flashcards screenshot"
+            crop={{ ratio: "1120 / 890", width: "178.6%", left: "-42.9%", top: "-36%" }}
           />
         </div>
       </section>

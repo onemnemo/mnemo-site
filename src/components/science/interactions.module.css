@@ -30,7 +30,7 @@
 .ghost svg > path { stroke-dasharray: .012 .012; stroke-dashoffset: 0; stroke-width: 2; animation: none; }
 .ghost svg > line { opacity: 0; }
 .reviewLabels { position: absolute; left: 0; right: 0; bottom: 18%; font-size: .8rem; color: #51435b; }
-.reviewLabels span { position: absolute; transform: translateX(-50%); }
+.reviewLabels span { position: absolute; transform: translateX(-50%); padding: 0 .4rem; border-radius: 4px; background: var(--studio-lilac); }
 .reviewLabels span:nth-child(1) { left: 23.4375%; }
 .reviewLabels span:nth-child(2) { left: 48.4375%; }
 .reviewLabels span:nth-child(3) { left: 81.25%; }

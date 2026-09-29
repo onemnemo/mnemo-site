@@ -2,6 +2,16 @@
   --studio-lilac: #d8d1f0;
   --studio-yellow: #f3d77c;
   --studio-peach: #eec1af;
+  /* One content width for the whole site, so every section shares a left edge. */
+  --page-width: min(100% - 6rem, 1320px);
+}
+
+@media (max-width: 1150px) {
+  :root { --page-width: calc(100% - 4rem); }
+}
+
+@media (max-width: 650px) {
+  :root { --page-width: calc(100% - 2.5rem); }
 }
 
 .mnemo-download[data-slot="button"] {
@@ -22,7 +32,7 @@
 }
 
 .site-masthead { background: var(--paper); border-bottom: 1px solid var(--line-soft); }
-.site-masthead-inner { width: min(100% - 6rem, 1440px); height: 88px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; }
+.site-masthead-inner { width: var(--page-width); height: 88px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; }
 .site-masthead-logo { width: 170px; height: auto; }
 .site-masthead-actions { display: flex; align-items: center; gap: 0.6rem; justify-self: end; }
 .site-masthead-github { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; color: var(--ink-2); transition: color 150ms, background-color 150ms; }
@@ -31,7 +41,6 @@
 .site-footer-heading { font-family: var(--font-sans), sans-serif; font-size: 0.875rem; font-weight: 500; }
 
 @media (max-width: 1150px) {
-  .site-masthead-inner { width: calc(100% - 4rem); }
   .site-masthead-logo { width: 145px; }
 }
 
@@ -41,7 +50,7 @@
 }
 
 @media (max-width: 650px) {
-  .site-masthead-inner { width: calc(100% - 2.5rem); height: 76px; gap: 0.8rem; }
+  .site-masthead-inner { height: 76px; gap: 0.8rem; }
   .site-masthead-logo { width: 140px; }
   .site-masthead-actions { gap: 0.15rem; }
   .site-masthead-actions .mnemo-download { display: none; }
