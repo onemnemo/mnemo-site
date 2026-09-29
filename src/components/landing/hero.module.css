@@ -13,15 +13,15 @@
   font-weight: 500;
   font-size: clamp(3.3rem, 4.9vw, 5.3rem);
   line-height: 1.04;
-  letter-spacing: -0.065em;
+  letter-spacing: -0.05em;
   margin: 0;
 }
 
 .intro > p {
-  max-width: 340px;
+  max-width: 360px;
   margin: 1.8rem 0 2rem;
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: 1.0625rem;
+  line-height: 1.65;
   color: var(--ink-2);
 }
 
@@ -38,7 +38,7 @@
 .mindmaps { background: var(--studio-peach); }
 .cardLink { position: relative; display: block; padding-bottom: 0.9rem; }
 .cardNumber { display: block; font-size: 0.75rem; margin-bottom: 2.75rem; }
-.cardLink h2 { font-family: var(--font-sans), sans-serif; font-size: clamp(1.4rem, 1.85vw, 2rem); line-height: 1.1; font-weight: 500; letter-spacing: -0.055em; margin: 0; }
+.cardLink h2 { font-family: var(--font-sans), sans-serif; font-size: clamp(1.4rem, 1.85vw, 2rem); line-height: 1.1; font-weight: 500; letter-spacing: -0.045em; margin: 0; }
 .cardArrow { position: absolute; right: 0; top: 0; transition: transform 200ms; }
 .cardLink:hover .cardArrow { transform: translateY(5px); }
 .cardLink::after { content: ""; position: absolute; inset: -1rem -0.6rem; border-radius: 12px; }

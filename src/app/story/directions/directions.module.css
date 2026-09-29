@@ -6,10 +6,10 @@
 .page section, .chronology { scroll-margin-top: 110px; }
 .hero { display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: 6%; width: var(--page-width); margin: auto; padding: 65px 0 75px; }
 .heroCopy { min-width: 0; }
-.hero h1 { font-size: clamp(48px, 5.2vw, 76px); font-weight: 500; line-height: 1.05; letter-spacing: -.065em; }
+.hero h1 { font-size: clamp(48px, 5.2vw, 76px); font-weight: 500; line-height: 1.05; letter-spacing: -.05em; }
 .hero h1 span { display: block; max-width: 8ch; }
 .heroIntro { margin-top: 28px; }
-.heroIntro > p { max-width: 400px; font-size: 16px; line-height: 1.8; color: var(--ink-2); }
+.heroIntro > p { max-width: 400px; font-size: 17px; line-height: 1.65; color: var(--ink-2); }
 .readLink { display: inline-flex; align-items: center; gap: 24px; min-height: 44px; margin-top: 24px; border-bottom: 1px solid var(--line); font-size: 14px; }
 .readLink svg, .joinLinks svg { flex-shrink: 0; transition: transform 200ms ease; }
 .readLink:hover svg { transform: translateY(4px); }
@@ -22,8 +22,8 @@
 .body { width: var(--page-width); margin: auto; }
 .origin { padding-top: 35px; }
 .originGrid, .nextGrid { display: grid; grid-template-columns: 1.12fr 1fr; gap: 10%; }
-.page h2 { font-size: clamp(34px, 3.8vw, 56px); font-weight: 500; line-height: 1.1; letter-spacing: -.055em; text-wrap: balance; }
-.prose p { max-width: 58ch; font-size: 16px; line-height: 1.85; color: var(--ink-2); }
+.page h2 { font-size: clamp(34px, 3.8vw, 56px); font-weight: 500; line-height: 1.1; letter-spacing: -.045em; text-wrap: balance; }
+.prose p { max-width: 58ch; font-size: 17px; line-height: 1.7; color: var(--ink-2); }
 .prose p + p { margin-top: 18px; }
 .page .originAside { margin-top: 25px; font-size: 18px; line-height: 1.75; color: var(--ink-2); }
 .chronology { display: grid; gap: var(--version-gap); padding-top: var(--chapter-gap); }
@@ -34,7 +34,7 @@
 .screenshot > button { border-radius: 3px; box-shadow: 0 12px 24px -22px #30263780; cursor: zoom-in; }
 .archive { margin-block: var(--chapter-gap); }
 .archiveIntro { max-width: 640px; margin-bottom: var(--content-gap); }
-.archiveIntro > p { max-width: 50ch; margin-top: 22px; font-size: 16px; line-height: 1.8; color: var(--ink-2); }
+.archiveIntro > p { max-width: 50ch; margin-top: 22px; font-size: 17px; line-height: 1.65; color: var(--ink-2); }
 .archiveGrid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: center; gap: 24px; padding: 16px 12px; }
 .archiveGrid .screenshot { grid-column: span 6; transform: rotate(-1.4deg); }
 .archiveGrid .screenshot > button { border: 0; border-radius: 0; box-shadow: 0 15px 25px -20px #30263780; }
@@ -81,7 +81,7 @@
   .page section, .chronology { scroll-margin-top: 95px; }
 
   .hero { padding: 38px 0 15px; }
-  .hero h1 { font-size: clamp(40px, 8.8vw, 58px); letter-spacing: -.055em; }
+  .hero h1 { font-size: clamp(40px, 8.8vw, 58px); letter-spacing: -.045em; }
   .hero h1 span { text-wrap: balance; }
   .heroIntro { margin-top: 25px; }
   .readLink { margin-top: 17px; }
