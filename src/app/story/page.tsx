@@ -4,11 +4,11 @@ import { StoryDirections } from "./directions/story-directions"
 
 export const metadata: Metadata = {
   title: "Our story",
-  description: "A terminal quiz, a lot of questionable interfaces, and years of starting again. The story of why I keep building Mnemo.",
+  description: "From a terminal quiz to the app it is today: the designs and versions behind Mnemo.",
   alternates: { canonical: "/story" },
   openGraph: {
-    title: "It took a few tries. The story of Mnemo.",
-    description: "The old designs, the things they taught me, and why I’m still here building a better study tool.",
+    title: "How Mnemo got here.",
+    description: "The old designs and versions behind the app it is today.",
     url: "/story",
   },
 }

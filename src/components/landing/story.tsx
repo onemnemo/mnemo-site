@@ -14,23 +14,18 @@ export function LandingStory() {
     <>
       <section id="story" className={styles.story} aria-labelledby="story-title">
         <div className={styles.storyLeft}>
-          <h2 id="story-title">It started with<br />my own notes.</h2>
+          <h2 id="story-title">Built by learners,<br />for learners.</h2>
           <div className={styles.somaPortrait}>
             <Image src={soma} alt="Soma, Mnemo’s slightly serious study companion" sizes="220px" />
           </div>
         </div>
         <div className={styles.storyCopy}>
           <p>
-            I wanted better tools for the way I studied, so I started making
-            them. Then remaking them. Then remaking them again.
+            Mnemo is free and open source, and it&rsquo;s shaped by the people
+            who use it.
           </p>
-          <p>
-            A few years and a questionable number of interfaces later, that
-            became Mnemo.
-          </p>
-          <blockquote>This has been my weird little obsession for years.<br />It would be pretty cool if it became ours.</blockquote>
           <Link href="/story">
-            Curious how we got here? <ArrowUpRight size={18} aria-hidden />
+            How Mnemo got here <ArrowUpRight size={18} aria-hidden />
           </Link>
         </div>
       </section>

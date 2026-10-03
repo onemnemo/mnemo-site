@@ -22,10 +22,9 @@ export type StoryScreen = {
 export const editions = [
   {
     id: "terminal",
-    title: "The first one actually shipped.",
+    title: "The first version.",
     copy: [
-      "I was fourteen. I published a terminal program that turned notes into a quiz.",
-      "In this screenshot, it decides the missing word is ‘what’, marks my answer wrong, and ends with ‘maybe study more lol’. The product voice was finished before the product.",
+      "A terminal quiz maker, published in 2021.",
     ],
     image: terminal,
     alt: "The terminal quiz choosing what as the missing word, marking powerhouse wrong, and ending with maybe study more lol",
@@ -33,10 +32,9 @@ export const editions = [
   },
   {
     id: "sidebars",
-    title: "Then I discovered sidebars.",
+    title: "Then came flashcards.",
     copy: [
-      "The quiz became flashcards. Then I added study goals, notes, and dashboards. I kept adding things I’d wanted in the apps I was using.",
-      "The quizzes were still listed as ‘Comming soon’. Somewhere in all of this, it became Mnemo.",
+      "Study goals, notes and dashboards followed. This is where it got its name.",
     ],
     image: early,
     alt: "An early flashcard dashboard with study goals and a sidebar entry reading Quizzes (Comming soon)",
@@ -44,10 +42,9 @@ export const editions = [
   },
   {
     id: "restarts",
-    title: "I kept restarting.",
+    title: "Then the notes editor.",
     copy: [
-      "I’d redesign it, rewrite it, get annoyed with it, and start again. Some versions barely got past the interface. Others got much further before I abandoned them.",
-      "This was one of the later notes editors. I was still rebuilding it.",
+      "Rebuilt more than once before it settled.",
     ],
     image: editor,
     alt: "A later Mnemo editor showing notes on Parkinson’s disease, with Issues & Annoyance in the favourites list",
