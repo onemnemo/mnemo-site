@@ -4,7 +4,7 @@ import { detectPlatform, platforms, releasesUrl, selectBetaRelease } from "../sr
 
 function release(tag, overrides = {}) {
   const names = Object.values(platforms).flatMap(p => [p.installer, p.portable])
-  const channel = tag === "v0.8.0" ? "stable" : "beta"
+  const channel = tag.includes("-rc.") ? "beta" : "stable"
   return {
     tag_name: tag, draft: false, prerelease: channel === "beta",
     assets: [...names, "SHA256SUMS.txt"].map(name => {
@@ -24,6 +24,28 @@ test("selects RCs numerically and excludes drafts, nightlies, old stable, and ma
   assert.equal(result.tag, "v0.8.0-rc.10")
   assert.equal(result.channel, "beta")
   assert.equal(result.downloads.macos.installer.name, platforms.macos.installer)
+})
+
+test("selects the newest release candidate across versions", () => {
+  const result = selectBetaRelease([
+    release("v0.8.0-rc.2"), release("v0.8.1-nightly.6"), release("v0.8.1-rc.1"), release("v0.8.0-rc.10"),
+  ])
+  assert.equal(result.tag, "v0.8.1-rc.1")
+  assert.equal(result.channel, "beta")
+  assert.equal(selectBetaRelease([release("v0.9.0-rc.1"), release("v0.10.0-rc.1")]).tag, "v0.10.0-rc.1")
+})
+
+test("skips versions before 0.8.0 and finished releases still marked as prereleases", () => {
+  assert.equal(selectBetaRelease([release("v0.7.9-rc.1"), release("v0.8.1-rc.01"), release("v00.8.1-rc.1")]), null)
+  const result = selectBetaRelease([release("v0.8.1-rc.2"), release("v0.8.1", { prerelease: true })])
+  assert.equal(result.tag, "v0.8.1-rc.2")
+  assert.equal(selectBetaRelease([release("v0.8.1-rc.9"), release("v0.8.1")]).tag, "v0.8.1")
+})
+
+test("prefers the newest finished release over any release candidate", () => {
+  const result = selectBetaRelease([release("v0.8.0"), release("v0.8.1"), release("v0.8.2-rc.1"), release("v0.6.5")])
+  assert.equal(result.tag, "v0.8.1")
+  assert.equal(result.channel, "stable")
 })
 
 test("promotes finished 0.8.0 to stable and selects stable installers", () => {

@@ -19,7 +19,7 @@ Mnemo 0.8 is launching in beta. This is the first proper release since the app w
 
 Windows is further along and has had substantially more testing. The macOS build has been installed and verified on an Apple silicon Mac and is notarized by Apple, but it has had less testing than Windows. There is no Intel Mac build. Linux has had less development attention and only limited testing.
 
-Use the [download page](https://mnemo.one/download) for the current version and direct downloads, or browse [all GitHub releases](https://github.com/onemnemo/mnemo/releases). The first beta tag is `v0.8.0-rc.1`, followed by numbered release candidates. `v0.8.0` will be the finished stable release. Downloads appear when the release and its files are published.
+Use the [download page](https://mnemo.one/download) for the current version and direct downloads, or browse [all GitHub releases](https://github.com/onemnemo/mnemo/releases). Beta builds are numbered release candidates, such as `v0.8.1-rc.1`. A finished release has no suffix, such as `v0.8.1`. Downloads appear when the release and its files are published.
 
 All release candidates are beta software. Bugs can cause data loss. Keep a separate [backup of your library](../customization/storage-and-backup.md), especially before updating. Early updates may include urgent fixes as well as improvements and new features.
 

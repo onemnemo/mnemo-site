@@ -1,4 +1,3 @@
-export const releaseSeries = "v0.8.0-rc."
 export const releasesUrl = "https://github.com/onemnemo/mnemo/releases"
 
 export const platforms = {
@@ -42,20 +41,45 @@ function record(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null
 }
 
+/** A release candidate (`v0.8.1-rc.2`) or a finished release (`v0.8.1`), no leading zeros. */
+const RELEASE_TAG = /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-rc\.([1-9]\d*))?$/
+/** Releases before 0.8.0 are the old app and must never be offered. */
+const FIRST_VERSION = [0, 8, 0]
+
+type Ranked = { item: Record<string, unknown>; version: number[]; rc: number | null }
+
+function rank(item: Record<string, unknown>): Ranked | null {
+  if (item.draft !== false || typeof item.tag_name !== "string") return null
+  const match = RELEASE_TAG.exec(item.tag_name)
+  if (!match) return null
+  const version = match.slice(1, 4).map(Number)
+  const rc = match[4] ? Number(match[4]) : null
+  if (rc === null && item.prerelease !== false) return null
+  if (compareVersions(version, FIRST_VERSION) < 0) return null
+  return { item, version, rc }
+}
+
+function compareVersions(a: number[], b: number[]): number {
+  for (let i = 0; i < 3; i++) if (a[i] !== b[i]) return a[i] - b[i]
+  return 0
+}
+
+/** Newest first. A finished release outranks every release candidate. */
+function newer(a: Ranked, b: Ranked): number {
+  if ((a.rc === null) !== (b.rc === null)) return a.rc === null ? -1 : 1
+  return compareVersions(b.version, a.version) || (b.rc ?? 0) - (a.rc ?? 0)
+}
+
 export function selectBetaRelease(data: unknown): BetaRelease | null {
   if (!Array.isArray(data)) throw new Error("Invalid release list")
-  const candidates = data.filter((item): item is Record<string, unknown> =>
-    record(item) && item.draft === false && typeof item.tag_name === "string" &&
-    (/^v0\.8\.0-rc\.[1-9]\d*$/.test(item.tag_name) || (item.tag_name === "v0.8.0" && item.prerelease === false))
-  ).sort((a, b) => {
-    if (a.tag_name === "v0.8.0") return -1
-    if (b.tag_name === "v0.8.0") return 1
-    return Number(String(b.tag_name).slice(releaseSeries.length)) - Number(String(a.tag_name).slice(releaseSeries.length))
-  })
+  const candidates = data.filter(record).map(rank)
+    .filter((ranked): ranked is Ranked => ranked !== null)
+    .sort(newer)
+    .map(ranked => ranked.item)
 
   for (const candidate of candidates) {
     const tag = String(candidate.tag_name)
-    const channel = tag === "v0.8.0" ? "stable" : "beta"
+    const channel = tag.includes("-rc.") ? "beta" : "stable"
     const assets = new Map<string, DownloadAsset>()
     if (!Array.isArray(candidate.assets)) throw new Error("Invalid release assets")
     for (const asset of candidate.assets) {

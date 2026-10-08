@@ -28,7 +28,7 @@ export function PlatformDownload({ selected, result }: { selected: Platform | nu
         : <p className="text-ink-2 text-sm">Choose a platform above to see its download and testing status.</p>
       ) : (
         <p className="mt-5 text-sm leading-relaxed">
-          {result.status === "pending" ? "The first 0.8.0 release candidate is not published yet. Downloads will appear here when it is ready."
+          {result.status === "pending" ? "No release is published yet. Downloads will appear here when one is ready."
             : "We couldn’t check the current download. Try again shortly, or check GitHub for the release."}
         </p>
       )}
