@@ -1,60 +1,55 @@
 # Mnemo website
 
-The marketing site and documentation for [Mnemo](https://mnemo.one), a free,
-open-source, local-first learning platform. The desktop app itself lives in
-[onemnemo/mnemo](https://github.com/onemnemo/mnemo).
+The Mnemo marketing site and docs, ported from the static pages in `../web` to Vite, React and TypeScript.
 
-Built with Next.js 16 (App Router), React 19, and Tailwind CSS 4.
+## Develop
 
-## Requirements
-
-Node 22.12 or newer. Older majors fail to build.
-
-## Getting started
-
-```bash
+```sh
 npm install
-npm run dev
+npm run dev        # http://localhost:5175
+npm run lint       # ESLint
+npm run format     # Prettier
 ```
 
-The dev server runs at http://localhost:3000.
+## Build
 
-## Scripts
+```sh
+npm run build      # type checks, then writes static files to dist/
+npm run preview    # serves dist/ locally
+```
 
-| Script              | What it does                                  |
-| ------------------- | --------------------------------------------- |
-| `npm run dev`       | Start the dev server                          |
-| `npm run build`     | Production build                              |
-| `npm run start`     | Serve a production build                      |
-| `npm run lint`      | ESLint                                        |
-| `npm run typecheck` | `tsc --noEmit`                                |
+## Deploy
+
+`dist/` is a static single page app. Upload it to any static host and send unknown paths to
+`index.html`, so `/download` and `/docs/...` load the app:
+
+The host isn't chosen yet, so both common setups ship in the repo:
+
+- Netlify: `public/_redirects` (copied into `dist/`) handles it.
+- Vercel: `vercel.json` rewrites everything else to `/index.html`. Real files are served first.
+- nginx or any other host: `try_files $uri /index.html;` or its equivalent.
+
+Delete whichever file the chosen host doesn't use.
+
+### Account pages
+
+`/login`, `/account` and `/admin` are designs with sample data. They are only included in
+`npm run dev`. A production build leaves them out and those paths show the 404 page. To
+include them in a build, set `VITE_ENABLE_ACCOUNTS=true`.
+
+### Domain
+
+Set `SITE_URL` in `src/lib/site.ts` once the domain is final, then add `og:image`, `og:url`
+and a canonical link to `index.html` (they need absolute URLs).
 
 ## Layout
 
-```
-src/app/         Routes, metadata, sitemap, share card
-src/components/  UI, split by section and by feature area
-src/content/docs Documentation pages, authored in Markdown
-src/config/      Site-wide constants: nav, URLs, SEO strings
-src/lib/         Markdown pipeline and docs indexing
-scripts/         Asset processing
-assets/fonts/    TTFs the share card needs at build time
-```
-
-Site-wide strings (navigation, titles, meta descriptions, external links) come
-from `src/config/site.ts`, so the SEO layer and the UI never drift apart.
-
-## Documentation content
-
-Docs pages are Markdown files under `src/content/docs`, compiled through
-unified/remark/rehype with Shiki for syntax highlighting. Images and other files
-referenced by those pages are served through the `/docs-assets` route.
-
-## Assets
-
-`scripts/process-assets.mjs` derives the site's image variants from the sources
-in `assets/`. Run it after changing a source image:
-
-```bash
-node scripts/process-assets.mjs
-```
+- `src/pages`: one folder per route (home, download, docs) plus the 404 page.
+- `src/components`: shared pieces (page shell, nav, footer, fields, reveals, icons).
+- `src/hooks`: `useReveal`, `useInView`, `useReducedMotion`, `useScrollFrame` and friends.
+- `src/lib`: framework free code. `lib/webgl` holds the shaders, palettes, the earth LUT and
+  the shared WebGL helper; `lib/site.ts` holds URLs. New shared logic (auth, sync) goes here.
+- `src/content`: copy and data (FAQ, tools, navigation) and the docs articles, which were
+  extracted from `../web/docs`.
+- `src/styles`: the original CSS. `base.css` is shared; each page file is wrapped in
+  `:where(.p-<page>)` so it applies only to its own route without changing specificity.

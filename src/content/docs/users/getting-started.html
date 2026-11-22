@@ -1,0 +1,130 @@
+<section id="install">
+  <h2>Install Mnemo</h2>
+  <p>
+    Grab the build for your computer from the <a href="/download">download page</a>. There's no
+    account to make, and your library stays on your own machine.
+  </p>
+  <h3>Windows</h3>
+  <p>
+    Run the .exe installer. It's made for Windows 10 and 11. The build isn't signed yet, so Windows
+    may show a SmartScreen warning the first time. Click <strong>More info</strong>, then
+    <strong>Run anyway</strong>.
+  </p>
+  <p>
+    Mnemo needs the Microsoft Edge WebView2 runtime. Almost every Windows 10 and 11 machine has it
+    already. If the app won't start,
+    <a href="https://developer.microsoft.com/en-us/microsoft-edge/webview2/consumer/"
+      >install WebView2</a
+    >
+    and try again.
+  </p>
+  <h3>macOS</h3>
+  <p>
+    Open the .pkg installer. It runs on Apple silicon Macs, M1 and newer. There's no build for Intel
+    Macs.
+  </p>
+  <h3>Linux</h3>
+  <p>
+    Use the AppImage for most distros, or the portable .tar.gz if you'd rather unpack it yourself.
+    The build targets Ubuntu 22.04 and newer. Give the AppImage permission to run from its file
+    properties, or with <code>chmod +x</code> on the file.
+  </p>
+  <p>It also needs a few system libraries. On Ubuntu 24.04 this installs them all:</p>
+  <pre>
+sudo apt install libfuse2t64 libwebkit2gtk-4.1-0 libjavascriptcoregtk-4.1-0 libgtk-3-0t64 libnotify4</pre>
+  <p>Package names differ a little on other distros.</p>
+  <h3>First launch</h3>
+  <p>
+    A short setup asks for your name and language, and then you're in. Mnemo checks for updates on
+    its own and asks before installing one.
+  </p>
+  <div class="box">
+    <p>
+      Mnemo is still young and moving fast. Keep a <a href="/docs/users/backups/">backup</a> of your
+      library, especially before you update.
+    </p>
+  </div>
+</section>
+<section id="first-note">
+  <h2>Your first note</h2>
+  <p>
+    Press <kbd>Ctrl</kbd> <kbd>N</kbd>, give it a title and start typing. Notes save on their own as
+    you write. Type <kbd>/</kbd> at the start of a line to pick a block, like a heading, a list or a
+    table. Or just type Markdown: <code>#</code> and a space makes a heading, <code>-</code> makes a
+    list.
+  </p>
+  <p>There's more in <a href="/docs/users/notes/">Notes</a>.</p>
+</section>
+<section id="first-map">
+  <h2>Your first mind map</h2>
+  <p>
+    Open <strong>Mind maps</strong>, choose <strong>New</strong>, then <strong>Map</strong>. Press
+    <kbd>N</kbd> and click to place your first node, and name it after the subject. With a node
+    selected, <kbd>Tab</kbd> adds a child and <kbd>Enter</kbd> adds a sibling, so you can build the
+    whole map without touching the mouse.
+  </p>
+  <p>There's more in <a href="/docs/users/mind-maps/">Mind maps</a>.</p>
+</section>
+<section id="first-deck">
+  <h2>Your first deck</h2>
+  <p>
+    Open <strong>Flashcards</strong>, make a new deck and add a few cards from something you're
+    studying right now. Keep each card to one question. <kbd>Ctrl</kbd> <kbd>Enter</kbd> saves a
+    card and keeps the editor open for the next one.
+  </p>
+  <p>
+    Then press <strong>Study</strong>. Try to recall the answer, reveal it and grade how it went.
+    Mnemo uses that grade to decide when you'll see the card again. When the session ends, you're
+    done for today. Missed a day? No problem, due cards simply wait for you.
+  </p>
+  <p>There's more in <a href="/docs/users/flashcards/">Flashcards</a>.</p>
+</section>
+<section id="shortcuts">
+  <h2>Shortcuts worth learning</h2>
+  <p>
+    These few save the most time. On a Mac, use <kbd>Cmd</kbd> wherever you see <kbd>Ctrl</kbd>.
+  </p>
+  <table class="tbl">
+    <tr>
+      <td><kbd>Ctrl</kbd> <kbd>K</kbd></td>
+      <td>Open the command palette to jump to any note, deck or action</td>
+    </tr>
+    <tr>
+      <td><kbd>Ctrl</kbd> <kbd>N</kbd></td>
+      <td>New note</td>
+    </tr>
+    <tr>
+      <td><kbd>/</kbd></td>
+      <td>Pick a block type in a note</td>
+    </tr>
+    <tr>
+      <td><kbd>Ctrl</kbd> <kbd>P</kbd></td>
+      <td>Find a note by title</td>
+    </tr>
+    <tr>
+      <td><kbd>Alt</kbd> <kbd>Enter</kbd></td>
+      <td>Open the focused note in the side peek, next to what you're working on</td>
+    </tr>
+    <tr>
+      <td><kbd>Tab</kbd> and <kbd>Enter</kbd></td>
+      <td>Add a child or sibling node in a mind map</td>
+    </tr>
+    <tr>
+      <td><kbd>Ctrl</kbd> <kbd>Enter</kbd></td>
+      <td>Save a card and start the next</td>
+    </tr>
+    <tr>
+      <td><kbd>Space</kbd></td>
+      <td>Reveal the answer in a review, press again for Good</td>
+    </tr>
+    <tr>
+      <td><kbd>1</kbd> to <kbd>4</kbd></td>
+      <td>Grade Again, Hard, Good or Easy</td>
+    </tr>
+  </table>
+  <p>
+    In the command palette, start with <code>&gt;</code> to see only actions, or <code>#</code> to
+    search deck tags. Most shortcuts can be changed under <strong>Settings</strong>, then
+    <strong>Keyboard</strong>.
+  </p>
+</section>

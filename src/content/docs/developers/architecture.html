@@ -1,0 +1,109 @@
+<section id="layers">
+  <h2>The layers</h2>
+  <p>
+    Mnemo is built as strict layers. Contracts point inward, implementations point outward, and
+    nothing reaches across.
+  </p>
+  <table class="tbl">
+    <tr>
+      <td><code>Mnemo.Core</code></td>
+      <td>
+        Contracts: service interfaces, domain models and pure logic. Depends on almost nothing.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Mnemo.Infrastructure</code></td>
+      <td>
+        Implements those contracts: SQLite storage, the FSRS scheduler, Markdown conversion,
+        spellcheck, import and export.
+      </td>
+    </tr>
+    <tr>
+      <td><code>Mnemo.Host</code></td>
+      <td>
+        An ASP.NET Core minimal API on loopback, plus the native window. Wires up every service and
+        exposes it under <code>/api</code>.
+      </td>
+    </tr>
+    <tr>
+      <td><code>mnemo-web</code></td>
+      <td>
+        The React and TypeScript app, built with Vite. Holds presentation state only. Business rules
+        stay in C#.
+      </td>
+    </tr>
+  </table>
+  <p>
+    A change that spans layers lands in that order: the interface in Core, the implementation in
+    Infrastructure, the endpoint in Host, and the screen in mnemo-web.
+  </p>
+  <h3>Modules</h3>
+  <p>
+    Features are modules that implement <code>IModule</code>, with hooks for services, translations,
+    shortcuts, sidebar entries and widgets. They're found by reflection, so adding a feature never
+    means editing a central list. <code>Mnemo.Host/Composition/HostComposition.cs</code> is where
+    they get wired up.
+  </p>
+</section>
+<section id="api">
+  <h2>The local API</h2>
+  <p>
+    The UI and the backend are one app on one machine. Kestrel binds to <code>127.0.0.1</code> only,
+    and every request except the health check carries a bearer token made fresh at each launch. In
+    production the host writes the token into the page it serves. In dev it goes through the Vite
+    proxy.
+  </p>
+  <p>
+    A strict content security policy with a nonce per launch blocks any script the app didn't ship,
+    and <code>connect-src 'self'</code> keeps requests on the host.
+  </p>
+  <p>
+    Push from server to client is one SSE stream at <code>GET /api/events</code>, used for things
+    like toasts and shutdown. It never replays, so nothing should treat it as the source of truth.
+  </p>
+  <p>
+    Closing the window doesn't kill a save halfway. The host sends a shutdown event, the UI gets a
+    moment to flush, then the app closes. Pressing close twice skips the wait.
+  </p>
+  <h3>Adding an endpoint</h3>
+  <p>
+    Endpoints are minimal API handlers that live with their feature, like
+    <code>Mnemo.Host/Flashcards</code>. Copy an existing feature folder: contract in, service call,
+    DTO out, nothing clever in the handler.
+  </p>
+</section>
+<section id="data">
+  <h2>Where data lives</h2>
+  <p>
+    Everything sits in one data folder, centred on a single SQLite file, <code>mnemo.db</code>, with
+    images and attachments stored as files beside it. The database holds three shapes of data:
+  </p>
+  <ul>
+    <li>
+      A key value table of JSON documents behind <code>IStorageProvider</code>, for settings and
+      most module state.
+    </li>
+    <li>
+      A relational flashcard schema with an append only review log, in WAL mode with one writer.
+    </li>
+    <li>
+      Note bodies, written with optimistic concurrency. A stale write gets a 409 with the stored
+      version.
+    </li>
+  </ul>
+  <p>Migrations run at startup, before the API takes its first request.</p>
+  <h3>Packages, backups and trash</h3>
+  <p>
+    The .mnemo format is a zip with a <code>manifest.json</code> and a folder per module. Adding
+    something exportable means writing a payload handler, not a new format. Markdown, CSV and Anki
+    are adapters on top.
+  </p>
+  <p>
+    A .mnemo-backup is a consistent snapshot of the whole profile. Restore is staged and swapped in
+    on the next start, with the old data moved to <code>restore-recovery</code> first.
+  </p>
+  <p>
+    Deleting leaves rows in place. Each module records the item in a shared trash ledger, kept for
+    30 days, and a background task sweeps expired entries.
+  </p>
+</section>

@@ -1,0 +1,65 @@
+<section id="start">
+  <h2>Find something to work on</h2>
+  <p>
+    Browse the <a href="https://github.com/onemnemo/mnemo/issues">issue tracker</a>. The
+    <code>good first issue</code> label is picked for newcomers. Comment on an issue before you
+    start, so nobody does the same work twice. For big features, architecture changes or major UI
+    work, open an issue first. Small fixes can go straight to a pull request.
+  </p>
+</section>
+<section id="standard">
+  <h2>The coding standard</h2>
+  <p>
+    The standard lives in the repository under <code>standards/</code>, split by topic, and the repo
+    always wins over this page. The rules reviewers catch most often:
+  </p>
+  <ul>
+    <li>
+      No em or en dashes anywhere a person can read: comments, commits, translations, release notes.
+    </li>
+    <li>
+      No <code>TODO</code>, <code>FIXME</code> or <code>HACK</code>. Write the follow up into
+      <code>future-review/</code> instead.
+    </li>
+    <li>
+      Every string a person can read is a translation key, in English, German, Spanish, Japanese and
+      Norwegian.
+    </li>
+    <li>A performance number needs proof of correct output from the same run.</li>
+    <li>
+      On the .NET side, all I/O is async and cancellable, and <code>.Result</code> and
+      <code>.Wait()</code> are banned.
+    </li>
+  </ul>
+</section>
+<section id="commits">
+  <h2>Commits</h2>
+  <p>Write <code>type(scope): subject</code>, lowercase and in the imperative:</p>
+  <pre>
+feat(notes): teach the sidebar tree to drag folders into folders
+fix(host): answer 409 with the stored version on stale note writes</pre>
+  <p>
+    Types in use are <code>feat</code>, <code>fix</code>, <code>perf</code>, <code>refactor</code>,
+    <code>test</code> and <code>chore</code>. A feature usually lands in two or three commits along
+    its natural seams. Build and test before every commit, and never rewrite a commit that's already
+    pushed.
+  </p>
+  <h3>Sign off</h3>
+  <p>
+    You keep your copyright, and contributions are under Apache 2.0. Sign each commit with
+    <code>git commit -s</code>. That sign off is the only trailer a commit carries, so no co author
+    or AI attribution lines.
+  </p>
+</section>
+<section id="prs">
+  <h2>Pull requests</h2>
+  <ul>
+    <li>Keep it to one concern, with no drive by reformatting.</li>
+    <li>Say what changed and why, link the issue, and add screenshots for anything visual.</li>
+    <li>Run <a href="/docs/developers/getting-started/#tests">the tests</a> before you push.</li>
+  </ul>
+  <p>
+    Review asks three things: does it solve a real problem, does it match the code around it, and
+    does the app still behave honestly and predictably.
+  </p>
+</section>

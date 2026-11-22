@@ -1,0 +1,65 @@
+<section id="shape">
+  <h2>The shape of mnemo-web</h2>
+  <p>
+    The UI is React and TypeScript, built with Vite. The notes editor is built on ProseMirror. Code
+    is grouped by feature, in folders like <code>src/notes</code>, <code>src/flashcards</code> and
+    <code>src/settings</code>, and talks to the host through a small typed fetch wrapper.
+  </p>
+</section>
+<section id="rules">
+  <h2>House rules</h2>
+  <ul>
+    <li>
+      Style with the design tokens in <code>src/styles/tokens.css</code>. No hex colours or
+      <code>rgba()</code> in component code.
+    </li>
+    <li>Icons come from the <code>AppIcon</code> wrapper, not straight from lucide.</li>
+    <li>Popovers, dropdowns and menus use Radix. Never hand roll positioning.</li>
+    <li>Server state goes through React Query.</li>
+    <li>
+      Every string a person can read is a translation key, through the <code>useT()</code> hook, in
+      all five languages.
+    </li>
+  </ul>
+  <p>oxlint is the floor, and the hook rules are errors, not warnings.</p>
+</section>
+<section id="primitives">
+  <h2>Shared pieces</h2>
+  <table class="tbl">
+    <tr>
+      <td><code>toast</code></td>
+      <td>
+        Reports what happened. Long work keeps one progress toast and updates it, instead of raising
+        a second one.
+      </td>
+    </tr>
+    <tr>
+      <td><code>dialog.confirm</code> and <code>dialog.prompt</code></td>
+      <td>Ask one question and wait for the answer. Questions queue rather than stack.</td>
+    </tr>
+    <tr>
+      <td><code>Modal</code></td>
+      <td>
+        For anything with fields or more to look at. Handles focus, Escape and the backdrop for you.
+      </td>
+    </tr>
+    <tr>
+      <td>Popover</td>
+      <td>A thin wrapper over Radix in <code>src/components/ui/popover.tsx</code>.</td>
+    </tr>
+    <tr>
+      <td>Tooltips</td>
+      <td>One shared tooltip that moves to whatever you hover.</td>
+    </tr>
+  </table>
+  <p>
+    Stacking order lives in one place, <code>src/lib/z-layers.ts</code>. Use those tiers rather than
+    inventing a z index.
+  </p>
+  <h3>Overlays</h3>
+  <p>
+    A file ending in <code>Overlay</code> is a convention, not a component. It decides whether a
+    feature's surface is on screen at all, and gets mounted once in <code>src/App.tsx</code> beside
+    the others.
+  </p>
+</section>
