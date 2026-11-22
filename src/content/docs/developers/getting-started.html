@@ -1,0 +1,86 @@
+<p>
+  Mnemo is one desktop app built from two halves: a React frontend in <code>mnemo-web</code>, and a
+  .NET backend in <code>Mnemo.Host</code> that opens the window, runs the local API and serves the
+  frontend.
+</p>
+<section id="prereq">
+  <h2>What you need</h2>
+  <ul>
+    <li>The .NET 10 SDK.</li>
+    <li>Node.js 24 with npm.</li>
+    <li>Git, and on Linux or macOS also <code>jq</code>.</li>
+  </ul>
+</section>
+<section id="clone">
+  <h2>Clone and restore</h2>
+  <pre>
+git clone https://github.com/onemnemo/mnemo.git
+cd mnemo/mnemo-web
+npm install
+cd ..</pre>
+  <p>
+    Then fetch the bundled Typst binary. It's about 52 MB per platform, so it isn't committed. On
+    Windows run <code>./scripts/restore-typst.ps1</code>, elsewhere
+    <code>./scripts/restore-typst.sh</code>. The build works without it, but PDF export from notes
+    quietly stops working.
+  </p>
+</section>
+<section id="run">
+  <h2>Run a development build</h2>
+  <p>
+    On Windows, <code>dev.bat</code> does everything for you. Everywhere else, start the host first:
+  </p>
+  <pre>dotnet run --project Mnemo.Host -- --dev</pre>
+  <p>Then the web UI in a second terminal:</p>
+  <pre>
+cd mnemo-web
+npm run dev</pre>
+  <p>
+    The order matters. In dev mode the host listens on <code>127.0.0.1:47210</code> and writes
+    <code>mnemo-web/.dev/api.json</code> with the port and a fresh token. The Vite proxy reads that
+    file and adds the token to every API call. Start Vite first and your API calls come back
+    unauthorised until you restart it.
+  </p>
+</section>
+<section id="data">
+  <h2>Keep your real library safe</h2>
+  <p>
+    A development build uses the same data folder as an installed Mnemo. Point
+    <code>MNEMO_DATA_DIR</code> at a scratch folder to keep them apart:
+  </p>
+  <pre>MNEMO_DATA_DIR=/tmp/mnemo-dev dotnet run --project Mnemo.Host -- --dev</pre>
+</section>
+<section id="tests">
+  <h2>Run the tests</h2>
+  <p>
+    Every push to <code>main</code> and every pull request runs the same checks you can run locally.
+    Run the half you touched before each push, and both before a pull request.
+  </p>
+  <table class="tbl">
+    <tr>
+      <td><code>dotnet test MnemoApp.sln</code></td>
+      <td>Both xUnit projects, for Infrastructure and the Host</td>
+    </tr>
+    <tr>
+      <td><code>npm run test</code></td>
+      <td>The Vitest suite, run from <code>mnemo-web</code></td>
+    </tr>
+    <tr>
+      <td><code>npm run lint</code></td>
+      <td>oxlint</td>
+    </tr>
+    <tr>
+      <td><code>npx tsc -b</code></td>
+      <td>Typechecking</td>
+    </tr>
+  </table>
+  <p>
+    Test files sit next to the code they cover. Files that need a DOM opt in with a
+    <code>// @vitest-environment jsdom</code> line at the top.
+  </p>
+  <p>
+    Stuck on a build error? Search the
+    <a href="https://github.com/onemnemo/mnemo/issues">existing issues</a> first. If it looks new,
+    open one with your OS, tool versions and the full error.
+  </p>
+</section>

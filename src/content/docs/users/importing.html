@@ -1,0 +1,55 @@
+<p>
+  Mnemo has a built in importer for Anki decks and Markdown, from a single note to a whole folder.
+  Notion exports are trickier, so we made a small separate converter for those.
+</p>
+<section id="anki">
+  <h2>From Anki</h2>
+  <p>
+    In <strong>Flashcards</strong>, press <strong>Import</strong> at the top of the library and drop
+    in your .apkg file.
+  </p>
+  <p>
+    Your cards come over with their fronts, backs, tags, clozes and images. So does your progress:
+    due dates, intervals and review history all carry across, so a deck you've studied arrives
+    studied. A deck called <code>Spanish::Verbs</code> becomes a Spanish folder with a Verbs deck
+    inside.
+  </p>
+  <p>
+    Mnemo uses the same FSRS scheduling as Anki and reads your memory data where Anki has it.
+    Afterwards it tells you which cards came with that data. Cards without it settle in over their
+    next few reviews.
+  </p>
+  <p>
+    The same importer also takes CSV files with a front and a back column. Going back to Anki works
+    too: export a deck as .apkg and it arrives studied.
+  </p>
+</section>
+<section id="markdown">
+  <h2>From Markdown</h2>
+  <p>
+    In <strong>Notes</strong>, press <strong>Import notes</strong> at the top of the sidebar and
+    pick a single file or a whole folder. To import straight into a folder you already have, right
+    click it and choose <strong>Import notes here</strong>.
+  </p>
+  <p>
+    Each note takes its title from the file name, so rename files first if the title matters.
+    Headings, lists, to dos, quotes, code, tables and equations all come through.
+  </p>
+</section>
+<section id="notion">
+  <h2>From Notion</h2>
+  <p>
+    In Notion, export your pages as <strong>Markdown &amp; CSV</strong>. Run the export through our
+    small Notion converter, which keeps your formatting intact, then bring the result in with
+    <strong>Import notes</strong> like any other folder.
+  </p>
+  <p>You'll find the converter on <a href="https://github.com/onemnemo">our GitHub</a>.</p>
+</section>
+<section id="conflicts">
+  <h2>When something already exists</h2>
+  <p>
+    If an imported note, deck or map has the same name as one you have, choose what happens:
+    <strong>Keep both</strong> adds a number to the new one, <strong>Skip</strong> leaves yours
+    alone and <strong>Replace</strong> overwrites it. Replace always asks first.
+  </p>
+</section>
