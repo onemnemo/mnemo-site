@@ -179,7 +179,7 @@ a {
   top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(calc(100% - 32px), 820px);
+  width: min(calc(100% - 32px), 880px);
   z-index: 50;
   border-radius: 999px;
   color: #f4f2ef;
@@ -216,6 +216,7 @@ a {
 }
 .nav ul a {
   display: block;
+  white-space: nowrap;
   padding: 7px 12px;
   border-radius: 999px;
   opacity: 0.82;

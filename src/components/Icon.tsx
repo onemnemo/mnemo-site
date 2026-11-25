@@ -22,6 +22,8 @@ export type IconName =
   | 'term'
   | 'layers'
   | 'branch'
+  | 'check'
+  | 'dot'
 
 const symbols = sprite.replace(/<!--[\s\S]*?-->/, '')
 

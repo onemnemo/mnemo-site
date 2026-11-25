@@ -7,6 +7,8 @@ import { useReducedMotion } from '../../../hooks/useReducedMotion'
 import { clamp, useScrollFrame } from '../../../hooks/useScrollFrame'
 import { GITHUB_URL } from '../../../lib/site'
 import { HeroField } from './HeroField'
+import { HeroChips, HeroFloats } from './HeroFloats'
+import { moveFloats, useFloatsLayout } from './floatsLayout'
 
 /** Hero copy, live field and the app window that tilts upright as you scroll. */
 export function Hero({ onNavSolid }: { onNavSolid: (solid: boolean) => void }) {
@@ -15,6 +17,8 @@ export function Hero({ onNavSolid }: { onNavSolid: (solid: boolean) => void }) {
   const figure = useRef<HTMLElement>(null)
   const win = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
+  const floats = useRef<HTMLDivElement>(null)
+  useFloatsLayout(floats, figure)
 
   useScrollFrame(() => {
     if (copy.current) onNavSolid(copy.current.getBoundingClientRect().bottom < 60)
@@ -25,11 +29,14 @@ export function Hero({ onNavSolid }: { onNavSolid: (solid: boolean) => void }) {
     // the field drifts down a little slower than the page
     if (canvas.current)
       canvas.current.style.transform = `translateY(${Math.min(scrollY * 0.18, 400).toFixed(1)}px)`
+    // near cards rise faster than far ones as the hero scrolls away
+    moveFloats(floats.current)
   })
 
   return (
     <section className="hero" aria-labelledby="hero-title">
       <HeroField canvasRef={canvas} />
+      <HeroFloats ref={floats} />
       <div className="wrap">
         <div className="copy" ref={copy}>
           <h1 id="hero-title">Remember what you study.</h1>
@@ -48,6 +55,7 @@ export function Hero({ onNavSolid }: { onNavSolid: (solid: boolean) => void }) {
             </a>
           </div>
         </div>
+        <HeroChips />
         <figure className="shot" ref={figure}>
           <div className="win" ref={win}>
             <Shot

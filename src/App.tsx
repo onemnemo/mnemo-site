@@ -16,6 +16,7 @@ const ACCOUNTS = import.meta.env.DEV || import.meta.env.VITE_ENABLE_ACCOUNTS ===
 const LoginPage = ACCOUNTS ? lazy(() => import('./pages/account/LoginPage')) : null
 const AccountPage = ACCOUNTS ? lazy(() => import('./pages/account/AccountPage')) : null
 const AdminPage = ACCOUNTS ? lazy(() => import('./pages/account/AdminPage')) : null
+const RoadmapPage = lazy(() => import('./pages/roadmap/RoadmapPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 /** App wide layout. Providers that span routes (auth, later) belong here. */
@@ -37,6 +38,7 @@ export function App() {
         <Route element={<RootLayout />}>
           <Route index element={<HomePage />} />
           <Route path="download" element={<DownloadPage />} />
+          <Route path="roadmap" element={<RoadmapPage />} />
           <Route path="docs" element={<DocsHomePage />} />
           <Route path="docs/:group/:slug?" element={<DocArticlePage />} />
           {LoginPage && <Route path="login" element={<LoginPage />} />}

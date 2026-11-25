@@ -1,7 +1,7 @@
 import { GITHUB_URL, ISSUES_URL, RELEASES_URL } from '../lib/site'
 
 export interface NavLink {
-  id: 'home' | 'features' | 'how' | 'science' | 'faq' | 'docs'
+  id: 'home' | 'features' | 'how' | 'science' | 'faq' | 'roadmap' | 'docs'
   label: string
   href: string
 }
@@ -10,6 +10,7 @@ export const NAV_LINKS: NavLink[] = [
   { id: 'home', label: 'Home', href: '/' },
   { id: 'features', label: 'Features', href: '/#tools' },
   { id: 'science', label: 'Science', href: '/#science' },
+  { id: 'roadmap', label: 'Roadmap', href: '/roadmap' },
   { id: 'docs', label: 'Docs', href: '/docs' },
 ]
 
@@ -25,7 +26,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { label: 'Notes', href: '/#tools' },
       { label: 'Mind maps', href: '/#tools' },
       { label: 'Flashcards', href: '/#curve' },
-      { label: 'What comes next', href: '/#next' },
+      { label: 'Roadmap', href: '/roadmap' },
     ],
   },
   {
