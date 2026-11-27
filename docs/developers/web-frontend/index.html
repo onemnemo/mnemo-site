@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web frontend | Mnemo docs</title>
+<meta name="description" content="How mnemo-web is organised, and the shared pieces every screen uses.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/logo/logo_icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css?v=7">
+<link rel="stylesheet" href="/docs/docs.css?v=6">
+<script src="/docs/docs.js" defer></script>
+<script src="/site.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/index.html"><img src="/logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+    <nav class="links" aria-label="Main">
+      <a href="/index.html#notes">Features</a>
+      <a href="/roadmap.html">Roadmap</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+    </nav>
+    <div class="right">
+      <a class="gh" href="https://github.com/onemnemo/mnemo"><svg class="ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
+      <a class="btn small" href="/download.html"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download</span></a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="menu" id="menu" aria-label="Menu">
+    <a href="/index.html#notes">Features</a>
+    <a href="/roadmap.html">Roadmap</a>
+    <a href="/docs/" aria-current="page">Docs</a>
+    <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+  </nav>
+</header>
+
+<div class="search" id="search" hidden>
+  <div class="sbox" role="dialog" aria-modal="true" aria-label="Search the docs">
+    <label class="q"><input id="q" type="search" placeholder="Search the docs" autocomplete="off" spellcheck="false" aria-controls="results"></label>
+    <div class="results" id="results" role="listbox" aria-label="Results"></div>
+  </div>
+</div>
+
+<main class="panel reader">
+  <div class="reader-in">
+    <aside class="side">
+      <button class="find" type="button" data-search>Search the docs<kbd>Ctrl K</kbd></button>
+      <button class="pick" type="button" aria-expanded="false" aria-controls="pages">Web frontend</button>
+      <nav class="pages" id="pages" aria-label="Developer guide">
+        <a class="group" href="/docs/developers/getting-started/">Developer guide</a>
+        <div class="item"><div class="row"><a href="/docs/developers/getting-started/">Local development</a></div><div class="subs"><div><a href="/docs/developers/getting-started/#prereq">What you need</a><a href="/docs/developers/getting-started/#clone">Clone and restore</a><a href="/docs/developers/getting-started/#run">Run a development build</a><a href="/docs/developers/getting-started/#data">Keep your real library safe</a><a href="/docs/developers/getting-started/#tests">Run the tests</a></div></div></div>
+        <span class="sep" aria-hidden="true"></span>
+        <div class="item"><div class="row"><a href="/docs/developers/architecture/">Architecture</a></div><div class="subs"><div><a href="/docs/developers/architecture/#layers">The layers</a><a href="/docs/developers/architecture/#api">The local API</a><a href="/docs/developers/architecture/#data">Where data lives</a></div></div></div>
+        <div class="item open"><div class="row"><a href="/docs/developers/web-frontend/" aria-current="page">Web frontend</a></div><div class="subs"><div><a href="/docs/developers/web-frontend/#shape">The shape of mnemo-web</a><a href="/docs/developers/web-frontend/#rules">House rules</a><a href="/docs/developers/web-frontend/#primitives">Shared pieces</a></div></div></div>
+        <span class="sep" aria-hidden="true"></span>
+        <div class="item"><div class="row"><a href="/docs/developers/contributing/">Contributing</a></div><div class="subs"><div><a href="/docs/developers/contributing/#start">Find something to work on</a><a href="/docs/developers/contributing/#standard">The coding standard</a><a href="/docs/developers/contributing/#commits">Commits</a><a href="/docs/developers/contributing/#prs">Pull requests</a></div></div></div>
+        <a class="other" href="/docs/users/getting-started/">User guide</a>
+      </nav>
+    </aside>
+    <article class="doc">
+      <p class="crumb"><a href="/docs/">Docs</a><span aria-hidden="true">/</span><a href="/docs/developers/getting-started/">Developer guide</a></p>
+      <h1>Web frontend</h1>
+      <p class="sub">How mnemo-web is organised, and the shared pieces every screen uses.</p>
+
+<section id="shape">
+<h2>The shape of mnemo-web</h2>
+<p>The UI is React and TypeScript, built with Vite. The notes editor is built on ProseMirror. Code is grouped by feature, in folders like <code>src/notes</code>, <code>src/flashcards</code> and <code>src/settings</code>, and talks to the host through a small typed fetch wrapper.</p>
+</section>
+<section id="rules">
+<h2>House rules</h2>
+<ul>
+<li>Style with the design tokens in <code>src/styles/tokens.css</code>. No hex colours or <code>rgba()</code> in component code.</li>
+<li>Icons come from the <code>AppIcon</code> wrapper, not straight from lucide.</li>
+<li>Popovers, dropdowns and menus use Radix. Never hand roll positioning.</li>
+<li>Server state goes through React Query.</li>
+<li>Every string a person can read is a translation key, through the <code>useT()</code> hook, in all five languages.</li>
+</ul>
+<p>oxlint is the floor, and the hook rules are errors, not warnings.</p>
+</section>
+<section id="primitives">
+<h2>Shared pieces</h2>
+<table class="tbl"><tr><td><code>toast</code></td><td>Reports what happened. Long work keeps one progress toast and updates it, instead of raising a second one.</td></tr><tr><td><code>dialog.confirm</code> and <code>dialog.prompt</code></td><td>Ask one question and wait for the answer. Questions queue rather than stack.</td></tr><tr><td><code>Modal</code></td><td>For anything with fields or more to look at. Handles focus, Escape and the backdrop for you.</td></tr><tr><td>Popover</td><td>A thin wrapper over Radix in <code>src/components/ui/popover.tsx</code>.</td></tr><tr><td>Tooltips</td><td>One shared tooltip that moves to whatever you hover.</td></tr></table>
+<p>Stacking order lives in one place, <code>src/lib/z-layers.ts</code>. Use those tiers rather than inventing a z index.</p>
+<h3>Overlays</h3>
+<p>A file ending in <code>Overlay</code> is a convention, not a component. It decides whether a feature's surface is on screen at all, and gets mounted once in <code>src/App.tsx</code> beside the others.</p>
+</section>
+
+      <p class="help">Something unclear or missing? <a href="https://github.com/onemnemo/mnemo/issues/new?title=Docs%3A%20Web%20frontend">Tell us on GitHub</a>.</p>
+      <nav class="pager" aria-label="More pages"><a class="prev" href="/docs/developers/architecture/"><span>Previous</span>Architecture</a><a class="next" href="/docs/developers/contributing/"><span>Next</span>Contributing</a></nav>
+    </article>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols-f">
+      <div class="about">
+        <a class="brand" href="/index.html"><img src="/logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+        <p>Built by learners, for learners.</p>
+      </div>
+      <div>
+        <h4>Mnemo</h4>
+        <a href="/download.html">Download</a>
+        <a href="/roadmap.html">Roadmap</a>
+        <a href="https://github.com/onemnemo/mnemo/releases">Release notes</a>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <a href="/docs/users/getting-started/">User guide</a>
+        <a href="/docs/developers/getting-started/">Developer guide</a>
+        <a href="https://github.com/onemnemo/mnemo/blob/main/CONTRIBUTING.md">Contributing</a>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+        <a href="https://www.reddit.com/r/justmnemo/">Reddit</a>
+        <a href="https://www.youtube.com/@justmnemo">YouTube</a>
+        <a href="https://x.com/justmnemo">X</a>
+        <a href="https://github.com/onemnemo/mnemo/issues">Report a bug</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Mnemo contributors. Licensed under <a href="https://github.com/onemnemo/mnemo/blob/main/LICENSE">GPLv3</a>.</span>
+      <span>Security: <a href="mailto:security@mnemo.one">security@mnemo.one</a> · <a href="https://github.com/onemnemo/mnemo/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a> · <a href="/privacy.html">Privacy</a></span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

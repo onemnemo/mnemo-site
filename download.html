@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download Mnemo</title>
+<meta name="description" content="Download Mnemo for Windows, macOS and Linux.">
+<link rel="icon" href="logo/logo_icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=7">
+<script src="site.js" defer></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+    <nav class="links" aria-label="Main">
+      <a href="index.html#notes">Features</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="docs/">Docs</a>
+    </nav>
+    <div class="right">
+      <a class="gh" href="https://github.com/onemnemo/mnemo"><svg class="ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
+      <a class="btn small" href="download.html"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download</span></a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="menu" id="menu" aria-label="Menu">
+    <a href="index.html#notes">Features</a>
+    <a href="roadmap.html">Roadmap</a>
+    <a href="docs/">Docs</a>
+    <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+  </nav>
+</header>
+
+<main class="page">
+  <div class="wrap">
+    <div class="narrow">
+      <h1>Download Mnemo</h1>
+      <p class="lead">Version 0.8.2. See the <a href="https://github.com/onemnemo/mnemo/releases/latest">release notes</a> for changes.</p>
+    </div>
+
+    <div class="grid three" id="platforms">
+      <div class="box" id="windows">
+        <h2>Windows</h2>
+        <p>Installer for Windows 10 and 11.</p>
+        <p class="note">The installer is not code-signed yet, so Windows SmartScreen may show a warning. Select More info, then Run anyway.</p>
+        <div class="actions"><a class="btn" href="https://github.com/onemnemo/mnemo/releases/latest/download/Mnemo.Desktop.V2-win-x64-stable-Setup.exe"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download .exe</span></a></div>
+      </div>
+      <div class="box" id="macos">
+        <h2>macOS</h2>
+        <p>Installer for Macs with Apple silicon (M1 or later).</p>
+        <div class="actions"><a class="btn" href="https://github.com/onemnemo/mnemo/releases/latest/download/Mnemo.Desktop.V2-osx-arm64-stable-Setup.pkg"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download .pkg</span></a></div>
+      </div>
+      <div class="box" id="linux">
+        <h2>Linux</h2>
+        <p>An AppImage for most distributions, or a .tar.gz archive.</p>
+        <p class="note">Some distributions need extra packages. They are listed in <a href="docs/users/getting-started/#install">Getting started</a>.</p>
+        <div class="actions">
+          <a class="btn" href="https://github.com/onemnemo/mnemo/releases/latest/download/Mnemo.Desktop.V2-linux-x64-stable.AppImage"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>AppImage</span></a>
+          <a class="btn plain" href="https://github.com/onemnemo/mnemo/releases/latest/download/Mnemo-Portable-linux-x64.tar.gz">.tar.gz</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="also">An Android tablet version is in development. See the <a href="roadmap.html">roadmap</a>.</p>
+
+    <h2 class="sub-h">After installing</h2>
+    <div class="grid three">
+      <div class="box">
+        <h3>Getting started</h3>
+        <p>Create a note, a mind map and a deck, and learn the main keyboard shortcuts.</p>
+        <div class="actions"><a class="btn plain small" href="docs/users/getting-started/">Read the guide</a></div>
+      </div>
+      <div class="box">
+        <h3>Importing</h3>
+        <p>Import Anki decks and Markdown files. Notion exports use a separate converter.</p>
+        <div class="actions"><a class="btn plain small" href="docs/users/importing/">How importing works</a></div>
+      </div>
+      <div class="box">
+        <h3>Backups</h3>
+        <p>Mnemo is in early development. Back up your library before updating.</p>
+        <div class="actions"><a class="btn plain small" href="docs/users/backups/">Making a backup</a></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols-f">
+      <div class="about">
+        <a class="brand" href="index.html"><img src="logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+        <p>Built by learners, for learners.</p>
+      </div>
+      <div>
+        <h4>Mnemo</h4>
+        <a href="download.html">Download</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="https://github.com/onemnemo/mnemo/releases">Release notes</a>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <a href="docs/users/getting-started/">User guide</a>
+        <a href="docs/developers/getting-started/">Developer guide</a>
+        <a href="https://github.com/onemnemo/mnemo/blob/main/CONTRIBUTING.md">Contributing</a>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+        <a href="https://www.reddit.com/r/justmnemo/">Reddit</a>
+        <a href="https://www.youtube.com/@justmnemo">YouTube</a>
+        <a href="https://x.com/justmnemo">X</a>
+        <a href="https://github.com/onemnemo/mnemo/issues">Report a bug</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Mnemo contributors. Licensed under <a href="https://github.com/onemnemo/mnemo/blob/main/LICENSE">GPLv3</a>.</span>
+      <span>Security: <a href="mailto:security@mnemo.one">security@mnemo.one</a> · <a href="https://github.com/onemnemo/mnemo/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a> · <a href="privacy.html">Privacy</a></span>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
