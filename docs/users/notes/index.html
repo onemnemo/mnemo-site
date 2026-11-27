@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes | Mnemo docs</title>
+<meta name="description" content="Write in blocks, format as you type and keep everything tidy.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/logo/logo_icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css?v=7">
+<link rel="stylesheet" href="/docs/docs.css?v=6">
+<script src="/docs/docs.js" defer></script>
+<script src="/site.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/index.html"><img src="/logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+    <nav class="links" aria-label="Main">
+      <a href="/index.html#notes">Features</a>
+      <a href="/roadmap.html">Roadmap</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+    </nav>
+    <div class="right">
+      <a class="gh" href="https://github.com/onemnemo/mnemo"><svg class="ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
+      <a class="btn small" href="/download.html"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download</span></a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="menu" id="menu" aria-label="Menu">
+    <a href="/index.html#notes">Features</a>
+    <a href="/roadmap.html">Roadmap</a>
+    <a href="/docs/" aria-current="page">Docs</a>
+    <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+  </nav>
+</header>
+
+<div class="search" id="search" hidden>
+  <div class="sbox" role="dialog" aria-modal="true" aria-label="Search the docs">
+    <label class="q"><input id="q" type="search" placeholder="Search the docs" autocomplete="off" spellcheck="false" aria-controls="results"></label>
+    <div class="results" id="results" role="listbox" aria-label="Results"></div>
+  </div>
+</div>
+
+<main class="panel reader">
+  <div class="reader-in">
+    <aside class="side">
+      <button class="find" type="button" data-search>Search the docs<kbd>Ctrl K</kbd></button>
+      <button class="pick" type="button" aria-expanded="false" aria-controls="pages">Notes</button>
+      <nav class="pages" id="pages" aria-label="User guide">
+        <a class="group" href="/docs/users/getting-started/">User guide</a>
+        <div class="item"><div class="row"><a href="/docs/users/getting-started/">Getting started</a></div><div class="subs"><div><a href="/docs/users/getting-started/#install">Install Mnemo</a><a href="/docs/users/getting-started/#first-note">Your first note</a><a href="/docs/users/getting-started/#first-map">Your first mind map</a><a href="/docs/users/getting-started/#first-deck">Your first deck</a><a href="/docs/users/getting-started/#shortcuts">Shortcuts worth learning</a></div></div></div>
+        <div class="item"><div class="row"><a href="/docs/users/finding/">Finding things</a></div><div class="subs"><div><a href="/docs/users/finding/#palette">The command palette</a><a href="/docs/users/finding/#notes">Inside your notes</a><a href="/docs/users/finding/#peek">The side peek</a></div></div></div>
+        <span class="sep" aria-hidden="true"></span>
+        <div class="item open"><div class="row"><a href="/docs/users/notes/" aria-current="page">Notes</a></div><div class="subs"><div><a href="/docs/users/notes/#blocks">Blocks</a><a href="/docs/users/notes/#formatting">Formatting</a><a href="/docs/users/notes/#organising">Staying organised</a><a href="/docs/users/notes/#saving">Saving</a><a href="/docs/users/notes/#export">Exporting</a></div></div></div>
+        <div class="item"><div class="row"><a href="/docs/users/mind-maps/">Mind maps</a></div><div class="subs"><div><a href="/docs/users/mind-maps/#start">Start a map</a><a href="/docs/users/mind-maps/#keyboard">Build it from the keyboard</a><a href="/docs/users/mind-maps/#tools">Tools</a><a href="/docs/users/mind-maps/#export">Exporting</a></div></div></div>
+        <div class="item"><div class="row"><a href="/docs/users/flashcards/">Flashcards</a></div><div class="subs"><div><a href="/docs/users/flashcards/#decks">Decks</a><a href="/docs/users/flashcards/#writing">Writing cards</a><a href="/docs/users/flashcards/#library">Keeping the library tidy</a></div></div></div>
+        <div class="item"><div class="row"><a href="/docs/users/reviews/">Reviews and scheduling</a></div><div class="subs"><div><a href="/docs/users/reviews/#modes">Three ways to study</a><a href="/docs/users/reviews/#keys">Keys in a review</a><a href="/docs/users/reviews/#grades">The four grades</a><a href="/docs/users/reviews/#steps">New cards and leeches</a><a href="/docs/users/reviews/#limits">Daily limits</a><a href="/docs/users/reviews/#settings">Review settings</a></div></div></div>
+        <span class="sep" aria-hidden="true"></span>
+        <div class="item"><div class="row"><a href="/docs/users/importing/">Importing</a></div><div class="subs"><div><a href="/docs/users/importing/#anki">From Anki</a><a href="/docs/users/importing/#markdown">From Markdown</a><a href="/docs/users/importing/#notion">From Notion</a><a href="/docs/users/importing/#conflicts">When something already exists</a></div></div></div>
+        <div class="item"><div class="row"><a href="/docs/users/backups/">Backups and trash</a></div><div class="subs"><div><a href="/docs/users/backups/#backup">Make a backup</a><a href="/docs/users/backups/#folder">Where your data lives</a><a href="/docs/users/backups/#trash">Deleted something?</a></div></div></div>
+        <div class="item"><div class="row"><a href="/docs/users/settings/">Settings</a></div><div class="subs"><div><a href="/docs/users/settings/#look">Look and feel</a><a href="/docs/users/settings/#updates">Updates</a><a href="/docs/users/settings/#translate">Help translate</a></div></div></div>
+        <a class="other" href="/docs/developers/getting-started/">Developer guide</a>
+      </nav>
+    </aside>
+    <article class="doc">
+      <p class="crumb"><a href="/docs/">Docs</a><span aria-hidden="true">/</span><a href="/docs/users/getting-started/">User guide</a></p>
+      <h1>Notes</h1>
+      <p class="sub">Blocks, formatting, folders, saving and exporting.</p>
+
+<section id="blocks">
+<h2>Blocks</h2>
+<p>Every line in a note is a block. Type <kbd>/</kbd> at the start of a line and keep typing to filter the menu. The English block names work in every language.</p>
+<table class="tbl"><tr><td>Text and headings</td><td>Paragraphs and four levels of headings. Headings also show up in the note's index, so you can jump around long notes.</td></tr><tr><td>Lists and to dos</td><td>Bullet lists, numbered lists and checklists.</td></tr><tr><td>Quote, callout and warning</td><td>Asides that stand out from the text. Click a callout's icon to change its emoji.</td></tr><tr><td>Code</td><td>A code block with highlighting for the language you pick.</td></tr><tr><td>Two columns</td><td>Two stacks of blocks side by side, with a divider you can drag.</td></tr><tr><td>Image and table</td><td>Pictures with an optional caption, and tables with rows and columns.</td></tr><tr><td>Equation</td><td>A block of LaTeX maths on its own line.</td></tr><tr><td>Page</td><td>A note inside a note, shown as a link with its title.</td></tr></table>
+<h3>Markdown as you type</h3>
+<p>At the start of a line, type a marker and a space: <code>#</code> to <code>####</code> for headings, <code>-</code> for a list, <code>1.</code> for a numbered list, <code>[]</code> for a to do, <code>&gt;</code> for a quote, three backticks for code and <code>---</code> for a divider.</p>
+</section>
+<section id="formatting">
+<h2>Formatting</h2>
+<p>Select text to bring up the formatting bar, or use the keys below. On a Mac, use <kbd>Cmd</kbd> for <kbd>Ctrl</kbd>.</p>
+<table class="tbl"><tr><td><kbd>Ctrl</kbd> <kbd>B</kbd> <kbd>Ctrl</kbd> <kbd>I</kbd> <kbd>Ctrl</kbd> <kbd>U</kbd></td><td>Bold, italic, underline</td></tr><tr><td><kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>S</kbd></td><td>Strikethrough</td></tr><tr><td><kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>H</kbd></td><td>Highlight</td></tr><tr><td><kbd>Ctrl</kbd> <kbd>E</kbd></td><td>Inline code</td></tr><tr><td><kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>L</kbd></td><td>Add or edit a link</td></tr><tr><td><kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>E</kbd></td><td>Insert an equation in the line</td></tr></table>
+<p>For maths, write LaTeX between dollar signs, like <code>$E = mc^2$</code>. If the LaTeX has a mistake, it stays as you typed it so you can fix it.</p>
+</section>
+<section id="organising">
+<h2>Staying organised</h2>
+<ul>
+<li>Drag notes into folders in the sidebar, and drag folders into each other to nest them.</li>
+<li>Star the notes you open most. They sit in their own section at the top.</li>
+<li><kbd>Ctrl</kbd> <kbd>P</kbd> finds a note by title, and <kbd>Ctrl</kbd> <kbd>F</kbd> finds and replaces inside the one you're reading.</li>
+<li>Hold <kbd>Alt</kbd> and click a note to open it in the side peek, so you can read one note while writing another.</li>
+</ul>
+<p>A good rule of thumb: one note per topic. When a section outgrows the page, move it into a note of its own.</p>
+</section>
+<section id="saving">
+<h2>Saving</h2>
+<p>Notes save as you type, and <kbd>Ctrl</kbd> <kbd>S</kbd> saves right away. If a save fails, the corner of the note says so and Mnemo keeps retrying. Prefer saving by hand? Turn off <strong>Auto save</strong> under <strong>Settings</strong>, then <strong>Editor</strong>. Closing a note always saves it.</p>
+</section>
+<section id="export">
+<h2>Exporting</h2>
+<p>Pick <strong>Export</strong> from a note's menu. Markdown gives you plain text any editor can open, though images and column layouts don't come along. A .mnemo package keeps everything exactly as it is. <strong>Export as PDF</strong> lets you pick the paper size, margins, text size and page numbers.</p>
+<p>Bringing notes in is covered in <a href="/docs/users/importing/">Importing</a>.</p>
+</section>
+
+      <p class="help">Something unclear or missing? <a href="https://github.com/onemnemo/mnemo/issues/new?title=Docs%3A%20Notes">Tell us on GitHub</a>.</p>
+      <nav class="pager" aria-label="More pages"><a class="prev" href="/docs/users/finding/"><span>Previous</span>Finding things</a><a class="next" href="/docs/users/mind-maps/"><span>Next</span>Mind maps</a></nav>
+    </article>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols-f">
+      <div class="about">
+        <a class="brand" href="/index.html"><img src="/logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+        <p>Built by learners, for learners.</p>
+      </div>
+      <div>
+        <h4>Mnemo</h4>
+        <a href="/download.html">Download</a>
+        <a href="/roadmap.html">Roadmap</a>
+        <a href="https://github.com/onemnemo/mnemo/releases">Release notes</a>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <a href="/docs/users/getting-started/">User guide</a>
+        <a href="/docs/developers/getting-started/">Developer guide</a>
+        <a href="https://github.com/onemnemo/mnemo/blob/main/CONTRIBUTING.md">Contributing</a>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+        <a href="https://www.reddit.com/r/justmnemo/">Reddit</a>
+        <a href="https://www.youtube.com/@justmnemo">YouTube</a>
+        <a href="https://x.com/justmnemo">X</a>
+        <a href="https://github.com/onemnemo/mnemo/issues">Report a bug</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Mnemo contributors. Licensed under <a href="https://github.com/onemnemo/mnemo/blob/main/LICENSE">GPLv3</a>.</span>
+      <span>Security: <a href="mailto:security@mnemo.one">security@mnemo.one</a> · <a href="https://github.com/onemnemo/mnemo/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a> · <a href="/privacy.html">Privacy</a></span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

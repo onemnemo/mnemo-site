@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation · Mnemo</title>
+<meta name="description" content="Guides for using Mnemo and for building it.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/logo/logo_icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css?v=7">
+<link rel="stylesheet" href="/docs/docs.css?v=6">
+<script src="/docs/docs.js" defer></script>
+<script src="/site.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/index.html"><img src="/logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+    <nav class="links" aria-label="Main">
+      <a href="/index.html#notes">Features</a>
+      <a href="/roadmap.html">Roadmap</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+    </nav>
+    <div class="right">
+      <a class="gh" href="https://github.com/onemnemo/mnemo"><svg class="ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
+      <a class="btn small" href="/download.html"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download</span></a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="menu" id="menu" aria-label="Menu">
+    <a href="/index.html#notes">Features</a>
+    <a href="/roadmap.html">Roadmap</a>
+    <a href="/docs/" aria-current="page">Docs</a>
+    <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+  </nav>
+</header>
+
+<div class="search" id="search" hidden>
+  <div class="sbox" role="dialog" aria-modal="true" aria-label="Search the docs">
+    <label class="q"><input id="q" type="search" placeholder="Search the docs" autocomplete="off" spellcheck="false" aria-controls="results"></label>
+    <div class="results" id="results" role="listbox" aria-label="Results"></div>
+  </div>
+</div>
+
+<main class="page docs-home">
+  <div class="wrap">
+    <div class="narrow">
+      <h1>Documentation</h1>
+      <p class="lead">There are two guides: one for using Mnemo, and one for building it from source.</p>
+      <button class="find big" type="button" data-search>Search the docs<kbd>Ctrl K</kbd></button>
+    </div>
+    <div class="grid two entries">
+      <section class="entry">
+        <h2><a href="/docs/users/getting-started/">User guide</a></h2>
+        <p>Installing Mnemo, writing notes, making mind maps, studying flashcards, and importing from Anki, Markdown or Notion.</p>
+        <ul>
+            <li><a href="/docs/users/getting-started/">Getting started</a></li>
+            <li><a href="/docs/users/finding/">Finding things</a></li>
+            <li><a href="/docs/users/notes/">Notes</a></li>
+            <li><a href="/docs/users/mind-maps/">Mind maps</a></li>
+            <li><a href="/docs/users/flashcards/">Flashcards</a></li>
+        </ul>
+        <div class="actions"><a class="btn" href="/docs/users/getting-started/">Open the user guide</a></div>
+      </section>
+      <section class="entry">
+        <h2><a href="/docs/developers/getting-started/">Developer guide</a></h2>
+        <p>Setting up a development build, how the code is organised, and how to send a change for review.</p>
+        <ul>
+            <li><a href="/docs/developers/getting-started/">Local development</a></li>
+            <li><a href="/docs/developers/architecture/">Architecture</a></li>
+            <li><a href="/docs/developers/web-frontend/">Web frontend</a></li>
+            <li><a href="/docs/developers/contributing/">Contributing</a></li>
+        </ul>
+        <div class="actions"><a class="btn" href="/docs/developers/getting-started/">Open the developer guide</a></div>
+      </section>
+    </div>
+    <p class="also">To report an error or missing information, <a href="https://github.com/onemnemo/mnemo/issues">open an issue on GitHub</a>.</p>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols-f">
+      <div class="about">
+        <a class="brand" href="/index.html"><img src="/logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+        <p>Built by learners, for learners.</p>
+      </div>
+      <div>
+        <h4>Mnemo</h4>
+        <a href="/download.html">Download</a>
+        <a href="/roadmap.html">Roadmap</a>
+        <a href="https://github.com/onemnemo/mnemo/releases">Release notes</a>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <a href="/docs/users/getting-started/">User guide</a>
+        <a href="/docs/developers/getting-started/">Developer guide</a>
+        <a href="https://github.com/onemnemo/mnemo/blob/main/CONTRIBUTING.md">Contributing</a>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+        <a href="https://www.reddit.com/r/justmnemo/">Reddit</a>
+        <a href="https://www.youtube.com/@justmnemo">YouTube</a>
+        <a href="https://x.com/justmnemo">X</a>
+        <a href="https://github.com/onemnemo/mnemo/issues">Report a bug</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Mnemo contributors. Licensed under <a href="https://github.com/onemnemo/mnemo/blob/main/LICENSE">GPLv3</a>.</span>
+      <span>Security: <a href="mailto:security@mnemo.one">security@mnemo.one</a> · <a href="https://github.com/onemnemo/mnemo/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a> · <a href="/privacy.html">Privacy</a></span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

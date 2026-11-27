@@ -1,55 +1,25 @@
-# Mnemo website
+# mnemo-site
 
-The Mnemo marketing site and docs, ported from the static pages in `../web` to Vite, React and TypeScript.
+Source for the Mnemo website. It is plain HTML, CSS and a small script, with no build step.
 
-## Develop
+- `index.html`, `download.html`, `roadmap.html`, `privacy.html`: main pages
+- `docs/`: user and developer guides, one folder per page
+- `site.css`, `site.js`: shared styles and behaviour
+- `docs/docs.css`, `docs/docs.js`: docs layout and search (`docs/search.json`)
+- `shots-v2/`: app screenshots, light and dark
 
-```sh
-npm install
-npm run dev        # http://localhost:5175
-npm run lint       # ESLint
-npm run format     # Prettier
-```
-
-## Build
+## Preview locally
 
 ```sh
-npm run build      # type checks, then writes static files to dist/
-npm run preview    # serves dist/ locally
+python -m http.server 8173
 ```
 
-## Deploy
+Then open http://localhost:8173. Docs links use root paths, so serve from the repository root.
 
-`dist/` is a static single page app. Upload it to any static host and send unknown paths to
-`index.html`, so `/download` and `/docs/...` load the app:
+## Updating screenshots
 
-The host isn't chosen yet, so both common setups ship in the repo:
+Screenshots keep the same file names between reshoots. After replacing them, bump the `?v=` tag on the image URLs so browsers fetch the new files.
 
-- Netlify: `public/_redirects` (copied into `dist/`) handles it.
-- Vercel: `vercel.json` rewrites everything else to `/index.html`. Real files are served first.
-- nginx or any other host: `try_files $uri /index.html;` or its equivalent.
+## Deploying
 
-Delete whichever file the chosen host doesn't use.
-
-### Account pages
-
-`/login`, `/account` and `/admin` are designs with sample data. They are only included in
-`npm run dev`. A production build leaves them out and those paths show the 404 page. To
-include them in a build, set `VITE_ENABLE_ACCOUNTS=true`.
-
-### Domain
-
-Set `SITE_URL` in `src/lib/site.ts` once the domain is final, then add `og:image`, `og:url`
-and a canonical link to `index.html` (they need absolute URLs).
-
-## Layout
-
-- `src/pages`: one folder per route (home, download, docs) plus the 404 page.
-- `src/components`: shared pieces (page shell, nav, footer, fields, reveals, icons).
-- `src/hooks`: `useReveal`, `useInView`, `useReducedMotion`, `useScrollFrame` and friends.
-- `src/lib`: framework free code. `lib/webgl` holds the shaders, palettes, the earth LUT and
-  the shared WebGL helper; `lib/site.ts` holds URLs. New shared logic (auth, sync) goes here.
-- `src/content`: copy and data (FAQ, tools, navigation) and the docs articles, which were
-  extracted from `../web/docs`.
-- `src/styles`: the original CSS. `base.css` is shared; each page file is wrapped in
-  `:where(.p-<page>)` so it applies only to its own route without changing specificity.
+Vercel serves the repository root as static files (`vercel.json`). `cleanUrls` serves `/download` from `download.html`.

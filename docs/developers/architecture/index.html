@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Architecture | Mnemo docs</title>
+<meta name="description" content="How the codebase is layered, how the UI talks to the backend and where data lives.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/logo/logo_icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css?v=7">
+<link rel="stylesheet" href="/docs/docs.css?v=6">
+<script src="/docs/docs.js" defer></script>
+<script src="/site.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/index.html"><img src="/logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+    <nav class="links" aria-label="Main">
+      <a href="/index.html#notes">Features</a>
+      <a href="/roadmap.html">Roadmap</a>
+      <a href="/docs/" aria-current="page">Docs</a>
+    </nav>
+    <div class="right">
+      <a class="gh" href="https://github.com/onemnemo/mnemo"><svg class="ic" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
+      <a class="btn small" href="/download.html"><svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Download</span></a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </div>
+  <nav class="menu" id="menu" aria-label="Menu">
+    <a href="/index.html#notes">Features</a>
+    <a href="/roadmap.html">Roadmap</a>
+    <a href="/docs/" aria-current="page">Docs</a>
+    <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+  </nav>
+</header>
+
+<div class="search" id="search" hidden>
+  <div class="sbox" role="dialog" aria-modal="true" aria-label="Search the docs">
+    <label class="q"><input id="q" type="search" placeholder="Search the docs" autocomplete="off" spellcheck="false" aria-controls="results"></label>
+    <div class="results" id="results" role="listbox" aria-label="Results"></div>
+  </div>
+</div>
+
+<main class="panel reader">
+  <div class="reader-in">
+    <aside class="side">
+      <button class="find" type="button" data-search>Search the docs<kbd>Ctrl K</kbd></button>
+      <button class="pick" type="button" aria-expanded="false" aria-controls="pages">Architecture</button>
+      <nav class="pages" id="pages" aria-label="Developer guide">
+        <a class="group" href="/docs/developers/getting-started/">Developer guide</a>
+        <div class="item"><div class="row"><a href="/docs/developers/getting-started/">Local development</a></div><div class="subs"><div><a href="/docs/developers/getting-started/#prereq">What you need</a><a href="/docs/developers/getting-started/#clone">Clone and restore</a><a href="/docs/developers/getting-started/#run">Run a development build</a><a href="/docs/developers/getting-started/#data">Keep your real library safe</a><a href="/docs/developers/getting-started/#tests">Run the tests</a></div></div></div>
+        <span class="sep" aria-hidden="true"></span>
+        <div class="item open"><div class="row"><a href="/docs/developers/architecture/" aria-current="page">Architecture</a></div><div class="subs"><div><a href="/docs/developers/architecture/#layers">The layers</a><a href="/docs/developers/architecture/#api">The local API</a><a href="/docs/developers/architecture/#data">Where data lives</a></div></div></div>
+        <div class="item"><div class="row"><a href="/docs/developers/web-frontend/">Web frontend</a></div><div class="subs"><div><a href="/docs/developers/web-frontend/#shape">The shape of mnemo-web</a><a href="/docs/developers/web-frontend/#rules">House rules</a><a href="/docs/developers/web-frontend/#primitives">Shared pieces</a></div></div></div>
+        <span class="sep" aria-hidden="true"></span>
+        <div class="item"><div class="row"><a href="/docs/developers/contributing/">Contributing</a></div><div class="subs"><div><a href="/docs/developers/contributing/#start">Find something to work on</a><a href="/docs/developers/contributing/#standard">The coding standard</a><a href="/docs/developers/contributing/#commits">Commits</a><a href="/docs/developers/contributing/#prs">Pull requests</a></div></div></div>
+        <a class="other" href="/docs/users/getting-started/">User guide</a>
+      </nav>
+    </aside>
+    <article class="doc">
+      <p class="crumb"><a href="/docs/">Docs</a><span aria-hidden="true">/</span><a href="/docs/developers/getting-started/">Developer guide</a></p>
+      <h1>Architecture</h1>
+      <p class="sub">How the codebase is layered, how the UI talks to the backend and where data lives.</p>
+
+<section id="layers">
+<h2>The layers</h2>
+<p>Mnemo is built as strict layers. Contracts point inward, implementations point outward, and nothing reaches across.</p>
+<table class="tbl"><tr><td><code>Mnemo.Core</code></td><td>Contracts: service interfaces, domain models and pure logic. Depends on almost nothing.</td></tr><tr><td><code>Mnemo.Infrastructure</code></td><td>Implements those contracts: SQLite storage, the FSRS scheduler, Markdown conversion, spellcheck, import and export.</td></tr><tr><td><code>Mnemo.Host</code></td><td>An ASP.NET Core minimal API on loopback, plus the native window. Wires up every service and exposes it under <code>/api</code>.</td></tr><tr><td><code>mnemo-web</code></td><td>The React and TypeScript app, built with Vite. Holds presentation state only. Business rules stay in C#.</td></tr></table>
+<p>A change that spans layers lands in that order: the interface in Core, the implementation in Infrastructure, the endpoint in Host, and the screen in mnemo-web.</p>
+<h3>Modules</h3>
+<p>Features are modules that implement <code>IModule</code>, with hooks for services, translations, shortcuts, sidebar entries and widgets. They're found by reflection, so adding a feature never means editing a central list. <code>Mnemo.Host/Composition/HostComposition.cs</code> is where they get wired up.</p>
+</section>
+<section id="api">
+<h2>The local API</h2>
+<p>The UI and the backend are one app on one machine. Kestrel binds to <code>127.0.0.1</code> only, and every request except the health check carries a bearer token made fresh at each launch. In production the host writes the token into the page it serves. In dev it goes through the Vite proxy.</p>
+<p>A strict content security policy with a nonce per launch blocks any script the app didn't ship, and <code>connect-src 'self'</code> keeps requests on the host.</p>
+<p>Push from server to client is one SSE stream at <code>GET /api/events</code>, used for things like toasts and shutdown. It never replays, so nothing should treat it as the source of truth.</p>
+<p>Closing the window doesn't kill a save halfway. The host sends a shutdown event, the UI gets a moment to flush, then the app closes. Pressing close twice skips the wait.</p>
+<h3>Adding an endpoint</h3>
+<p>Endpoints are minimal API handlers that live with their feature, like <code>Mnemo.Host/Flashcards</code>. Copy an existing feature folder: contract in, service call, DTO out, nothing clever in the handler.</p>
+</section>
+<section id="data">
+<h2>Where data lives</h2>
+<p>Everything sits in one data folder, centred on a single SQLite file, <code>mnemo.db</code>, with images and attachments stored as files beside it. The database holds three shapes of data:</p>
+<ul>
+<li>A key value table of JSON documents behind <code>IStorageProvider</code>, for settings and most module state.</li>
+<li>A relational flashcard schema with an append only review log, in WAL mode with one writer.</li>
+<li>Note bodies, written with optimistic concurrency. A stale write gets a 409 with the stored version.</li>
+</ul>
+<p>Migrations run at startup, before the API takes its first request.</p>
+<h3>Packages, backups and trash</h3>
+<p>The .mnemo format is a zip with a <code>manifest.json</code> and a folder per module. Adding something exportable means writing a payload handler, not a new format. Markdown, CSV and Anki are adapters on top.</p>
+<p>A .mnemo-backup is a consistent snapshot of the whole profile. Restore is staged and swapped in on the next start, with the old data moved to <code>restore-recovery</code> first.</p>
+<p>Deleting leaves rows in place. Each module records the item in a shared trash ledger, kept for 30 days, and a background task sweeps expired entries.</p>
+</section>
+
+      <p class="help">Something unclear or missing? <a href="https://github.com/onemnemo/mnemo/issues/new?title=Docs%3A%20Architecture">Tell us on GitHub</a>.</p>
+      <nav class="pager" aria-label="More pages"><a class="prev" href="/docs/developers/getting-started/"><span>Previous</span>Local development</a><a class="next" href="/docs/developers/web-frontend/"><span>Next</span>Web frontend</a></nav>
+    </article>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols-f">
+      <div class="about">
+        <a class="brand" href="/index.html"><img src="/logo/logo_full.svg" alt="Mnemo" width="136" height="20"></a>
+        <p>Built by learners, for learners.</p>
+      </div>
+      <div>
+        <h4>Mnemo</h4>
+        <a href="/download.html">Download</a>
+        <a href="/roadmap.html">Roadmap</a>
+        <a href="https://github.com/onemnemo/mnemo/releases">Release notes</a>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <a href="/docs/users/getting-started/">User guide</a>
+        <a href="/docs/developers/getting-started/">Developer guide</a>
+        <a href="https://github.com/onemnemo/mnemo/blob/main/CONTRIBUTING.md">Contributing</a>
+      </div>
+      <div>
+        <h4>Community</h4>
+        <a href="https://github.com/onemnemo/mnemo">GitHub</a>
+        <a href="https://www.reddit.com/r/justmnemo/">Reddit</a>
+        <a href="https://www.youtube.com/@justmnemo">YouTube</a>
+        <a href="https://x.com/justmnemo">X</a>
+        <a href="https://github.com/onemnemo/mnemo/issues">Report a bug</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Mnemo contributors. Licensed under <a href="https://github.com/onemnemo/mnemo/blob/main/LICENSE">GPLv3</a>.</span>
+      <span>Security: <a href="mailto:security@mnemo.one">security@mnemo.one</a> · <a href="https://github.com/onemnemo/mnemo/blob/main/CODE_OF_CONDUCT.md">Code of conduct</a> · <a href="/privacy.html">Privacy</a></span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
